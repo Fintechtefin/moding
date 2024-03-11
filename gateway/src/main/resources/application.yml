@@ -9,3 +9,12 @@ spring:
     client:
       service-url:
         default-zone: http://localhost:8761/eureka
+
+  cloud:
+    gateway:
+      routes:
+        - id: user
+          predicates:
+            - Path=/users/**
+          uri: lb://USER
+          sensitive-headers: Cookie,Set-Cookie
