@@ -23,3 +23,8 @@ spring:
             - Path=/payments/**
           uri: lb://PAYMENT
           sensitive-headers: Cookie,Set-Cookie
+        - id: funding
+          predicates:
+            - Path=/fundings/**
+          uri: lb://FUNDING
+          sensitive-headers: Cookie,Set-Cookie
