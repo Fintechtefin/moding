@@ -6,7 +6,7 @@ spring:
     name: payment
 
   config:
-    import: payment/application-local.yml
+    import: application-payment-local.yml
 
   eureka:
     client:
