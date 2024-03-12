@@ -18,3 +18,8 @@ spring:
             - Path=/users/**
           uri: lb://USER
           sensitive-headers: Cookie,Set-Cookie
+        - id: payment
+          predicates:
+            - Path=/payments/**
+          uri: lb://PAYMENT
+          sensitive-headers: Cookie,Set-Cookie
