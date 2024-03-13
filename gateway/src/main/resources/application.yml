@@ -28,3 +28,8 @@ spring:
             - Path=/fundings/**
           uri: lb://FUNDING
           sensitive-headers: Cookie,Set-Cookie
+        - id: reservation
+          predicates:
+            - Path=/reservations/**
+          uri: lb://RESERVATION
+          sensitive-headers: Cookie,Set-Cookie
