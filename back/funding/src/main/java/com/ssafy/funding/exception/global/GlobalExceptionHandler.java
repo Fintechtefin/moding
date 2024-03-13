@@ -2,7 +2,7 @@ package com.ssafy.funding.exception.global;
 
 import static com.ssafy.funding.common.CustomExceptionStatus.*;
 
-import com.ssafy.funding.BadRequestException;
+import com.ssafy.funding.exception.BadRequestException;
 import java.util.Objects;
 import javax.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
