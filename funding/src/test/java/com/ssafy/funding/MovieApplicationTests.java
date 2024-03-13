@@ -1,4 +1,4 @@
-package com.ssafy.movie;
+package com.ssafy.funding;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,12 +1,12 @@
-package com.ssafy.movie;
+package com.ssafy.funding;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MovieApplication {
+public class FundingApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(MovieApplication.class, args);
+        SpringApplication.run(FundingApplication.class, args);
     }
 }
