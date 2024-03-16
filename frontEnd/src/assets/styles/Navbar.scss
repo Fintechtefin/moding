@@ -1,0 +1,10 @@
+.nav-container {
+  .food {
+    z-index: -1;
+    align-self: flex-end;
+    margin-bottom: 5px;
+    img {
+      scale: 2;
+    }
+  }
+}
