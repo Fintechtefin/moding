@@ -1,9 +1,9 @@
-import TopNavbar from "@components/TopNavbar";
+import HomeHeader from "@components/HomeHeader";
 
 const HomePage = () => {
   return (
     <div className="home-container">
-      <TopNavbar />
+      <HomeHeader />
       <div className="overflow-auto h-[86vh]">
         <div>홈페이지 입니다.</div>
       </div>

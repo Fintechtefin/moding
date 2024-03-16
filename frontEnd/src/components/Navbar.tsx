@@ -8,11 +8,13 @@ import nav1 from "@assets/images/nav1.png";
 import { FcLikePlaceholder } from "react-icons/fc";
 
 const Navbar = () => {
-  const navbarItemClassnames = "group relative flex flex-col justify-around items-center p-1 w-[100%] h-[100%] text-xs text-white bg-red-600 rounded-t-[20px]";
+  const navbarItemClassnames =
+    "group relative flex flex-col justify-around items-center p-1 w-[100%] h-[100%] text-xs text-white bg-red-600 rounded-t-[20px]";
 
   const food = "food";
 
-  const modingEar = "hidden group-focus:block z-[-1] absolute w-[40px] top-[-18px]";
+  const modingEar =
+    "hidden group-focus:block z-[-1] absolute w-[40px] top-[-18px]";
 
   const navIcon = "w-[25px] h-[25px]";
 
