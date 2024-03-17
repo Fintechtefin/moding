@@ -35,3 +35,10 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### yml ###
+application-funding-*.yml
+application-batch-*.yml
+application-payment-*.yml
+application-reservation-*.yml
+application-user-*.yml
