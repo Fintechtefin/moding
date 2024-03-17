@@ -2,15 +2,16 @@ import { Suspense, lazy } from "react";
 import { Route, Routes } from "react-router-dom";
 import Navbar from "@components/Navbar";
 import "@/App.scss";
-import LoginPage from "@pages/LoginPage";
-import AlarmSet from "@pages/myPage/AlarmSet";
-import ProfileEdit from "@pages/myPage/ProfileEdit";
 
 const MovieListPage = lazy(() => import("@pages/MovieListPage"));
 const FundingListPage = lazy(() => import("@pages/FundingListPage"));
 const HomePage = lazy(() => import("@pages/HomePage"));
 const SubscribePage = lazy(() => import("@pages/SubscribePage"));
 const MyPage = lazy(() => import("@pages/myPage/MyPage"));
+const LoginPage = lazy(() => import("@pages/LoginPage"));
+const AlarmSet = lazy(() => import("@pages/myPage/AlarmSet"));
+const ProfileEdit = lazy(() => import("@pages/myPage/ProfileEdit"));
+const Reserve = lazy(() => import("@pages/Reserve"));
 
 function App() {
   return (
@@ -42,6 +43,8 @@ function App() {
           <Route path="alarmset" element={<AlarmSet />} />
           <Route path="edit" element={<ProfileEdit />} />
         </Route>
+
+        <Route path="/fund/reserve" element={<Reserve />} />
       </Routes>
     </Suspense>
   );
