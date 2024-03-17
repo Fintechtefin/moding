@@ -17,7 +17,10 @@ const SECTIONS = [
   },
   {
     title: "기타",
-    items: [{ name: "AI 카메라", count: null, url: "a" }],
+    items: [
+      { name: "AI 카메라", count: null, url: "a" },
+      { name: "좌석 예매", count: null, url: "/fund/reserve" },
+    ],
   },
 ];
 
