@@ -3,7 +3,7 @@ import NoneNavHeader from "@components/NoneNavHeader";
 import SeatType from "@components/reverse/SeatType";
 import Seat from "@components/reverse/Seat";
 import MovieInfo from "@components/reverse/MovieInfo";
-import screen from "@assets/images/screen.png";
+import screen from "@assets/images/screen.webp";
 
 const Reserve = () => {
   const [selectedSeats, setSelectedSeats] = useState<string[]>([]);

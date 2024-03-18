@@ -1,5 +1,8 @@
 import NavHeader from "@components/NavHeader";
 import { ChangeEvent, useState } from "react";
+import MovieLike from "@components/subscribe/MovieLike";
+import FundingRequest from "@components/subscribe/FundingRequest";
+import SubscribeType from "@components/subscribe/SubscribeType";
 import "@assets/styles/Subscribe/SubscribePage.scss";
 
 const SubscribePage = () => {
@@ -10,33 +13,11 @@ const SubscribePage = () => {
   };
 
   return (
-    <div className="subscribe-container">
+    <div className="subscribe-container flex flex-col">
       <NavHeader leftWord="관심 있는 소식만 모았어요" />
-      <div className="tabs">
-        <input
-          checked={check === "like" ? true : false}
-          id="like"
-          value="like"
-          name="subscribe"
-          type="radio"
-          className="input"
-          onChange={handleChange}
-        />
-        <label htmlFor="like" className="label">
-          좋아요
-        </label>
-        <input
-          checked={check === "req" ? true : false}
-          id="req"
-          value="req"
-          name="subscribe"
-          type="radio"
-          className="input"
-          onChange={handleChange}
-        />
-        <label htmlFor="req" className="label">
-          펀딩 요청
-        </label>
+      <div className="flex flex-col gap-[2vh]">
+        <SubscribeType check={check} handleChange={handleChange} />
+        {check === "like" ? <MovieLike /> : <FundingRequest />}
       </div>
     </div>
   );
