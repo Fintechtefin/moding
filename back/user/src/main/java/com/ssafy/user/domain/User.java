@@ -1,16 +1,15 @@
 package com.ssafy.user.domain;
 
 import javax.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+
+import lombok.*;
 
 @Entity
 @Builder
 @AllArgsConstructor
 @Table(name = "user")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
 public class User extends BaseTime {
 
     @Id
