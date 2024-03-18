@@ -1,7 +1,6 @@
 package com.ssafy.user.domain;
 
 import javax.persistence.*;
-
 import lombok.*;
 
 @Entity
