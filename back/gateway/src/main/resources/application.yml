@@ -5,6 +5,9 @@ spring:
   application:
     name: gateway
 
+  config:
+    import: application-gateway-local.yml
+
   eureka:
     client:
       service-url:
@@ -15,17 +18,16 @@ spring:
       routes:
         - id: user
           predicates:
-            - Path=/users/**
+            - Path=/users/user/**
           uri: lb://USER
           sensitive-headers: Cookie,Set-Cookie
-#        - id: user
-#          predicates:
-#            - Path=/login/**
-#            - Method=GET
-#          uri: lb://USER
-#          sensitive-headers: Cookie,Set-Cookie
-#          filters:
-#            - RemoveRequestHeader=Cookie
+          filters:
+            - CustomAuthFilter
+        - id: user
+          predicates:
+            - Path=/users/auth/**
+          uri: lb://USER
+          sensitive-headers: Cookie,Set-Cookie
         - id: payment
           predicates:
             - Path=/payments/**
