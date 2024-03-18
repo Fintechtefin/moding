@@ -11,6 +11,14 @@ java {
 	sourceCompatibility = '11'
 }
 
+bootJar {
+	enabled = false
+}
+
+jar {
+	enabled = true
+}
+
 repositories {
 	mavenCentral()
 }
