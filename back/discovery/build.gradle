@@ -47,3 +47,4 @@ spotless {
 		endWithNewline()  // 끝부분 New Line 처리
 	}
 }
+
