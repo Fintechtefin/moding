@@ -1,6 +1,7 @@
 package com.ssafy.user.service;
 
 import com.ssafy.user.domain.Platform;
+import com.ssafy.user.domain.Role;
 import com.ssafy.user.domain.User;
 import com.ssafy.user.infrastructure.oauthprovider.OauthProvider;
 import com.ssafy.user.infrastructure.oauthprovider.OauthProviders;
@@ -27,23 +28,23 @@ public class LoginService {
         final OauthUserInfo oauthUserInfo=provider.getUserInfo(code);
         final User user=findOrCreateMember(
                 providerName, oauthUserInfo.getSocialLoginId(),
-                oauthUserInfo.getBirtyYear());
-
+                oauthUserInfo.getBirthYear());
         return user;
     }
 
-    private User findOrCreateMember(final String providerName, final String socialLoginId, final String birtyYear) {
+    private User findOrCreateMember(final String providerName, final String socialLoginId, final int birthYear) {
         return userRepository.findBySocialId(socialLoginId)
-                .orElseGet(()->createUser(providerName,socialLoginId,birtyYear));
+                .orElseGet(()->createUser(providerName,socialLoginId,birthYear,"ROLE_USER"));
     }
 
-    private User createUser(final String providerName, final String socialLoginId, final String birtyYear) {
+    private User createUser(final String providerName, final String socialLoginId, final int birthYear,final String role) {
         // 랜덤 닉네임 생성 : to do
         return userRepository.save(
                 User.builder()
                         .socialId(socialLoginId)
                         .platform(Platform.valueOf(providerName))
-                        .age(birtyYear)
+                        .age(birthYear)
+                        .role(Role.valueOf(role))
                         .build());
     }
 }

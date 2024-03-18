@@ -39,8 +39,8 @@ public class JwtProvider {
     }
 
     public MemberTokens generateLoginToken(final String socialId, final String subject) {
-        final String refreshToken = createToken(socialId, EMPTY_SUBJECT, refreshExpirationTime);
-        final String accessToken = createToken(socialId, subject, accessExpirationTime);
+        final String refreshToken = createToken(socialId, "refreshToken", refreshExpirationTime);
+        final String accessToken = createToken(socialId, "accessToken", accessExpirationTime);
         return new MemberTokens(refreshToken, accessToken);
     }
 
