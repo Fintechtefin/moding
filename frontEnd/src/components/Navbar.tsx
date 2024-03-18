@@ -19,9 +19,9 @@ const Navbar = () => {
 
   return (
     <div className="nav-container">
-      <div className="nav-body relative min-h-[100vh] pb-[7vh]">
+      {/* <div className="nav-body relative min-h-[100vh] pb-[7vh]">
         <Outlet />
-      </div>
+      </div> */}
       <nav className="nav-foote fixed h-[7vh] w-[100%] bottom-0 flex items-center justify-center">
         <NavLink to={"/movie/list"} className={navbarItemClassnames}>
           <img src={navModing} alt="" className={modingEar} />

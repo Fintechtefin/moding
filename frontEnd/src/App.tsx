@@ -1,6 +1,6 @@
-import { Suspense, lazy } from "react";
+import { lazy } from "react";
 import { Route, Routes } from "react-router-dom";
-import Navbar from "@components/Navbar";
+import MainLayout from "@components/MainLayout";
 import "@/App.scss";
 
 const MovieListPage = lazy(() => import("@pages/MovieListPage"));
@@ -16,29 +16,29 @@ const AuthPage = lazy(() => import("@pages/AuthPage"));
 
 function App() {
   return (
-    <Suspense fallback={<div className="h-[100vh] bg-black">로딩중....</div>}>
-      <Routes>
-        <Route path="/" element={<Navbar />}>
-          <Route index element={<HomePage />} />
+    <Routes>
+      <Route path="/" element={<MainLayout type="nav" />}>
+        <Route index element={<HomePage />} />
 
-          <Route path="movie">
-            <Route path="list" element={<MovieListPage />} />
-          </Route>
-
-          <Route path="fund">
-            <Route path="list" element={<FundingListPage />} />
-          </Route>
-
-          <Route path="subscribe">
-            <Route index element={<SubscribePage />} />
-          </Route>
-
-          <Route path="user">
-            <Route path="mypage" element={<MyPage />} />
-          </Route>
+        <Route path="movie">
+          <Route path="list" element={<MovieListPage />} />
         </Route>
 
-        <Route path="/login">
+        <Route path="fund">
+          <Route path="list" element={<FundingListPage />} />
+        </Route>
+
+        <Route path="subscribe">
+          <Route index element={<SubscribePage />} />
+        </Route>
+
+        <Route path="user">
+          <Route path="mypage" element={<MyPage />} />
+        </Route>
+      </Route>
+
+      <Route path="/" element={<MainLayout type="noneNav" />}>
+        <Route path="login">
           <Route index element={<LoginPage />} />
           <Route path=":social" element={<AuthPage />} />
         </Route>
@@ -48,9 +48,9 @@ function App() {
           <Route path="edit" element={<ProfileEdit />} />
         </Route>
 
-        <Route path="/fund/reserve" element={<Reserve />} />
-      </Routes>
-    </Suspense>
+        <Route path="fund/reserve" element={<Reserve />} />
+      </Route>
+    </Routes>
   );
 }
 
