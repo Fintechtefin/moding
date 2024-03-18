@@ -1,20 +1,19 @@
 import { NavLink, Outlet } from "react-router-dom";
-import popcorn from "@assets/images/popcorn.png";
-import soda from "@assets/images/soda.png";
-import navModing from "@assets/images/navmoding.png";
+import popcorn from "@assets/images/popcorn.webp";
+import soda from "@assets/images/soda.webp";
+import navModing from "@assets/images/navmoding.webp";
 import "@/index.scss";
 import "@/assets/styles/Navbar.scss";
-import nav1 from "@assets/images/nav1.png";
+import nav1 from "@assets/images/nav1.webp";
 import { FcLikePlaceholder } from "react-icons/fc";
 
 const Navbar = () => {
   const navbarItemClassnames =
     "group relative flex flex-col justify-around items-center p-1 w-[100%] h-[100%] text-xs text-white bg-red-600 rounded-t-[20px]";
 
-  const food = "food";
+  const food = "food w-2.5 h-2/4 flex justify-center self-end translate-y-0.5";
 
-  const modingEar =
-    "hidden group-focus:block z-[-1] absolute w-[40px] top-[-18px]";
+  const modingEar = "moding-ear hidden z-[-1] absolute w-[40px] top-[-18px]";
 
   const navIcon = "w-[25px] h-[25px]";
 

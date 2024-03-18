@@ -2,6 +2,10 @@ import { Suspense, lazy } from "react";
 import { Route, Routes } from "react-router-dom";
 import Navbar from "@components/Navbar";
 import "@/App.scss";
+import LoginPage from "@pages/LoginPage";
+import AlarmSet from "@pages/myPage/AlarmSet";
+import ProfileEdit from "@pages/myPage/ProfileEdit";
+import AuthPage from "@pages/AuthPage";
 
 const MovieListPage = lazy(() => import("@pages/MovieListPage"));
 const FundingListPage = lazy(() => import("@pages/FundingListPage"));
@@ -37,7 +41,10 @@ function App() {
           </Route>
         </Route>
 
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/login">
+          <Route index element={<LoginPage />} />
+          <Route path=":social" element={<AuthPage />} />
+        </Route>
 
         <Route path="user">
           <Route path="alarmset" element={<AlarmSet />} />
