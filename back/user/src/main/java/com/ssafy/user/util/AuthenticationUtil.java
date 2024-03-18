@@ -1,11 +1,11 @@
 package com.ssafy.user.util;
 
+import static com.ssafy.user.common.CustomExceptionStatus.NOT_AUTHENTICATED_ACCOUNT;
+
 import com.ssafy.user.config.security.CustomUserDetails;
 import com.ssafy.user.exception.AuthException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
-
-import static com.ssafy.user.common.CustomExceptionStatus.NOT_AUTHENTICATED_ACCOUNT;
 
 @Component
 public class AuthenticationUtil {

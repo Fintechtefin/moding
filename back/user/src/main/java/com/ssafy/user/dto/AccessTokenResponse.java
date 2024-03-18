@@ -1,6 +1,5 @@
 package com.ssafy.user.dto;
 
-
 import static lombok.AccessLevel.PRIVATE;
 
 import lombok.AllArgsConstructor;
@@ -13,5 +12,4 @@ import lombok.NoArgsConstructor;
 public class AccessTokenResponse {
 
     private String accessToken;
-
 }
