@@ -1,5 +1,7 @@
 server:
   port: 8086
+  servlet:
+    context-path: /users
 
 spring:
   application:
@@ -16,3 +18,8 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+
+security:
+  jwt:
+    access-expiration-time: 2592000000
+    refresh-expiration-time: 2592000000
