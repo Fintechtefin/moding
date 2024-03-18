@@ -25,6 +25,10 @@ a {
   }
 }
 
+.none-scroller::-webkit-scrollbar {
+  display: none;
+}
+
 // 프리텐다드
 @font-face {
   font-family: "Pretendard-Regular";
