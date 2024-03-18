@@ -1,10 +1,10 @@
 package com.ssafy.user.dto;
 
+import static lombok.AccessLevel.PRIVATE;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import static lombok.AccessLevel.PRIVATE;
 
 @Getter
 @NoArgsConstructor(access = PRIVATE)

@@ -1,6 +1,5 @@
 package com.ssafy.user.exception;
 
-
 import com.ssafy.user.common.CustomExceptionStatus;
 import lombok.Getter;
 
