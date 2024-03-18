@@ -26,8 +26,7 @@ public class User extends BaseTime {
     @Column(name = "nick_name", length = 15)
     private String nickName;
 
-    @Column(length = 30)
-    private String age;
+    private int age;
 
     @Enumerated(EnumType.STRING)
     @Column(length = 10)
