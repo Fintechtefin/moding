@@ -38,7 +38,7 @@ const MyPage = () => {
         <div className="text-[2.5vh] font-bold">로그인 후 이용해 주세요</div>
       </div>
       <div className="flex justify-center items-center px-[3vh]">
-        <div className="px-[3vh] py-[4vh] bg-[#242124] w-[100%]  rounded-[5%]">
+        <div className={`px-[3vh] py-[4vh] bg-bgGray w-[100%]  rounded-[5%]`}>
           {SECTIONS.map((section, index) => (
             <React.Fragment key={index}>
               <OptionSection {...section} />

@@ -22,7 +22,7 @@ const Navbar = () => {
       {/* <div className="nav-body relative min-h-[100vh] pb-[7vh]">
         <Outlet />
       </div> */}
-      <nav className="nav-foote fixed h-[7vh] w-[100%] bottom-0 flex items-center justify-center">
+      <nav className="nav-footer fixed h-[7vh] w-[100%] bottom-0 flex items-center justify-center">
         <NavLink to={"/movie/list"} className={navbarItemClassnames}>
           <img src={navModing} alt="" className={modingEar} />
           <img src={nav1} className={navIcon} />

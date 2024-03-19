@@ -7,7 +7,7 @@ const AlarmSet = () => {
       <div className="flex flex-col gap-[5vh] px-[3vh] pt-5">
         <div className="flex flex-col gap-[1vh]">
           <div className="text-[2.7vh] font-bold">정보 알림</div>
-          <div className="text-[1.7vh] text-[#6E6E6D]">
+          <div className="text-[1.7vh] text-textGray">
             내 활동에 대한 알림을 보내드려요
           </div>
         </div>

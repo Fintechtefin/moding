@@ -57,7 +57,7 @@ const FundingRequest = () => {
   ]);
 
   return (
-    <div className="none-scroller px-[3vh] grid grid-cols-2 gap-[3vh] overflow-auto h-[80vh]">
+    <div className="none-scroll px-[3vh] grid grid-cols-2 gap-[3vh] overflow-auto h-[80vh]">
       {reqList.map((req) => {
         return (
           <div className="w-[100%] relative " key={req.id}>

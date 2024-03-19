@@ -1,5 +1,3 @@
-import { PiArmchairFill } from "react-icons/pi";
-
 interface Props {
   label: string;
   color: string;

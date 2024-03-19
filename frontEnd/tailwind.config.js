@@ -5,7 +5,12 @@ export default {
     preflight: false,
   },
   theme: {
-    extend: {},
+    extend: {
+      colors: { bgGray: "#191919", textGray: "#898989" },
+      boxShadow: {
+        bgRed: "inset 0px 3px 10px 5px rgb(168, 6, 6)",
+      },
+    },
   },
   plugins: [],
 };

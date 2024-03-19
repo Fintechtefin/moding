@@ -1,7 +1,7 @@
 import OptionItem from "@components/myPage/OptionItem";
 
 const OPTION = "flex flex-col gap-[1.7vh]";
-const OPTION_TITLE = "text-[#6E6E6D] text-[2vh]";
+const OPTION_TITLE = "text-textGray text-[2vh]";
 const OPTION_CONTENT = "flex flex-col gap-[1vh] text-[2.3vh] font-bold ";
 
 interface Props {
