@@ -34,6 +34,11 @@ dependencies {
 	// cloud
 	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 
+	// swagger
+	implementation 'io.springfox:springfox-swagger-ui:3.0.0'
+	implementation 'io.springfox:springfox-swagger2:3.0.0'
+	implementation 'io.springfox:springfox-boot-starter:3.0.0'
+
 	// lombok
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
