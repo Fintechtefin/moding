@@ -11,7 +11,7 @@ const MyPage = lazy(() => import("@pages/myPage/MyPage"));
 const LoginPage = lazy(() => import("@pages/LoginPage"));
 const AlarmSet = lazy(() => import("@pages/myPage/AlarmSet"));
 const ProfileEdit = lazy(() => import("@pages/myPage/ProfileEdit"));
-const Reserve = lazy(() => import("@pages/Reserve"));
+const ReservePage = lazy(() => import("@pages/ReservePage"));
 const AuthPage = lazy(() => import("@pages/AuthPage"));
 
 function App() {
@@ -48,7 +48,7 @@ function App() {
           <Route path="edit" element={<ProfileEdit />} />
         </Route>
 
-        <Route path="fund/reserve" element={<Reserve />} />
+        <Route path="fund/reserve" element={<ReservePage />} />
       </Route>
     </Routes>
   );
