@@ -1,6 +1,6 @@
 package com.ssafy.funding.exception.global;
 
-import static com.ssafy.funding.common.CustomExceptionStatus.*;
+import static com.ssafy.funding.exception.global.CustomExceptionStatus.*;
 
 import com.ssafy.funding.exception.BadRequestException;
 import java.util.Objects;
