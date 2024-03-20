@@ -9,7 +9,7 @@ interface Props {
 const MainLayout = ({ type }: Props) => (
   <>
     <Suspense fallback={<div className="h-[100vh] bg-black" />}>
-      <div className="nav-body relative min-h-[100vh] pb-[7vh]">
+      <div className="nav-body relative min-h-[100vh]">
         <Outlet />
       </div>
     </Suspense>

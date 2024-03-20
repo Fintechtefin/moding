@@ -25,7 +25,7 @@ const MovieInfo = ({ count, max }: Props) => {
           alt="영화포스터"
         />
       </div>
-      <button className="fixed bottom-0 w-[100%] h-[6vh] border-none bg-[#C00202] text-white font-bold text-[2.5vh] ">
+      <button className="fixed bottom-0 w-[100%] h-[6vh] border-none bg-red-600 shadow-bgRed text-white font-bold text-[2.5vh] ">
         예매
       </button>
     </div>

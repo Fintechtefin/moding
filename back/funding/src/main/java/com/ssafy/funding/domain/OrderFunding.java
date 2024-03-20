@@ -3,9 +3,11 @@ package com.ssafy.funding.domain;
 import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 
 @Entity
 @Builder
+@Getter
 @AllArgsConstructor
 public class OrderFunding {
     @Id
