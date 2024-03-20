@@ -9,6 +9,7 @@ import lombok.Getter;
 @Builder
 @Getter
 @AllArgsConstructor
+@Table(name = "orders_funding")
 public class OrderFunding {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,6 +22,9 @@ public class OrderFunding {
     @Column(nullable = false)
     private Integer count;
 
+    // 주문 상태
+    private boolean status;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "funding_id")
     private Funding funding;
@@ -28,4 +32,20 @@ public class OrderFunding {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
     private Order order;
+
+    public static OrderFunding createOrderFunding(
+            Integer price, Integer count, Funding funding, Order order) {
+        return OrderFunding.builder()
+                .price(price)
+                .count(count)
+                .status(true)
+                .funding(funding)
+                .order(order)
+                .build();
+    }
+
+    /** 펀딩 아이디를 조회합니다. */
+    public Integer getFundingId() {
+        return funding.getId();
+    }
 }

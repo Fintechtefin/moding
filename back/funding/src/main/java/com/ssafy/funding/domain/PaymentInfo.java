@@ -25,15 +25,10 @@ public class PaymentInfo {
     @Embedded
     @AttributeOverride(name = "amount", column = @Column(name = "supply_amount"))
     private Money supplyAmount;
-    // 총 할인 금액
-    @Embedded
-    @AttributeOverride(name = "amount", column = @Column(name = "discount_amount"))
-    private Money discountAmount;
 
     @Builder
-    public PaymentInfo(Money paymentAmount, Money supplyAmount, Money discountAmount) {
+    public PaymentInfo(Money paymentAmount, Money supplyAmount) {
         this.paymentAmount = paymentAmount;
         this.supplyAmount = supplyAmount;
-        this.discountAmount = discountAmount;
     }
 }

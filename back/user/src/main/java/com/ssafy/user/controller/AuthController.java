@@ -4,7 +4,7 @@ import static org.springframework.http.HttpHeaders.SET_COOKIE;
 import static org.springframework.http.HttpStatus.CREATED;
 
 import com.ssafy.user.domain.User;
-import com.ssafy.user.dto.AccessTokenResponse;
+import com.ssafy.user.dto.response.AccessTokenResponse;
 import com.ssafy.user.dto.MemberTokens;
 import com.ssafy.user.service.LoginService;
 import com.ssafy.user.util.JwtUtil;
