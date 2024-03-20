@@ -1,9 +1,8 @@
 package com.ssafy.user.domain;
 
-import javax.persistence.*;
-
 import com.ssafy.user.domain.enums.Platform;
 import com.ssafy.user.domain.enums.Role;
+import javax.persistence.*;
 import lombok.*;
 
 @Entity
