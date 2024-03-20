@@ -1,6 +1,8 @@
-package com.ssafy.funding.common;
+package com.ssafy.funding.exception.global;
 
-public enum CustomExceptionStatus {
+import com.ssafy.funding.common.ErrorReason;
+
+public enum CustomExceptionStatus implements BaseErrorCode {
     INVALID_REQUEST("BadRequest_400_1", "올바르지 않은 요청입니다."),
     INTERNAL_SEVER_ERROR("InternalServer_500_1", "서버 에러가 발생하였습니다. 관리자에게 문의해 주세요."),
     REQUEST_ERROR("NotValidInput_400_2", "입력 값을 확인해 주세요."),
@@ -18,7 +20,7 @@ public enum CustomExceptionStatus {
 
     ORDER_NOT_REFUND_DATE("Order_400_9", "환불을 할 수 있는 기한을 지났습니다."),
     ORDER_NOT_FOUND("Order_404_1", "주문을 찾을 수 없습니다."),
-    ORDER_LINE_NOT_FOUND("Order_404_2", "주문 라인을 찾을 수 없습니다."),
+    ORDER_FUNDING_FOUND("Order_404_2", "주문 라인을 찾을 수 없습니다."),
     // ORDER_NOT_FREE("Order_400_10", "무료 주문이 아닙니다."),
 
     // ORDER_LESS_THAN_MINIMUM("Order_400_11", "최소 결제금액인 1000원보다 낮은 주문입니다."),
@@ -29,7 +31,14 @@ public enum CustomExceptionStatus {
     APPROVE_WAITING_PURCHASE_LIMIT(
             "Order_400_15",
             "승인 대기중인 주문으로 인해 티켓 최대 구매 가능 횟수를 넘겼습니다." + "이미 신청한 주문이 승인 될 때까지 기다려주세요."),
-    ORDER_CANNOT_REFUSE("Order_400_16", "승인 대기중인 주문을 거절할 수 없는 상태입니다.");
+    ORDER_CANNOT_REFUSE("Order_400_16", "승인 대기중인 주문을 거절할 수 없는 상태입니다."),
+
+    TOSS_PAYMENTS_ENUM_NOT_MATCH("INFRA_500_1", "토스페이먼츠 이넘값 관련 매칭 안된 문제입니다."),
+
+    FUNDING_NOT_FOUND("FUNDING_404_1", "펀딩을 찾을 수 없습니다."),
+    FUNDING_TIME_IS_PASSED("FUNDING_400_6", "펀딩 시작시간이 지나 예매를 할 수 없습니다."),
+    FUNDING_NOT_OPEN("FUNDING_400_5", "아직 오픈되지 않은 펀딩에는 접근할 수 없습니다."),
+    FUNDING_QUANTITY_LACK("Ticket_Item_400_1", "펀딩 모집 인원을 초과했습니다.");
 
     private final String code;
     private final String message;
@@ -45,5 +54,10 @@ public enum CustomExceptionStatus {
 
     public String getMessage() {
         return message;
+    }
+
+    @Override
+    public ErrorReason getErrorReason() {
+        return ErrorReason.builder().reason(message).code(code).build();
     }
 }

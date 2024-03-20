@@ -1,6 +1,6 @@
 package com.ssafy.funding.exception;
 
-import com.ssafy.funding.common.CustomExceptionStatus;
+import com.ssafy.funding.exception.global.CustomExceptionStatus;
 import lombok.Getter;
 
 @Getter
