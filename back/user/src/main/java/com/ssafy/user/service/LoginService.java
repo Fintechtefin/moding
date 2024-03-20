@@ -1,8 +1,8 @@
 package com.ssafy.user.service;
 
+import com.ssafy.user.domain.User;
 import com.ssafy.user.domain.enums.Platform;
 import com.ssafy.user.domain.enums.Role;
-import com.ssafy.user.domain.User;
 import com.ssafy.user.infrastructure.oauthprovider.OauthProvider;
 import com.ssafy.user.infrastructure.oauthprovider.OauthProviders;
 import com.ssafy.user.infrastructure.oauthuserinfo.OauthUserInfo;
