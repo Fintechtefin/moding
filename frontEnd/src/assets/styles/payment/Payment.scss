@@ -1,0 +1,39 @@
+// #__next > div:nth-child(1) > div {
+//   display: none;
+// }
+
+// #payment-widget > div > iframe {
+//   height: 100vh !important;
+//   background: black !important;
+// }
+
+// iframe {
+//   div {
+//     color: red !important;
+//   }
+// }
+
+#___tosspayments_dimmer___ {
+  right: 0;
+  margin-inline: auto !important;
+
+  iframe {
+    top: 0px !important;
+    left: 0px !important;
+    margin: 0px !important;
+    height: 100% !important;
+  }
+}
+
+.pAlert {
+  display: none !important;
+  background: red;
+}
+
+.top-dot {
+  border: 8px solid transparent;
+  border-style: solid none none none; /* 상단 테두리만 설정합니다. */
+  border-image: url("../../images//DOT_LINE.png") 30 round; /* 'dashed-line.png'는 점선 이미지입니다. */
+  /* '30'는 이미지의 스트레치 길이를 나타냅니다. 값을 조정하여 간격을 변경할 수 있습니다. */
+  /* 'round'는 이미지가 테두리 길이에 맞게 반복되도록 합니다. */
+}
