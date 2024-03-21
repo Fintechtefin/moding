@@ -3,7 +3,6 @@ import { ChangeEvent, useState } from "react";
 import MovieLike from "@components/subscribe/MovieLike";
 import FundingRequest from "@components/subscribe/FundingRequest";
 import SubscribeType from "@components/subscribe/SubscribeType";
-import "@assets/styles/Subscribe/SubscribePage.scss";
 
 const SubscribePage = () => {
   const [check, setCheck] = useState("like");
