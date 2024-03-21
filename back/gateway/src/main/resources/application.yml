@@ -38,6 +38,8 @@ spring:
             - Path=/fundings/**
           uri: lb://FUNDING
           sensitive-headers: Cookie,Set-Cookie
+          filters:
+            - CustomAuthFilter
         - id: reservation
           predicates:
             - Path=/reservations/**

@@ -1,10 +1,9 @@
 package com.ssafy.funding.domain;
 
-import lombok.*;
-
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.*;
+import lombok.*;
 
 @Entity
 @Builder
@@ -28,23 +27,21 @@ public class Movie {
     @Column(length = 200)
     private String poster;
 
-    @Column(name="release_at",length=10)
+    @Column(name = "release_at", length = 10)
     private String releaseAt;
 
-    @Column(length=100)
+    @Column(length = 100)
     private String actors;
 
-    @Column(length=20)
+    @Column(length = 20)
     private String status;
 
-    @Column(name="running_time")
+    @Column(name = "running_time")
     private int runningTime;
 
-    @Column(length=5000)
+    @Column(length = 5000)
     private String plot;
 
     @OneToMany(mappedBy = "movie")
-    private List<MovieGenre> movieGenreList=new ArrayList<>();
-
-
+    private List<MovieGenre> movieGenreList = new ArrayList<>();
 }
