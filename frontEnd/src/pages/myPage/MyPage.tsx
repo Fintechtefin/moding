@@ -20,6 +20,7 @@ const SECTIONS = [
     items: [
       { name: "AI 카메라", count: null, url: "a" },
       { name: "좌석 예매", count: null, url: "/fund/reserve" },
+      { name: "결제", count: null, url: "/fund/payment" },
     ],
   },
 ];

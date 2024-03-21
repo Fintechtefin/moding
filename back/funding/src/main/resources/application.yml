@@ -1,5 +1,7 @@
 server:
   port: 8084
+  servlet:
+    context-path: /fundings
 
 spring:
   application:
@@ -15,3 +17,12 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+
+grpc:
+  client:
+    user:
+      address: 'discovery:///USER'
+      enableKeepAlive: true
+      keepAliveWithoutCalls: true
+      negotiationType: plaintext
+

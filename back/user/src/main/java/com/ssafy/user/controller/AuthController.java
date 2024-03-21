@@ -4,10 +4,12 @@ import static org.springframework.http.HttpHeaders.SET_COOKIE;
 import static org.springframework.http.HttpStatus.CREATED;
 
 import com.ssafy.user.domain.User;
-import com.ssafy.user.dto.response.AccessTokenResponse;
 import com.ssafy.user.dto.MemberTokens;
+import com.ssafy.user.dto.response.AccessTokenResponse;
+import com.ssafy.user.infrastructure.JwtProvider;
 import com.ssafy.user.service.LoginService;
 import com.ssafy.user.util.JwtUtil;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseCookie;
@@ -23,9 +25,11 @@ public class AuthController {
 
     private final LoginService loginService;
     private final JwtUtil jwtUtil;
+    private final JwtProvider jwtProvider;
 
     @GetMapping("/login/{provider}")
     public ResponseEntity<AccessTokenResponse> login(
+            HttpServletRequest request,
             @PathVariable final String provider,
             @RequestParam("code") String code,
             final HttpServletResponse response) {
@@ -40,6 +44,12 @@ public class AuthController {
                         .path("/")
                         .build();
         response.addHeader(SET_COOKIE, cookie.toString());
+
+        //        request.setAttribute("AUTHORIZATION", memberTokens.getAccessToken());
+        //        Authentication authentication =
+        //                jwtProvider.getAuthentication(jwtProvider.resolveToken(request));
+        //        SecurityContextHolder.getContext().setAuthentication(authentication);
+
         return ResponseEntity.status(CREATED)
                 .body(new AccessTokenResponse(memberTokens.getAccessToken()));
     }

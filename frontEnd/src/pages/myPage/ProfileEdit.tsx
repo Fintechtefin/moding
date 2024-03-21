@@ -61,15 +61,15 @@ const ProfileEdit = () => {
     setOpenDelete(true);
   };
 
-  const handleChangeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // const file = e.target.files[0];
-    // const reader = new FileReader();
-    // reader.readAsDataURL(file);
-    // reader.onloadend = () => {
-    //   setPreView(reader.result);
-    //   setImgUrl(file);
-    // };
-  };
+  // const handleChangeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const file = e.target.files[0];
+  //   const reader = new FileReader();
+  //   reader.readAsDataURL(file);
+  //   reader.onloadend = () => {
+  //     setPreView(reader.result);
+  //     setImgUrl(file);
+  //   };
+  // };
 
   const changeUserInfo = async () => {
     try {
