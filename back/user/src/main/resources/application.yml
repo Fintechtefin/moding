@@ -23,3 +23,7 @@ security:
   jwt:
     access-expiration-time: 2592000000
     refresh-expiration-time: 2592000000
+
+grpc:
+  server:
+    port: 9999

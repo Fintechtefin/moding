@@ -1,8 +1,7 @@
 package com.ssafy.funding.domain;
 
-import lombok.*;
-
 import javax.persistence.*;
+import lombok.*;
 
 @Entity
 @Builder

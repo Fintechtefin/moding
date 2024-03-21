@@ -33,7 +33,7 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.user.getSocialId();
+        return this.user.getId().toString();
     }
 
     @Override
