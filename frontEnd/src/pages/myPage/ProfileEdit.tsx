@@ -2,17 +2,17 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import NoneNavHeader from "@components/NoneNavHeader";
 import axios from "axios";
-import profile from "@assets/images/char.webp";
+// import profile from "@assets/images/char.webp";
 import { IoCameraOutline } from "react-icons/io5";
 // import "@assets/styles/myPage/MyPageEdit.scss";
 
 const ProfileEdit = () => {
   const BASE_URL = import.meta.env.VITE_BASE_URL;
-  const user = JSON.parse(localStorage.getItem("user"));
-  const [nick, setNick] = useState(user?.nickname);
+  // const user = JSON.parse(localStorage.getItem("user"));
+  // const [nick, setNick] = useState(user?.nickname);
   const [openDelete, setOpenDelete] = useState(false);
-  const [imgUrl, setImgUrl] = useState(user?.imageUrl);
-  const [preView, setPreView] = useState(user?.imageUrl);
+  // const [imgUrl, setImgUrl] = useState(user?.imageUrl);
+  // const [preView, setPreView] = useState(user?.imageUrl);
   const navigate = useNavigate();
 
   const btnClass =
@@ -53,9 +53,9 @@ const ProfileEdit = () => {
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNick(e.target.value);
-  };
+  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   setNick(e.target.value);
+  // };
 
   const openDeleteModal = () => {
     setOpenDelete(true);
@@ -71,63 +71,63 @@ const ProfileEdit = () => {
   //   };
   // };
 
-  const changeUserInfo = async () => {
-    try {
-      let res;
+  // const changeUserInfo = async () => {
+  //   try {
+  //     let res;
 
-      if (user.imageUrl !== imgUrl) {
-        const formData = new FormData();
-        formData.append("images", imgUrl);
-        formData.append("type", "PROFILE");
+  //     if (user.imageUrl !== imgUrl) {
+  //       const formData = new FormData();
+  //       formData.append("images", imgUrl);
+  //       formData.append("type", "PROFILE");
 
-        res = await axios.post(`${BASE_URL}/api/images`, formData, {
-          headers: {
-            Authorization: localStorage.getItem("jwt"),
-          },
-        });
-      }
+  //       res = await axios.post(`${BASE_URL}/api/images`, formData, {
+  //         headers: {
+  //           Authorization: localStorage.getItem("jwt"),
+  //         },
+  //       });
+  //     }
 
-      const res1 = await axios.put(
-        `${BASE_URL}/api/users`,
-        { imageUrl: res ? res.data.imageNames[0] : imgUrl, nickname: nick },
-        {
-          headers: {
-            Authorization: localStorage.getItem("jwt"),
-            "Content-Type": "application/json",
-          },
-        }
-      );
+  //     const res1 = await axios.put(
+  //       `${BASE_URL}/api/users`,
+  //       { imageUrl: res ? res.data.imageNames[0] : imgUrl, nickname: nick },
+  //       {
+  //         headers: {
+  //           Authorization: localStorage.getItem("jwt"),
+  //           "Content-Type": "application/json",
+  //         },
+  //       }
+  //     );
 
-      localStorage.setItem("user", res1.config.data);
+  //     localStorage.setItem("user", res1.config.data);
 
-      navigate("/user/mypage");
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //     navigate("/user/mypage");
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   return (
     <div className="relative flex flex-col gap-[4vh] h-[100vh]">
       <NoneNavHeader />
       <div
         className=" absolute cursor-pointer font-bold text-[2.5vh] right-[2.3vh] top-[1.7vh]"
-        onClick={changeUserInfo}
+        // onClick={changeUserInfo}
       >
         완료
       </div>
       <div className="flex justify-center">
         <label htmlFor="profile-img" className="relative cursor-pointer">
-          <img
+          {/* <img
             src={preView || profile}
             alt=""
             className="w-[12vh] h-[12vh] rounded-[35%]"
-          />
+          /> */}
           <input
             type="file"
             accept="image/*"
             id="profile-img"
             className="hidden "
-            onChange={handleChangeFile}
+            // onChange={handleChangeFile}
           />
           <div className="absolute bottom-[-0.5vh] right-[-0.5vh] bg-[#232121] w-[4vh] h-[4vh] flex items-center justify-center rounded-[50%] ">
             <IoCameraOutline className="w-[3vh] h-[3vh] text-white" />
@@ -136,12 +136,12 @@ const ProfileEdit = () => {
       </div>
       <div className="flex flex-col gap-[1vh] mx-[2vh]">
         <div className="font-bold text-[2.5vh]">닉네임</div>
-        <input
+        {/* <input
           className="px-[2vh] w-[100%] h-[7vh] text-[2vh] rounded-[2vh] text-black"
           type="text"
           value={nick}
           onChange={handleChange}
-        />
+        /> */}
       </div>
       <div className="absolute bottom-[25%] left-[50%] flex gap-[3vh] translate-x-[-50%]">
         <button className={btnClass} onClick={userLogOut}>
