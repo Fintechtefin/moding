@@ -1,9 +1,12 @@
-import { lazy } from "react";
+import { lazy, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import MainLayout from "@components/MainLayout";
+import "@/firebase-messaging-sw";
 import "@/App.scss";
 
-const MovieListPage = lazy(() => import("@pages/MovieListPage"));
+const ModingOffice = lazy(() => import("@pages/ModingOffice"));
+const MovieCategory = lazy(() => import("@pages/MovieCategory"));
+const MovieDetail = lazy(() => import("@pages/MovieDetail"));
 const FundingListPage = lazy(() => import("@pages/FundingListPage"));
 const HomePage = lazy(() => import("@pages/HomePage"));
 const SubscribePage = lazy(() => import("@pages/SubscribePage"));
@@ -20,13 +23,27 @@ const PaymentSuccessPage = lazy(
 const PaymentFailPage = lazy(() => import("@pages/payment/PaymentFailPage"));
 
 function App() {
+  // useEffect(() => {
+  //   if ("serviceWorker" in navigator) {
+  //     navigator.serviceWorker
+  //       .register("../public/firebase-messaging-sw.js")
+  //       .then((registration) => {
+  //         console.log("Service Worker 등록 성공:", registration);
+  //       })
+  //       .catch((err) => {
+  //         console.log("Service Worker 등록 실패:", err);
+  //       });
+  //   }
+  // }, []);
+
   return (
     <Routes>
       <Route path="/" element={<MainLayout type="nav" />}>
         <Route index element={<HomePage />} />
 
         <Route path="movie">
-          <Route path="list" element={<MovieListPage />} />
+          <Route index element={<ModingOffice />} />
+          <Route path="list" element={<MovieCategory />} />
         </Route>
 
         <Route path="fund">
@@ -52,13 +69,15 @@ function App() {
           <Route path="alarmset" element={<AlarmSet />} />
           <Route path="edit" element={<ProfileEdit />} />
         </Route>
-
         <Route path="fund">
           <Route path="reserve" element={<ReservePage />} />
           <Route path="payment">
             <Route index element={<PaymentPage />} />
             <Route path="success" element={<PaymentSuccessPage />} />
             <Route path="fail" element={<PaymentFailPage />} />
+          </Route>
+          <Route path="list">
+            <Route path=":id" element={<MovieDetail />} />
           </Route>
         </Route>
       </Route>

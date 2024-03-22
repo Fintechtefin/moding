@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import NoneNavHeader from "@components/NoneNavHeader";
 import SeatType from "@components/reverse/SeatType";
 import Seat from "@components/reverse/Seat";
@@ -7,7 +7,7 @@ import screen from "@assets/images/screen.webp";
 
 const ReservePage = () => {
   const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
-  const [max, setMax] = useState(2);
+  const [max, setMax] = useState(0);
   const occupiedSeats = new Set(["B5", "C6", "D7"]);
 
   const handleSelect = (seatId: string, isSelected: boolean) => {
@@ -22,6 +22,10 @@ const ReservePage = () => {
 
   const rows = "ABCDEF".split("");
   const numbers = Array.from({ length: 8 }, (_, i) => i + 1);
+
+  useEffect(() => {
+    setMax(2);
+  }, []);
 
   return (
     <div className="h-[100vh] flex flex-col gap-[5vh]">

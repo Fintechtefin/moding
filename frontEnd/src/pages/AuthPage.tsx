@@ -24,9 +24,10 @@ const AuthPage = () => {
     }
   };
 
-  // useEffect(() => {
-  //   getToken();
-  // }, []);
+  useEffect(() => {
+    tokenGet();
+    navigate("/");
+  }, []);
 
   // useEffect(() => {
   //   navigate("/");
