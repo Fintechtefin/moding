@@ -3,7 +3,9 @@ import { Route, Routes } from "react-router-dom";
 import MainLayout from "@components/MainLayout";
 import "@/App.scss";
 
-const MovieListPage = lazy(() => import("@pages/MovieListPage"));
+const ModingOffice = lazy(() => import("@pages/ModingOffice"));
+const MovieCategory = lazy(() => import("@pages/MovieCategory"));
+const MovieDetail = lazy(() => import("@pages/MovieDetail"));
 const FundingListPage = lazy(() => import("@pages/FundingListPage"));
 const HomePage = lazy(() => import("@pages/HomePage"));
 const SubscribePage = lazy(() => import("@pages/SubscribePage"));
@@ -26,7 +28,8 @@ function App() {
         <Route index element={<HomePage />} />
 
         <Route path="movie">
-          <Route path="list" element={<MovieListPage />} />
+          <Route index element={<ModingOffice />} />
+          <Route path="list" element={<MovieCategory />} />
         </Route>
 
         <Route path="fund">
@@ -52,13 +55,15 @@ function App() {
           <Route path="alarmset" element={<AlarmSet />} />
           <Route path="edit" element={<ProfileEdit />} />
         </Route>
-
         <Route path="fund">
           <Route path="reserve" element={<ReservePage />} />
           <Route path="payment">
             <Route index element={<PaymentPage />} />
             <Route path="success" element={<PaymentSuccessPage />} />
             <Route path="fail" element={<PaymentFailPage />} />
+          </Route>
+          <Route path="list">
+            <Route path=":id" element={<MovieDetail />} />
           </Route>
         </Route>
       </Route>
