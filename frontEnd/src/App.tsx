@@ -1,6 +1,7 @@
-import { lazy } from "react";
+import { lazy, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import MainLayout from "@components/MainLayout";
+import "@/firebase-messaging-sw";
 import "@/App.scss";
 
 const ModingOffice = lazy(() => import("@pages/ModingOffice"));
@@ -22,6 +23,19 @@ const PaymentSuccessPage = lazy(
 const PaymentFailPage = lazy(() => import("@pages/payment/PaymentFailPage"));
 
 function App() {
+  // useEffect(() => {
+  //   if ("serviceWorker" in navigator) {
+  //     navigator.serviceWorker
+  //       .register("../public/firebase-messaging-sw.js")
+  //       .then((registration) => {
+  //         console.log("Service Worker 등록 성공:", registration);
+  //       })
+  //       .catch((err) => {
+  //         console.log("Service Worker 등록 실패:", err);
+  //       });
+  //   }
+  // }, []);
+
   return (
     <Routes>
       <Route path="/" element={<MainLayout type="nav" />}>
