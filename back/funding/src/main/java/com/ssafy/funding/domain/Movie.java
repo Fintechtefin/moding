@@ -1,5 +1,6 @@
 package com.ssafy.funding.domain;
 
+import com.ssafy.funding.domain.document.MovieDocument;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
@@ -44,4 +45,16 @@ public class Movie {
 
     @OneToMany(mappedBy = "movie")
     private List<MovieGenre> movieGenreList = new ArrayList<>();
+
+    public static Movie of(MovieDocument movieDocument) {
+        Movie movie = new Movie();
+
+        movie.id = movieDocument.getId();
+        movie.poster = movieDocument.getPoster();
+        movie.age = movieDocument.getAge();
+        movie.title = movieDocument.getTitle();
+        movie.status = movieDocument.getStatus();
+
+        return movie;
+    }
 }

@@ -26,3 +26,11 @@ grpc:
       keepAliveWithoutCalls: true
       negotiationType: plaintext
 
+logging:
+  level:
+    org:
+      springframework:
+        data:
+          elasticsearch:
+            client:
+              WIRE: trace

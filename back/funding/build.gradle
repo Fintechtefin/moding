@@ -48,6 +48,9 @@ dependencies {
 	implementation 'io.springfox:springfox-swagger2:3.0.0'
 	implementation 'io.springfox:springfox-boot-starter:3.0.0'
 
+	// elastic search
+	implementation 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
+
 	// lombok
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
