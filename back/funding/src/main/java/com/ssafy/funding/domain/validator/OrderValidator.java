@@ -54,7 +54,6 @@ public class OrderValidator {
 
     /** 아이템의 재고가 충분한지 확인합니다. */
     public void validFundingStockEnough(Order order, Funding funding) {
-        order.getOrderFundings().stream()
-                .forEach(o -> funding.validEnoughQuantity(o.getFunding().getPeopleCount()));
+        funding.validEnoughQuantity(order.getCount());
     }
 }

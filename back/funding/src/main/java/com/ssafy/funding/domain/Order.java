@@ -2,9 +2,6 @@ package com.ssafy.funding.domain;
 
 import com.ssafy.funding.domain.validator.OrderValidator;
 import com.ssafy.funding.exception.NotPendingOrderException;
-import com.ssafy.funding.exception.OrderFundingNotFountException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 import javax.persistence.*;
@@ -30,12 +27,22 @@ public class Order extends BaseTime {
     @Column(nullable = false)
     private String uuid;
 
+    @Column(nullable = false)
+    private Integer price;
+
+    @Column(nullable = false)
+    private Integer count;
+
+    // 주문 상태
+    private boolean status;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private OrderMethod orderMethod;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    private List<OrderFunding> orderFundings;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "funding_id")
+    private Funding funding;
 
     /** 선착순 방식의 결제입니다. */
     public void confirm(Integer currentUserId, OrderValidator orderValidator) {
@@ -47,13 +54,6 @@ public class Order extends BaseTime {
         if (!Objects.equals(orderStatus, OrderStatus.PENDING_PAYMENT)) {
             throw NotPendingOrderException.EXCEPTION;
         }
-    }
-
-    /** 오더펀딩목록의 한 요소를 가져옵니다. */
-    private OrderFunding getOrderFundingLine() {
-        return orderFundings.stream()
-                .findFirst()
-                .orElseThrow(() -> OrderFundingNotFountException.EXCEPTION);
     }
 
     @PrePersist
@@ -68,23 +68,15 @@ public class Order extends BaseTime {
             Integer fundingPrice,
             OrderValidator orderValidator) {
         Integer supplyAmount = fundingCount * fundingPrice;
-        Order order = Order.builder().userId(userId).orderMethod(OrderMethod.PAYMENT).build();
+        Order order =
+                Order.builder()
+                        .userId(userId)
+                        .price(fundingPrice)
+                        .count(fundingCount)
+                        .status(true)
+                        .orderMethod(OrderMethod.PAYMENT)
+                        .funding(funding)
+                        .build();
         return order;
-    }
-
-    public void addOrderFundings(
-            List<OrderFunding> orderFundings, Funding funding, int fundingCount) {
-        this.addAll(this, orderFundings, funding, fundingCount);
-    }
-
-    public void addAll(
-            Order order, List<OrderFunding> orderFundings, Funding funding, int fundingCount) {
-        this.orderFundings = new ArrayList<OrderFunding>();
-        orderFundings.stream()
-                .map(
-                        orderFunding ->
-                                OrderFunding.createOrderFunding(
-                                        funding.getPrice(), fundingCount, funding, this))
-                .forEach(this.orderFundings::add);
     }
 }
