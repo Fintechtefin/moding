@@ -4,15 +4,12 @@ import static com.ssafy.funding.exception.global.CustomExceptionStatus.FUNDING_N
 
 import com.ssafy.funding.domain.Funding;
 import com.ssafy.funding.domain.Order;
-import com.ssafy.funding.domain.OrderFunding;
 import com.ssafy.funding.domain.validator.OrderValidator;
 import com.ssafy.funding.dto.request.CreateOrderRequest;
 import com.ssafy.funding.dto.response.OrderResponse;
 import com.ssafy.funding.exception.BadRequestException;
 import com.ssafy.funding.repository.FundingRepository;
 import com.ssafy.funding.repository.OrderRepository;
-import java.util.ArrayList;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,11 +45,7 @@ public class OrderService {
                         createOrderRequest.getFundingCount(),
                         funding.getPrice(),
                         orderValidator);
-        List<OrderFunding> orderFundings = new ArrayList<OrderFunding>();
-        orderFundings.add(
-                OrderFunding.createOrderFunding(
-                        funding.getPrice(), createOrderRequest.getFundingCount(), funding, order));
-        order.addOrderFundings(orderFundings, funding, createOrderRequest.getFundingCount());
+
         return orderRepository.save(order);
     }
 }
