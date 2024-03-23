@@ -1,40 +1,72 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useRecoilValue, useResetRecoilState } from "recoil";
+
 import NoneNavHeader from "@components/NoneNavHeader";
 import SeatType from "@components/reverse/SeatType";
 import Seat from "@components/reverse/Seat";
 import MovieInfo from "@components/reverse/MovieInfo";
 import screen from "@assets/images/screen.webp";
+import Prompt from "@components/reverse/Prompt";
+import {
+  selectSeatsAtom,
+  selectSeatsLengthSelector,
+} from "@stores/reserveStore";
+// import { GoEye } from "react-icons/go";
 
 const ReservePage = () => {
-  const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
-  const [max, setMax] = useState(0);
-  const occupiedSeats = new Set(["B5", "C6", "D7"]);
+  const resetSeats = useResetRecoilState(selectSeatsAtom);
+  const selectSeatsLength = useRecoilValue(selectSeatsLengthSelector);
 
-  const handleSelect = (seatId: string, isSelected: boolean) => {
-    setSelectedSeats((prev) => {
-      if (isSelected) {
-        return [...prev, seatId];
-      } else {
-        return prev.filter((seat) => seat !== seatId);
-      }
-    });
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [max] = useState(2);
+  const occupiedSeats: string[] = ["B5", "C6", "D7"];
+
+  const navigate = useNavigate();
+
+  const handleBackButtonClick = () => {
+    if (selectSeatsLength) {
+      setIsModalOpen(true); // 모달을 열어 사용자에게 확인 요청
+    } else {
+      navigate(-1); // 뒤로 가기, `useNavigate` 훅 사용
+    }
+  };
+
+  const closeModal = () => setIsModalOpen(false);
+
+  const confirmAndGoBack = () => {
+    // 데이터 리셋 및 뒤로 가기 로직
+    resetSeats();
+    closeModal();
+    navigate(-1);
   };
 
   const rows = "ABCDEF".split("");
   const numbers = Array.from({ length: 8 }, (_, i) => i + 1);
 
   useEffect(() => {
-    setMax(2);
-  }, []);
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      if (selectSeatsLength) {
+        e.preventDefault();
+        e.returnValue = "";
+      }
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => window.removeEventListener("beforeunload", handleBeforeUnload);
+  }, [selectSeatsLength]); // myArray가 변경될 때마다 이 useEffect를 다시 실행합니다.
 
   return (
     <div className="h-[100vh] flex flex-col gap-[5vh]">
-      <NoneNavHeader centerText="좌석예매" />
+      <NoneNavHeader
+        centerText="좌석예매"
+        onBackButtonClick={handleBackButtonClick}
+      />
       <div className="flex flex-col gap-[5vh]">
         <SeatType />
+        {/* <GoEye className="text-red-600" /> */}
         <div className="flex flex-col items-center gap-[5vh]">
           <div className="relative flex flex-col items-center">
-            {/* <div className="w-[80%] h-[2.5vh] rounded-t-[50%] bg-[red] blur-[6vh] absolute top-[5vh] opacity-100"></div> */}
             <img
               className="w-[100%] h-[5vh] px-[3vh]"
               src={screen}
@@ -52,13 +84,8 @@ const ReservePage = () => {
                       <Seat
                         key={seatId}
                         seatId={seatId}
-                        isSelected={selectedSeats.includes(seatId)}
-                        isOccupied={occupiedSeats.has(seatId)}
-                        isSelectable={
-                          selectedSeats.length < max ||
-                          selectedSeats.includes(seatId)
-                        }
-                        onSelect={handleSelect}
+                        max={max}
+                        isOccupied={occupiedSeats.includes(seatId)}
                       />
                     );
                   })}
@@ -68,7 +95,10 @@ const ReservePage = () => {
           </div>
         </div>
       </div>
-      <MovieInfo count={selectedSeats.length} max={max} />
+      <MovieInfo max={max} />
+      {isModalOpen && (
+        <Prompt onClose={closeModal} onConfirm={confirmAndGoBack} />
+      )}
     </div>
   );
 };

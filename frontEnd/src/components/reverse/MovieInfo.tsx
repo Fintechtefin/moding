@@ -1,11 +1,14 @@
+import { selectSeatsLengthSelector } from "@stores/reserveStore";
+import { useRecoilValue } from "recoil";
 import moviePost from "@assets/images/영화포스터.jpg";
 
 interface Props {
-  count: number;
   max: number;
 }
 
-const MovieInfo = ({ count, max }: Props) => {
+const MovieInfo = ({ max }: Props) => {
+  const selectSeatsLength = useRecoilValue(selectSeatsLengthSelector);
+
   return (
     <div className="fixed bottom-0 text-black bg-white w-[100%] h-[20vh] rounded-t-[3vh]">
       <div className="p-[2vh] flex gap-[3vh]">
@@ -16,7 +19,7 @@ const MovieInfo = ({ count, max }: Props) => {
           </div>
           <div className="flex justify-between">
             <div className="font-bold">엘리멘탈</div>
-            <div>{`인원 ${count} / ${max}`}</div>
+            <div>{`인원 ${selectSeatsLength} / ${max}`}</div>
           </div>
         </div>
         <img
