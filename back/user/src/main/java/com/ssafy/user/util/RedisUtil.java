@@ -51,4 +51,5 @@ public class RedisUtil {
     public void deleteDataList(Collection<?> key) {
         redisTemplate.delete(key);
     }
+
 }

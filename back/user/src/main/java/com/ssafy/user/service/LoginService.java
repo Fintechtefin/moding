@@ -8,6 +8,8 @@ import com.ssafy.user.infrastructure.oauthprovider.OauthProviders;
 import com.ssafy.user.infrastructure.oauthuserinfo.OauthUserInfo;
 import com.ssafy.user.repository.UserRepository;
 import javax.transaction.Transactional;
+
+import com.ssafy.user.util.RedisUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,7 @@ public class LoginService {
 
     private final OauthProviders oauthProviders;
     private final UserRepository userRepository;
+    private final RedisUtil redisUtil;
 
     public User login(final String providerName, final String code) {
         final OauthProvider provider = oauthProviders.mapping(providerName);
@@ -53,5 +56,9 @@ public class LoginService {
                         .age(birthYear)
                         .role(Role.valueOf(role))
                         .build());
+    }
+
+    public void logout(String currentUserSocialId) {
+        redisUtil.deleteData(currentUserSocialId);
     }
 }
