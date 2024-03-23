@@ -1,40 +1,43 @@
-import { IoClose } from "react-icons/io5";
 import { ChangeEvent } from "react";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  isSelectableSelector,
+  isSelectedSelector,
+  selectSeatsAtom,
+} from "@stores/reserveStore";
+import { IoClose } from "react-icons/io5";
 
 interface Props {
   seatId: string;
-  isSelected: boolean;
+  max: number;
   isOccupied: boolean;
-  isSelectable: boolean;
-  onSelect: (seatId: string, isSelected: boolean) => void;
 }
 
-const Seat = ({
-  seatId,
-  isSelected,
-  isOccupied,
-  isSelectable,
-  onSelect,
-}: Props) => {
-  // 체크박스 클릭 핸들러
+const Seat = ({ seatId, max, isOccupied }: Props) => {
+  const setSelectedSeats = useSetRecoilState(selectSeatsAtom);
+  const isSelected = useRecoilValue(isSelectedSelector(seatId));
+  const isSelectable = useRecoilValue(isSelectableSelector({ seatId, max }));
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const isSelected = e.target.checked;
     if (!isOccupied && isSelectable) {
-      onSelect(seatId, e.target.checked);
+      setSelectedSeats((prev) =>
+        isSelected ? [...prev, seatId] : prev.filter((seat) => seat !== seatId)
+      );
     }
   };
 
-  const seatStatusClass =
+  const seatStatusClass = `w-[4vh] h-[3.5vh] rounded-b-[0.3vh] rounded-t-[1.3vh] flex justify-center items-center font-bold text-[1.5vh] cursor-pointer ${
     isOccupied || !isSelectable
       ? "bg-[#3D3C4E]"
       : isSelected
       ? "bg-[#C00202]"
-      : "bg-[#A09FB2]";
+      : "bg-[#A09FB2]"
+  }`;
 
   return (
     <label className="relative">
-      <div
-        className={`w-[4vh] h-[3.5vh] rounded-b-[0.3vh] rounded-t-[1.3vh] flex justify-center items-center font-bold text-[1.5vh] cursor-pointer ${seatStatusClass}`}
-      >
+      <div className={seatStatusClass}>
         {isOccupied || !isSelectable ? (
           <IoClose className="text-[2.5vh]" />
         ) : (
