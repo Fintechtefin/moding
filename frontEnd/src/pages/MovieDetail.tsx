@@ -5,6 +5,7 @@ import AboutMovie from "@components/movieDetail/AboutMovie";
 import AboutFunding from "@components/movieDetail/AboutFunding";
 import AboutNote from "@components/movieDetail/AboutNote";
 import MovieDetailButton from "@components/movieDetail/MovieDetailButton";
+import InfoArea from "@components/movieDetail/InfoArea";
 
 interface MovieInfo {
   id: number;
@@ -25,7 +26,7 @@ const MovieDetail = () => {
   const [movieInfo, setMovieInfo] = useState<MovieInfo>({
     id: 1,
     title: "밀정",
-    status: "무딩 준비 중",
+    status: "무딩 중",
     release: "2016.09.07",
     runningTime: 140,
     age: "15세관람가",
@@ -38,6 +39,8 @@ const MovieDetail = () => {
   });
 
   const [infoCategory, setInfoCategory] = useState(0);
+  // 무딩 준비 중이거나 무딩 완료 시에 false로 바꾸기
+  const [fundingInfo, setFundingInfo] = useState(true);
 
   return (
     <div
@@ -52,13 +55,14 @@ const MovieDetail = () => {
       {/* info영역 */}
       <div className="flex flex-col items-center mt-72">
         <div className="text-3xl">{movieInfo.title}</div>
-        <div className="flex flex-row gap-2 mt-4 text-xs">
+        <div className="flex flex-row gap-2 mt-4 text-[1.5vh]">
           <div>{movieInfo.release} 개봉</div>
           <span>|</span>
           <div>{movieInfo.runningTime}분</div>
           <span>|</span>
           <div>{movieInfo.age}</div>
         </div>
+        <div className="w-[90%] mt-8">{fundingInfo && <InfoArea status={movieInfo.status} />}</div>
       </div>
       {/* 상세정보영역 */}
       <div>
@@ -80,7 +84,7 @@ const MovieDetail = () => {
         </div>
       </div>
       {/* 버튼 */}
-      <div className="button-area cursor-pointer sticky bottom-0 w-[100%] h-[8vh]">
+      <div className="z-[2] button-area cursor-pointer sticky bottom-0 w-[100%] h-[8vh]">
         <MovieDetailButton id={movieInfo.id} status={movieInfo.status} likeCnt={movieInfo.likeCnt} hopeCnt={movieInfo.hopeCnt} alarmCnt={movieInfo.alarmCnt} />
       </div>
     </div>

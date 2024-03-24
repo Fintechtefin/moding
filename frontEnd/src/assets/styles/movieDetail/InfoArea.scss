@@ -1,0 +1,67 @@
+@property --rotate {
+  syntax: "<angle>";
+  initial-value: 132deg;
+  inherits: false;
+}
+
+.info-area {
+  .not-active,
+  .active {
+    padding: 3px;
+    position: relative;
+    border-radius: 50%;
+  }
+  .not-active {
+    width: 75px;
+    height: 75px;
+    border: 2px solid white;
+  }
+
+  .active {
+    width: 80px;
+    height: 80px;
+    // background: linear-gradient(var(--rotate), #5ddcff, #3c67e3 43%, #4e00c2);
+    background: linear-gradient(var(--rotate), #5ddcff, #3c67e3 43%, #4e00c2);
+    animation: spin 2.5s linear infinite;
+
+    &::before {
+      content: "";
+      width: 95%;
+      height: 95%;
+      border-radius: 50%;
+      background: black;
+      position: absolute;
+      z-index: 2;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+      height: 100%;
+      width: 100%;
+      border-radius: 50%;
+      margin: 0 auto;
+      filter: blur(calc(80px / 6));
+      background-image: linear-gradient(var(--rotate), #5ddcff, #3c67e3 43%, #4e00c2);
+      opacity: 1;
+      transition: opacity 0.5s;
+      animation: spin 2.5s linear infinite;
+    }
+  }
+
+  @keyframes spin {
+    0% {
+      --rotate: 0deg;
+    }
+    100% {
+      --rotate: 360deg;
+    }
+  }
+}
