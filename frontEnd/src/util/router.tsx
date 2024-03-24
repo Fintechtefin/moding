@@ -21,6 +21,7 @@ const PaymentSuccessPage = lazy(
   () => import("@pages/payment/PaymentSuccessPage")
 );
 const PaymentFailPage = lazy(() => import("@pages/payment/PaymentFailPage"));
+const NotFoundPage = lazy(() => import("@pages/NotFoundPage"));
 
 export const router = createBrowserRouter([
   {
@@ -53,7 +54,6 @@ export const router = createBrowserRouter([
     path: "/",
     element: <MainLayout type="noneNav" />,
     children: [
-      { index: true, element: <HomePage /> },
       {
         path: "login",
         children: [
@@ -89,6 +89,7 @@ export const router = createBrowserRouter([
           },
         ],
       },
+      { path: "*", element: <NotFoundPage /> },
     ],
   },
 ]);
