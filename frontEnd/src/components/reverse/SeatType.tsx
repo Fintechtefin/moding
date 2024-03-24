@@ -7,9 +7,8 @@ const SeatItem = ({ label, color }: Props) => {
   return (
     <div className="flex items-center gap-[0.5vh]">
       <div className="text-[2vh]">{label}</div>
-      {/* <PiArmchairFill className={`text-[3vh] text-[${color}]`} /> */}
       <div
-        className={`w-[2.5vh] h-[2.3vh] bg-[${color}] rounded-t-[1vh] rounded-b-[0.3vh]`}
+        className={`w-[2.5vh] h-[2.3vh] bg-[${color}] rounded-t-[1vh] rounded-b-[0.3vh] shj`}
       ></div>
     </div>
   );
