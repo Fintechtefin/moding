@@ -29,3 +29,7 @@ kafka:
 feign:
   toss:
     url : https://api.tosspayments.com
+
+grpc:
+  server:
+    port: 9998
