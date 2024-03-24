@@ -13,7 +13,9 @@ const SECTIONS = [
   },
   {
     title: "설정",
-    items: [{ name: "알림 설정", count: null, url: "/user/alarmset" }],
+    items: [
+      { name: "알림 설정", count: null, url: "/user/notification/setting" },
+    ],
   },
   {
     title: "기타",

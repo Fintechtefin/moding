@@ -61,7 +61,7 @@ const FundingRequest = () => {
   }, []);
 
   return (
-    <div className="none-scroll px-[3vh] grid grid-cols-2 gap-[3vh] overflow-auto h-[80vh]">
+    <div className="none-scroll h-[87vh] overflow-auto px-[3vh] pb-[10vh] grid grid-cols-2 gap-[3vh]">
       {reqList.map((req) => {
         return (
           <div className="w-[100%] relative " key={req.id}>
@@ -75,7 +75,7 @@ const FundingRequest = () => {
               </div>
             </div>
             <img
-              className="w-[100%] h-[100%] object-cover rounded-t-[1.5vh] brightness-75"
+              className="w-[100%] h-[100%] object-cover rounded-t-[1.5vh] brightness-[90%]"
               src={req.url}
               alt=""
             />
