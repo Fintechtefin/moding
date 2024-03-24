@@ -8,66 +8,72 @@ public interface CallTossPayRequestOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>string method = 1;</code>
+   * <code>uint64 id = 1;</code>
+   * @return The id.
+   */
+  long getId();
+
+  /**
+   * <code>string method = 2;</code>
    * @return The method.
    */
   java.lang.String getMethod();
   /**
-   * <code>string method = 1;</code>
+   * <code>string method = 2;</code>
    * @return The bytes for method.
    */
   com.google.protobuf.ByteString
       getMethodBytes();
 
   /**
-   * <code>int32 amount = 2;</code>
+   * <code>uint64 amount = 3;</code>
    * @return The amount.
    */
-  int getAmount();
+  long getAmount();
 
   /**
-   * <code>string orderId = 3;</code>
+   * <code>string orderId = 4;</code>
    * @return The orderId.
    */
   java.lang.String getOrderId();
   /**
-   * <code>string orderId = 3;</code>
+   * <code>string orderId = 4;</code>
    * @return The bytes for orderId.
    */
   com.google.protobuf.ByteString
       getOrderIdBytes();
 
   /**
-   * <code>string orderName = 4;</code>
+   * <code>string orderName = 5;</code>
    * @return The orderName.
    */
   java.lang.String getOrderName();
   /**
-   * <code>string orderName = 4;</code>
+   * <code>string orderName = 5;</code>
    * @return The bytes for orderName.
    */
   com.google.protobuf.ByteString
       getOrderNameBytes();
 
   /**
-   * <code>string successUrl = 5;</code>
+   * <code>string successUrl = 6;</code>
    * @return The successUrl.
    */
   java.lang.String getSuccessUrl();
   /**
-   * <code>string successUrl = 5;</code>
+   * <code>string successUrl = 6;</code>
    * @return The bytes for successUrl.
    */
   com.google.protobuf.ByteString
       getSuccessUrlBytes();
 
   /**
-   * <code>string failUrl = 6;</code>
+   * <code>string failUrl = 7;</code>
    * @return The failUrl.
    */
   java.lang.String getFailUrl();
   /**
-   * <code>string failUrl = 6;</code>
+   * <code>string failUrl = 7;</code>
    * @return The bytes for failUrl.
    */
   com.google.protobuf.ByteString

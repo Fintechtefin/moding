@@ -1,8 +1,14 @@
 package com.ssafy.payment.service;
 
 import com.ssafy.payment.controller.PaymentsCreateClient;
+import com.ssafy.payment.domain.Payment;
+import com.ssafy.payment.domain.PaymentMethod;
+import com.ssafy.payment.domain.PaymentStatus;
 import com.ssafy.payment.dto.request.CreatePaymentsRequest;
 import com.ssafy.payment.dto.response.PaymentsResponse;
+import com.ssafy.payment.repository.PaymentMethodRepository;
+import com.ssafy.payment.repository.PaymentRepository;
+import com.ssafy.payment.repository.PaymentStatusRepository;
 import io.grpc.stub.StreamObserver;
 import lombok.RequiredArgsConstructor;
 import net.devh.boot.grpc.examples.lib.CallTossPayRequest;
@@ -15,10 +21,13 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @GrpcService
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
+@Transactional
 public class CreateTossPaymentService extends OrderServiceGrpc.OrderServiceImplBase {
 
     private final PaymentsCreateClient paymentsCreateClient;
+    private final PaymentMethodRepository paymentMethodRepository;
+    private final PaymentRepository paymentRepository;
+    private final PaymentStatusRepository paymentStatusRepository;
 
     @Override
     public void callTossPay(
@@ -33,6 +42,14 @@ public class CreateTossPaymentService extends OrderServiceGrpc.OrderServiceImplB
                                 .successUrl(request.getSuccessUrl())
                                 .failUrl(request.getFailUrl())
                                 .build());
+
+        PaymentMethod paymentMethod = paymentMethodRepository.findByName(request.getMethod());
+        PaymentStatus paymentStatus =
+                paymentStatusRepository.findByName(paymentsResponse.getStatus().name());
+
+        paymentRepository.save(
+                Payment.createPayment(
+                        request.getId(), paymentsResponse, paymentMethod, paymentStatus));
 
         responseObserver.onNext(
                 CallTossPayResponse.newBuilder()

@@ -9,12 +9,13 @@ message CallTossPayResponse {
 }
 
 message CallTossPayRequest {
-  string method = 1;
-  int32 amount = 2;
-  string orderId = 3;
-  string orderName = 4;
-  string successUrl = 5;
-  string failUrl = 6;
+  uint64 id = 1;
+  string method = 2;
+  uint64 amount = 3;
+  string orderId = 4;
+  string orderName = 5;
+  string successUrl = 6;
+  string failUrl = 7;
 }
 
 service OrderService {

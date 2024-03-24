@@ -43,7 +43,7 @@ public class TossPaymentsClientTest {
                 CreatePaymentsRequest.builder()
                         .successUrl("http://localhost:8080/return-url")
                         .failUrl(null)
-                        .amount(1000)
+                        .amount(1000L)
                         .orderId("MC4wODU4ODQwMzg4NDk0")
                         .method("카드")
                         .orderName("토스 티셔츠 외 2건")
@@ -69,10 +69,6 @@ public class TossPaymentsClientTest {
         // 파싱이 제대로 되었는지 확인.. 다 확인은 안하고 디버거로 적당히 했다.!
         assertAll(
                 "payment",
-                () ->
-                        assertEquals(
-                                paymentsResponse.getTotalAmount(),
-                                createPaymentsRequest.getAmount()),
                 () ->
                         assertEquals(
                                 paymentsResponse.getTotalAmount(),

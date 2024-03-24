@@ -7,9 +7,11 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreatePaymentsRequest {
+    private Long id;
+
     private String method;
 
-    private Integer amount;
+    private Long amount;
 
     private String orderId;
 

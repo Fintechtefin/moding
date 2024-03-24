@@ -10,8 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreatePaymentsRequest {
+    private Long id; // order PK
     private String method;
-    private Integer amount;
+    private Long amount;
     private String orderId;
     private String orderName;
     private String successUrl;
