@@ -19,7 +19,7 @@ const Navbar = () => {
 
   return (
     <div className="nav-container">
-      <nav className="nav-footer fixed h-[7vh] w-[100%] bottom-0 flex items-center justify-center">
+      <nav className="nav-footer fixed h-[7vh] w-[100%] bottom-0 flex items-center justify-center z-10">
         <NavLink to={"/movie"} className={navbarItemClassnames}>
           <img src={navModing} alt="" className={modingEar} />
           <img src={nav1} className={navIcon} />

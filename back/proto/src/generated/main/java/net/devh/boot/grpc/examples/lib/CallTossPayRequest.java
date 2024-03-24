@@ -43,11 +43,22 @@ private static final long serialVersionUID = 0L;
             net.devh.boot.grpc.examples.lib.CallTossPayRequest.class, net.devh.boot.grpc.examples.lib.CallTossPayRequest.Builder.class);
   }
 
-  public static final int METHOD_FIELD_NUMBER = 1;
+  public static final int ID_FIELD_NUMBER = 1;
+  private long id_ = 0L;
+  /**
+   * <code>uint64 id = 1;</code>
+   * @return The id.
+   */
+  @java.lang.Override
+  public long getId() {
+    return id_;
+  }
+
+  public static final int METHOD_FIELD_NUMBER = 2;
   @SuppressWarnings("serial")
   private volatile java.lang.Object method_ = "";
   /**
-   * <code>string method = 1;</code>
+   * <code>string method = 2;</code>
    * @return The method.
    */
   @java.lang.Override
@@ -64,7 +75,7 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <code>string method = 1;</code>
+   * <code>string method = 2;</code>
    * @return The bytes for method.
    */
   @java.lang.Override
@@ -82,22 +93,22 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int AMOUNT_FIELD_NUMBER = 2;
-  private int amount_ = 0;
+  public static final int AMOUNT_FIELD_NUMBER = 3;
+  private long amount_ = 0L;
   /**
-   * <code>int32 amount = 2;</code>
+   * <code>uint64 amount = 3;</code>
    * @return The amount.
    */
   @java.lang.Override
-  public int getAmount() {
+  public long getAmount() {
     return amount_;
   }
 
-  public static final int ORDERID_FIELD_NUMBER = 3;
+  public static final int ORDERID_FIELD_NUMBER = 4;
   @SuppressWarnings("serial")
   private volatile java.lang.Object orderId_ = "";
   /**
-   * <code>string orderId = 3;</code>
+   * <code>string orderId = 4;</code>
    * @return The orderId.
    */
   @java.lang.Override
@@ -114,7 +125,7 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <code>string orderId = 3;</code>
+   * <code>string orderId = 4;</code>
    * @return The bytes for orderId.
    */
   @java.lang.Override
@@ -132,11 +143,11 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int ORDERNAME_FIELD_NUMBER = 4;
+  public static final int ORDERNAME_FIELD_NUMBER = 5;
   @SuppressWarnings("serial")
   private volatile java.lang.Object orderName_ = "";
   /**
-   * <code>string orderName = 4;</code>
+   * <code>string orderName = 5;</code>
    * @return The orderName.
    */
   @java.lang.Override
@@ -153,7 +164,7 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <code>string orderName = 4;</code>
+   * <code>string orderName = 5;</code>
    * @return The bytes for orderName.
    */
   @java.lang.Override
@@ -171,11 +182,11 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int SUCCESSURL_FIELD_NUMBER = 5;
+  public static final int SUCCESSURL_FIELD_NUMBER = 6;
   @SuppressWarnings("serial")
   private volatile java.lang.Object successUrl_ = "";
   /**
-   * <code>string successUrl = 5;</code>
+   * <code>string successUrl = 6;</code>
    * @return The successUrl.
    */
   @java.lang.Override
@@ -192,7 +203,7 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <code>string successUrl = 5;</code>
+   * <code>string successUrl = 6;</code>
    * @return The bytes for successUrl.
    */
   @java.lang.Override
@@ -210,11 +221,11 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int FAILURL_FIELD_NUMBER = 6;
+  public static final int FAILURL_FIELD_NUMBER = 7;
   @SuppressWarnings("serial")
   private volatile java.lang.Object failUrl_ = "";
   /**
-   * <code>string failUrl = 6;</code>
+   * <code>string failUrl = 7;</code>
    * @return The failUrl.
    */
   @java.lang.Override
@@ -231,7 +242,7 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <code>string failUrl = 6;</code>
+   * <code>string failUrl = 7;</code>
    * @return The bytes for failUrl.
    */
   @java.lang.Override
@@ -263,23 +274,26 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(method_)) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, method_);
+    if (id_ != 0L) {
+      output.writeUInt64(1, id_);
     }
-    if (amount_ != 0) {
-      output.writeInt32(2, amount_);
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(method_)) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, method_);
+    }
+    if (amount_ != 0L) {
+      output.writeUInt64(3, amount_);
     }
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(orderId_)) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 3, orderId_);
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 4, orderId_);
     }
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(orderName_)) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 4, orderName_);
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 5, orderName_);
     }
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(successUrl_)) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 5, successUrl_);
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 6, successUrl_);
     }
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(failUrl_)) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 6, failUrl_);
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 7, failUrl_);
     }
     getUnknownFields().writeTo(output);
   }
@@ -290,24 +304,28 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(method_)) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, method_);
-    }
-    if (amount_ != 0) {
+    if (id_ != 0L) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(2, amount_);
+        .computeUInt64Size(1, id_);
+    }
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(method_)) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, method_);
+    }
+    if (amount_ != 0L) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeUInt64Size(3, amount_);
     }
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(orderId_)) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, orderId_);
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, orderId_);
     }
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(orderName_)) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, orderName_);
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, orderName_);
     }
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(successUrl_)) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, successUrl_);
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, successUrl_);
     }
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(failUrl_)) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, failUrl_);
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(7, failUrl_);
     }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
@@ -324,6 +342,8 @@ private static final long serialVersionUID = 0L;
     }
     net.devh.boot.grpc.examples.lib.CallTossPayRequest other = (net.devh.boot.grpc.examples.lib.CallTossPayRequest) obj;
 
+    if (getId()
+        != other.getId()) return false;
     if (!getMethod()
         .equals(other.getMethod())) return false;
     if (getAmount()
@@ -347,10 +367,14 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
+    hash = (37 * hash) + ID_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getId());
     hash = (37 * hash) + METHOD_FIELD_NUMBER;
     hash = (53 * hash) + getMethod().hashCode();
     hash = (37 * hash) + AMOUNT_FIELD_NUMBER;
-    hash = (53 * hash) + getAmount();
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getAmount());
     hash = (37 * hash) + ORDERID_FIELD_NUMBER;
     hash = (53 * hash) + getOrderId().hashCode();
     hash = (37 * hash) + ORDERNAME_FIELD_NUMBER;
@@ -488,8 +512,9 @@ private static final long serialVersionUID = 0L;
     public Builder clear() {
       super.clear();
       bitField0_ = 0;
+      id_ = 0L;
       method_ = "";
-      amount_ = 0;
+      amount_ = 0L;
       orderId_ = "";
       orderName_ = "";
       successUrl_ = "";
@@ -528,21 +553,24 @@ private static final long serialVersionUID = 0L;
     private void buildPartial0(net.devh.boot.grpc.examples.lib.CallTossPayRequest result) {
       int from_bitField0_ = bitField0_;
       if (((from_bitField0_ & 0x00000001) != 0)) {
-        result.method_ = method_;
+        result.id_ = id_;
       }
       if (((from_bitField0_ & 0x00000002) != 0)) {
-        result.amount_ = amount_;
+        result.method_ = method_;
       }
       if (((from_bitField0_ & 0x00000004) != 0)) {
-        result.orderId_ = orderId_;
+        result.amount_ = amount_;
       }
       if (((from_bitField0_ & 0x00000008) != 0)) {
-        result.orderName_ = orderName_;
+        result.orderId_ = orderId_;
       }
       if (((from_bitField0_ & 0x00000010) != 0)) {
-        result.successUrl_ = successUrl_;
+        result.orderName_ = orderName_;
       }
       if (((from_bitField0_ & 0x00000020) != 0)) {
+        result.successUrl_ = successUrl_;
+      }
+      if (((from_bitField0_ & 0x00000040) != 0)) {
         result.failUrl_ = failUrl_;
       }
     }
@@ -559,32 +587,35 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(net.devh.boot.grpc.examples.lib.CallTossPayRequest other) {
       if (other == net.devh.boot.grpc.examples.lib.CallTossPayRequest.getDefaultInstance()) return this;
+      if (other.getId() != 0L) {
+        setId(other.getId());
+      }
       if (!other.getMethod().isEmpty()) {
         method_ = other.method_;
-        bitField0_ |= 0x00000001;
+        bitField0_ |= 0x00000002;
         onChanged();
       }
-      if (other.getAmount() != 0) {
+      if (other.getAmount() != 0L) {
         setAmount(other.getAmount());
       }
       if (!other.getOrderId().isEmpty()) {
         orderId_ = other.orderId_;
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000008;
         onChanged();
       }
       if (!other.getOrderName().isEmpty()) {
         orderName_ = other.orderName_;
-        bitField0_ |= 0x00000008;
+        bitField0_ |= 0x00000010;
         onChanged();
       }
       if (!other.getSuccessUrl().isEmpty()) {
         successUrl_ = other.successUrl_;
-        bitField0_ |= 0x00000010;
+        bitField0_ |= 0x00000020;
         onChanged();
       }
       if (!other.getFailUrl().isEmpty()) {
         failUrl_ = other.failUrl_;
-        bitField0_ |= 0x00000020;
+        bitField0_ |= 0x00000040;
         onChanged();
       }
       this.mergeUnknownFields(other.getUnknownFields());
@@ -613,36 +644,41 @@ private static final long serialVersionUID = 0L;
             case 0:
               done = true;
               break;
-            case 10: {
-              method_ = input.readStringRequireUtf8();
+            case 8: {
+              id_ = input.readUInt64();
               bitField0_ |= 0x00000001;
               break;
-            } // case 10
-            case 16: {
-              amount_ = input.readInt32();
+            } // case 8
+            case 18: {
+              method_ = input.readStringRequireUtf8();
               bitField0_ |= 0x00000002;
               break;
-            } // case 16
-            case 26: {
-              orderId_ = input.readStringRequireUtf8();
+            } // case 18
+            case 24: {
+              amount_ = input.readUInt64();
               bitField0_ |= 0x00000004;
               break;
-            } // case 26
+            } // case 24
             case 34: {
-              orderName_ = input.readStringRequireUtf8();
+              orderId_ = input.readStringRequireUtf8();
               bitField0_ |= 0x00000008;
               break;
             } // case 34
             case 42: {
-              successUrl_ = input.readStringRequireUtf8();
+              orderName_ = input.readStringRequireUtf8();
               bitField0_ |= 0x00000010;
               break;
             } // case 42
             case 50: {
-              failUrl_ = input.readStringRequireUtf8();
+              successUrl_ = input.readStringRequireUtf8();
               bitField0_ |= 0x00000020;
               break;
             } // case 50
+            case 58: {
+              failUrl_ = input.readStringRequireUtf8();
+              bitField0_ |= 0x00000040;
+              break;
+            } // case 58
             default: {
               if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                 done = true; // was an endgroup tag
@@ -660,9 +696,41 @@ private static final long serialVersionUID = 0L;
     }
     private int bitField0_;
 
+    private long id_ ;
+    /**
+     * <code>uint64 id = 1;</code>
+     * @return The id.
+     */
+    @java.lang.Override
+    public long getId() {
+      return id_;
+    }
+    /**
+     * <code>uint64 id = 1;</code>
+     * @param value The id to set.
+     * @return This builder for chaining.
+     */
+    public Builder setId(long value) {
+
+      id_ = value;
+      bitField0_ |= 0x00000001;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>uint64 id = 1;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearId() {
+      bitField0_ = (bitField0_ & ~0x00000001);
+      id_ = 0L;
+      onChanged();
+      return this;
+    }
+
     private java.lang.Object method_ = "";
     /**
-     * <code>string method = 1;</code>
+     * <code>string method = 2;</code>
      * @return The method.
      */
     public java.lang.String getMethod() {
@@ -678,7 +746,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string method = 1;</code>
+     * <code>string method = 2;</code>
      * @return The bytes for method.
      */
     public com.google.protobuf.ByteString
@@ -695,7 +763,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string method = 1;</code>
+     * <code>string method = 2;</code>
      * @param value The method to set.
      * @return This builder for chaining.
      */
@@ -703,22 +771,22 @@ private static final long serialVersionUID = 0L;
         java.lang.String value) {
       if (value == null) { throw new NullPointerException(); }
       method_ = value;
-      bitField0_ |= 0x00000001;
+      bitField0_ |= 0x00000002;
       onChanged();
       return this;
     }
     /**
-     * <code>string method = 1;</code>
+     * <code>string method = 2;</code>
      * @return This builder for chaining.
      */
     public Builder clearMethod() {
       method_ = getDefaultInstance().getMethod();
-      bitField0_ = (bitField0_ & ~0x00000001);
+      bitField0_ = (bitField0_ & ~0x00000002);
       onChanged();
       return this;
     }
     /**
-     * <code>string method = 1;</code>
+     * <code>string method = 2;</code>
      * @param value The bytes for method to set.
      * @return This builder for chaining.
      */
@@ -727,46 +795,46 @@ private static final long serialVersionUID = 0L;
       if (value == null) { throw new NullPointerException(); }
       checkByteStringIsUtf8(value);
       method_ = value;
-      bitField0_ |= 0x00000001;
-      onChanged();
-      return this;
-    }
-
-    private int amount_ ;
-    /**
-     * <code>int32 amount = 2;</code>
-     * @return The amount.
-     */
-    @java.lang.Override
-    public int getAmount() {
-      return amount_;
-    }
-    /**
-     * <code>int32 amount = 2;</code>
-     * @param value The amount to set.
-     * @return This builder for chaining.
-     */
-    public Builder setAmount(int value) {
-
-      amount_ = value;
       bitField0_ |= 0x00000002;
       onChanged();
       return this;
     }
+
+    private long amount_ ;
     /**
-     * <code>int32 amount = 2;</code>
+     * <code>uint64 amount = 3;</code>
+     * @return The amount.
+     */
+    @java.lang.Override
+    public long getAmount() {
+      return amount_;
+    }
+    /**
+     * <code>uint64 amount = 3;</code>
+     * @param value The amount to set.
+     * @return This builder for chaining.
+     */
+    public Builder setAmount(long value) {
+
+      amount_ = value;
+      bitField0_ |= 0x00000004;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>uint64 amount = 3;</code>
      * @return This builder for chaining.
      */
     public Builder clearAmount() {
-      bitField0_ = (bitField0_ & ~0x00000002);
-      amount_ = 0;
+      bitField0_ = (bitField0_ & ~0x00000004);
+      amount_ = 0L;
       onChanged();
       return this;
     }
 
     private java.lang.Object orderId_ = "";
     /**
-     * <code>string orderId = 3;</code>
+     * <code>string orderId = 4;</code>
      * @return The orderId.
      */
     public java.lang.String getOrderId() {
@@ -782,7 +850,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string orderId = 3;</code>
+     * <code>string orderId = 4;</code>
      * @return The bytes for orderId.
      */
     public com.google.protobuf.ByteString
@@ -799,7 +867,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string orderId = 3;</code>
+     * <code>string orderId = 4;</code>
      * @param value The orderId to set.
      * @return This builder for chaining.
      */
@@ -807,22 +875,22 @@ private static final long serialVersionUID = 0L;
         java.lang.String value) {
       if (value == null) { throw new NullPointerException(); }
       orderId_ = value;
-      bitField0_ |= 0x00000004;
+      bitField0_ |= 0x00000008;
       onChanged();
       return this;
     }
     /**
-     * <code>string orderId = 3;</code>
+     * <code>string orderId = 4;</code>
      * @return This builder for chaining.
      */
     public Builder clearOrderId() {
       orderId_ = getDefaultInstance().getOrderId();
-      bitField0_ = (bitField0_ & ~0x00000004);
+      bitField0_ = (bitField0_ & ~0x00000008);
       onChanged();
       return this;
     }
     /**
-     * <code>string orderId = 3;</code>
+     * <code>string orderId = 4;</code>
      * @param value The bytes for orderId to set.
      * @return This builder for chaining.
      */
@@ -831,14 +899,14 @@ private static final long serialVersionUID = 0L;
       if (value == null) { throw new NullPointerException(); }
       checkByteStringIsUtf8(value);
       orderId_ = value;
-      bitField0_ |= 0x00000004;
+      bitField0_ |= 0x00000008;
       onChanged();
       return this;
     }
 
     private java.lang.Object orderName_ = "";
     /**
-     * <code>string orderName = 4;</code>
+     * <code>string orderName = 5;</code>
      * @return The orderName.
      */
     public java.lang.String getOrderName() {
@@ -854,7 +922,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string orderName = 4;</code>
+     * <code>string orderName = 5;</code>
      * @return The bytes for orderName.
      */
     public com.google.protobuf.ByteString
@@ -871,7 +939,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string orderName = 4;</code>
+     * <code>string orderName = 5;</code>
      * @param value The orderName to set.
      * @return This builder for chaining.
      */
@@ -879,22 +947,22 @@ private static final long serialVersionUID = 0L;
         java.lang.String value) {
       if (value == null) { throw new NullPointerException(); }
       orderName_ = value;
-      bitField0_ |= 0x00000008;
+      bitField0_ |= 0x00000010;
       onChanged();
       return this;
     }
     /**
-     * <code>string orderName = 4;</code>
+     * <code>string orderName = 5;</code>
      * @return This builder for chaining.
      */
     public Builder clearOrderName() {
       orderName_ = getDefaultInstance().getOrderName();
-      bitField0_ = (bitField0_ & ~0x00000008);
+      bitField0_ = (bitField0_ & ~0x00000010);
       onChanged();
       return this;
     }
     /**
-     * <code>string orderName = 4;</code>
+     * <code>string orderName = 5;</code>
      * @param value The bytes for orderName to set.
      * @return This builder for chaining.
      */
@@ -903,14 +971,14 @@ private static final long serialVersionUID = 0L;
       if (value == null) { throw new NullPointerException(); }
       checkByteStringIsUtf8(value);
       orderName_ = value;
-      bitField0_ |= 0x00000008;
+      bitField0_ |= 0x00000010;
       onChanged();
       return this;
     }
 
     private java.lang.Object successUrl_ = "";
     /**
-     * <code>string successUrl = 5;</code>
+     * <code>string successUrl = 6;</code>
      * @return The successUrl.
      */
     public java.lang.String getSuccessUrl() {
@@ -926,7 +994,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string successUrl = 5;</code>
+     * <code>string successUrl = 6;</code>
      * @return The bytes for successUrl.
      */
     public com.google.protobuf.ByteString
@@ -943,7 +1011,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string successUrl = 5;</code>
+     * <code>string successUrl = 6;</code>
      * @param value The successUrl to set.
      * @return This builder for chaining.
      */
@@ -951,22 +1019,22 @@ private static final long serialVersionUID = 0L;
         java.lang.String value) {
       if (value == null) { throw new NullPointerException(); }
       successUrl_ = value;
-      bitField0_ |= 0x00000010;
+      bitField0_ |= 0x00000020;
       onChanged();
       return this;
     }
     /**
-     * <code>string successUrl = 5;</code>
+     * <code>string successUrl = 6;</code>
      * @return This builder for chaining.
      */
     public Builder clearSuccessUrl() {
       successUrl_ = getDefaultInstance().getSuccessUrl();
-      bitField0_ = (bitField0_ & ~0x00000010);
+      bitField0_ = (bitField0_ & ~0x00000020);
       onChanged();
       return this;
     }
     /**
-     * <code>string successUrl = 5;</code>
+     * <code>string successUrl = 6;</code>
      * @param value The bytes for successUrl to set.
      * @return This builder for chaining.
      */
@@ -975,14 +1043,14 @@ private static final long serialVersionUID = 0L;
       if (value == null) { throw new NullPointerException(); }
       checkByteStringIsUtf8(value);
       successUrl_ = value;
-      bitField0_ |= 0x00000010;
+      bitField0_ |= 0x00000020;
       onChanged();
       return this;
     }
 
     private java.lang.Object failUrl_ = "";
     /**
-     * <code>string failUrl = 6;</code>
+     * <code>string failUrl = 7;</code>
      * @return The failUrl.
      */
     public java.lang.String getFailUrl() {
@@ -998,7 +1066,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string failUrl = 6;</code>
+     * <code>string failUrl = 7;</code>
      * @return The bytes for failUrl.
      */
     public com.google.protobuf.ByteString
@@ -1015,7 +1083,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string failUrl = 6;</code>
+     * <code>string failUrl = 7;</code>
      * @param value The failUrl to set.
      * @return This builder for chaining.
      */
@@ -1023,22 +1091,22 @@ private static final long serialVersionUID = 0L;
         java.lang.String value) {
       if (value == null) { throw new NullPointerException(); }
       failUrl_ = value;
-      bitField0_ |= 0x00000020;
+      bitField0_ |= 0x00000040;
       onChanged();
       return this;
     }
     /**
-     * <code>string failUrl = 6;</code>
+     * <code>string failUrl = 7;</code>
      * @return This builder for chaining.
      */
     public Builder clearFailUrl() {
       failUrl_ = getDefaultInstance().getFailUrl();
-      bitField0_ = (bitField0_ & ~0x00000020);
+      bitField0_ = (bitField0_ & ~0x00000040);
       onChanged();
       return this;
     }
     /**
-     * <code>string failUrl = 6;</code>
+     * <code>string failUrl = 7;</code>
      * @param value The bytes for failUrl to set.
      * @return This builder for chaining.
      */
@@ -1047,7 +1115,7 @@ private static final long serialVersionUID = 0L;
       if (value == null) { throw new NullPointerException(); }
       checkByteStringIsUtf8(value);
       failUrl_ = value;
-      bitField0_ |= 0x00000020;
+      bitField0_ |= 0x00000040;
       onChanged();
       return this;
     }

@@ -36,9 +36,12 @@ public class OrderService {
         order.confirm(1, orderValidator);
         paymentClient.callTossPay(
                 CreatePaymentsRequest.builder()
+                        .id(order.getId())
                         .orderId(order.getUuid()) // 주문 번호
                         .method(PaymentMethod.of(createOrderRequest.getMethod()).getMethod())
-                        .amount(order.getCount())
+                        .amount(
+                                Long.valueOf(
+                                        order.getCount() * order.getPrice())) // 단일 펀딩을 다수 개 주문 가능
                         .orderName("주문")
                         .successUrl("http://localhost:8082")
                         .failUrl("http://localhost:8082")

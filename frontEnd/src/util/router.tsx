@@ -12,7 +12,9 @@ const HomePage = lazy(() => import("@pages/HomePage"));
 const SubscribePage = lazy(() => import("@pages/SubscribePage"));
 const MyPage = lazy(() => import("@pages/myPage/MyPage"));
 const LoginPage = lazy(() => import("@pages/LoginPage"));
-const AlarmSet = lazy(() => import("@pages/myPage/AlarmSet"));
+const NotificationSet = lazy(
+  () => import("@pages/notification/NotificationSet")
+);
 const ProfileEdit = lazy(() => import("@pages/myPage/ProfileEdit"));
 const ReservePage = lazy(() => import("@pages/ReservePage"));
 const AuthPage = lazy(() => import("@pages/AuthPage"));
@@ -22,6 +24,7 @@ const PaymentSuccessPage = lazy(
 );
 const PaymentFailPage = lazy(() => import("@pages/payment/PaymentFailPage"));
 const NotFoundPage = lazy(() => import("@pages/NotFoundPage"));
+const Notification = lazy(() => import("@pages/notification/Notification"));
 
 export const router = createBrowserRouter([
   {
@@ -64,7 +67,13 @@ export const router = createBrowserRouter([
       {
         path: "user",
         children: [
-          { path: "alarmset", element: <AlarmSet /> },
+          {
+            path: "notification",
+            children: [
+              { index: true, element: <Notification /> },
+              { path: "setting", element: <NotificationSet /> },
+            ],
+          },
           { path: "edit", element: <ProfileEdit /> },
         ],
       },
