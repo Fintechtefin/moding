@@ -42,10 +42,6 @@ grpc:
       negotiationType: plaintext
 
 logging:
-  level:
-    org:
-      springframework:
-        data:
-          elasticsearch:
-            client:
-              WIRE: trace
+  config:
+    classpath:
+      logback.xml

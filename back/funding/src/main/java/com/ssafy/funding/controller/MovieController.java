@@ -1,15 +1,14 @@
 package com.ssafy.funding.controller;
 
 import com.ssafy.funding.domain.Movie;
+import com.ssafy.funding.dto.DetailMovie;
 import com.ssafy.funding.service.MovieService;
 import io.swagger.v3.oas.annotations.Operation;
+import java.io.IOException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/movies")
@@ -22,5 +21,17 @@ public class MovieController {
     @GetMapping("/search")
     public ResponseEntity<List<Movie>> searchMovie(@RequestParam String word) {
         return ResponseEntity.ok(movieService.searchMovie(word));
+    }
+
+    @Operation(summary = "검색을 통해 영화(펀딩) 상세 정보를 조회합니다.")
+    @GetMapping("/{movieId}")
+    public ResponseEntity<Movie> detailMovieBySearch(@PathVariable int movieId) throws IOException {
+        return ResponseEntity.ok(movieService.detailMovieBySearch(movieId));
+    }
+
+    @Operation(summary = "실시간 인기 영화를 조회합니다.")
+    @GetMapping("/popular")
+    public ResponseEntity<List<DetailMovie>> popularMovies() throws IOException {
+        return ResponseEntity.ok(movieService.popularMovies());
     }
 }
