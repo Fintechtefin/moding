@@ -3,7 +3,10 @@ package com.ssafy.funding.domain.validator;
 import com.ssafy.funding.common.annotation.Validator;
 import com.ssafy.funding.domain.Funding;
 import com.ssafy.funding.domain.Order;
+import com.ssafy.funding.dto.Money;
+import com.ssafy.funding.exception.InvalidOrderException;
 import com.ssafy.funding.exception.NotOwnerOrderException;
+import com.ssafy.funding.exception.NotPaymentOrderException;
 import com.ssafy.funding.repository.FundingRepository;
 import lombok.RequiredArgsConstructor;
 
@@ -55,5 +58,23 @@ public class OrderValidator {
     /** 아이템의 재고가 충분한지 확인합니다. */
     public void validFundingStockEnough(Order order, Funding funding) {
         funding.validEnoughQuantity(order.getCount());
+    }
+
+    /** 주문 방식이 결제 방식인지 검증합니다. */
+    public void validMethodIsPaymentOrder(Order order) {
+        if (!isMethodPayment(order)) {
+            throw NotPaymentOrderException.EXCEPTION;
+        }
+    }
+
+    /** 결제대금과,요청금액의 비교를 통해 정상적인 주문인지 검증합니다. */
+    public void validAmountIsSameAsRequest(Order order, Money requestAmount) {
+        if (!order.getTotalPaymentPrice().equals(requestAmount)) {
+            throw InvalidOrderException.EXCEPTION;
+        }
+    }
+
+    private Boolean isMethodPayment(Order order) {
+        return order.getOrderMethod().isPayment();
     }
 }
