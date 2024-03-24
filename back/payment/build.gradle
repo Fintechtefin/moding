@@ -3,6 +3,7 @@ plugins {
 	id 'org.springframework.boot' version '2.7.18'
 	id 'io.spring.dependency-management' version '1.1.4'
 	id 'com.diffplug.spotless' version '6.16.0'
+	id 'com.google.protobuf' version '0.9.2'
 }
 
 group = 'com.ssafy'
@@ -27,6 +28,14 @@ ext {
 }
 
 dependencies {
+	implementation project(":proto")
+
+	// gRPC
+	implementation 'net.devh:grpc-spring-boot-starter:2.13.1.RELEASE'
+
+	// protobuf
+	implementation 'com.google.protobuf:protobuf-java:3.22.2'
+
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 	implementation 'org.springframework.cloud:spring-cloud-starter-contract-stub-runner:4.1.1'
@@ -86,5 +95,35 @@ task copyPrivate(type: Copy) {
 		from '../mooding_back_submodule'
 		include "application-payment-*.yml"
 		into 'src/main/resources'
+	}
+}
+
+sourceSets {
+	src {
+		main {
+			java {
+				srcDirs 'build/generated/source/proto/main/grpc'
+				srcDirs 'build/generated/source/proto/main/java'
+			}
+		}
+	}
+}
+
+def grpcVersion = '1.42.1'
+
+protobuf {
+	protoc {
+		artifact = 'com.google.protobuf:protoc:3.12.2'
+	}
+
+	plugins {
+		grpc {
+			artifact = "io.grpc:protoc-gen-grpc-java:${grpcVersion}"
+		}
+	}
+	generateProtoTasks {
+		all()*.plugins {
+			grpc {}
+		}
 	}
 }
