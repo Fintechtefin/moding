@@ -18,6 +18,18 @@ message CallTossPayRequest {
   string failUrl = 7;
 }
 
+message CallTossPayConfirmRequest {
+  string paymentKey = 1;
+  string orderId = 2;
+  uint64 amount = 3;
+  uint64 id = 4;
+}
+
+message CallTossPayConfirmResponse {
+  string orderId = 1;
+}
+
 service OrderService {
   rpc CallTossPay(CallTossPayRequest) returns (CallTossPayResponse){}
+  rpc CallTossPayConfirm(CallTossPayConfirmRequest) returns (CallTossPayConfirmResponse){}
 }
