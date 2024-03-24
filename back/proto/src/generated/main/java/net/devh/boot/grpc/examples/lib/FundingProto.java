@@ -34,13 +34,14 @@ public final class FundingProto {
   static {
     java.lang.String[] descriptorData = {
       "\n\rFunding.proto\")\n\023CallTossPayResponse\022\022" +
-      "\n\npaymentKey\030\001 \001(\t\"}\n\022CallTossPayRequest" +
-      "\022\016\n\006method\030\001 \001(\t\022\016\n\006amount\030\002 \001(\005\022\017\n\007orde" +
-      "rId\030\003 \001(\t\022\021\n\torderName\030\004 \001(\t\022\022\n\nsuccessU" +
-      "rl\030\005 \001(\t\022\017\n\007failUrl\030\006 \001(\t2J\n\014OrderServic" +
-      "e\022:\n\013CallTossPay\022\023.CallTossPayRequest\032\024." +
-      "CallTossPayResponse\"\000B1\n\037net.devh.boot.g" +
-      "rpc.examples.libB\014FundingProtoP\001b\006proto3"
+      "\n\npaymentKey\030\001 \001(\t\"\211\001\n\022CallTossPayReques" +
+      "t\022\n\n\002id\030\001 \001(\004\022\016\n\006method\030\002 \001(\t\022\016\n\006amount\030" +
+      "\003 \001(\004\022\017\n\007orderId\030\004 \001(\t\022\021\n\torderName\030\005 \001(" +
+      "\t\022\022\n\nsuccessUrl\030\006 \001(\t\022\017\n\007failUrl\030\007 \001(\t2J" +
+      "\n\014OrderService\022:\n\013CallTossPay\022\023.CallToss" +
+      "PayRequest\032\024.CallTossPayResponse\"\000B1\n\037ne" +
+      "t.devh.boot.grpc.examples.libB\014FundingPr" +
+      "otoP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -57,7 +58,7 @@ public final class FundingProto {
     internal_static_CallTossPayRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_CallTossPayRequest_descriptor,
-        new java.lang.String[] { "Method", "Amount", "OrderId", "OrderName", "SuccessUrl", "FailUrl", });
+        new java.lang.String[] { "Id", "Method", "Amount", "OrderId", "OrderName", "SuccessUrl", "FailUrl", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

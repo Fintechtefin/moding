@@ -3,9 +3,11 @@ package com.ssafy.payment.domain;
 import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Builder
+@NoArgsConstructor
 @AllArgsConstructor
 public class PaymentMethod {
     @Id

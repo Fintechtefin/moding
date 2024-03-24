@@ -29,7 +29,7 @@ public class Producer {
         return CreatePaymentsRequest.builder()
                 .orderId(order.getUuid()) // 주문 번호
                 .method(order.getOrderMethod().getValue())
-                .amount(order.getCount())
+                .amount(Long.valueOf(order.getCount() * order.getPrice()))
                 .orderName("주문")
                 .successUrl("http://localhost:8082")
                 .failUrl("http://localhost:8082")
