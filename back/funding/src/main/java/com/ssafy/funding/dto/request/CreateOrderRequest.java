@@ -14,4 +14,8 @@ public class CreateOrderRequest {
     @NotNull
     @Schema(nullable = false)
     private Integer fundingCount;
+
+    @NotNull
+    @Schema(nullable = false)
+    private String method; // 결제 수단
 }
