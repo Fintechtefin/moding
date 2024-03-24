@@ -1,6 +1,7 @@
 package com.ssafy.funding.domain;
 
 import com.ssafy.funding.domain.validator.OrderValidator;
+import com.ssafy.funding.dto.Money;
 import com.ssafy.funding.exception.NotPendingOrderException;
 import java.util.Objects;
 import java.util.UUID;
@@ -78,5 +79,14 @@ public class Order extends BaseTime {
                         .funding(funding)
                         .build();
         return order;
+    }
+
+    /** 총 결제 금액을 가져옵니다. * */
+    public Money getTotalPaymentPrice() {
+        Money money = Money.ZERO;
+        for (int i = 0; i < this.getCount(); i++) {
+            money.plus(Money.wons(this.price));
+        }
+        return money;
     }
 }
