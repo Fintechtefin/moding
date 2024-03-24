@@ -1,9 +1,9 @@
 package com.ssafy.funding.repository;
 
 import com.ssafy.funding.domain.document.MovieDocument;
-import java.util.List;
+import java.util.Optional;
+import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 
-// extends ElasticsearchRepository<MovieDocument,Long>
-public interface MovieSearchRepository {
-    List<MovieDocument> findByTitleContainingOrActorsContaining(String keyword);
+public interface MovieSearchRepository extends ElasticsearchRepository<MovieDocument, String> {
+    Optional<MovieDocument> findById(String movieId);
 }
