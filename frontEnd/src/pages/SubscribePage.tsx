@@ -12,7 +12,7 @@ const SubscribePage = () => {
   };
 
   return (
-    <div className="subscribe-container flex flex-col">
+    <div className="flex flex-col subscribe-container">
       <NavHeader leftWord="관심 있는 소식만 모았어요" />
       <div className="flex flex-col gap-[2vh]">
         <SubscribeType check={check} handleChange={handleChange} />
