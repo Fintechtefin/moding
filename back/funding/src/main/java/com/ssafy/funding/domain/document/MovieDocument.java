@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.elasticsearch.annotations.Document;
 
-@Document(indexName = "test2")
+@Document(indexName = "test5")
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

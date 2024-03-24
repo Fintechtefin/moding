@@ -13,7 +13,7 @@ public class ElasticSearchConfig extends AbstractElasticsearchConfig {
     public RestHighLevelClient elasticsearchClient() {
         // http port 와 통신할 주소 -> 추후 서버 주소로 변경하기
         ClientConfiguration configuration =
-                ClientConfiguration.builder().connectedTo("j10c204.p.ssafy.io:9200").build();
+                ClientConfiguration.builder().connectedTo("localhost:9200").build();
         return RestClients.create(configuration).rest();
     }
 }

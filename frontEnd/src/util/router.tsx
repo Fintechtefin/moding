@@ -25,6 +25,7 @@ const PaymentSuccessPage = lazy(
 const PaymentFailPage = lazy(() => import("@pages/payment/PaymentFailPage"));
 const NotFoundPage = lazy(() => import("@pages/NotFoundPage"));
 const Notification = lazy(() => import("@pages/notification/Notification"));
+const TicketPage = lazy(() => import("@pages/TicketPage"));
 
 export const router = createBrowserRouter([
   {
@@ -75,6 +76,7 @@ export const router = createBrowserRouter([
             ],
           },
           { path: "edit", element: <ProfileEdit /> },
+          { path: "ticket", element: <TicketPage /> },
         ],
       },
       {

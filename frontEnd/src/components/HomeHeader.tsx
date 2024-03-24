@@ -7,7 +7,10 @@ const TopNavbar = () => {
 
   return (
     <div className="h-[7vh] flex gap-4 justify-end items-center px-[3vh] text-[3vh]">
-      <IoTicketOutline />
+      <IoTicketOutline
+        className="cursor-pointer"
+        onClick={() => navigate("user/ticket")}
+      />
       <LuBellRing
         className="cursor-pointer"
         onClick={() => navigate("user/notification")}

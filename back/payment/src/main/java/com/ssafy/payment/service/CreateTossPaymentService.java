@@ -1,19 +1,20 @@
 package com.ssafy.payment.service;
 
+import com.ssafy.payment.controller.PaymentsConfirmClient;
 import com.ssafy.payment.controller.PaymentsCreateClient;
 import com.ssafy.payment.domain.Payment;
 import com.ssafy.payment.domain.PaymentMethod;
 import com.ssafy.payment.domain.PaymentStatus;
+import com.ssafy.payment.dto.request.ConfirmPaymentsRequest;
 import com.ssafy.payment.dto.request.CreatePaymentsRequest;
 import com.ssafy.payment.dto.response.PaymentsResponse;
+import com.ssafy.payment.exception.NotFoundPaymentException;
 import com.ssafy.payment.repository.PaymentMethodRepository;
 import com.ssafy.payment.repository.PaymentRepository;
 import com.ssafy.payment.repository.PaymentStatusRepository;
 import io.grpc.stub.StreamObserver;
 import lombok.RequiredArgsConstructor;
-import net.devh.boot.grpc.examples.lib.CallTossPayRequest;
-import net.devh.boot.grpc.examples.lib.CallTossPayResponse;
-import net.devh.boot.grpc.examples.lib.OrderServiceGrpc;
+import net.devh.boot.grpc.examples.lib.*;
 import net.devh.boot.grpc.server.service.GrpcService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class CreateTossPaymentService extends OrderServiceGrpc.OrderServiceImplBase {
 
+    private final PaymentsConfirmClient paymentsConfirmClient;
     private final PaymentsCreateClient paymentsCreateClient;
     private final PaymentMethodRepository paymentMethodRepository;
     private final PaymentRepository paymentRepository;
@@ -55,6 +57,34 @@ public class CreateTossPaymentService extends OrderServiceGrpc.OrderServiceImplB
                 CallTossPayResponse.newBuilder()
                         .setPaymentKey(paymentsResponse.getPaymentKey())
                         .build());
+        responseObserver.onCompleted();
+    }
+
+    @Override
+    public void callTossPayConfirm(
+            CallTossPayConfirmRequest request,
+            StreamObserver<CallTossPayConfirmResponse> responseObserver) {
+        PaymentsResponse paymentsResponse =
+                paymentsConfirmClient.execute(
+                        ConfirmPaymentsRequest.builder()
+                                .paymentKey(request.getPaymentKey())
+                                .orderId(request.getOrderId())
+                                .amount(request.getAmount())
+                                .build());
+
+        Payment payment =
+                paymentRepository
+                        .findByPaymentKey(request.getPaymentKey())
+                        .orElseThrow(() -> NotFoundPaymentException.EXCEPTION);
+        PaymentMethod paymentMethod = paymentMethodRepository.findByName(payment.getPaymentKey());
+        PaymentStatus paymentStatus =
+                paymentStatusRepository.findByName(paymentsResponse.getStatus().name());
+        paymentRepository.save(
+                Payment.createPayment(
+                        request.getId(), paymentsResponse, paymentMethod, paymentStatus));
+
+        responseObserver.onNext(
+                CallTossPayConfirmResponse.newBuilder().setOrderId(request.getOrderId()).build());
         responseObserver.onCompleted();
     }
 }

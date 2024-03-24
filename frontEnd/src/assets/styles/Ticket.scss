@@ -1,0 +1,40 @@
+.TicketPage {
+  .ticket-mask {
+    mask-image: url("../images/ticket.png");
+    mask-size: 42vh;
+    mask-position: center;
+    mask-repeat: no-repeat;
+  }
+
+  .card-container {
+    perspective: 1000px;
+
+    .card {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.8s;
+      transform-style: preserve-3d;
+      cursor: pointer;
+
+      &.is-flipped {
+        transform: rotateY(-180deg);
+      }
+    }
+
+    .card-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+    }
+
+    .card-back {
+      transform: rotateY(180deg);
+
+      .dash-line {
+        border-bottom: 2px dashed red;
+      }
+    }
+  }
+}

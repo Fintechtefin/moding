@@ -46,6 +46,37 @@ public final class OrderServiceGrpc {
     return getCallTossPayMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<net.devh.boot.grpc.examples.lib.CallTossPayConfirmRequest,
+      net.devh.boot.grpc.examples.lib.CallTossPayConfirmResponse> getCallTossPayConfirmMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "CallTossPayConfirm",
+      requestType = net.devh.boot.grpc.examples.lib.CallTossPayConfirmRequest.class,
+      responseType = net.devh.boot.grpc.examples.lib.CallTossPayConfirmResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<net.devh.boot.grpc.examples.lib.CallTossPayConfirmRequest,
+      net.devh.boot.grpc.examples.lib.CallTossPayConfirmResponse> getCallTossPayConfirmMethod() {
+    io.grpc.MethodDescriptor<net.devh.boot.grpc.examples.lib.CallTossPayConfirmRequest, net.devh.boot.grpc.examples.lib.CallTossPayConfirmResponse> getCallTossPayConfirmMethod;
+    if ((getCallTossPayConfirmMethod = OrderServiceGrpc.getCallTossPayConfirmMethod) == null) {
+      synchronized (OrderServiceGrpc.class) {
+        if ((getCallTossPayConfirmMethod = OrderServiceGrpc.getCallTossPayConfirmMethod) == null) {
+          OrderServiceGrpc.getCallTossPayConfirmMethod = getCallTossPayConfirmMethod =
+              io.grpc.MethodDescriptor.<net.devh.boot.grpc.examples.lib.CallTossPayConfirmRequest, net.devh.boot.grpc.examples.lib.CallTossPayConfirmResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "CallTossPayConfirm"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  net.devh.boot.grpc.examples.lib.CallTossPayConfirmRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  net.devh.boot.grpc.examples.lib.CallTossPayConfirmResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new OrderServiceMethodDescriptorSupplier("CallTossPayConfirm"))
+              .build();
+        }
+      }
+    }
+    return getCallTossPayConfirmMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -101,6 +132,13 @@ public final class OrderServiceGrpc {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getCallTossPayMethod(), responseObserver);
     }
 
+    /**
+     */
+    public void callTossPayConfirm(net.devh.boot.grpc.examples.lib.CallTossPayConfirmRequest request,
+        io.grpc.stub.StreamObserver<net.devh.boot.grpc.examples.lib.CallTossPayConfirmResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getCallTossPayConfirmMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -110,6 +148,13 @@ public final class OrderServiceGrpc {
                 net.devh.boot.grpc.examples.lib.CallTossPayRequest,
                 net.devh.boot.grpc.examples.lib.CallTossPayResponse>(
                   this, METHODID_CALL_TOSS_PAY)))
+          .addMethod(
+            getCallTossPayConfirmMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                net.devh.boot.grpc.examples.lib.CallTossPayConfirmRequest,
+                net.devh.boot.grpc.examples.lib.CallTossPayConfirmResponse>(
+                  this, METHODID_CALL_TOSS_PAY_CONFIRM)))
           .build();
     }
   }
@@ -135,6 +180,14 @@ public final class OrderServiceGrpc {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getCallTossPayMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void callTossPayConfirm(net.devh.boot.grpc.examples.lib.CallTossPayConfirmRequest request,
+        io.grpc.stub.StreamObserver<net.devh.boot.grpc.examples.lib.CallTossPayConfirmResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getCallTossPayConfirmMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -156,6 +209,13 @@ public final class OrderServiceGrpc {
     public net.devh.boot.grpc.examples.lib.CallTossPayResponse callTossPay(net.devh.boot.grpc.examples.lib.CallTossPayRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getCallTossPayMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public net.devh.boot.grpc.examples.lib.CallTossPayConfirmResponse callTossPayConfirm(net.devh.boot.grpc.examples.lib.CallTossPayConfirmRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getCallTossPayConfirmMethod(), getCallOptions(), request);
     }
   }
 
@@ -180,9 +240,18 @@ public final class OrderServiceGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getCallTossPayMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<net.devh.boot.grpc.examples.lib.CallTossPayConfirmResponse> callTossPayConfirm(
+        net.devh.boot.grpc.examples.lib.CallTossPayConfirmRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getCallTossPayConfirmMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_CALL_TOSS_PAY = 0;
+  private static final int METHODID_CALL_TOSS_PAY_CONFIRM = 1;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -204,6 +273,10 @@ public final class OrderServiceGrpc {
         case METHODID_CALL_TOSS_PAY:
           serviceImpl.callTossPay((net.devh.boot.grpc.examples.lib.CallTossPayRequest) request,
               (io.grpc.stub.StreamObserver<net.devh.boot.grpc.examples.lib.CallTossPayResponse>) responseObserver);
+          break;
+        case METHODID_CALL_TOSS_PAY_CONFIRM:
+          serviceImpl.callTossPayConfirm((net.devh.boot.grpc.examples.lib.CallTossPayConfirmRequest) request,
+              (io.grpc.stub.StreamObserver<net.devh.boot.grpc.examples.lib.CallTossPayConfirmResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -267,6 +340,7 @@ public final class OrderServiceGrpc {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new OrderServiceFileDescriptorSupplier())
               .addMethod(getCallTossPayMethod())
+              .addMethod(getCallTossPayConfirmMethod())
               .build();
         }
       }
