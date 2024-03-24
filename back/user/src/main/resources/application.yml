@@ -8,7 +8,7 @@ spring:
     name: user
 
   config:
-    import: application-user-local.yml
+    import: application-user-local.yml, application-user-prod.yml
 
   eureka:
     client:
