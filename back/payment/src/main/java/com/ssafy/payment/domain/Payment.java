@@ -5,9 +5,13 @@ import java.time.ZonedDateTime;
 import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+@Getter
 @Entity
 @Builder
+@NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "payment")
 public class Payment {
@@ -22,7 +26,6 @@ public class Payment {
     @Column(nullable = false)
     private String paymentKey; // 결제 건에 대한 고유한 키값
 
-    @Column(nullable = false)
     private ZonedDateTime approvedAt; // 결제 승인이 일어난 시간정보
 
     @Column(nullable = false)
@@ -30,7 +33,7 @@ public class Payment {
 
     // @OneToOne private PaymentCancel paymentCancel;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "payment_method_id")
     private PaymentMethod paymentMethod;
 
@@ -48,7 +51,10 @@ public class Payment {
                 .paymentKey(paymentsResponse.getPaymentKey())
                 .orderId(orderId)
                 .requestedAt(paymentsResponse.getRequestedAt())
-                .approvedAt(paymentsResponse.getApprovedAt())
+                .approvedAt(
+                        paymentsResponse.getApprovedAt() == null
+                                ? null
+                                : paymentsResponse.getApprovedAt())
                 .paymentMethod(paymentMethod)
                 .paymentStatus(paymentStatus)
                 .build();

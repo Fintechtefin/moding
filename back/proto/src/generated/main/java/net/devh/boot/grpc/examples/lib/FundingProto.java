@@ -24,6 +24,16 @@ public final class FundingProto {
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_CallTossPayRequest_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_CallTossPayConfirmRequest_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_CallTossPayConfirmRequest_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_CallTossPayConfirmResponse_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_CallTossPayConfirmResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -37,11 +47,16 @@ public final class FundingProto {
       "\n\npaymentKey\030\001 \001(\t\"\211\001\n\022CallTossPayReques" +
       "t\022\n\n\002id\030\001 \001(\004\022\016\n\006method\030\002 \001(\t\022\016\n\006amount\030" +
       "\003 \001(\004\022\017\n\007orderId\030\004 \001(\t\022\021\n\torderName\030\005 \001(" +
-      "\t\022\022\n\nsuccessUrl\030\006 \001(\t\022\017\n\007failUrl\030\007 \001(\t2J" +
-      "\n\014OrderService\022:\n\013CallTossPay\022\023.CallToss" +
-      "PayRequest\032\024.CallTossPayResponse\"\000B1\n\037ne" +
-      "t.devh.boot.grpc.examples.libB\014FundingPr" +
-      "otoP\001b\006proto3"
+      "\t\022\022\n\nsuccessUrl\030\006 \001(\t\022\017\n\007failUrl\030\007 \001(\t\"\\" +
+      "\n\031CallTossPayConfirmRequest\022\022\n\npaymentKe" +
+      "y\030\001 \001(\t\022\017\n\007orderId\030\002 \001(\t\022\016\n\006amount\030\003 \001(\004" +
+      "\022\n\n\002id\030\004 \001(\004\"-\n\032CallTossPayConfirmRespon" +
+      "se\022\017\n\007orderId\030\001 \001(\t2\233\001\n\014OrderService\022:\n\013" +
+      "CallTossPay\022\023.CallTossPayRequest\032\024.CallT" +
+      "ossPayResponse\"\000\022O\n\022CallTossPayConfirm\022\032" +
+      ".CallTossPayConfirmRequest\032\033.CallTossPay" +
+      "ConfirmResponse\"\000B1\n\037net.devh.boot.grpc." +
+      "examples.libB\014FundingProtoP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -59,6 +74,18 @@ public final class FundingProto {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_CallTossPayRequest_descriptor,
         new java.lang.String[] { "Id", "Method", "Amount", "OrderId", "OrderName", "SuccessUrl", "FailUrl", });
+    internal_static_CallTossPayConfirmRequest_descriptor =
+      getDescriptor().getMessageTypes().get(2);
+    internal_static_CallTossPayConfirmRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_CallTossPayConfirmRequest_descriptor,
+        new java.lang.String[] { "PaymentKey", "OrderId", "Amount", "Id", });
+    internal_static_CallTossPayConfirmResponse_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_CallTossPayConfirmResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_CallTossPayConfirmResponse_descriptor,
+        new java.lang.String[] { "OrderId", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

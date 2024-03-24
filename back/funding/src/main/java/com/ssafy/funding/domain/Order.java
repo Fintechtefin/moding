@@ -85,7 +85,7 @@ public class Order extends BaseTime {
     public Money getTotalPaymentPrice() {
         Money money = Money.ZERO;
         for (int i = 0; i < this.getCount(); i++) {
-            money.plus(Money.wons(this.price));
+            money = money.plus(Money.wons(this.price));
         }
         return money;
     }

@@ -92,6 +92,8 @@ public class OrderService {
         orderValidator.validMethodIsPaymentOrder(order);
         orderValidator.validAmountIsSameAsRequest(order, paymentWons);
 
+        paymentClient.callTossPayConfirm(confirmPaymentsRequest, order.getId());
+
         return OrderConfirmResponse.of(order);
     }
 }
