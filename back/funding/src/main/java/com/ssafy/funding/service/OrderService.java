@@ -23,12 +23,16 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final FundingRepository fundingRepository;
     private final OrderValidator orderValidator;
+    // private final Producer producer;
 
-    public OrderResponse orderFunding(
-            final CreateOrderRequest createOrderRequest, final Integer currentUserId) {
-        final Order order = createFundingOrder(createOrderRequest, currentUserId);
-        order.confirm(currentUserId, orderValidator);
-        return OrderResponse.of(order);
+    // @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
+    // @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public String orderFunding(final CreateOrderRequest createOrderRequest) {
+        final Order order = createFundingOrder(createOrderRequest, 1);
+        order.confirm(1, orderValidator);
+
+        // producer.sendCreateOrderRequest("order", order);
+        return OrderResponse.of(order).getOrderUuid();
     }
 
     public Order createFundingOrder(

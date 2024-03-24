@@ -1,0 +1,15 @@
+services:
+  spring-boot:
+    restart: 'on-failure'
+    build:
+      dockerfile: Dockerfile
+      args:
+        PROFILE: prod
+    container_name: 'user-prod'
+    ports:
+      - 8086:8086
+    networks:
+      - mooding_network
+
+networks:
+  mooding_network:

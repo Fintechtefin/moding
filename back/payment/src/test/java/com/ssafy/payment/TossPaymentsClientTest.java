@@ -43,7 +43,7 @@ public class TossPaymentsClientTest {
                 CreatePaymentsRequest.builder()
                         .successUrl("http://localhost:8080/return-url")
                         .failUrl(null)
-                        .amount(1000L)
+                        .amount(1000)
                         .orderId("MC4wODU4ODQwMzg4NDk0")
                         .method("카드")
                         .orderName("토스 티셔츠 외 2건")
