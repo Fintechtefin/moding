@@ -4,12 +4,15 @@ import static com.ssafy.funding.exception.global.CustomExceptionStatus.FUNDING_N
 
 import com.ssafy.funding.domain.Funding;
 import com.ssafy.funding.domain.Order;
+import com.ssafy.funding.domain.PaymentMethod;
 import com.ssafy.funding.domain.validator.OrderValidator;
 import com.ssafy.funding.dto.request.CreateOrderRequest;
+import com.ssafy.funding.dto.request.CreatePaymentsRequest;
 import com.ssafy.funding.dto.response.OrderResponse;
 import com.ssafy.funding.exception.BadRequestException;
 import com.ssafy.funding.repository.FundingRepository;
 import com.ssafy.funding.repository.OrderRepository;
+import com.ssafy.funding.service.client.PaymentClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,16 +26,25 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final FundingRepository fundingRepository;
     private final OrderValidator orderValidator;
+    private final PaymentClient paymentClient;
     // private final Producer producer;
 
     // @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     // @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public String orderFunding(final CreateOrderRequest createOrderRequest) {
+    public OrderResponse orderFunding(final CreateOrderRequest createOrderRequest) {
         final Order order = createFundingOrder(createOrderRequest, 1);
         order.confirm(1, orderValidator);
-
+        paymentClient.callTossPay(
+                CreatePaymentsRequest.builder()
+                        .orderId(order.getUuid()) // 주문 번호
+                        .method(PaymentMethod.of(createOrderRequest.getMethod()).getMethod())
+                        .amount(order.getCount())
+                        .orderName("주문")
+                        .successUrl("http://localhost:8082")
+                        .failUrl("http://localhost:8082")
+                        .build());
         // producer.sendCreateOrderRequest("order", order);
-        return OrderResponse.of(order).getOrderUuid();
+        return OrderResponse.of(order);
     }
 
     public Order createFundingOrder(

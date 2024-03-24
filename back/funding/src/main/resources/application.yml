@@ -35,6 +35,11 @@ grpc:
       enableKeepAlive: true
       keepAliveWithoutCalls: true
       negotiationType: plaintext
+    payment:
+      address: 'discovery:///PAYMENT'
+      enableKeepAlive: true
+      keepAliveWithoutCalls: true
+      negotiationType: plaintext
 
 logging:
   level:
