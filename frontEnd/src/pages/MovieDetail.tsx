@@ -5,6 +5,7 @@ import AboutMovie from "@components/movieDetail/AboutMovie";
 import AboutFunding from "@components/movieDetail/AboutFunding";
 import AboutNote from "@components/movieDetail/AboutNote";
 import MovieDetailButton from "@components/movieDetail/MovieDetailButton";
+import HopeSurvey from "@components/movieDetail/HopeSurvey";
 import InfoArea from "@components/movieDetail/InfoArea";
 
 interface MovieInfo {
@@ -26,7 +27,7 @@ const MovieDetail = () => {
   const [movieInfo, setMovieInfo] = useState<MovieInfo>({
     id: 1,
     title: "밀정",
-    status: "무딩 중",
+    status: "무딩 준비 중",
     release: "2016.09.07",
     runningTime: 140,
     age: "15세관람가",
@@ -39,6 +40,7 @@ const MovieDetail = () => {
   });
 
   const [infoCategory, setInfoCategory] = useState(0);
+  const [modalShow, setModalShow] = useState(true);
   // 무딩 준비 중이거나 무딩 완료 시에 false로 바꾸기
   const [fundingInfo, setFundingInfo] = useState(true);
 
@@ -54,39 +56,56 @@ const MovieDetail = () => {
       <NoneNavHeader type="share" />
       {/* info영역 */}
       <div className="flex flex-col items-center mt-72">
-        <div className="text-3xl">{movieInfo.title}</div>
-        <div className="flex flex-row gap-2 mt-4 text-[1.5vh]">
+        <div className="text-[4vh] px-6 text-center">{movieInfo.title}</div>
+        <div className="flex flex-row gap-2 mt-4 text-[2vh]">
           <div>{movieInfo.release} 개봉</div>
           <span>|</span>
           <div>{movieInfo.runningTime}분</div>
           <span>|</span>
           <div>{movieInfo.age}</div>
         </div>
-        <div className="w-[90%] mt-8">{fundingInfo && <InfoArea status={movieInfo.status} />}</div>
       </div>
       {/* 상세정보영역 */}
       <div>
         <div className="info-detail flex flex-row justify-around mt-10 text-[2.3vh] border-red-700">
-          <div className={`border-red-700 ${infoCategory == 0 ? "select" : ""}`} onClick={() => setInfoCategory(0)}>
+          <div
+            className={`border-red-700 ${infoCategory == 0 ? "select" : ""}`}
+            onClick={() => setInfoCategory(0)}
+          >
             영화 정보
           </div>
-          <div className={`border-red-700 ${infoCategory == 1 ? "select" : ""}`} onClick={() => setInfoCategory(1)}>
+          <div
+            className={`border-red-700 ${infoCategory == 1 ? "select" : ""}`}
+            onClick={() => setInfoCategory(1)}
+          >
             펀딩 정보
           </div>
-          <div className={`border-red-700 ${infoCategory == 2 ? "select" : ""}`} onClick={() => setInfoCategory(2)}>
+          <div
+            className={`border-red-700 ${infoCategory == 2 ? "select" : ""}`}
+            onClick={() => setInfoCategory(2)}
+          >
             유의 사항
           </div>
         </div>
         <div className="px-4 pt-4 pb-20">
-          {infoCategory == 0 && <AboutMovie actors={movieInfo.actors} plot={movieInfo.plot} />}
+          {infoCategory == 0 && (
+            <AboutMovie actors={movieInfo.actors} plot={movieInfo.plot} />
+          )}
           {infoCategory == 1 && <AboutFunding />}
           {infoCategory == 2 && <AboutNote />}
         </div>
       </div>
       {/* 버튼 */}
       <div className="z-[2] button-area cursor-pointer sticky bottom-0 w-[100%] h-[8vh]">
-        <MovieDetailButton id={movieInfo.id} status={movieInfo.status} likeCnt={movieInfo.likeCnt} hopeCnt={movieInfo.hopeCnt} alarmCnt={movieInfo.alarmCnt} />
+        <MovieDetailButton
+          id={movieInfo.id}
+          status={movieInfo.status}
+          likeCnt={movieInfo.likeCnt}
+          hopeCnt={movieInfo.hopeCnt}
+          alarmCnt={movieInfo.alarmCnt}
+        />
       </div>
+      {modalShow && <HopeSurvey />}
     </div>
   );
 };

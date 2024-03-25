@@ -9,11 +9,17 @@ interface Props {
   alarmCnt: number;
 }
 
-const MovieDetailButton = ({ id, status, likeCnt, hopeCnt, alarmCnt }: Props) => {
-  const [isDone, setIsDone] = useState(false);
+const MovieDetailButton = ({
+  id,
+  status,
+  likeCnt,
+  hopeCnt,
+  alarmCnt,
+}: Props) => {
+  const [isDone, setIsDone] = useState(true);
   const [isLiked, setIsLiked] = useState(true);
   const [likeNowCnt, setLikeNowCnt] = useState(likeCnt);
-  const [isHope, setIsHope] = useState(true);
+  const [isHope, setIsHope] = useState(false);
   const [hopeNowCnt, setHopeNowCnt] = useState(hopeCnt);
   const [applyAlarm, setApplyAlarm] = useState(false);
   const [alarmNowCnt, setAlarmNowCnt] = useState(alarmCnt);
@@ -44,9 +50,7 @@ const MovieDetailButton = ({ id, status, likeCnt, hopeCnt, alarmCnt }: Props) =>
 
   const postHope = async (id: number) => {
     if (isHope) {
-      setIsDone(!isDone);
-      setIsHope(!isHope);
-      setHopeNowCnt((prev) => prev - 1);
+      return;
     } else {
       setIsDone(!isDone);
       setIsHope(!isHope);
@@ -75,16 +79,25 @@ const MovieDetailButton = ({ id, status, likeCnt, hopeCnt, alarmCnt }: Props) =>
       <div className="movie-detail-btn flex flex-row h-[7vh] border-red-700">
         <div className="like-area basis-1/6 bg-black border-red-700">
           <div className="placement">
-            <div className={`heart ${isLiked ? "is-active" : ""}`} onClick={() => postLike(id)}></div>
+            <div
+              className={`heart ${isLiked ? "is-active" : ""}`}
+              onClick={() => postLike(id)}
+            ></div>
           </div>
           <div className="pt-[4vh] text-center text-[1.8vh]">{likeNowCnt}</div>
         </div>
-        <div className={`flex justify-center items-center basis-5/6 w-[100%] h-[100%] ${isLiked ? "is-active" : ""} ${isDone ? "bg-black" : "bg-red-700"}`}>
+        <div
+          className={`flex justify-center items-center basis-5/6 w-[100%] h-[100%] ${
+            isLiked ? "is-active" : ""
+          } ${isDone ? "bg-black" : "bg-red-700"}`}
+        >
           {status == "무딩 준비 중" && (
             <>
               <div className={buttonTextArea} onClick={() => postHope(id)}>
                 <div className="flex items-end gap-1">
-                  <div className={buttonText}>{isHope ? "무딩 요청중" : "무딩 요청하기"}</div>
+                  <div className={buttonText}>
+                    {isHope ? "무딩 요청중" : "무딩 요청하기"}
+                  </div>
                   <div className={buttonSub}>{hopeNowCnt}명 신청중</div>
                 </div>
               </div>
@@ -94,7 +107,9 @@ const MovieDetailButton = ({ id, status, likeCnt, hopeCnt, alarmCnt }: Props) =>
             <>
               <div className={buttonTextArea} onClick={() => postAlarm(id)}>
                 <div className="flex items-end gap-1">
-                  <div className={buttonText}>{applyAlarm ? "알림신청완료" : "알림신청"}</div>
+                  <div className={buttonText}>
+                    {applyAlarm ? "알림신청완료" : "알림신청"}
+                  </div>
                   <div className={buttonSub}>({alarmNowCnt}명 신청중)</div>
                 </div>
               </div>
