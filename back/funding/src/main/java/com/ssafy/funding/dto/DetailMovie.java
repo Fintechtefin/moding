@@ -1,5 +1,6 @@
 package com.ssafy.funding.dto;
 
+import com.ssafy.funding.domain.Movie;
 import com.ssafy.funding.domain.document.MovieDocument;
 import io.swagger.v3.oas.annotations.media.Schema;
 import javax.validation.constraints.NotNull;
@@ -24,13 +25,26 @@ public class DetailMovie {
     @Schema(description = "현재 상태")
     private String status;
 
-    public static DetailMovie of(MovieDocument movieDocument) {
+    @Schema(description = "펀딩 개최 횟수")
+    private int count;
+
+    public static DetailMovie of(Movie movie) {
         DetailMovie detailMovie = new DetailMovie();
-        detailMovie.movieId = movieDocument.getId();
-        detailMovie.title = movieDocument.getTitle();
-        detailMovie.poster = movieDocument.getPoster();
-        detailMovie.status = detailMovie.getStatus();
+        detailMovie.movieId = movie.getId();
+        detailMovie.title = movie.getTitle();
+        detailMovie.poster = movie.getPoster();
+        detailMovie.status = movie.getStatus();
 
         return detailMovie;
     }
+
+//    public static DetailMovie of(MovieDocument movieDocument) {
+//        DetailMovie detailMovie = new DetailMovie();
+//        detailMovie.movieId = movieDocument.getId();
+//        detailMovie.title = movieDocument.getTitle();
+//        detailMovie.poster = movieDocument.getPoster();
+//        detailMovie.status = detailMovie.getStatus();
+//
+//        return detailMovie;
+//    }
 }

@@ -4,7 +4,7 @@ import {
   isSelectableSelector,
   isSelectedSelector,
   selectSeatsAtom,
-} from "@stores/reserveStore";
+} from "@recoil/reserveStore";
 import { IoClose } from "react-icons/io5";
 
 interface Props {

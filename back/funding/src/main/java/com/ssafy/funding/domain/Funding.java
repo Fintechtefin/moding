@@ -1,6 +1,5 @@
 package com.ssafy.funding.domain;
 
-import static com.ssafy.funding.domain.FundingStatus.CLOSED;
 import static com.ssafy.funding.domain.FundingStatus.OPEN;
 
 import com.ssafy.funding.exception.FundingNotOpenException;
@@ -34,7 +33,7 @@ public class Funding {
     ERD에서 없어서 한번 열렸다가 종료된 펀딩은 지울지 이야기 해봐야 함
      */
     @Enumerated(EnumType.STRING)
-    private FundingStatus status = CLOSED; // 펀딩이 열리지 않은 영화
+    private FundingStatus status;
 
     private LocalDateTime startAt;
 

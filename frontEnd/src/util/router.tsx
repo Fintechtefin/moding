@@ -3,29 +3,28 @@ import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "@components/MainLayout";
 import "@/firebase-messaging-sw";
 import "@/App.scss";
+import FundingProgress from "@pages/user/FundingProgress";
 
 const ModingOffice = lazy(() => import("@pages/ModingOffice"));
 const MovieCategory = lazy(() => import("@pages/MovieCategory"));
 const MovieDetail = lazy(() => import("@pages/MovieDetail"));
-const FundingListPage = lazy(() => import("@pages/FundingListPage"));
+const ModingListPage = lazy(() => import("@pages/ModingListPage"));
 const HomePage = lazy(() => import("@pages/HomePage"));
 const SubscribePage = lazy(() => import("@pages/SubscribePage"));
-const MyPage = lazy(() => import("@pages/myPage/MyPage"));
+const MyPage = lazy(() => import("@pages/user/MyPage"));
 const LoginPage = lazy(() => import("@pages/LoginPage"));
 const NotificationSet = lazy(
   () => import("@pages/notification/NotificationSet")
 );
-const ProfileEdit = lazy(() => import("@pages/myPage/ProfileEdit"));
+const ProfileEdit = lazy(() => import("@pages/user/ProfileEdit"));
 const ReservePage = lazy(() => import("@pages/ReservePage"));
 const AuthPage = lazy(() => import("@pages/AuthPage"));
 const PaymentPage = lazy(() => import("@pages/payment/PaymentPage"));
-const PaymentSuccessPage = lazy(
-  () => import("@pages/payment/PaymentSuccessPage")
-);
+const PaymentSuccessPage = lazy(() => import("@pages/payment/PaymentSuccessPage"));
 const PaymentFailPage = lazy(() => import("@pages/payment/PaymentFailPage"));
 const NotFoundPage = lazy(() => import("@pages/NotFoundPage"));
 const Notification = lazy(() => import("@pages/notification/Notification"));
-const TicketPage = lazy(() => import("@pages/TicketPage"));
+const TicketPage = lazy(() => import("@pages/user/TicketPage"));
 
 export const router = createBrowserRouter([
   {
@@ -45,7 +44,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "fund",
-        children: [{ path: "list", element: <FundingListPage /> }],
+        children: [{ path: "list", element: <ModingListPage /> }],
       },
       {
         path: "subscribe",
@@ -77,6 +76,13 @@ export const router = createBrowserRouter([
           },
           { path: "edit", element: <ProfileEdit /> },
           { path: "ticket", element: <TicketPage /> },
+          {
+            path: "fund",
+            children: [
+              { path: "progress", element: <FundingProgress /> },
+              { path: "completed", element: <FundingProgress /> },
+            ],
+          },
         ],
       },
       {

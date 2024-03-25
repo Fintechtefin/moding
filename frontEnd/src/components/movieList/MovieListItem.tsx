@@ -1,12 +1,9 @@
-import { Poster } from "./MovieList";
-
 type PosterProps = {
-  poster: Poster;
+  state: string;
+  url: string;
 };
 
-const MovieListItem = ({ poster }: PosterProps) => {
-  const { name, state, count, url } = poster;
-
+const MovieListItem = ({ state, url }: PosterProps) => {
   return (
     <div className="w-[100%] relative">
       <div className="text-white absolute z-[1] flex justify-between w-[100%] p-[1vh]">
@@ -18,7 +15,7 @@ const MovieListItem = ({ poster }: PosterProps) => {
         </div>
       </div>
       <img
-        className="w-[100%] h-[100%] object-cover  brightness-[90%]"
+        className="w-[100%] h-[100%] object-cover brightness-[90%]"
         src={url}
         alt=""
       />
