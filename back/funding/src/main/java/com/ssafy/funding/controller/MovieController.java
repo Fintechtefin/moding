@@ -26,7 +26,7 @@ public class MovieController {
     @Operation(summary = "검색을 통해 영화(펀딩) 상세 정보를 조회합니다.")
     @GetMapping("/{movieId}")
     public ResponseEntity<Movie> detailMovieBySearch(@PathVariable int movieId) throws IOException {
-        return ResponseEntity.ok(movieService.detailMovieBySearch(movieId));
+        return ResponseEntity.ok(movieService.detailMovieBySearch(movieId).get());
     }
 
     @Operation(summary = "실시간 인기 영화를 조회합니다.")
