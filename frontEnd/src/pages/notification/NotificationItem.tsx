@@ -1,30 +1,9 @@
+import { getDate } from "@util/commonFunction";
 import { notification } from "./Notification";
 
 interface Props extends notification {}
 
 const NotificationItem = ({ type, content, postUrl, date }: Props) => {
-  const getDate = (date: string) => {
-    const now = new Date();
-    const specificDate = new Date(date);
-
-    const diffInHours =
-      (specificDate.getTime() - now.getTime()) / (1000 * 60 * 60);
-
-    const rtf = new Intl.RelativeTimeFormat("ko-KR");
-
-    let relativeTime;
-
-    if (Math.abs(diffInHours) < 24) {
-      // 시간 단위로 변환
-      relativeTime = rtf.format(Math.round(diffInHours), "hour");
-    } else {
-      // 일 단위로 변환
-      relativeTime = rtf.format(Math.round(diffInHours / 24), "day");
-    }
-
-    return relativeTime;
-  };
-
   return (
     <div className="flex gap-[2vh] justify-between">
       <div className="flex flex-col gap-[2vh]">
