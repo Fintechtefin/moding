@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import post1 from "@assets/images/영화포스터.jpg";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import MovieListItem from "@components/movieList/MovieListItem";
+import ProgressArea from "@components/movieDetail/ProgressArea";
 
 interface Props {
   status: number;
@@ -18,12 +19,13 @@ interface ModingInfo {
   joinCnt: number;
 }
 
-const ModingList = ({ status, getModingBack }: Props) => {
+// status 내려받기
+const ModingList = ({ getModingBack }: Props) => {
   useEffect(() => {
     getModingBack(PosterList[0].url);
   }, []);
 
-  const [PosterList, setPosterList] = useState<ModingInfo[]>([
+  const [PosterList] = useState<ModingInfo[]>([
     {
       id: 1,
       url: post1,
@@ -118,16 +120,31 @@ const ModingList = ({ status, getModingBack }: Props) => {
 
   return (
     <div>
-      <div className="flex flex-col items-center mt-3">
-        <img className="w-[100%] h-[45vh] px-[1.6vh] object-cover brightness-[90%]" src={PosterList[0].url} alt="" />
+      <div className="flex flex-col mt-3  px-[1.6vh]">
+        <Link to={`/fund/list/${PosterList[0].id}`}>
+          <img
+            className="w-[100%] h-[45vh] object-cover brightness-[90%]"
+            src={PosterList[0].url}
+            alt=""
+          />
+        </Link>
+        <div>
+          <ProgressArea
+            crowd={PosterList[0].crowd}
+            joinCnt={PosterList[0].joinCnt}
+          />
+        </div>
       </div>
       <div className="movie-list none-scroller px-[1.6vh] mt-5 grid grid-cols-3 gap-[1.2vh] overflow-auto pb-20">
         {PosterList.map((poster) => {
           if (poster.id !== 1) {
             return (
-              <NavLink to={`/fund/list/${poster.id}`} key={poster.id}>
-                <MovieListItem poster={poster}></MovieListItem>
-              </NavLink>
+              <Link to={`/fund/list/${poster.id}`} key={poster.id}>
+                <MovieListItem
+                  state={poster.state}
+                  url={poster.url}
+                ></MovieListItem>
+              </Link>
             );
           } else {
             return null;

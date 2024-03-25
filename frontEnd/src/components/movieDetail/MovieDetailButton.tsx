@@ -7,6 +7,7 @@ interface Props {
   likeCnt: number;
   hopeCnt: number;
   alarmCnt: number;
+  modalDown: (state: boolean) => void;
 }
 
 const MovieDetailButton = ({
@@ -15,6 +16,7 @@ const MovieDetailButton = ({
   likeCnt,
   hopeCnt,
   alarmCnt,
+  modalDown,
 }: Props) => {
   const [isDone, setIsDone] = useState(true);
   const [isLiked, setIsLiked] = useState(true);
@@ -36,6 +38,7 @@ const MovieDetailButton = ({
 
   const postLike = async (id: number) => {
     if (isLiked) {
+      console.log(id);
       setIsLiked(false);
       setLikeNowCnt((prev) => prev - 1);
     } else {
@@ -50,6 +53,7 @@ const MovieDetailButton = ({
 
   const postHope = async (id: number) => {
     if (isHope) {
+      console.log(id);
       return;
     } else {
       setIsDone(!isDone);
@@ -60,6 +64,7 @@ const MovieDetailButton = ({
 
   const postAlarm = async (id: number) => {
     if (applyAlarm) {
+      console.log(id);
       setIsDone(!isDone);
       setApplyAlarm(!applyAlarm);
       setAlarmNowCnt((prev) => prev - 1);
@@ -95,9 +100,12 @@ const MovieDetailButton = ({
             <>
               <div className={buttonTextArea} onClick={() => postHope(id)}>
                 <div className="flex items-end gap-1">
-                  <div className={buttonText}>
-                    {isHope ? "무딩 요청중" : "무딩 요청하기"}
-                  </div>
+                  {isHope && <div className={buttonText}>무딩 요청중</div>}
+                  {!isHope && (
+                    <div className={buttonText} onClick={() => modalDown(true)}>
+                      무딩 요청하기
+                    </div>
+                  )}
                   <div className={buttonSub}>{hopeNowCnt}명 신청중</div>
                 </div>
               </div>

@@ -6,7 +6,11 @@ import yellowCheck from "@/assets/images/yellowcheck.png";
 import greenCheck from "@/assets/images/greencheck.png";
 import blueCheck from "@/assets/images/bluecheck.png";
 
-const HopeSurvey = () => {
+interface Props {
+  modalDown: (state: boolean) => void;
+}
+
+const HopeSurvey = ({ modalDown }: Props) => {
   const [checkArea, setCheckArea] = useState(0);
   const [checkTime, setCheckTime] = useState(0);
 
@@ -91,7 +95,10 @@ const HopeSurvey = () => {
             18:00~21:00
           </div>
         </div>
-        <div className="w-[100%] text-center survey-submit px-auto py-4 border-red-700">
+        <div
+          className="w-[100%] text-center survey-submit px-auto py-4 border-red-700"
+          onClick={() => modalDown(false)}
+        >
           확인
         </div>
       </div>

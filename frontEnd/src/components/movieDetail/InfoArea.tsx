@@ -18,7 +18,7 @@ interface FundingDetail {
 }
 
 const InfoArea = ({ status }: Props) => {
-  const [cinemaList, setCinemaList] = useState<FundingDetail>({
+  const [cinemaList] = useState<FundingDetail>({
     id: 1,
     cinemaName: "CGV 상무",
     crowd: 200,
@@ -29,7 +29,13 @@ const InfoArea = ({ status }: Props) => {
 
   return (
     <div className="info-area">
-      <div>{status === "무딩 예정" || status === "무딩 종료" ? <NoticeBoxArea status={status} /> : <ProgressArea crowd={cinemaList.crowd} joinCnt={cinemaList.joinCnt} />}</div>
+      <div>
+        {status === "무딩 예정" || status === "무딩 종료" ? (
+          <NoticeBoxArea status={status} />
+        ) : (
+          <ProgressArea crowd={cinemaList.crowd} joinCnt={cinemaList.joinCnt} />
+        )}
+      </div>
       <div className="flex flex-col gap-2 p-2">
         <div className="flex items-end gap-5">
           <div className="basis-1/4">목표인원</div>
@@ -50,25 +56,75 @@ const InfoArea = ({ status }: Props) => {
       </div>
       <div className="flex justify-around items-center mt-6">
         <div className={"relative flex flex-col items-center gap-2"}>
-          <div className={`text-[1.5vh] ${status === "무딩 중" ? "text-red-500" : ""}`}>무딩중</div>
-          <div className={`${status === "무딩 중" ? "active" : "not-active"}`}></div>
-          <div className={`text-[1.5vh] ${status === "무딩 중" ? "text-red-500" : ""}`}>3/18 ~ 3/24</div>
+          <div
+            className={`text-[1.5vh] ${
+              status === "무딩 중" ? "text-red-500" : ""
+            }`}
+          >
+            무딩중
+          </div>
+          <div
+            className={`${status === "무딩 중" ? "active" : "not-active"}`}
+          ></div>
+          <div
+            className={`text-[1.5vh] ${
+              status === "무딩 중" ? "text-red-500" : ""
+            }`}
+          >
+            3/18 ~ 3/24
+          </div>
         </div>
         <div>
           <MdArrowForwardIos className="text-[4vh]" />
         </div>
         <div className="flex flex-col items-center gap-2">
-          <div className={`text-[1.5vh] ${status === "예매 예정" || status === "예매 진행" ? "text-red-500" : ""}`}>좌석 예매일</div>
-          <div className={`${status === "예매 예정" || status === "예매 진행" ? "active" : "not-active"}`}></div>
-          <div className={`text-[1.5vh] ${status === "예매 예정" || status === "예매 진행" ? "text-red-500" : ""}`}>3/25일 예정</div>
+          <div
+            className={`text-[1.5vh] ${
+              status === "예매 예정" || status === "예매 진행"
+                ? "text-red-500"
+                : ""
+            }`}
+          >
+            좌석 예매일
+          </div>
+          <div
+            className={`${
+              status === "예매 예정" || status === "예매 진행"
+                ? "active"
+                : "not-active"
+            }`}
+          ></div>
+          <div
+            className={`text-[1.5vh] ${
+              status === "예매 예정" || status === "예매 진행"
+                ? "text-red-500"
+                : ""
+            }`}
+          >
+            3/25일 예정
+          </div>
         </div>
         <div>
           <MdArrowForwardIos className="text-[4vh]" />
         </div>
         <div className="flex flex-col items-center gap-2">
-          <div className={`text-[1.5vh] ${status === "무딩 종료" ? "text-red-500" : ""}`}>관람 예정일</div>
-          <div className={`${status === "무딩 종료" ? "active" : "not-active"}`}></div>
-          <div className={`text-[1.5vh] ${status === "무딩 종료" ? "text-red-500" : ""}`}>3/30일 오후 2시</div>
+          <div
+            className={`text-[1.5vh] ${
+              status === "무딩 종료" ? "text-red-500" : ""
+            }`}
+          >
+            관람 예정일
+          </div>
+          <div
+            className={`${status === "무딩 종료" ? "active" : "not-active"}`}
+          ></div>
+          <div
+            className={`text-[1.5vh] ${
+              status === "무딩 종료" ? "text-red-500" : ""
+            }`}
+          >
+            3/30일 오후 2시
+          </div>
         </div>
       </div>
     </div>
