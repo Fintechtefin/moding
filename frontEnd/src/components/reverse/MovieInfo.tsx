@@ -1,4 +1,4 @@
-import { selectSeatsLengthSelector } from "@stores/reserveStore";
+import { selectSeatsLengthSelector } from "@recoil/reserveStore";
 import { useRecoilValue } from "recoil";
 import moviePost from "@assets/images/영화포스터.jpg";
 

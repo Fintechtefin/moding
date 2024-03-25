@@ -11,7 +11,7 @@ import Prompt from "@components/reverse/Prompt";
 import {
   selectSeatsAtom,
   selectSeatsLengthSelector,
-} from "@stores/reserveStore";
+} from "@recoil/reserveStore";
 // import { GoEye } from "react-icons/go";
 
 const ReservePage = () => {

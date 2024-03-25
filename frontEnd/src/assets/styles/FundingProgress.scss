@@ -1,0 +1,12 @@
+.FundingProgress {
+  .parent::before {
+    content: "";
+    position: absolute;
+    height: 1.7vh;
+    bottom: -0.05vh;
+    inset-inline: 0;
+    background-color: #fffbb1; /* bg-red-600에 해당하는 색상 */
+    border-radius: 1vh;
+    filter: brightness(20%);
+  }
+}
