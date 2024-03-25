@@ -7,21 +7,17 @@ import "@/App.scss";
 const ModingOffice = lazy(() => import("@pages/ModingOffice"));
 const MovieCategory = lazy(() => import("@pages/MovieCategory"));
 const MovieDetail = lazy(() => import("@pages/MovieDetail"));
-const FundingListPage = lazy(() => import("@pages/FundingListPage"));
+const ModingListPage = lazy(() => import("@pages/ModingListPage"));
 const HomePage = lazy(() => import("@pages/HomePage"));
 const SubscribePage = lazy(() => import("@pages/SubscribePage"));
 const MyPage = lazy(() => import("@pages/myPage/MyPage"));
 const LoginPage = lazy(() => import("@pages/LoginPage"));
-const NotificationSet = lazy(
-  () => import("@pages/notification/NotificationSet")
-);
+const NotificationSet = lazy(() => import("@pages/notification/NotificationSet"));
 const ProfileEdit = lazy(() => import("@pages/myPage/ProfileEdit"));
 const ReservePage = lazy(() => import("@pages/ReservePage"));
 const AuthPage = lazy(() => import("@pages/AuthPage"));
 const PaymentPage = lazy(() => import("@pages/payment/PaymentPage"));
-const PaymentSuccessPage = lazy(
-  () => import("@pages/payment/PaymentSuccessPage")
-);
+const PaymentSuccessPage = lazy(() => import("@pages/payment/PaymentSuccessPage"));
 const PaymentFailPage = lazy(() => import("@pages/payment/PaymentFailPage"));
 const NotFoundPage = lazy(() => import("@pages/NotFoundPage"));
 const Notification = lazy(() => import("@pages/notification/Notification"));
@@ -45,7 +41,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "fund",
-        children: [{ path: "list", element: <FundingListPage /> }],
+        children: [{ path: "list", element: <ModingListPage /> }],
       },
       {
         path: "subscribe",
