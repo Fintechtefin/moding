@@ -7,8 +7,8 @@ const SECTIONS = [
   {
     title: "펀딩",
     items: [
-      { name: "무딩중", count: 0, url: "a" },
-      { name: "애프터 무딩", count: 0, url: "a" },
+      { name: "무딩중", count: 0, url: "/user/fund/progress" },
+      { name: "애프터 무딩", count: 0, url: "/user/fund/completed" },
     ],
   },
   {
