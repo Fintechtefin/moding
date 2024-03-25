@@ -5,11 +5,6 @@ services:
       dockerfile: Dockerfile
       args:
         PROFILE: local
-    container_name: 'discovery-local'
+    container_name: 'funding-local'
     ports:
-      - 8761:8761
-#    networks:
-#      - mooding_network
-#
-#networks:
-#  mooding_network:
+      - 8084:8084

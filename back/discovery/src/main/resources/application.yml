@@ -5,6 +5,9 @@ spring:
   application:
     name: discovery
 
+  config:
+    import: application-discovery-local.yml, application-discovery-prod.yml, application-discovery-dev.yml
+
 eureka:
   client:
     register-with-eureka: false
