@@ -35,7 +35,8 @@ public class Movie {
     private String actors;
 
     @Column(length = 20)
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private FundingStatus status;
 
     @Column(name = "running_time")
     private int runningTime;
@@ -53,7 +54,11 @@ public class Movie {
         movie.poster = movieDocument.getPoster();
         movie.age = movieDocument.getAge();
         movie.title = movieDocument.getTitle();
-        movie.status = movieDocument.getStatus();
+        movie.status =
+                FundingStatus.valueOf(
+                        movieDocument
+                                .getStatus()); // Returns the enum constant of this type with the
+        // specified name.
 
         return movie;
     }
