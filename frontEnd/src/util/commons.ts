@@ -2,7 +2,6 @@ import axios from "axios";
 
 const BASE_URL = "http://localhost:8086";
 // const BASE_URL = "http://172.30.1.16:5174";
-const token = localStorage.getItem("jwt");
 
 const axiosApi = () => {
   const instance = axios.create({

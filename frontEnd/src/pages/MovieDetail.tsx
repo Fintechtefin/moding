@@ -24,7 +24,7 @@ interface MovieInfo {
 }
 
 const MovieDetail = () => {
-  const [movieInfo, setMovieInfo] = useState<MovieInfo>({
+  const [movieInfo] = useState<MovieInfo>({
     id: 1,
     title: "밀정",
     status: "무딩 준비 중",
@@ -40,9 +40,14 @@ const MovieDetail = () => {
   });
 
   const [infoCategory, setInfoCategory] = useState(0);
-  const [modalShow, setModalShow] = useState(true);
+  const [modalShow, setModalShow] = useState(false);
   // 무딩 준비 중이거나 무딩 완료 시에 false로 바꾸기
-  const [fundingInfo, setFundingInfo] = useState(true);
+  const [fundingInfo] = useState(true);
+
+  const modalDown = (state: boolean) => {
+    setModalShow(state);
+    console.log(modalShow);
+  };
 
   return (
     <div
@@ -63,6 +68,9 @@ const MovieDetail = () => {
           <div>{movieInfo.runningTime}분</div>
           <span>|</span>
           <div>{movieInfo.age}</div>
+        </div>
+        <div className="w-[90%] mt-8">
+          {fundingInfo && <InfoArea status={movieInfo.status} />}ㅊ
         </div>
       </div>
       {/* 상세정보영역 */}
@@ -103,9 +111,10 @@ const MovieDetail = () => {
           likeCnt={movieInfo.likeCnt}
           hopeCnt={movieInfo.hopeCnt}
           alarmCnt={movieInfo.alarmCnt}
+          modalDown={modalDown}
         />
       </div>
-      {modalShow && <HopeSurvey />}
+      {modalShow && <HopeSurvey modalDown={modalDown} />}
     </div>
   );
 };

@@ -2,7 +2,7 @@ import { useState } from "react";
 import post1 from "@assets/images/영화포스터.jpg";
 import MovieListItem from "./MovieListItem";
 import "@/assets/styles/movieList/MovieList.scss";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export type Poster = {
   id: number;
@@ -13,7 +13,7 @@ export type Poster = {
 };
 
 const MovieList = () => {
-  const [PosterList, setPosterList] = useState<Poster[]>([
+  const [PosterList] = useState<Poster[]>([
     {
       id: 1,
       name: "엘리멘탈",
@@ -85,9 +85,12 @@ const MovieList = () => {
       <div className="movie-list none-scroller px-[1.5vh] mt-20 grid grid-cols-3 gap-[1.2vh] overflow-auto pb-40">
         {PosterList.map((poster) => {
           return (
-            <NavLink to={`/fund/list/${poster.id}`} key={poster.id}>
-              <MovieListItem poster={poster}></MovieListItem>
-            </NavLink>
+            <Link to={`/fund/list/${poster.id}`} key={poster.id}>
+              <MovieListItem
+                state={poster.state}
+                url={poster.url}
+              ></MovieListItem>
+            </Link>
           );
         })}
       </div>
