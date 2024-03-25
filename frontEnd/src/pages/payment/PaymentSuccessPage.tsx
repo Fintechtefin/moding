@@ -41,7 +41,7 @@ const PaymentSuccessPage = () => {
 
   return (
     <div className="p-[5vh] flex flex-col gap-[2vh]">
-      <div className="flex flex-col items-center gap-[2vh]">
+      <div className="flex flex-col items-center gap-[1vh]">
         <GoCheckCircleFill className="text-red-600 text-[8vh]" />
         <div>
           펀딩 신청이 완료되었습니다<div className=""></div>

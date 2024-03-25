@@ -7,7 +7,7 @@ interface Props {
 
 const SubscribeType = ({ check, handleChange }: Props) => {
   return (
-    <div className="flex mx-[3vh] gap-[2vh]">
+    <div className="w-[100%] h-[5vh] flex border-b-[1px] border-b-red-600 text-textGray">
       <SubscribeTypeItem
         value="like"
         label="좋아요"

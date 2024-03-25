@@ -1,0 +1,21 @@
+.FundingCompletedPage {
+  .success::before {
+    content: "";
+    position: absolute;
+    height: 1.5vh;
+    inset-inline: 0;
+    background-color: #2cd9aa; /* bg-red-600에 해당하는 색상 */
+    border-radius: 1vh;
+    filter: brightness(20%);
+  }
+
+  .fail::before {
+    content: "";
+    position: absolute;
+    height: 1.5vh;
+    inset-inline: 0;
+    background-color: #c00202; /* bg-red-600에 해당하는 색상 */
+    border-radius: 1vh;
+    filter: brightness(20%);
+  }
+}

@@ -14,20 +14,21 @@ const SubscribeTypeItem = ({
   onChange,
 }: OptionProps) => {
   return (
-    <label className="flex items-center justify-center cursor-pointer">
+    <label
+      className={`flex-1 flex items-center justify-center text-[2vh] cursor-pointer ${
+        checkedValue === value &&
+        "border-t-2 border-t-transparent border-b-2 border-b-red-600 font-bold text-white"
+      }`}
+    >
       <input
         type="radio"
         name="subscribe"
         value={value}
-        className="peer hidden"
+        className="hidden peer"
         checked={checkedValue === value}
         onChange={onChange}
       />
-      <span
-        className={`peer-checked:bg-[#C00202] peer-checked:text-white peer-checked:font-bold text-black bg-[#EAEBED] text-[2vh] p-[0.8vh] rounded-[1vh] transition duration-150 ease-in-out`}
-      >
-        {label}
-      </span>
+      {label}
     </label>
   );
 };

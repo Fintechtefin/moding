@@ -6,11 +6,10 @@ const RIGHT_OPTION_CONTENT = "flex items-center gap-[1.5vh]";
 
 interface Props {
   name: string;
-  count: number | null;
   url: string;
 }
 
-const OptionItem = ({ name, count, url }: Props) => {
+const OptionItem = ({ name, url }: Props) => {
   const navigate = useNavigate();
   const jwt = localStorage.getItem("jwt");
 
@@ -22,7 +21,6 @@ const OptionItem = ({ name, count, url }: Props) => {
     <div className={OPTION_CONTENT_ITEM} onClick={handleClick}>
       <div>{name}</div>
       <div className={RIGHT_OPTION_CONTENT}>
-        {count !== null && <div>{count}</div>}
         <MdOutlineArrowForwardIos />
       </div>
     </div>

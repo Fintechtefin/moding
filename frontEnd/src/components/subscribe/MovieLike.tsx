@@ -57,7 +57,7 @@ const MovieLike = () => {
   ]);
 
   return (
-    <div className="none-scroll h-[87vh] overflow-auto px-[3vh] pb-[10vh] grid grid-cols-2 gap-[3vh]">
+    <>
       {likeList.map((like) => {
         return (
           <div className="w-[100%] relative " key={like.id}>
@@ -84,7 +84,7 @@ const MovieLike = () => {
           </div>
         );
       })}
-    </div>
+    </>
   );
 };
 

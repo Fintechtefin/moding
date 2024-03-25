@@ -4,6 +4,7 @@ import MainLayout from "@components/MainLayout";
 import "@/firebase-messaging-sw";
 import "@/App.scss";
 import FundingProgress from "@pages/user/FundingProgress";
+import FundingCompletedPage from "@pages/user/FundingCompletedPage";
 
 const ModingOffice = lazy(() => import("@pages/ModingOffice"));
 const MovieCategory = lazy(() => import("@pages/MovieCategory"));
@@ -20,7 +21,9 @@ const ProfileEdit = lazy(() => import("@pages/user/ProfileEdit"));
 const ReservePage = lazy(() => import("@pages/ReservePage"));
 const AuthPage = lazy(() => import("@pages/AuthPage"));
 const PaymentPage = lazy(() => import("@pages/payment/PaymentPage"));
-const PaymentSuccessPage = lazy(() => import("@pages/payment/PaymentSuccessPage"));
+const PaymentSuccessPage = lazy(
+  () => import("@pages/payment/PaymentSuccessPage")
+);
 const PaymentFailPage = lazy(() => import("@pages/payment/PaymentFailPage"));
 const NotFoundPage = lazy(() => import("@pages/NotFoundPage"));
 const Notification = lazy(() => import("@pages/notification/Notification"));
@@ -80,7 +83,7 @@ export const router = createBrowserRouter([
             path: "fund",
             children: [
               { path: "progress", element: <FundingProgress /> },
-              { path: "completed", element: <FundingProgress /> },
+              { path: "completed", element: <FundingCompletedPage /> },
             ],
           },
         ],
