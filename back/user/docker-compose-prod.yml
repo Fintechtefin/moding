@@ -8,8 +8,8 @@ services:
     container_name: 'user-prod'
     ports:
       - 8086:8086
-    networks:
-      - mooding_network
-
-networks:
-  mooding_network:
+#    networks:
+#      - mooding_network
+#
+#networks:
+#  mooding_network:

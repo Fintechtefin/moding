@@ -4,6 +4,7 @@ ARG JAR_FILE=./build/libs/*.jar
 ARG PROFILE
 ENV PROFILE=${PROFILE}
 ENV TZ=Asia/Seoul
+ENV eureka.client.serviceUrl.defaultZone=http://discovery-prod:8761/eureka
 
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
