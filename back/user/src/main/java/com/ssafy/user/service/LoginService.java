@@ -7,9 +7,8 @@ import com.ssafy.user.infrastructure.oauthprovider.OauthProvider;
 import com.ssafy.user.infrastructure.oauthprovider.OauthProviders;
 import com.ssafy.user.infrastructure.oauthuserinfo.OauthUserInfo;
 import com.ssafy.user.repository.UserRepository;
-import javax.transaction.Transactional;
-
 import com.ssafy.user.util.RedisUtil;
+import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
