@@ -5,7 +5,6 @@ import com.ssafy.funding.domain.document.MovieDocument;
 import com.ssafy.funding.dto.DetailMovie;
 import com.ssafy.funding.repository.MovieRepository;
 import com.ssafy.funding.repository.MovieSearchNativeQueryRepository;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,9 +26,10 @@ public class MovieService {
     private final MovieRepository movieRepository;
 
     public List<Movie> searchMovie(String word) {
-        List<Movie> movies=movieRepository.findByTitleContainingOrActorsContaining(word,word);
+        List<Movie> movies = movieRepository.findByTitleContainingOrActorsContaining(word, word);
         return movies;
-//        return transInfoList(movieSearchNativeQueryRepository.findByNativeCondition(word));
+        //        return
+        // transInfoList(movieSearchNativeQueryRepository.findByNativeCondition(word));
     }
 
     public Optional<Movie> detailMovieBySearch(int movieId) throws IOException {
@@ -53,9 +53,10 @@ public class MovieService {
                 String key = bucket.getKeyAsString(); // movie id
                 long docCount = bucket.getDocCount(); // count 횟수
 
-//                Optional<MovieDocument> movieDocument = movieSearchRepository.findById(key);
-                Optional<Movie> movie=movieRepository.findById(Integer.parseInt(key));
-//                movieList.add(transInfoReverse(movieDocument.get()));
+                //                Optional<MovieDocument> movieDocument =
+                // movieSearchRepository.findById(key);
+                Optional<Movie> movie = movieRepository.findById(Integer.parseInt(key));
+                //                movieList.add(transInfoReverse(movieDocument.get()));
                 movieList.add(transInfoDetail(movie.get()));
             }
         }
@@ -73,5 +74,7 @@ public class MovieService {
         return Movie.of(movieDocument);
     }
 
-    private DetailMovie transInfoDetail(Movie movie) { return DetailMovie.of(movie);}
+    private DetailMovie transInfoDetail(Movie movie) {
+        return DetailMovie.of(movie);
+    }
 }
