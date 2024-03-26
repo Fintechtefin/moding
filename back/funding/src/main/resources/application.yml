@@ -17,16 +17,19 @@ spring:
       service-url:
         default-zone: http://localhost:8761/eureka
 
-  kafka:
-    bootstrap-servers: j10c204.p.ssafy.io:9092
-
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
 
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: my-group
+
 kafka:
   topics:
     test: order
+    payment: refund
   consumer:
     group-id: my-group
 

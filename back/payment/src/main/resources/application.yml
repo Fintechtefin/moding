@@ -6,12 +6,7 @@ spring:
     name: payment
 
   config:
-    import: application-payment-local.yml, application-payment-dev.yml, application-payment-prod.yml
-
-  kafka:
-    bootstrap-servers: j10c204.p.ssafy.io:9092
-    consumer:
-      group-id: my-group
+    import: application-payment-prod.yml, application-payment-dev.yml, application-payment-local.yml
 
   eureka:
     instance:
@@ -24,9 +19,16 @@ spring:
     pathmatch:
       matching-strategy: ant_path_matcher
 
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: my-group
+
+
 kafka:
   topics:
     test: order
+    payment: refund
 
 feign:
   toss:

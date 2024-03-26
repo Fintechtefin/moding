@@ -1,6 +1,6 @@
 package com.ssafy.funding.service;
 
-import static com.ssafy.funding.exception.global.CustomExceptionStatus.FUNDING_NOT_FOUND;
+import static com.ssafy.funding.exception.global.CustomExceptionStatus.*;
 
 import com.ssafy.funding.domain.Funding;
 import com.ssafy.funding.domain.Order;
@@ -9,8 +9,10 @@ import com.ssafy.funding.dto.Money;
 import com.ssafy.funding.dto.request.ConfirmOrderRequest;
 import com.ssafy.funding.dto.request.ConfirmPaymentsRequest;
 import com.ssafy.funding.dto.request.CreatePaymentsRequest;
+import com.ssafy.funding.dto.request.RefundOrderRequest;
 import com.ssafy.funding.dto.response.OrderConfirmResponse;
 import com.ssafy.funding.exception.BadRequestException;
+import com.ssafy.funding.messaging.Producer;
 import com.ssafy.funding.repository.FundingRepository;
 import com.ssafy.funding.repository.OrderRepository;
 import com.ssafy.funding.service.client.PaymentClient;
@@ -27,6 +29,7 @@ public class OrderService {
     private final FundingRepository fundingRepository;
     private final OrderValidator orderValidator;
     private final PaymentClient paymentClient;
+    private final Producer producer;
 
     public String requestPayment(CreatePaymentsRequest createPaymentsRequest) {
         return paymentClient.callTossPay(createPaymentsRequest).getPaymentKey();
@@ -80,5 +83,25 @@ public class OrderService {
         paymentClient.callTossPayConfirm(confirmPaymentsRequest, order.getId());
 
         return OrderConfirmResponse.of(order);
+    }
+
+    public void refundFunding(Integer userId, String uuid, RefundOrderRequest refundOrderRequest) {
+        Order order =
+                orderRepository
+                        .findByUuid(uuid)
+                        .orElseThrow(() -> new BadRequestException(ORDER_NOT_FOUND));
+        order.refund(userId, orderValidator);
+
+        // LAZY로 인한 NULL
+        //        if (!order.getFunding().getMovie().getStatus().getValue().equals("OPEN")) {
+        //            throw new BadRequestException(ORDER_NOT_REFUND_DATE);
+        //        }
+
+        producer.sendRefundOrderRequest(
+                "refund",
+                RefundOrderRequest.builder()
+                        .cancelReason(refundOrderRequest.getCancelReason())
+                        .orderId(order.getId())
+                        .build());
     }
 }
