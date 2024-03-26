@@ -7,7 +7,6 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum FundingStatus {
-    // 참여 가능한 펀딩
     NONE("NONE", "무딩 준비 중"),
     READY_TO_OPEN("READY_TO_OPEN", "무딩 예정"),
     OPEN("OPEN", "무딩 중"),

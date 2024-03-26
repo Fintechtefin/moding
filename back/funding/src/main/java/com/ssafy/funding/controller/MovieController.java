@@ -24,7 +24,7 @@ public class MovieController {
     }
 
     @Operation(summary = "검색을 통해 영화(펀딩) 상세 정보를 조회합니다.")
-    @GetMapping("/{movieId}")
+    @GetMapping("/search/{movieId}")
     public ResponseEntity<Movie> detailMovieBySearch(@PathVariable int movieId) throws IOException {
         return ResponseEntity.ok(movieService.detailMovieBySearch(movieId).get());
     }
@@ -33,5 +33,12 @@ public class MovieController {
     @GetMapping("/popular")
     public ResponseEntity<List<DetailMovie>> popularMovies() throws IOException {
         return ResponseEntity.ok(movieService.popularMovies());
+    }
+
+    @Operation(summary = "장르별 영화를 조회합니다.")
+    @GetMapping
+    public ResponseEntity<List<DetailMovie>> listMovieByGenre(
+            @RequestParam String genre, @RequestParam String sort, @RequestParam int page) {
+        return ResponseEntity.ok(movieService.getMovieList(genre, sort, page));
     }
 }

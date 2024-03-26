@@ -41,6 +41,12 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.3'
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	implementation 'io.hypersistence:hypersistence-utils-hibernate-55:3.7.0'
+
+	// querydsl
+//	implementation "com.querydsl:querydsl-core"
+//	implementation "com.querydsl:querydsl-jpa"
+//	annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jpa" // querydsl JPAAnnotationProcessor 사용 지정
 
 	// cloud
 	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
@@ -65,6 +71,10 @@ dependencies {
 	implementation 'com.internetitem:logback-elasticsearch-appender:1.6'
 	implementation 'dev.akkinoc.spring.boot:logback-access-spring-boot-starter:3.2.1'
 	implementation group: 'net.logstash.logback', name: 'logstash-logback-encoder', version: '7.2'
+
+	// openfeign
+	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+	implementation 'io.github.openfeign:feign-jackson:13.2.1'
 
 	// lombok
 	compileOnly 'org.projectlombok:lombok'
