@@ -8,7 +8,7 @@ spring:
     name: funding
 
   config:
-    import: application-funding-local.yml, application-funding-dev.yml, application-funding-prod.yml,
+    import: application-funding-dev.yml, application-funding-prod.yml, application-funding-local.yml
 
   eureka:
     instance:

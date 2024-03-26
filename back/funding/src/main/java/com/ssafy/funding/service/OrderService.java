@@ -8,6 +8,7 @@ import com.ssafy.funding.domain.validator.OrderValidator;
 import com.ssafy.funding.dto.Money;
 import com.ssafy.funding.dto.request.ConfirmOrderRequest;
 import com.ssafy.funding.dto.request.ConfirmPaymentsRequest;
+import com.ssafy.funding.dto.request.CreatePaymentsRequest;
 import com.ssafy.funding.dto.response.OrderConfirmResponse;
 import com.ssafy.funding.exception.BadRequestException;
 import com.ssafy.funding.repository.FundingRepository;
@@ -26,6 +27,10 @@ public class OrderService {
     private final FundingRepository fundingRepository;
     private final OrderValidator orderValidator;
     private final PaymentClient paymentClient;
+
+    public String requestPayment(CreatePaymentsRequest createPaymentsRequest) {
+        return paymentClient.callTossPay(createPaymentsRequest).getPaymentKey();
+    }
 
     public Order orderFunding(final ConfirmOrderRequest confirmOrderRequest, Integer userId) {
         final Order order = createFundingOrder(confirmOrderRequest, userId);
