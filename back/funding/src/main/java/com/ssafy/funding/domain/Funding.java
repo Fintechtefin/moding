@@ -29,6 +29,13 @@ public class Funding {
     private Integer price;
 
     /*
+    한 영화는 한 상영관에서만 열리는 것으로 ERD가 되어있길래,,
+     */
+    @OneToOne
+    @JoinColumn(name = "movie_id")
+    private Movie movie;
+
+    /*
     이벤트 상태 필드
     ERD에서 없어서 한번 열렸다가 종료된 펀딩은 지울지 이야기 해봐야 함
      */
@@ -43,7 +50,8 @@ public class Funding {
     }
 
     public void validateFundingTime() {
-        if (!isTimeBeforeStartAt()) throw FundingTimeIsPassedException.EXCEPTION;
+        if (!isTimeBeforeStartAt() || !isTimeBeforeEndAt())
+            throw FundingTimeIsPassedException.EXCEPTION;
     }
 
     public void validateNotOpenStatus() {
@@ -54,9 +62,18 @@ public class Funding {
         return LocalDateTime.now().isBefore(getStartAt());
     }
 
+    public boolean isTimeBeforeEndAt() {
+        return LocalDateTime.now().isAfter(getEndAt());
+    }
+
     public LocalDateTime getStartAt() {
         if (this.startAt == null) return null;
         return this.getStartAt();
+    }
+
+    public LocalDateTime getEndAt() {
+        if (this.startAt == null) return null;
+        return this.getStartAt().plusDays(13); // 펀딩은 2주동안 진행(시작일자 포함)
     }
 
     /*

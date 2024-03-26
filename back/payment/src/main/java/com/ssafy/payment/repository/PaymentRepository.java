@@ -6,4 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface PaymentRepository extends CrudRepository<Payment, Integer> {
     Optional<Payment> findByPaymentKey(String paymentKey);
+
+    Optional<Payment> findByOrderId(Long orderId);
 }

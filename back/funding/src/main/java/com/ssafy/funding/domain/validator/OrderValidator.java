@@ -1,13 +1,14 @@
 package com.ssafy.funding.domain.validator;
 
+import static com.ssafy.funding.exception.global.CustomExceptionStatus.ORDER_NOT_REFUND_DATE;
+
 import com.ssafy.funding.common.annotation.Validator;
 import com.ssafy.funding.domain.Funding;
 import com.ssafy.funding.domain.Order;
 import com.ssafy.funding.dto.Money;
-import com.ssafy.funding.exception.InvalidOrderException;
-import com.ssafy.funding.exception.NotOwnerOrderException;
-import com.ssafy.funding.exception.NotPaymentOrderException;
+import com.ssafy.funding.exception.*;
 import com.ssafy.funding.repository.FundingRepository;
+import com.ssafy.funding.repository.MovieRepository;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -19,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 public class OrderValidator {
 
     private final FundingRepository fundingRepository;
+    private final MovieRepository movieRepository;
 
     /** 주문에대한 주인인지 검증합니다. */
     public void validOwner(Order order, Integer currentUserId) {
@@ -76,5 +78,29 @@ public class OrderValidator {
 
     private Boolean isMethodPayment(Order order) {
         return order.getOrderMethod().isPayment();
+    }
+
+    /** 환불 할 수 있는 주문인지 검증합니다. */
+    //    public void validCanRefund(Order order) {
+    //        Funding funding = fundingRepository.findById(order.getFunding().getId())
+    //                .orElseThrow(() -> new BadRequestException(FUNDING_NOT_FOUND));
+    //        movieRepository.find
+    //
+    //        validAvailableRefundStatus(order);
+    //        validCanWithDraw(order);
+    //    }
+
+    /** 환불 가능한 상태인지 검증합니다. */
+    public void validAvailableRefundStatus(Order order) {
+        if (!order.getFunding().getMovie().getStatus().getValue().equals("OPEN")) {
+            throw new BadRequestException(ORDER_NOT_REFUND_DATE);
+        }
+    }
+
+    /*
+    펀딩 시작 전 또는 종료 후라면 환불이 불가능
+     */
+    public void validCanWithDraw(Order order) {
+        order.getFunding().validateFundingTime();
     }
 }

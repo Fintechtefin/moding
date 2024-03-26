@@ -89,4 +89,11 @@ public class Order extends BaseTime {
         }
         return money;
     }
+
+    /** 사용자가 주문을 환불 시킵니다. */
+    public void refund(Integer currentUserId, OrderValidator orderValidator) {
+        orderValidator.validOwner(this, currentUserId);
+        // orderValidator.validCanRefund(this);
+        this.status = false;
+    }
 }
