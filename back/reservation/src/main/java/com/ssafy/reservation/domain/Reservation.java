@@ -20,7 +20,7 @@ public class Reservation extends BaseTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "reservation_id")
-    private Long Id;
+    private Integer Id;
 
     @Type(type = "json")
     @Column(columnDefinition = "json")
@@ -31,4 +31,8 @@ public class Reservation extends BaseTime {
     private Integer userId;
 
     private Integer fundingId;
+
+    public void changeStatus() {
+        this.status = 0;
+    }
 }
