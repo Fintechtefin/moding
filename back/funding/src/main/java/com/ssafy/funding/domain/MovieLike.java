@@ -6,19 +6,20 @@ import lombok.*;
 @Entity
 @Builder
 @AllArgsConstructor
-@Table(name = "genre")
+@Table(name = "movie_like")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public class Genre {
+public class MovieLike {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "genre_id")
+    @Column(name = "movie_like_id")
     private Integer id;
 
-    @Column(length = 30)
-    private String type;
+    //    @ManyToOne(fetch = FetchType.LAZY)
+    @Column(name = "user_id")
+    private Integer userId;
 
-    @Column(name = "parent_genre_id")
-    private int parentGenreId;
+    @Column(name = "movie_id")
+    private Integer movieId;
 }
