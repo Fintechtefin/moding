@@ -68,11 +68,13 @@ public class MovieSearchNativeQueryRepository {
         RestHighLevelClient restHighLevelClient = elasticSearchConfig.elasticsearchClient();
 
         // 최근 1시간
-//        LocalDateTime now=LocalDateTime.now();
-//        LocalDateTime truncatedMinus=now.minusHours(1).truncatedTo(ChronoUnit.HOURS);
-//        LocalDateTime truncatedNow=now.truncatedTo(ChronoUnit.HOURS);
-//        long startMillis = truncatedMinus.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
-//        long endMillis = truncatedNow.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
+        //        LocalDateTime now=LocalDateTime.now();
+        //        LocalDateTime truncatedMinus=now.minusHours(1).truncatedTo(ChronoUnit.HOURS);
+        //        LocalDateTime truncatedNow=now.truncatedTo(ChronoUnit.HOURS);
+        //        long startMillis =
+        // truncatedMinus.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
+        //        long endMillis =
+        // truncatedNow.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
 
         // test 용
         LocalDateTime now = LocalDateTime.now();

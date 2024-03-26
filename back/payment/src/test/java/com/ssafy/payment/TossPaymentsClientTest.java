@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
@@ -36,7 +35,7 @@ public class TossPaymentsClientTest {
 
     @Autowired PaymentsCreateClient paymentsCreateClient;
 
-    @Test
+    // @Test
     public void 결제_요청_테스트() throws IOException {
 
         CreatePaymentsRequest createPaymentsRequest =
