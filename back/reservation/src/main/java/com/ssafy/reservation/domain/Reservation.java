@@ -1,27 +1,34 @@
 package com.ssafy.reservation.domain;
 
-import java.time.LocalDateTime;
+import io.hypersistence.utils.hibernate.type.json.JsonType;
 import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
 
 @Entity
 @Builder
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "user_seat")
-public class Reservation {
+@TypeDef(name = "json", typeClass = JsonType.class)
+@Table(name = "reservation")
+public class Reservation extends BaseTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_seat_id")
+    @Column(name = "reservation_id")
     private Long Id;
+
+    @Type(type = "json")
+    @Column(columnDefinition = "json")
+    private String seat;
+
+    private Integer status;
 
     private Integer userId;
 
-    private LocalDateTime reservationAt;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "seat_id")
-    private Seat seat;
+    private Integer fundingId;
 }
