@@ -34,7 +34,7 @@ public class SwaggerConfiguration {
                 .apiInfo(apiInfo())
                 .groupName(version)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.ssafy.sub.pjt"))
+                .apis(RequestHandlerSelectors.basePackage("com.ssafy.user"))
                 .paths(PathSelectors.any())
                 .build()
                 .securityContexts(List.of(securityContext()))
