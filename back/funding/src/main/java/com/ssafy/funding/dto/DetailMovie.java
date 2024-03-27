@@ -41,8 +41,7 @@ public class DetailMovie implements Serializable {
         detailMovie.movieId = movie.getId();
         detailMovie.title = movie.getTitle();
         detailMovie.poster = movie.getPoster();
-        //        detailMovie.status = FundingStatus.valueOf(movie.getStatus().getKr()).getKr(); //
-        // 확인 필요
+        detailMovie.status = FundingStatus.valueOf(movie.getStatus().getKr());
 
         return detailMovie;
     }
