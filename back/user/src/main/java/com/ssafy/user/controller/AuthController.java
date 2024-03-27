@@ -60,5 +60,4 @@ public class AuthController {
         return ResponseEntity.status(CREATED)
                 .body(new AccessTokenResponse(memberTokens.getAccessToken()));
     }
-
 }

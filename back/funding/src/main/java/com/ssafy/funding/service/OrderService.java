@@ -2,6 +2,7 @@ package com.ssafy.funding.service;
 
 import static com.ssafy.funding.exception.global.CustomExceptionStatus.*;
 
+import com.ssafy.funding.controller.feign.CreatePaymentClient;
 import com.ssafy.funding.domain.Funding;
 import com.ssafy.funding.domain.Order;
 import com.ssafy.funding.domain.validator.OrderValidator;
@@ -29,6 +30,7 @@ public class OrderService {
     private final FundingRepository fundingRepository;
     private final OrderValidator orderValidator;
     private final PaymentClient paymentClient;
+    private final CreatePaymentClient createPaymentClient; // feignClient
     private final Producer producer;
 
     public String requestPayment(CreatePaymentsRequest createPaymentsRequest) {
@@ -80,7 +82,8 @@ public class OrderService {
         // orderValidator.validMethodIsPaymentOrder(order);
         // orderValidator.validAmountIsSameAsRequest(order, paymentWons);
 
-        paymentClient.callTossPayConfirm(confirmPaymentsRequest, order.getId());
+        // paymentClient.callTossPayConfirm(confirmPaymentsRequest, order.getId());
+        createPaymentClient.callCreatePayment(confirmPaymentsRequest);
 
         return OrderConfirmResponse.of(order);
     }

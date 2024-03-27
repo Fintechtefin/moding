@@ -4,6 +4,8 @@ server:
     context-path: /fundings
 
 spring:
+  main:
+    allow-bean-definition-overriding: true
   application:
     name: funding
 

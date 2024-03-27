@@ -68,7 +68,7 @@ public class Order extends BaseTime {
             Integer fundingCount,
             Integer fundingPrice,
             OrderValidator orderValidator) {
-        Integer supplyAmount = fundingCount * fundingPrice;
+        // Integer supplyAmount = fundingCount * fundingPrice;
         Order order =
                 Order.builder()
                         .userId(userId)

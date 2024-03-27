@@ -1,4 +1,4 @@
 spring:
   config:
     import:
-      - application-payment-test.yml
+      - application-payment.yml
