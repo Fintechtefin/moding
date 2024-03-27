@@ -33,7 +33,8 @@ public class MovieController {
 
     @Operation(summary = "영화(펀딩) 상세 정보를 조회합니다.")
     @GetMapping("/{movieId}")
-    public ResponseEntity<MovieDescResponse> detailMovie(@PathVariable int movieId) throws IOException {
+    public ResponseEntity<MovieDescResponse> detailMovie(@PathVariable int movieId)
+            throws IOException {
         return ResponseEntity.ok(movieService.detailMovie(movieId));
     }
 
@@ -50,6 +51,4 @@ public class MovieController {
             @RequestParam int genre, @RequestParam String sort, @RequestParam int page) {
         return ResponseEntity.ok(movieService.getMovieList(genre, sort, page));
     }
-
 }
-
