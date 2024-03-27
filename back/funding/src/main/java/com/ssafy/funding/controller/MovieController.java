@@ -19,7 +19,7 @@ public class MovieController {
 
     @Operation(summary = "영화를 검색합니다.")
     @GetMapping("/search")
-    public ResponseEntity<List<Movie>> searchMovie(@RequestParam String word) {
+    public ResponseEntity<List<DetailMovie>> searchMovie(@RequestParam String word) {
         return ResponseEntity.ok(movieService.searchMovie(word));
     }
 
@@ -41,4 +41,6 @@ public class MovieController {
             @RequestParam String genre, @RequestParam String sort, @RequestParam int page) {
         return ResponseEntity.ok(movieService.getMovieList(genre, sort, page));
     }
+
+
 }
