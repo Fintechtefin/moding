@@ -11,7 +11,6 @@ import com.ssafy.reservation.exception.global.CustomExceptionStatus;
 import com.ssafy.reservation.repository.ReservationRepository;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,13 +48,13 @@ public class ReservationService {
     }
 
     public CreateTicketResponse createTicket(Integer reservationId) {
-        Optional<Reservation> reservation = reservationRepository.findById(reservationId);
-        if (reservation.get().getStatus() == 0) {
+        Reservation reservation = reservationRepository.findById(reservationId).orElseThrow();
+        if (reservation.getStatus() == 0) {
             throw new BadRequestException(CustomExceptionStatus.CANCELED_RSERVATION_ID);
         }
         CreateTicketResponse createTicketResponse =
                 new CreateTicketResponse(
-                        reservation.get().getSeats(),
+                        reservation.getSeats(),
                         "poster.jpg",
                         "15세 이상 관람가",
                         "엘리멘탈",
