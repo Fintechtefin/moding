@@ -7,4 +7,6 @@ import org.springframework.data.repository.CrudRepository;
 public interface OrderRepository extends CrudRepository<Order, Long> {
 
     Optional<Order> findByUuid(String orderUuid);
+
+    boolean existsByFundingIdAndUserId(int fundingId, int userId);
 }

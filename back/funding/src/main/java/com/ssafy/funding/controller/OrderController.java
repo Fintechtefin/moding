@@ -48,4 +48,11 @@ public class OrderController {
                 refundOrderRequest);
         return ResponseEntity.ok().build();
     }
+
+    @Operation(summary = "펀딩 결제 여부를 확인합니다.")
+    @GetMapping("/check/{fundingId}/{userId}")
+    public ResponseEntity<?> checkPaymentUser(
+            @PathVariable Integer fundingId, @PathVariable Integer userId) {
+        return ResponseEntity.ok(orderService.checkPaymentUser(fundingId, userId));
+    }
 }
