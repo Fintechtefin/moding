@@ -8,7 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 public interface MovieRepository extends CrudRepository<Movie, Integer> {
-    List<Movie> findByTitleContainingOrActorsContaining(String title, String actors);
+    List<DetailMovie> findByTitleContainingOrActorsContaining(String title, String actors);
 
     @Query(
             "SELECT new com.ssafy.funding.dto.DetailMovie(m.id, m.title, m.poster, m.status, (SELECT COUNT(ml) FROM MovieLike ml WHERE ml.movieId = m.id)) FROM Movie m "

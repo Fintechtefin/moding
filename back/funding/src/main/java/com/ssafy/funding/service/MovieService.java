@@ -25,8 +25,8 @@ public class MovieService {
     private final MovieRepository movieRepository;
     private final RedisUtil redisUtil;
 
-    public List<Movie> searchMovie(String word) {
-        List<Movie> movies = movieRepository.findByTitleContainingOrActorsContaining(word, word);
+    public List<DetailMovie> searchMovie(String word) {
+        List<DetailMovie> movies = movieRepository.findByTitleContainingOrActorsContaining(word, word);
         return movies;
         //        return
         // transInfoList(movieSearchNativeQueryRepository.findByNativeCondition(word));
