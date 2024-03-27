@@ -1,7 +1,8 @@
 package com.ssafy.funding.controller;
 
 import com.ssafy.funding.domain.Movie;
-import com.ssafy.funding.dto.DetailMovie;
+import com.ssafy.funding.dto.response.MovieDetailResponse;
+import com.ssafy.funding.dto.response.MovieRankingResponse;
 import com.ssafy.funding.service.MovieService;
 import io.swagger.v3.oas.annotations.Operation;
 import java.io.IOException;
@@ -19,7 +20,7 @@ public class MovieController {
 
     @Operation(summary = "영화를 검색합니다.")
     @GetMapping("/search")
-    public ResponseEntity<List<DetailMovie>> searchMovie(@RequestParam String word) {
+    public ResponseEntity<List<MovieDetailResponse>> searchMovie(@RequestParam String word) {
         return ResponseEntity.ok(movieService.searchMovie(word));
     }
 
@@ -31,16 +32,17 @@ public class MovieController {
 
     @Operation(summary = "실시간 인기 영화를 조회합니다.")
     @GetMapping("/popular")
-    public ResponseEntity<List<DetailMovie>> popularMovies() throws IOException {
-        return ResponseEntity.ok(movieService.popularMovies());
+    public ResponseEntity<List<MovieRankingResponse>> popularMovies(@RequestParam int time)
+            throws IOException {
+        return ResponseEntity.ok(movieService.popularMovies(time));
     }
 
     @Operation(summary = "장르별 영화를 조회합니다.")
     @GetMapping
-    public ResponseEntity<List<DetailMovie>> listMovieByGenre(
+    public ResponseEntity<List<MovieDetailResponse>> listMovieByGenre(
             @RequestParam String genre, @RequestParam String sort, @RequestParam int page) {
         return ResponseEntity.ok(movieService.getMovieList(genre, sort, page));
     }
 
-
 }
+
