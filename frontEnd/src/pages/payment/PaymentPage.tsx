@@ -13,7 +13,8 @@ import "@assets/styles/payment/Payment.scss";
 const KEY = nanoid();
 
 const PaymentPage = () => {
-  const widgetClientKey = import.meta.env.VITE_TOSS_API_KEY;
+  // const widgetClientKey = import.meta.env.VITE_TOSS_API_KEY;
+  const widgetClientKey = "test_ck_Poxy1XQL8RxWO1957404V7nO5Wml";
 
   const [paymentWidget, setPaymentWidget] =
     useState<PaymentWidgetInstance | null>(null);
