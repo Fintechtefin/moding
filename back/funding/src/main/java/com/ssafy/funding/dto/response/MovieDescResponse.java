@@ -2,18 +2,19 @@ package com.ssafy.funding.dto.response;
 
 import com.ssafy.funding.domain.FundingStatus;
 import io.swagger.v3.oas.annotations.media.Schema;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import javax.validation.constraints.NotNull;
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
 
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class MovieDescResponse implements Serializable {
 
     @NotNull
@@ -58,17 +59,45 @@ public class MovieDescResponse implements Serializable {
     @Schema(description = "현재 펀딩 요청 수")
     private long hopeCnt;
 
-    @Schema(description = "지역별 설문 참여 수")
-    private Map<String,Integer> areaCnt=new HashMap<>();
-
-    @Schema(description = "시간별 설문 참여 수")
-    private Map<String,Integer> timeCnt =new HashMap<>();
-
     @Schema(description = "누적 요청 수")
     private int total;
+
+    @Schema(description = "장르")
+    private List<String> genre = new ArrayList<>();
 
     @Schema(description = "펀딩 성공 횟수")
     private int success;
 
+    public static MovieDescResponse of(MovieSummaryResponse movieSummaryResponse) {
+        return MovieDescResponse.builder()
+                .movieId(movieSummaryResponse.getMovieId())
+                .title(movieSummaryResponse.getTitle())
+                .status(FundingStatus.valueOf(String.valueOf(movieSummaryResponse.getStatus())))
+                .releaseAt(movieSummaryResponse.getReleaseAt())
+                .runningTime(movieSummaryResponse.getRunningTime())
+                .age(movieSummaryResponse.getAge())
+                .actors(movieSummaryResponse.getActors())
+                .plot(movieSummaryResponse.getPlot())
+                .poster(movieSummaryResponse.getPoster())
+                .hopeCnt(movieSummaryResponse.getHopeCnt())
+                .build();
+    }
 
+    // 누적 요청 수 저장
+    public static MovieDescResponse setTotal(MovieDescResponse movieDescResponse, int total) {
+        movieDescResponse.total = total;
+        return movieDescResponse;
+    }
+
+    // 장르 저장
+    public static MovieDescResponse setGenre(
+            MovieDescResponse movieDescResponse, List<String> genreList) {
+        movieDescResponse.genre = genreList;
+        return movieDescResponse;
+    }
+
+    public static MovieDescResponse setSuccess(MovieDescResponse movieDescResponse, int success) {
+        movieDescResponse.success = success;
+        return movieDescResponse;
+    }
 }

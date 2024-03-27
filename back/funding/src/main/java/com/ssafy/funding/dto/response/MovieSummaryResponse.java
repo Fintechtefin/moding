@@ -1,14 +1,12 @@
 package com.ssafy.funding.dto.response;
 
 import com.ssafy.funding.domain.FundingStatus;
-import com.ssafy.funding.domain.Movie;
 import io.swagger.v3.oas.annotations.media.Schema;
+import java.io.Serializable;
+import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 
 @Getter
 @AllArgsConstructor
@@ -24,23 +22,33 @@ public class MovieSummaryResponse implements Serializable {
     private String title;
 
     @NotNull
-    @Schema(description = "영화 관람 등급")
-    private int age;
+    @Schema(description = "현재 상태")
+    private FundingStatus status;
+
+    @NotNull
+    @Schema(description = "개봉 날짜")
+    private String releaseAt;
+
+    @NotNull
+    @Schema(description = "러닝타임")
+    private int runningTime;
+
+    @NotNull
+    @Schema(description = "관람 등급")
+    private String age;
+
+    @NotNull
+    @Schema(description = "출연배우")
+    private String actors;
+
+    @NotNull
+    @Schema(description = "줄거리")
+    private String plot;
 
     @NotNull
     @Schema(description = "영화 포스터")
     private String poster;
 
-//    @Schema(description = "개봉날짜")
-//
-//
-//    @NotNull
-//    @Schema(description = "현재 상태")
-//    private FundingStatus status;
-
-    @Schema(description = "좋아요 수")
-    private long likeCnt;
-
-
-
+    @Schema(description = "현재 펀딩 요청 수")
+    private long hopeCnt;
 }
