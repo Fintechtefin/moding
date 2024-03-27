@@ -2,7 +2,8 @@ package com.ssafy.funding.service;
 
 import com.ssafy.funding.domain.Movie;
 import com.ssafy.funding.domain.document.MovieDocument;
-import com.ssafy.funding.dto.DetailMovie;
+import com.ssafy.funding.dto.response.MovieDetailResponse;
+import com.ssafy.funding.dto.response.MovieRankingResponse;
 import com.ssafy.funding.repository.MovieRepository;
 import com.ssafy.funding.repository.MovieSearchNativeQueryRepository;
 import com.ssafy.funding.util.RedisUtil;
@@ -25,11 +26,11 @@ public class MovieService {
     private final MovieRepository movieRepository;
     private final RedisUtil redisUtil;
 
-    public List<DetailMovie> searchMovie(String word) {
-        List<DetailMovie> movies = movieRepository.findByTitleContainingOrActorsContaining(word, word);
+    public List<MovieDetailResponse> searchMovie(String word) {
+        List<MovieDetailResponse> movies =
+                movieRepository.findByTitleContainingOrActorsContaining(word, word);
+
         return movies;
-        //        return
-        // transInfoList(movieSearchNativeQueryRepository.findByNativeCondition(word));
     }
 
     public Optional<Movie> detailMovieBySearch(int movieId) throws IOException {
@@ -39,13 +40,17 @@ public class MovieService {
         return movieRepository.findById(movieId);
     }
 
-    public List<DetailMovie> popularMovies() throws IOException {
+    public List<MovieRankingResponse> popularMovies(int time) throws IOException {
 
-        // todo: redis에 있는지 확인
+        String redisKey = "movie_ranking_" + (time - 1);
+        if (redisUtil.getObject(redisKey) != null) {
+            System.out.println("Redis Hit!!!");
+            return (List<MovieRankingResponse>) redisUtil.getObject(redisKey);
+        }
 
         // 인기 검색 영화 집계
         Terms duplicateMessages = movieSearchNativeQueryRepository.getRecentTop10Movies();
-        List<DetailMovie> movieList = new ArrayList<>();
+        List<MovieRankingResponse> movieList = new ArrayList<>();
 
         // 인기 영화 조회
         if (duplicateMessages != null) {
@@ -53,45 +58,50 @@ public class MovieService {
                 String key = bucket.getKeyAsString(); // movie id
                 long docCount = bucket.getDocCount(); // count 횟수
 
-                //                Optional<MovieDocument> movieDocument =
-                // movieSearchRepository.findById(key);
                 Optional<Movie> movie = movieRepository.findById(Integer.parseInt(key));
-                //                movieList.add(transInfoReverse(movieDocument.get()));
-                movieList.add(transInfoDetail(movie.get()));
+                MovieRankingResponse movieRankingResponse = transInfoRanking(movie.get());
+                movieRankingResponse.setSearchCnt(docCount);
+                movieRankingResponse.setRefreshTime(time - 1);
+
+                movieList.add(movieRankingResponse);
             }
         }
 
-        // todo: redis에 캐싱하기
+        redisUtil.setObject(redisKey, movieList);
+        redisKey = "movie_ranking_" + (time - 2);
+        if (redisUtil.getObject(redisKey) != null) {
+            redisUtil.deleteData(redisKey);
+        }
 
         return movieList;
     }
 
-    public List<DetailMovie> getMovieList(String genre, String sort, int page) {
+    public List<MovieDetailResponse> getMovieList(String genre, String sort, int page) {
 
-        List<DetailMovie> movieList = new ArrayList<>();
+        List<MovieDetailResponse> movieList = new ArrayList<>();
         final String key = "movie_list_" + genre + "_" + sort + "_" + page;
 
         if (redisUtil.getObject(key) != null) {
-            movieList = (List<DetailMovie>) redisUtil.getObject(key);
+            movieList = (List<MovieDetailResponse>) redisUtil.getObject(key);
             return movieList.subList((page - 1) * 20, page * 20);
         }
 
         movieList = movieRepository.findMoviesByParentGenreId(genre);
-        Comparator<DetailMovie> comparator;
+        Comparator<MovieDetailResponse> comparator;
 
         if (sort.equals("titleDesc") || sort.equals("titleAsc")) {
             if (sort.equals("titleDesc")) {
-                comparator = Comparator.comparing(DetailMovie::getTitle).reversed();
+                comparator = Comparator.comparing(MovieDetailResponse::getTitle).reversed();
             } else {
-                comparator = Comparator.comparing(DetailMovie::getTitle);
+                comparator = Comparator.comparing(MovieDetailResponse::getTitle);
             }
             Collections.sort(movieList, comparator);
             redisUtil.setObject(key, movieList);
         } else {
             if (sort.equals("likeDesc")) {
-                comparator = Comparator.comparingLong(DetailMovie::getLikeCnt).reversed();
+                comparator = Comparator.comparingLong(MovieDetailResponse::getLikeCnt).reversed();
             } else {
-                comparator = Comparator.comparingLong(DetailMovie::getLikeCnt);
+                comparator = Comparator.comparingLong(MovieDetailResponse::getLikeCnt);
             }
             Collections.sort(movieList, comparator);
         }
@@ -107,7 +117,11 @@ public class MovieService {
         return Movie.of(movieDocument);
     }
 
-    private DetailMovie transInfoDetail(Movie movie) {
-        return DetailMovie.of(movie);
+    private MovieDetailResponse transInfoDetail(Movie movie) {
+        return MovieDetailResponse.of(movie);
+    }
+
+    private MovieRankingResponse transInfoRanking(Movie movie) {
+        return MovieRankingResponse.of(movie);
     }
 }
