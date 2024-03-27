@@ -104,4 +104,8 @@ public class OrderService {
                         .orderId(order.getId())
                         .build());
     }
+
+    public Boolean checkPaymentUser(Integer fundingId, Integer userId) {
+        return orderRepository.existsByFundingIdAndUserId(fundingId, userId);
+    }
 }

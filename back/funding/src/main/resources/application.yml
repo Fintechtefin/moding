@@ -10,6 +10,12 @@ spring:
   config:
     import: application-funding-dev.yml, application-funding-prod.yml, application-funding-local.yml
 
+  datasource:
+    url: jdbc:mysql://localhost:3306/mooding?serverTimezone=UTC&characterEncoding=UTF-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: mooding
+    password: mooding84595
+
   eureka:
     instance:
       instance-id: ${spring.cloud.client.hostname}:${spring.application.instance_id:${random.value}}
@@ -51,3 +57,9 @@ logging:
     classpath:
       logback.xml
 
+redis:
+  host: localhost
+  port: 6379
+
+swagger:
+  host: localhost:8084
