@@ -2,6 +2,7 @@ package com.ssafy.funding.service;
 
 import com.ssafy.funding.domain.Movie;
 import com.ssafy.funding.domain.document.MovieDocument;
+import com.ssafy.funding.dto.response.MovieDescResponse;
 import com.ssafy.funding.dto.response.MovieDetailResponse;
 import com.ssafy.funding.dto.response.MovieRankingResponse;
 import com.ssafy.funding.repository.MovieRepository;
@@ -29,7 +30,7 @@ public class MovieService {
     public List<MovieDetailResponse> searchMovie(String word) {
         List<MovieDetailResponse> movies =
                 movieRepository.findByTitleContainingOrActorsContaining(word, word);
-
+        System.out.println(movies.size());
         return movies;
     }
 
@@ -76,17 +77,23 @@ public class MovieService {
         return movieList;
     }
 
-    public List<MovieDetailResponse> getMovieList(String genre, String sort, int page) {
+    public List<MovieDetailResponse> getMovieList(int genre, String sort, int page) {
 
         List<MovieDetailResponse> movieList = new ArrayList<>();
         final String key = "movie_list_" + genre + "_" + sort + "_" + page;
 
         if (redisUtil.getObject(key) != null) {
             movieList = (List<MovieDetailResponse>) redisUtil.getObject(key);
+            System.out.println("Redis Hit!!!");
+            if((page-1)*20>movieList.size()) return null;
+            if(page*20>=movieList.size() && (page-1)*20<movieList.size()) {
+                return movieList.subList((page-1)*20,movieList.size());
+            }
             return movieList.subList((page - 1) * 20, page * 20);
         }
 
         movieList = movieRepository.findMoviesByParentGenreId(genre);
+        System.out.println(movieList.size());
         Comparator<MovieDetailResponse> comparator;
 
         if (sort.equals("titleDesc") || sort.equals("titleAsc")) {
@@ -106,6 +113,10 @@ public class MovieService {
             Collections.sort(movieList, comparator);
         }
 
+        if((page-1)*20>movieList.size()) return null;
+        if(page*20>=movieList.size() && (page-1)*20<movieList.size()) {
+            return movieList.subList((page-1)*20,movieList.size()-(page-1)*20);
+        }
         return movieList.subList((page - 1) * 20, page * 20);
     }
 
@@ -123,5 +134,12 @@ public class MovieService {
 
     private MovieRankingResponse transInfoRanking(Movie movie) {
         return MovieRankingResponse.of(movie);
+    }
+
+    public MovieDescResponse detailMovie(int movieId) {
+        // 영화 정보 가져오기
+//        Optional<MovieDescResponse> movieDescResponse=movieRepository.findMovieDescById(movieId);
+
+        return null;
     }
 }
