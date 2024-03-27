@@ -49,7 +49,7 @@ public class OrderValidator {
 
     /** 펀딩이 열려있는 상태인지 */
     public void validFundingIsOpen(Funding funding) {
-        funding.validateNotOpenStatus();
+        funding.validateNotOpenStatus(); // 이 메서드 내용 주석 처리 해놨어요 - 승연-
     }
 
     /** 티켓 예매 가능 시간이 아직 안지났는지. */

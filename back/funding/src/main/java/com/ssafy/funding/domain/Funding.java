@@ -37,10 +37,10 @@ public class Funding {
 
     /*
     이벤트 상태 필드
-    ERD에서 없어서 한번 열렸다가 종료된 펀딩은 지울지 이야기 해봐야 함
+    ERD에서 없어서 한번 열렸다가 종료된 펀딩은 지울지 이야기 해봐야 함 -> movie에 status 있으니까 펀딩에서는 제거
      */
-    @Enumerated(EnumType.STRING)
-    private FundingStatus status;
+//    @Enumerated(EnumType.STRING)
+//    private FundingStatus status;
 
     private LocalDateTime startAt;
 
@@ -55,7 +55,7 @@ public class Funding {
     }
 
     public void validateNotOpenStatus() {
-        if (status != OPEN) throw FundingNotOpenException.EXCEPTION;
+//        if (status != OPEN) throw FundingNotOpenException.EXCEPTION;
     }
 
     public boolean isTimeBeforeStartAt() {
