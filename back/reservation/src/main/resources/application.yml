@@ -9,7 +9,13 @@ spring:
     name: reservation
 
   config:
-    import: application-reservation-local.yml
+    import: application-reservation-local.yml, application-reservation-prod.yml
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/mooding?serverTimezone=UTC&characterEncoding=UTF-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: mooding
+    password: mooding84595
 
   eureka:
     instance:
