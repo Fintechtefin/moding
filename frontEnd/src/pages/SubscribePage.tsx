@@ -1,7 +1,6 @@
 import NavHeader from "@components/NavHeader";
 import { ChangeEvent, useState } from "react";
-import MovieLike from "@components/subscribe/MovieLike";
-import FundingRequest from "@components/subscribe/FundingRequest";
+import Subscribe from "@components/subscribe/Subscribe";
 import SubscribeType from "@components/subscribe/SubscribeType";
 
 const SubscribePage = () => {
@@ -17,7 +16,11 @@ const SubscribePage = () => {
       <div>
         <SubscribeType check={check} handleChange={handleChange} />
         <div className="none-scroll max-h-[88vh] overflow-auto p-[3vh] pb-[10vh] grid grid-cols-2 gap-[3vh]">
-          {check === "like" ? <MovieLike /> : <FundingRequest />}
+          {check === "like" ? (
+            <Subscribe type="좋아요" />
+          ) : (
+            <Subscribe type="펀딩요청" />
+          )}
         </div>
       </div>
     </div>
