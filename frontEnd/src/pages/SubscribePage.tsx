@@ -16,7 +16,7 @@ const SubscribePage = () => {
       <NavHeader leftWord="관심 있는 소식만 모았어요" />
       <div>
         <SubscribeType check={check} handleChange={handleChange} />
-        <div className="none-scroll h-[88vh] overflow-auto p-[3vh] pb-[10vh] grid grid-cols-2 gap-[3vh]">
+        <div className="none-scroll max-h-[88vh] overflow-auto p-[3vh] pb-[10vh] grid grid-cols-2 gap-[3vh]">
           {check === "like" ? <MovieLike /> : <FundingRequest />}
         </div>
       </div>

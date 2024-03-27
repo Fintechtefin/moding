@@ -3,8 +3,6 @@ import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "@components/MainLayout";
 import "@/firebase-messaging-sw";
 import "@/App.scss";
-import FundingProgress from "@pages/user/FundingProgress";
-import FundingCompletedPage from "@pages/user/FundingCompletedPage";
 
 const ModingOffice = lazy(() => import("@pages/ModingOffice"));
 const MovieCategory = lazy(() => import("@pages/MovieCategory"));
@@ -28,6 +26,13 @@ const PaymentFailPage = lazy(() => import("@pages/payment/PaymentFailPage"));
 const NotFoundPage = lazy(() => import("@pages/NotFoundPage"));
 const Notification = lazy(() => import("@pages/notification/Notification"));
 const TicketPage = lazy(() => import("@pages/user/TicketPage"));
+const FundingProgress = lazy(() => import("@pages/user/FundingProgress"));
+const FundingCompletedPage = lazy(
+  () => import("@pages/user/FundingCompletedPage")
+);
+const PaymentCompletedPage = lazy(
+  () => import("@pages/payment/PaymentCompletedPage")
+);
 
 export const router = createBrowserRouter([
   {
@@ -99,6 +104,7 @@ export const router = createBrowserRouter([
                 index: true,
                 element: <PaymentPage />,
               },
+              { path: "completed", element: <PaymentCompletedPage /> },
               { path: "success", element: <PaymentSuccessPage /> },
               { path: "fail", element: <PaymentFailPage /> },
             ],

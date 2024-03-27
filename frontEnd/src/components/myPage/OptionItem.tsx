@@ -11,10 +11,11 @@ interface Props {
 
 const OptionItem = ({ name, url }: Props) => {
   const navigate = useNavigate();
-  const jwt = localStorage.getItem("jwt");
+  // const jwt = localStorage.getItem("jwt");
 
   const handleClick = () => {
-    navigate(jwt ? "/login" : url);
+    // navigate(jwt ? "/login" : url);
+    navigate(url);
   };
 
   return (

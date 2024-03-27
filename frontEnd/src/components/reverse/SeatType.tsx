@@ -16,7 +16,7 @@ const SeatItem = ({ label, color }: Props) => {
 
 const SeatType = () => {
   return (
-    <div className="flex justify-end gap-[2vh] px-[3vh]">
+    <div className="flex justify-end gap-[2vh]">
       <SeatItem label="선택불가" color="#3D3C4E" />
       <SeatItem label="선택가능" color="#A09FB2" />
       <SeatItem label="선택좌석" color="#C00202" />
