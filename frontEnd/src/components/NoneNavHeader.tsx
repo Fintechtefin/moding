@@ -46,7 +46,7 @@ const NoneNavHeader = ({
         className="text-[3vh] cursor-pointer"
         onClick={handleBackClick}
       />
-      <div className="text-[3vh] font-bold">{centerText}</div>
+      <div className="text-[2.5vh] font-bold">{centerText}</div>
       <div className="w-[3vh] h-[3vh] flex items-center justify-center">
         {iconSelect()}
       </div>

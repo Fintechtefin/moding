@@ -1,6 +1,7 @@
 import { selectSeatsLengthSelector } from "@recoil/reserveStore";
 import { useRecoilValue } from "recoil";
 import moviePost from "@assets/images/영화포스터.jpg";
+import toast, { Toaster } from "react-hot-toast";
 
 interface Props {
   max: number;
@@ -9,8 +10,15 @@ interface Props {
 const MovieInfo = ({ max }: Props) => {
   const selectSeatsLength = useRecoilValue(selectSeatsLengthSelector);
 
+  const handleClick = () => {
+    if (selectSeatsLength < max) {
+      toast("인원을 선택해주세요", { duration: 1500 });
+      return;
+    }
+  };
+
   return (
-    <div className="fixed bottom-0 text-black bg-white w-[100%] h-[20vh] rounded-t-[3vh]">
+    <div className="text-black bg-white w-[100%] h-[20vh] rounded-t-[3vh]">
       <div className="p-[2vh] flex gap-[3vh]">
         <div className="flex flex-col justify-between grow text-[2.5vh]">
           <div className="flex gap-[2vh]">
@@ -28,9 +36,25 @@ const MovieInfo = ({ max }: Props) => {
           alt="영화포스터"
         />
       </div>
-      <button className="fixed bottom-0 w-[100%] h-[6vh] border-none bg-red-600 shadow-bgRed text-white font-bold text-[2.5vh] ">
+      <button
+        className=" w-[100%] h-[6vh] bg-red-600 shadow-bgRed text-white font-bold text-[2.5vh] "
+        onClick={handleClick}
+      >
         예매
       </button>
+      <Toaster
+        containerStyle={{
+          margin: "0 auto",
+        }}
+        toastOptions={{
+          // Define default options
+          style: {
+            background: "#363636",
+            color: "#fff",
+            fontSize: "2vh",
+          },
+        }}
+      />
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { IoHeart } from "react-icons/io5";
+import { FaHeart } from "react-icons/fa";
 import post1 from "@assets/images/영화포스터.jpg";
+import toast, { Toaster } from "react-hot-toast";
 
 interface Like {
   id: number;
@@ -11,7 +12,7 @@ interface Like {
 }
 
 const MovieLike = () => {
-  const [likeList] = useState<Like[]>([
+  const [likeList, setLikeLisk] = useState<Like[]>([
     {
       id: 1,
       name: "엘리멘탈",
@@ -56,34 +57,62 @@ const MovieLike = () => {
     },
   ]);
 
+  const handleClick = (id: number) => {
+    setLikeLisk((prev) => prev.filter((item) => item.id !== id));
+    toast("찜을 취소했어요.", { duration: 1500 });
+  };
+
   return (
     <>
       {likeList.map((like) => {
         return (
-          <div className="w-[100%] relative " key={like.id}>
-            <div className="text-white absolute z-[1] flex justify-between w-[100%] p-[1vh]">
-              <IoHeart className="text-[#C00202] text-[3vh]" />
-              <div>
-                <div className="bg-[#C00202] blur-sm w-[100%] h-[100%] border-2 border-[#C00202]"></div>
-                <div className="text-[1.5vh] relative top-[-100%] right-0 my-[0.5vh] mx-[1vh]">
-                  {like.state}
-                </div>
-              </div>
-            </div>
+          <div
+            className="w-[100%] relative shadow-bgTTT rounded-[1.5vh]"
+            key={like.id}
+          >
             <img
-              className="w-[100%] h-[100%] object-cover rounded-t-[1.5vh] brightness-[90%]"
+              className="w-[100%] h-[100%] object-cover rounded-[1.5vh] brightness-[90%]"
               src={like.url}
-              alt=""
+              alt="영화포스터"
             />
-            <div className="p-[1.5vh] flex flex-col gap-[1vh] absolute bottom-0 bg-black rounded-b-[1.5vh] w-[100%] bg-opacity-50">
-              <div className="text-white text-[2vh]">{like.name}</div>
-              <div className="text-[#C00202] font-bold text-[2vh]">
-                {like.count}명 좋아해요
+            <div className="absolute inset-0 flex flex-col justify-between">
+              <div className="flex justify-between items-center p-[1vh]">
+                <div className="relative">
+                  <div className="absolute inset-0 bg-[#C00202] blur-sm"></div>
+                  <div className="relative text-[1.5vh] px-[1vh] py-[0.5vh]">
+                    {like.state}
+                  </div>
+                </div>
+                <FaHeart
+                  className="text-[#C00202] text-[3vh]"
+                  onClick={() => {
+                    handleClick(like.id);
+                  }}
+                />
+              </div>
+              <div className="p-[1.5vh] flex flex-col gap-[1vh]  bottom-0 bg-black rounded-b-[1.5vh] w-[100%] bg-opacity-80">
+                <div className="text-[2vh]">{like.name}</div>
+                <div className="text-[#C00202] font-bold text-[2vh]">
+                  {like.count}명 좋아해요
+                </div>
               </div>
             </div>
           </div>
         );
       })}
+      <Toaster
+        containerStyle={{
+          margin: "0 auto",
+        }}
+        toastOptions={{
+          // Define default options
+          style: {
+            background: "#363636",
+            color: "#fff",
+            fontSize: "2vh",
+          },
+        }}
+      />
     </>
   );
 };

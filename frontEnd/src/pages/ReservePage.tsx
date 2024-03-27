@@ -41,7 +41,7 @@ const ReservePage = () => {
     navigate(-1);
   };
 
-  const rows = "ABCDEF".split("");
+  const rows = "ABCDEFGH".split("");
   const numbers = Array.from({ length: 8 }, (_, i) => i + 1);
 
   useEffect(() => {
@@ -57,45 +57,47 @@ const ReservePage = () => {
   }, [selectSeatsLength]); // myArray가 변경될 때마다 이 useEffect를 다시 실행합니다.
 
   return (
-    <div className="h-[100vh] flex flex-col gap-[5vh]">
+    <div className="h-[100vh] flex flex-col">
       <NoneNavHeader
         centerText="좌석예매"
         onBackButtonClick={handleBackButtonClick}
       />
-      <div className="flex flex-col gap-[5vh]">
-        <SeatType />
-        {/* <GoEye className="text-red-600" /> */}
-        <div className="flex flex-col items-center gap-[5vh]">
-          <div className="relative flex flex-col items-center">
-            <img
-              className="w-[100%] h-[5vh] px-[3vh]"
-              src={screen}
-              alt="영화관스크린"
-            />
-            <div className="text-[2vh] text-[#A09FB0] font-bold">SCREEN</div>
-          </div>
-          <div className="flex flex-col gap-[2vh]">
-            {rows.map((row) => (
-              <div key={row} className="flex gap-[2vh]">
-                <div className="flex items-center justify-center gap-[1vh]">
-                  {numbers.map((number) => {
-                    const seatId = `${row}${number}`;
-                    return (
-                      <Seat
-                        key={seatId}
-                        seatId={seatId}
-                        max={max}
-                        isOccupied={occupiedSeats.includes(seatId)}
-                      />
-                    );
-                  })}
+      <div className="flex flex-col justify-between h-[93vh]">
+        <div className="flex-1 flex flex-col gap-[5vh] p-[3vh]">
+          <SeatType />
+          {/* <GoEye className="text-red-600" /> */}
+          <div className="flex flex-col items-center gap-[5vh]">
+            <div className="relative flex flex-col items-center">
+              <img
+                className="w-[100%] h-[5vh]"
+                src={screen}
+                alt="영화관스크린"
+              />
+              <div className="text-[2vh] text-[#A09FB0] font-bold">SCREEN</div>
+            </div>
+            <div className="flex flex-col gap-[2vh]">
+              {rows.map((row) => (
+                <div key={row} className="flex gap-[2vh]">
+                  <div className="flex items-center justify-center gap-[1vh]">
+                    {numbers.map((number) => {
+                      const seatId = `${row}${number}`;
+                      return (
+                        <Seat
+                          key={seatId}
+                          seatId={seatId}
+                          max={max}
+                          isOccupied={occupiedSeats.includes(seatId)}
+                        />
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
+        <MovieInfo max={max} />
       </div>
-      <MovieInfo max={max} />
       {isModalOpen && (
         <Prompt onClose={closeModal} onConfirm={confirmAndGoBack} />
       )}
