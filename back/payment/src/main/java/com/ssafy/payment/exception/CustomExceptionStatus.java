@@ -7,6 +7,9 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum CustomExceptionStatus implements BaseErrorCode {
+    INTERNAL_SEVER_ERROR("InternalServer_500_1", "서버 에러가 발생하였습니다. 관리자에게 문의해 주세요."),
+    REQUEST_ERROR("NotValidInput_400_2", "입력 값을 확인해 주세요."),
+
     OTHER_SERVER_BAD_REQUEST("FEIGN_400_1", "Other server bad request"),
     OTHER_SERVER_UNAUTHORIZED("FEIGN_400_2", "Other server unauthorized"),
     OTHER_SERVER_FORBIDDEN("FEIGN_400_3", "Other server forbidden"),
