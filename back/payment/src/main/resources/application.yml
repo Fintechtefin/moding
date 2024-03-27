@@ -1,39 +1,4 @@
-server:
-  port: 8082
-
 spring:
-  application:
-    name: payment
-
   config:
-    import: application-payment-prod.yml, application-payment-dev.yml, application-payment-local.yml
-
-  eureka:
-    instance:
-      instance-id: ${spring.cloud.client.hostname}:${spring.application.instance_id:${random.value}}
-    client:
-      service-url:
-        default-zone: http://localhost:8761/eureka
-
-  mvc:
-    pathmatch:
-      matching-strategy: ant_path_matcher
-
-  kafka:
-    bootstrap-servers: localhost:9092
-    consumer:
-      group-id: my-group
-
-
-kafka:
-  topics:
-    test: order
-    payment: refund
-
-feign:
-  toss:
-    url : https://api.tosspayments.com
-
-grpc:
-  server:
-    port: 9998
+    import:
+      - application-payment-test.yml
