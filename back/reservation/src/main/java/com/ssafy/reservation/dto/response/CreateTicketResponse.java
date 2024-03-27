@@ -23,14 +23,17 @@ public class CreateTicketResponse {
     @Schema(description = "영화 관람 등급")
     private String age;
 
+    @Schema(description = "영화 제목")
+    private String title;
+
     @Schema(description = "재상영 날짜")
     private LocalDate date;
 
     @Schema(description = "시작 시간")
     private String startTime;
 
-    @Schema(description = "종료 시간")
-    private String endTime;
+    @Schema(description = "러닝 타임")
+    private Integer runningTime;
 
     @Schema(description = "수량")
     private Integer count;
