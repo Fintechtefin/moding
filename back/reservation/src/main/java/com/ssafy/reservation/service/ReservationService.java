@@ -58,9 +58,10 @@ public class ReservationService {
                         reservation.get().getSeats(),
                         "poster.jpg",
                         "15세 이상 관람가",
+                        "엘리멘탈",
                         LocalDate.parse("2024-04-05", DateTimeFormatter.ISO_DATE),
                         "12:30",
-                        "14:30",
+                        120,
                         1,
                         "광주 롯데시네마 수완점",
                         5);
