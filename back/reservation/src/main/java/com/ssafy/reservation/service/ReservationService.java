@@ -5,9 +5,13 @@ import static com.ssafy.reservation.exception.global.CustomExceptionStatus.NOT_F
 import com.ssafy.reservation.controller.ReservationClient;
 import com.ssafy.reservation.domain.Reservation;
 import com.ssafy.reservation.dto.request.MakeReservationRequest;
+import com.ssafy.reservation.dto.response.CreateTicketResponse;
 import com.ssafy.reservation.exception.BadRequestException;
 import com.ssafy.reservation.exception.global.CustomExceptionStatus;
 import com.ssafy.reservation.repository.ReservationRepository;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,6 +46,25 @@ public class ReservationService {
     public void makeReservation(MakeReservationRequest makeReservationRequest) {
         Reservation reservation = Reservation.of(makeReservationRequest, completedStatus);
         reservationRepository.save(reservation);
+    }
+
+    public CreateTicketResponse createTicket(Integer reservationId) {
+        Optional<Reservation> reservation = reservationRepository.findById(reservationId);
+        if (reservation.get().getStatus() == 0) {
+            throw new BadRequestException(CustomExceptionStatus.CANCELED_RSERVATION_ID);
+        }
+        CreateTicketResponse createTicketResponse =
+                new CreateTicketResponse(
+                        reservation.get().getSeats(),
+                        "poster.jpg",
+                        "15세 이상 관람가",
+                        LocalDate.parse("2024-04-05", DateTimeFormatter.ISO_DATE),
+                        "12:30",
+                        "14:30",
+                        1,
+                        "광주 롯데시네마 수완점",
+                        5);
+        return createTicketResponse;
     }
 
     @Transactional

@@ -9,7 +9,8 @@ public enum CustomExceptionStatus implements BaseErrorCode {
 
     RESERVATION_SEAT("Reservation_400_1", "이미 예매 완료된 좌석입니다."),
     NOT_PAYMENTS_USER("Reservation_400_2", "해당 펀딩에 결제하지 않은 사용자입니다."),
-    NOT_FOUND_RSERVATION_ID("Reservation_400_3", "존재하지 않는 예매번호입니다.");
+    NOT_FOUND_RSERVATION_ID("Reservation_400_3", "존재하지 않는 예매번호입니다."),
+    CANCELED_RSERVATION_ID("Reservation_400_4", "취소된 예매 내역입니다.");
 
     private final String code;
     private final String message;
