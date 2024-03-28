@@ -51,5 +51,4 @@ public class MovieSummaryResponse implements Serializable {
 
     @Schema(description = "현재 펀딩 요청 수")
     private long hopeCnt;
-
 }

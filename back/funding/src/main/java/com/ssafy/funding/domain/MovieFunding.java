@@ -1,5 +1,6 @@
 package com.ssafy.funding.domain;
 
+import com.ssafy.funding.dto.request.MovieFundingRequest;
 import javax.persistence.*;
 import lombok.*;
 
@@ -28,4 +29,16 @@ public class MovieFunding {
 
     @Column(name = "location")
     private String location;
+
+    public static MovieFunding of(
+            MovieFundingRequest movieFundingRequest, int userId, Movie movie) {
+        MovieFunding movieFunding = new MovieFunding();
+
+        movieFunding.movie = movie;
+        movieFunding.userId = userId;
+        movieFunding.time = movieFundingRequest.getTime();
+        movieFunding.location = movieFundingRequest.getLocation();
+
+        return movieFunding;
+    }
 }

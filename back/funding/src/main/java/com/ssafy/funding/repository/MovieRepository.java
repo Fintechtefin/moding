@@ -2,10 +2,9 @@ package com.ssafy.funding.repository;
 
 import com.ssafy.funding.domain.Movie;
 import com.ssafy.funding.dto.response.MovieDetailResponse;
+import com.ssafy.funding.dto.response.MovieSummaryResponse;
 import java.util.List;
 import java.util.Optional;
-
-import com.ssafy.funding.dto.response.MovieSummaryResponse;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -26,7 +25,6 @@ public interface MovieRepository extends CrudRepository<Movie, Integer> {
                     + "WHERE m.id = :movieId")
     Optional<MovieSummaryResponse> getMovieDetailById(@Param("movieId") int movieId);
 
-
     @Query(
             "SELECT g.type FROM Genre g WHERE g.id IN (SELECT mg.genre.id FROM MovieGenre mg WHERE mg.movie.id = :movieId)")
     Optional<List<String>> getGenreById(@Param("movieId") int movieId);
@@ -34,6 +32,4 @@ public interface MovieRepository extends CrudRepository<Movie, Integer> {
     @Query(
             "SELECT count(fh) FROM FundingHistory fh WHERE fh.funding.movie.id=:movieId and fh.fundingFinalResult=true")
     int getSuccessCountById(@Param("movieId") int movieId);
-
 }
-

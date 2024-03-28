@@ -1,6 +1,5 @@
 package com.ssafy.funding.controller;
 
-import com.ssafy.funding.domain.Movie;
 import com.ssafy.funding.dto.response.MovieDescResponse;
 import com.ssafy.funding.dto.response.MovieDetailResponse;
 import com.ssafy.funding.dto.response.MovieRankingResponse;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/movies")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class MovieController {
 
     private final MovieService movieService;
@@ -27,7 +27,8 @@ public class MovieController {
 
     @Operation(summary = "검색을 통해 영화(펀딩) 상세 정보를 조회합니다.")
     @GetMapping("/search/{movieId}")
-    public ResponseEntity<MovieDescResponse> detailMovieBySearch(@PathVariable int movieId) throws IOException {
+    public ResponseEntity<MovieDescResponse> detailMovieBySearch(@PathVariable int movieId)
+            throws IOException {
         return ResponseEntity.ok(movieService.detailMovieBySearch(movieId));
     }
 
