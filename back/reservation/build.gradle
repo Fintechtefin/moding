@@ -78,7 +78,7 @@ spotless {
 task copyPrivate(type: Copy) {
 	copy {
 		from '../mooding_back_submodule'
-		include "application-reservation-*.yml"
+		include "application-reservation.yml"
 		into 'src/main/resources'
 	}
 }
