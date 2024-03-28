@@ -35,12 +35,39 @@ public class MovieService {
         return movies;
     }
 
-    public Optional<Movie> detailMovieBySearch(int movieId) throws IOException {
+    public MovieDescResponse detailMovieBySearch(int movieId) throws IOException {
         // 로그 전송
         log.info(String.valueOf(movieId));
-        // todo: Funding 객체로 반환하기
-        return movieRepository.findById(movieId);
+        MovieDescResponse movieDescResponse=detailMovie(movieId);
+        return movieDescResponse;
     }
+
+    public MovieDescResponse detailMovie(int movieId) {
+
+        // 영화 정보 가져오기
+        Optional<MovieSummaryResponse> movieSummaryResponse =
+                movieRepository.getMovieDetailById(movieId);
+
+        MovieDescResponse movieDescResponse = MovieDescResponse.of(movieSummaryResponse.get());
+
+        // genre 가져오기
+        Optional<List<String>> genreList = movieRepository.getGenreById(movieId);
+        movieDescResponse = MovieDescResponse.setGenre(movieDescResponse, genreList.get());
+
+        // total 지정
+        String key = "total_cnt_" + movieId;
+
+        // test
+        redisUtil.setData(key, "10");
+
+        int accumulate = Integer.parseInt(redisUtil.getData(key));
+        movieDescResponse = MovieDescResponse.setTotal(movieDescResponse, accumulate);
+
+        int success = movieRepository.getSuccessCountById(movieId);
+
+        return MovieDescResponse.setSuccess(movieDescResponse, success);
+    }
+
 
     public List<MovieRankingResponse> popularMovies(int time) throws IOException {
 
@@ -86,11 +113,11 @@ public class MovieService {
         if (redisUtil.getObject(key) != null) {
             movieList = (List<MovieDetailResponse>) redisUtil.getObject(key);
             System.out.println("Redis Hit!!!");
-            if ((page - 1) * 20 > movieList.size()) return null;
-            if (page * 20 >= movieList.size() && (page - 1) * 20 < movieList.size()) {
-                return movieList.subList((page - 1) * 20, movieList.size());
+            if ((page - 1) * 21 > movieList.size()) return null;
+            if (page * 21 >= movieList.size() && (page - 1) * 21 < movieList.size()) {
+                return movieList.subList((page - 1) * 21, movieList.size());
             }
-            return movieList.subList((page - 1) * 20, page * 20);
+            return movieList.subList((page - 1) * 21, page * 21);
         }
 
         movieList = movieRepository.findMoviesByParentGenreId(genre);
@@ -114,11 +141,11 @@ public class MovieService {
             Collections.sort(movieList, comparator);
         }
 
-        if ((page - 1) * 20 > movieList.size()) return null;
-        if (page * 20 >= movieList.size() && (page - 1) * 20 < movieList.size()) {
-            return movieList.subList((page - 1) * 20, movieList.size() - (page - 1) * 20);
+        if ((page - 1) * 21 > movieList.size()) return null;
+        if (page * 21 >= movieList.size() && (page - 1) * 21 < movieList.size()) {
+            return movieList.subList((page - 1) * 21, movieList.size());
         }
-        return movieList.subList((page - 1) * 20, page * 20);
+        return movieList.subList((page - 1) * 21, page * 21);
     }
 
     private List<Movie> transInfoList(List<MovieDocument> movies) {
@@ -135,32 +162,6 @@ public class MovieService {
 
     private MovieRankingResponse transInfoRanking(Movie movie) {
         return MovieRankingResponse.of(movie);
-    }
-
-    public MovieDescResponse detailMovie(int movieId) {
-
-        // 영화 정보 가져오기
-        Optional<MovieSummaryResponse> movieSummaryResponse =
-                movieRepository.getMovieDetailById(movieId);
-
-        MovieDescResponse movieDescResponse = MovieDescResponse.of(movieSummaryResponse.get());
-
-        // genre 가져오기
-        Optional<List<String>> genreList = movieRepository.getGenreById(movieId);
-        movieDescResponse = MovieDescResponse.setGenre(movieDescResponse, genreList.get());
-
-        // total 지정
-        String key = "total_cnt_" + movieId;
-
-        // test
-        redisUtil.setData(key, "10");
-
-        int accumulate = Integer.parseInt(redisUtil.getData(key));
-        movieDescResponse = MovieDescResponse.setTotal(movieDescResponse, accumulate);
-
-        int success = movieRepository.getSuccessCountById(movieId);
-
-        return MovieDescResponse.setSuccess(movieDescResponse, success);
     }
 
 }
