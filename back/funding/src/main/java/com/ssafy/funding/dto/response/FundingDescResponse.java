@@ -1,8 +1,6 @@
 package com.ssafy.funding.dto.response;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.util.HashMap;
-import java.util.Map;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,9 +30,9 @@ public class FundingDescResponse {
     @Schema(description = "펀딩 성공 횟수")
     private int success;
 
-//    @Schema(description = "지역별 설문 참여 수")
-//    private Map<String, Integer> areaCnt = new HashMap<>();
-//
-//    @Schema(description = "시간별 설문 참여 수")
-//    private Map<String, Integer> timeCnt = new HashMap<>();
+    //    @Schema(description = "지역별 설문 참여 수")
+    //    private Map<String, Integer> areaCnt = new HashMap<>();
+    //
+    //    @Schema(description = "시간별 설문 참여 수")
+    //    private Map<String, Integer> timeCnt = new HashMap<>();
 }

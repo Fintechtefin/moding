@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class AuthController {
 
     public static final int COOKIE_AGE_SECONDS = 604800;
@@ -59,5 +60,10 @@ public class AuthController {
 
         return ResponseEntity.status(CREATED)
                 .body(new AccessTokenResponse(memberTokens.getAccessToken()));
+    }
+
+    @GetMapping("/id")
+    public ResponseEntity getUserId(@RequestHeader("accessToken") String accessToken) {
+        return ResponseEntity.ok(loginService.getUsername(accessToken));
     }
 }

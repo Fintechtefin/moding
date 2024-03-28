@@ -38,7 +38,7 @@ public class MovieService {
     public MovieDescResponse detailMovieBySearch(int movieId) throws IOException {
         // 로그 전송
         log.info(String.valueOf(movieId));
-        MovieDescResponse movieDescResponse=detailMovie(movieId);
+        MovieDescResponse movieDescResponse = detailMovie(movieId);
         return movieDescResponse;
     }
 
@@ -68,10 +68,10 @@ public class MovieService {
         return MovieDescResponse.setSuccess(movieDescResponse, success);
     }
 
-
     public List<MovieRankingResponse> popularMovies(int time) throws IOException {
 
-        String redisKey = "movie_ranking_" + (time - 1);
+        String redisKey = "movie_ranking_" + (time);
+
         if (redisUtil.getObject(redisKey) != null) {
             System.out.println("Redis Hit!!!");
             return (List<MovieRankingResponse>) redisUtil.getObject(redisKey);
@@ -97,7 +97,7 @@ public class MovieService {
         }
 
         redisUtil.setObject(redisKey, movieList);
-        redisKey = "movie_ranking_" + (time - 2);
+        redisKey = "movie_ranking_" + (time - 1);
         if (redisUtil.getObject(redisKey) != null) {
             redisUtil.deleteData(redisKey);
         }
@@ -163,5 +163,4 @@ public class MovieService {
     private MovieRankingResponse transInfoRanking(Movie movie) {
         return MovieRankingResponse.of(movie);
     }
-
 }

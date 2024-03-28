@@ -3,6 +3,7 @@ package com.ssafy.user.service;
 import com.ssafy.user.domain.User;
 import com.ssafy.user.domain.enums.Platform;
 import com.ssafy.user.domain.enums.Role;
+import com.ssafy.user.infrastructure.JwtProvider;
 import com.ssafy.user.infrastructure.oauthprovider.OauthProvider;
 import com.ssafy.user.infrastructure.oauthprovider.OauthProviders;
 import com.ssafy.user.infrastructure.oauthuserinfo.OauthUserInfo;
@@ -23,6 +24,7 @@ public class LoginService {
     private final OauthProviders oauthProviders;
     private final UserRepository userRepository;
     private final RedisUtil redisUtil;
+    private final JwtProvider jwtProvider;
 
     public User login(final String providerName, final String code) {
         final OauthProvider provider = oauthProviders.mapping(providerName);
@@ -59,5 +61,10 @@ public class LoginService {
 
     public void logout(String currentUserSocialId) {
         redisUtil.deleteData(currentUserSocialId);
+    }
+
+    public int getUsername(String accessToken) {
+        String userId = jwtProvider.getUserId(accessToken);
+        return userRepository.findBySocialId(userId).get().getId();
     }
 }

@@ -4,9 +4,7 @@ import com.ssafy.funding.domain.FundingStatus;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -61,18 +59,17 @@ public class MovieDescResponse implements Serializable {
     @Schema(description = "현재 펀딩 요청 수")
     private long hopeCnt;
 
-//    @Schema(description = "지역별 설문 참여 수")
-//    private Map<String, Integer> areaCnt = new HashMap<>();
-//
-//    @Schema(description = "시간별 설문 참여 수")
-//    private Map<String, Integer> timeCnt = new HashMap<>();
+    //    @Schema(description = "지역별 설문 참여 수")
+    //    private Map<String, Integer> areaCnt = new HashMap<>();
+    //
+    //    @Schema(description = "시간별 설문 참여 수")
+    //    private Map<String, Integer> timeCnt = new HashMap<>();
 
     @Schema(description = "누적 요청 수")
     private int total;
 
     @Schema(description = "장르")
     private List<String> genre = new ArrayList<>();
-
 
     @Schema(description = "펀딩 성공 횟수")
     private int success;
@@ -109,5 +106,4 @@ public class MovieDescResponse implements Serializable {
         movieDescResponse.success = success;
         return movieDescResponse;
     }
-
 }
