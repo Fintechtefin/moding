@@ -32,9 +32,9 @@ public class FundingDescResponse {
     @Schema(description = "펀딩 성공 횟수")
     private int success;
 
-    @Schema(description = "지역별 설문 참여 수")
-    private Map<String, Integer> areaCnt = new HashMap<>();
-
-    @Schema(description = "시간별 설문 참여 수")
-    private Map<String, Integer> timeCnt = new HashMap<>();
+//    @Schema(description = "지역별 설문 참여 수")
+//    private Map<String, Integer> areaCnt = new HashMap<>();
+//
+//    @Schema(description = "시간별 설문 참여 수")
+//    private Map<String, Integer> timeCnt = new HashMap<>();
 }
