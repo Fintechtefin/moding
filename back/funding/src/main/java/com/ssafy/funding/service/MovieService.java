@@ -5,6 +5,7 @@ import com.ssafy.funding.domain.document.MovieDocument;
 import com.ssafy.funding.dto.response.MovieDescResponse;
 import com.ssafy.funding.dto.response.MovieDetailResponse;
 import com.ssafy.funding.dto.response.MovieRankingResponse;
+import com.ssafy.funding.dto.response.MovieSummaryResponse;
 import com.ssafy.funding.repository.MovieRepository;
 import com.ssafy.funding.repository.MovieSearchNativeQueryRepository;
 import com.ssafy.funding.util.RedisUtil;
@@ -137,10 +138,29 @@ public class MovieService {
     }
 
     public MovieDescResponse detailMovie(int movieId) {
-        // 영화 정보 가져오기
-        //        Optional<MovieDescResponse>
-        // movieDescResponse=movieRepository.findMovieDescById(movieId);
 
-        return null;
+        // 영화 정보 가져오기
+        Optional<MovieSummaryResponse> movieSummaryResponse =
+                movieRepository.getMovieDetailById(movieId);
+
+        MovieDescResponse movieDescResponse = MovieDescResponse.of(movieSummaryResponse.get());
+
+        // genre 가져오기
+        Optional<List<String>> genreList = movieRepository.getGenreById(movieId);
+        movieDescResponse = MovieDescResponse.setGenre(movieDescResponse, genreList.get());
+
+        // total 지정
+        String key = "total_cnt_" + movieId;
+
+        // test
+        redisUtil.setData(key, "10");
+
+        int accumulate = Integer.parseInt(redisUtil.getData(key));
+        movieDescResponse = MovieDescResponse.setTotal(movieDescResponse, accumulate);
+
+        int success = movieRepository.getSuccessCountById(movieId);
+
+        return MovieDescResponse.setSuccess(movieDescResponse, success);
     }
+
 }
