@@ -5,7 +5,6 @@ import com.ssafy.reservation.dto.response.CreateTicketResponse;
 import com.ssafy.reservation.service.ReservationService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,13 +22,11 @@ public class ReservationController {
         reservationService.checkPaymentUser(
                 makeReservationRequest.getFundingId(), makeReservationRequest.getUserId());
 
-        // 좌석 확인
         reservationService.checkSeat(makeReservationRequest);
+        Integer reservationId = reservationService.makeReservation(makeReservationRequest);
 
-        // 좌석 예매 저장
-        reservationService.makeReservation(makeReservationRequest);
-
-        return new ResponseEntity<>(HttpStatus.OK);
+        return ResponseEntity.ok().body(reservationId);
+        //        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @Operation(summary = "좌석 예매를 취소합니다.")
@@ -39,7 +36,7 @@ public class ReservationController {
         return ResponseEntity.noContent().build();
     }
 
-    @Operation(summary = "티켓을 발급합니다.")
+    @Operation(summary = "예매된 티켓을 조회합니다.")
     @GetMapping("/create/{reservationId}")
     public ResponseEntity<?> createTicket(@PathVariable final Integer reservationId) {
         CreateTicketResponse createTicketResponse = reservationService.createTicket(reservationId);
