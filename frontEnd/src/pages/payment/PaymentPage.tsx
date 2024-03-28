@@ -4,17 +4,17 @@ import {
   PaymentWidgetInstance,
 } from "@tosspayments/payment-widget-sdk";
 import { nanoid } from "nanoid";
-import toast, { Toaster } from "react-hot-toast";
 import NoneNavHeader from "@components/NoneNavHeader";
-import post from "@assets/images/영화포스터.jpg";
 import Loading from "@pages/payment/Loading";
+import { ToasterMsg } from "@components/Common";
+import { toastMsg } from "@util/commonFunction";
+import post from "@assets/images/영화포스터.jpg";
 import "@assets/styles/payment/Payment.scss";
 
 const KEY = nanoid();
 
 const PaymentPage = () => {
-  // const widgetClientKey = import.meta.env.VITE_TOSS_API_KEY;
-  const widgetClientKey = "test_ck_Poxy1XQL8RxWO1957404V7nO5Wml";
+  const widgetClientKey = import.meta.env.VITE_TOSS_API_KEY;
 
   const [paymentWidget, setPaymentWidget] =
     useState<PaymentWidgetInstance | null>(null);
@@ -23,10 +23,7 @@ const PaymentPage = () => {
   const [showPaymentButton, setShowPaymentButton] = useState(false);
 
   useEffect(() => {
-    // const customerKey = localStorage.getItem("@tosspayments/client-id")!;
     const customerKey = KEY;
-
-    console.log(KEY);
 
     const fetchPaymentWidget = async () => {
       try {
@@ -65,8 +62,8 @@ const PaymentPage = () => {
     if (paymentWidget == null) return;
     const paymentMethodsWidget = paymentWidget.renderPaymentMethods(
       "#payment-widget",
-      { value: price },
-      { variantKey: "DEFAULT" }
+      { value: price }
+      // { variantKey: "DEFAULT" }
     );
     const selectedPaymentMethod =
       paymentMethodsWidget.getSelectedPaymentMethod().method;
@@ -84,7 +81,7 @@ const PaymentPage = () => {
     } catch (error) {
       console.error("Error requesting payment:", error);
       const errorMessage = (error as Error).message;
-      toast(errorMessage, { duration: 1500 });
+      toastMsg(errorMessage);
     }
   };
 
@@ -135,19 +132,7 @@ const PaymentPage = () => {
         </div>
       )}
       {loading && <Loading />}
-      <Toaster
-        containerStyle={{
-          margin: "0 auto",
-        }}
-        toastOptions={{
-          // Define default options
-          style: {
-            background: "#363636",
-            color: "#fff",
-            fontSize: "2vh",
-          },
-        }}
-      />
+      <ToasterMsg />
     </div>
   );
 };

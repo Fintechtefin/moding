@@ -1,10 +1,24 @@
 import RECEIPT_IMAGE from "@assets/images/receipt_image.webp";
 import ReceiptDetail from "@components/payment/ReceiptDetail";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const Receipt = () => {
+interface Props {
+  amount: number;
+  approvedAt: string;
+  fundingTitle: string;
+}
+
+const Receipt = ({ amount, approvedAt, fundingTitle }: Props) => {
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
+
+  const relativeTime = new Date(approvedAt).toLocaleDateString("ko-KR", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  });
 
   return (
     <div className="relative flex justify-center text-black">
@@ -13,12 +27,9 @@ const Receipt = () => {
         <div className="flex flex-col gap-[8vh] px-[3vh] py-[5vh]">
           <div className="text-[5vh] text-center">Moding</div>
           <div className="flex flex-col gap-[2vh]">
-            <ReceiptDetail label="펀딩내역" value="엘리멘탈" />
-            <ReceiptDetail label="결제일자" value="2024.03.09 15:00" />
-            <ReceiptDetail
-              label="결제금액"
-              value={`${Number(searchParams.get("amount")).toLocaleString()}원`}
-            />
+            <ReceiptDetail label="펀딩내역" value={fundingTitle} />
+            <ReceiptDetail label="결제일자" value={relativeTime} />
+            <ReceiptDetail label="결제금액" value={`${amount}원`} />
           </div>
         </div>
         <button

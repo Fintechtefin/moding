@@ -1,3 +1,5 @@
+import toast from "react-hot-toast";
+
 export const getDate = (date: string) => {
   const now = new Date();
   const specificDate = new Date(date);
@@ -32,3 +34,5 @@ export const getDate = (date: string) => {
 
   return relativeTime;
 };
+
+export const toastMsg = (msg: string) => toast(msg, { duration: 1500 });

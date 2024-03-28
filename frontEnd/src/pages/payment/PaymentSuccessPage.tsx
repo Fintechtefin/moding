@@ -1,43 +1,44 @@
-import Loading from "@pages/payment/Loading";
 import { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import axios from "axios";
+import Loading from "@pages/payment/Loading";
 
 const PaymentSuccessPage = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
   useEffect(() => {
-    // 쿼리 파라미터 값이 결제 요청할 때 보낸 데이터와 동일한지 반드시 확인하세요.
-    // 클라이언트에서 결제 금액을 조작하는 행위를 방지할 수 있습니다.
     const requestData = {
-      amount: searchParams.get("amount"),
-      fundingCount: searchParams.get("fundingCount"),
-      fundingId: searchParams.get("fundingId"),
+      amount: Number(searchParams.get("amount")),
+      fundingCount: Number(searchParams.get("fundingCount")),
+      fundingId: Number(searchParams.get("fundingId")),
       method: searchParams.get("method"),
       paymentKey: searchParams.get("paymentKey"),
-      orderId: searchParams.get("orderId"),
     };
 
-    console.log(requestData);
-
     async function confirm() {
-      const response = await fetch("/confirm", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestData),
-      });
+      try {
+        const res = await axios.post(
+          `${
+            import.meta.env.VITE_BASE_URL
+          }:8084/fundings/orders/${searchParams.get("orderId")}/confirm`,
+          JSON.stringify(requestData),
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
 
-      const json = await response.json();
-
-      if (!response.ok) {
-        // 결제 실패 비즈니스 로직을 구현하세요.
-        navigate(`/fail?message=${json.message}&code=${json.code}`);
-        return;
+        navigate("/fund/payment/completed", {
+          replace: true,
+          state: res.data,
+        });
+      } catch (err) {
+        if (axios.isAxiosError(err) && err.response) {
+          navigate(`/fund/payment/fail?message=${err.response.data.message}`);
+        }
       }
-
-      // 결제 성공 비즈니스 로직을 구현하세요.
     }
     confirm();
   }, []);
