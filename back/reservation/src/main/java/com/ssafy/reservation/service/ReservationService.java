@@ -42,9 +42,11 @@ public class ReservationService {
 
     // 좌석 예매 내역 db 저장
     @Transactional
-    public void makeReservation(MakeReservationRequest makeReservationRequest) {
+    public Integer makeReservation(MakeReservationRequest makeReservationRequest) {
         Reservation reservation = Reservation.of(makeReservationRequest, completedStatus);
         reservationRepository.save(reservation);
+        Integer reservationId = reservation.getId();
+        return reservationId;
     }
 
     public CreateTicketResponse createTicket(Integer reservationId) {
