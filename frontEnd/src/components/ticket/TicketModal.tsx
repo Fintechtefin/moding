@@ -27,7 +27,7 @@ const TicketModal = ({ setOpen }: Props) => {
           </div>
         </div>
         <button
-          className="w-[100%] border-none bg-red-600 text-[3vh] flex-1 rounded-b-[2vh] text-white cursor-pointer"
+          className="w-[100%] border-none bg-red-600 text-[3vh] flex-1 rounded-b-[2vh] text-white cursor-pointer shadow-bgRed"
           onClick={handleClick}
         >
           확인

@@ -1,7 +1,7 @@
 import React from "react";
 import NavHeader from "@components/NavHeader";
 import OptionSection from "@components/myPage/OptionSection";
-import char from "@assets/images/char.webp";
+import char from "@assets/images/profileImg.webp";
 
 const SECTIONS = [
   {
@@ -36,12 +36,19 @@ const MyPage = () => {
       />
       <div className="p-[3vh] flex flex-col gap-[5vh]">
         <div className="flex flex-col justify-center items-center gap-[1vh]">
-          <img src={char} alt="" className="w-[12vh] h-[12vh] rounded-[35%]" />
+          <img
+            src={char}
+            alt="프로필"
+            onError={(e) => {
+              e.currentTarget.src = char;
+            }}
+            className="w-[12vh] h-[12vh] rounded-[35%]"
+          />
           <div className="text-[2.5vh] font-bold">로그인 후 이용해 주세요</div>
         </div>
         <div className="flex items-center justify-center">
           <div
-            className={`px-[3vh] py-[4vh] bg-bgGray w-[100%] rounded-[2vh] shadow-bgTTT`}
+            className={`px-[3vh] py-[4vh] bg-bgGray w-[100%] rounded-[2vh] shadow-test`}
           >
             {SECTIONS.map((section, index) => (
               <React.Fragment key={index}>

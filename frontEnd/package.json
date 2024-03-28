@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "dotenv -e ./moding_front_submodule/.env vite",
-    "build": "tsc && vite build",
+    "build": "tsc && dotenv -e ./moding_front_submodule/.env  vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { Subscribe } from "@util/types";
+import type { Subscribe } from "@util/types";
 import post1 from "@assets/images/영화포스터.jpg";
 import SubscribeItem from "./SubscribeItem";
 

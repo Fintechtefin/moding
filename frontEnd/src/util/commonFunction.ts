@@ -35,4 +35,32 @@ export const getDate = (date: string) => {
   return relativeTime;
 };
 
+export function formatDateWithDay(dateString: string) {
+  const date = new Date(dateString);
+  const formattedDate = date.toLocaleDateString("ko-KR", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    weekday: "short",
+  });
+
+  return formattedDate.replace(/(\d{4})\. (\d{2})\. (\d{2})\./, "$1.$2.$3");
+}
+
+export function addMinutesToTime(time: string, minutesToAdd: number) {
+  // 문자열 형태의 시간을 Date 객체로 파싱
+  let timeParts = time.split(":");
+  let date = new Date();
+  date.setHours(parseInt(timeParts[0]), parseInt(timeParts[1]), 0, 0);
+
+  // 분 추가
+  date.setMinutes(date.getMinutes() + minutesToAdd);
+
+  // 시간을 HH:MM 형식의 문자열로 포맷
+  let hours = date.getHours().toString().padStart(2, "0");
+  let minutes = date.getMinutes().toString().padStart(2, "0");
+
+  return `${hours}:${minutes}`;
+}
+
 export const toastMsg = (msg: string) => toast(msg, { duration: 1500 });

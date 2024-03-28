@@ -31,7 +31,7 @@ const Seat = ({ seatId, max, isOccupied }: Props) => {
     isOccupied || !isSelectable
       ? "bg-[#3D3C4E]"
       : isSelected
-      ? "bg-[#C00202]"
+      ? "bg-red-600"
       : "bg-[#A09FB2]"
   }`;
 

@@ -5,3 +5,25 @@ export interface Subscribe {
   count: number;
   url: string;
 }
+
+export interface ISeat {
+  line: string;
+  col: number;
+}
+
+export interface ISeats {
+  seat: ISeat[];
+}
+
+export interface ITicket {
+  seats: ISeats;
+  poster: string;
+  age: string;
+  title: string;
+  date: string;
+  startTime: string;
+  runningTime: number;
+  count: number;
+  name: string;
+  number: number;
+}

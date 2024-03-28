@@ -1,7 +1,12 @@
 import NoneNavHeader from "@components/NoneNavHeader";
 import "@assets/styles/notification/NotificationSet.scss";
+import { useState } from "react";
 
 const NotificationSet = () => {
+  const [alarm, setAlarm] = useState(true);
+
+  const handleChange = () => setAlarm((prev) => !prev);
+
   return (
     <div className="NotificationSet h-[100vh]">
       <NoneNavHeader centerText="알림 설정" />
@@ -15,7 +20,12 @@ const NotificationSet = () => {
         <div className="flex items-center justify-between">
           <div className="text-[2.3vh]">서비스 알림</div>
           <label className="switch">
-            <input type="checkbox" className="checkbox" value="" />
+            <input
+              type="checkbox"
+              className="checkbox"
+              checked={alarm}
+              onChange={handleChange}
+            />
             <div className="slider"></div>
           </label>
         </div>
