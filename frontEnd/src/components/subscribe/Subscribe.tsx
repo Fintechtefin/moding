@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
 import type { Subscribe } from "@util/types";
-import post1 from "@assets/images/영화포스터.jpg";
 import SubscribeItem from "./SubscribeItem";
+import post1 from "@assets/images/영화포스터.jpg";
+import { toastMsg } from "@util/commonFunction";
+import { ToasterMsg } from "@components/Common";
 
-const Subscribe = ({ type }: { type: string }) => {
+interface Props {
+  type: string;
+}
+
+const Subscribe = ({ type }: Props) => {
   const [subscribeItems, setSubscribeItems] = useState<Subscribe[]>([]);
   const isType = type === "좋아요";
 
@@ -100,13 +105,11 @@ const Subscribe = ({ type }: { type: string }) => {
         },
       ]);
     }
-  }, []);
+  }, [isType]);
 
   const handleClick = (id: number) => {
     setSubscribeItems((prev) => prev.filter((item) => item.id !== id));
-    toast(isType ? "좋아요를 취소했어요." : "요청을 취소했어요.", {
-      duration: 1500,
-    });
+    toastMsg(isType ? "좋아요를 취소했어요." : "요청을 취소했어요.");
   };
 
   return (
@@ -119,19 +122,7 @@ const Subscribe = ({ type }: { type: string }) => {
           isType={isType}
         />
       ))}
-      <Toaster
-        containerStyle={{
-          margin: "0 auto",
-        }}
-        toastOptions={{
-          // Define default options
-          style: {
-            background: "#363636",
-            color: "#fff",
-            fontSize: "2vh",
-          },
-        }}
-      />
+      <ToasterMsg />
     </>
   );
 };
