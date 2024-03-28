@@ -2,7 +2,7 @@ package com.ssafy.funding.service;
 
 import static com.ssafy.funding.exception.global.CustomExceptionStatus.*;
 
-import com.ssafy.funding.controller.feign.CreatePaymentClient;
+import com.ssafy.funding.controller.feign.PaymentFeignClient;
 import com.ssafy.funding.domain.Funding;
 import com.ssafy.funding.domain.Order;
 import com.ssafy.funding.domain.validator.OrderValidator;
@@ -30,7 +30,7 @@ public class OrderService {
     private final FundingRepository fundingRepository;
     private final OrderValidator orderValidator;
     private final PaymentClient paymentClient;
-    private final CreatePaymentClient createPaymentClient; // feignClient
+    private final PaymentFeignClient paymentFeignClient; // feignClient
     private final Producer producer;
 
     public String requestPayment(CreatePaymentsRequest createPaymentsRequest) {
@@ -74,6 +74,7 @@ public class OrderService {
                         .paymentKey(confirmOrderRequest.getPaymentKey())
                         .amount(confirmOrderRequest.getAmount())
                         .orderId(orderUuid)
+                        .id(order.getId())
                         .build();
 
         Money paymentWons = Money.wons(confirmPaymentsRequest.getAmount());
@@ -83,7 +84,7 @@ public class OrderService {
         // orderValidator.validAmountIsSameAsRequest(order, paymentWons);
 
         // paymentClient.callTossPayConfirm(confirmPaymentsRequest, order.getId());
-        createPaymentClient.callCreatePayment(confirmPaymentsRequest);
+        paymentFeignClient.callCreatePayment(confirmPaymentsRequest);
 
         return OrderConfirmResponse.of(order);
     }
@@ -100,12 +101,14 @@ public class OrderService {
         //            throw new BadRequestException(ORDER_NOT_REFUND_DATE);
         //        }
 
-        producer.sendRefundOrderRequest(
-                "refund",
-                RefundOrderRequest.builder()
-                        .cancelReason(refundOrderRequest.getCancelReason())
-                        .orderId(order.getId())
-                        .build());
+        paymentFeignClient.callRefundPayment(refundOrderRequest);
+
+        //        producer.sendRefundOrderRequest(
+        //                "refund",
+        //                RefundOrderRequest.builder()
+        //                        .cancelReason(refundOrderRequest.getCancelReason())
+        //                        .orderId(order.getId())
+        //                        .build());
     }
 
     public Boolean checkPaymentUser(Integer fundingId, Integer userId) {

@@ -13,4 +13,5 @@ public class ConfirmPaymentsRequest {
     private String paymentKey;
     private String orderId;
     private Long amount;
+    private Long id; // 주문 PK
 }
