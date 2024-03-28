@@ -12,7 +12,7 @@ interface Props {
 
 const FundingFailItem = ({ item }: Props) => {
   return (
-    <div className="flex flex-col bg-bgGray p-[2vh] rounded-[1vh] gap-[2vh] shadow-bgTTT">
+    <div className="flex flex-col bg-bgGray p-[2vh] rounded-[1vh] gap-[2vh] shadow-test">
       <div className="w-[100%] h-[13vh] flex gap-[2vh]">
         <img
           className="w-[9vh] h-[13vh] object-cover rounded-[0.5vh] brightness-[90%]"

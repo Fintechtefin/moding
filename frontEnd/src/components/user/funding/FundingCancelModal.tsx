@@ -33,8 +33,8 @@ const FundingCancelModal = ({ id, handleClickFalse }: Props) => {
   };
 
   return (
-    <div className="absolute inset-0 z-10 flex items-center justify-center bg-black bg-opacity-70 p-[3vh]">
-      <div className="bg-bgGray p-[3vh] flex flex-col  gap-[3vh] rounded-[2vh] ">
+    <div className="absolute inset-0 z-10 flex items-center justify-center bg-black bg-opacity-80 p-[3vh]">
+      <div className="bg-bgGray p-[3vh] flex flex-col  gap-[3vh] rounded-[2vh] shadow-test">
         <div>
           <div className="a text-[2.5vh] font-bold ">
             펀딩 취소 사유를 선택해 주세요.
@@ -82,16 +82,16 @@ const FundingCancelModal = ({ id, handleClickFalse }: Props) => {
         </div>
         <div className="w-[100%] flex gap-[2vh] text-[2vh] font-bold">
           <button
-            className="flex-1 bg-[#EFEFEF] text-bgGray p-[1.5vh] rounded-[1vh]"
+            className="flex-1 bg-[#EFEFEF] text-bgGray p-[1.5vh] rounded-[1vh] shadow-bgwhite"
             onClick={handleClickFalse}
           >
             닫기
           </button>
           <button
-            className="flex-1 text-white bg-red-600 p-[1.5vh] rounded-[1vh]"
+            className="flex-1 text-white bg-red-600 p-[1.5vh] rounded-[1vh] shadow-bgRed"
             onClick={handleSubmit}
           >
-            취소하기
+            취소
           </button>
         </div>
         <Toaster

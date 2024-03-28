@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import Loading from "@pages/payment/Loading";
+import { ToasterMsg } from "@components/Common";
+import { toastMsg } from "@util/commonFunction";
 
 const PaymentSuccessPage = () => {
   const navigate = useNavigate();
@@ -18,6 +20,7 @@ const PaymentSuccessPage = () => {
 
     async function confirm() {
       try {
+        console.log(searchParams.get("orderId"));
         const res = await axios.post(
           `${
             import.meta.env.VITE_BASE_URL
@@ -30,11 +33,14 @@ const PaymentSuccessPage = () => {
           }
         );
 
+        toastMsg("성공");
+
         navigate("/fund/payment/completed", {
           replace: true,
           state: res.data,
         });
       } catch (err) {
+        toastMsg("에러");
         if (axios.isAxiosError(err) && err.response) {
           navigate(`/fund/payment/fail?message=${err.response.data.message}`);
         }
@@ -43,7 +49,12 @@ const PaymentSuccessPage = () => {
     confirm();
   }, []);
 
-  return <Loading />;
+  return (
+    <>
+      <ToasterMsg />
+      <Loading />
+    </>
+  );
 };
 
 export default PaymentSuccessPage;

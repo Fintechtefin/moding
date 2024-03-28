@@ -83,7 +83,10 @@ export const router = createBrowserRouter([
             ],
           },
           { path: "edit", element: <ProfileEdit /> },
-          { path: "ticket", element: <TicketPage /> },
+          {
+            path: "ticket",
+            children: [{ path: ":reservationId", element: <TicketPage /> }],
+          },
           {
             path: "fund",
             children: [
