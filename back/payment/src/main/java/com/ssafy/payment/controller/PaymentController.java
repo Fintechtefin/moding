@@ -1,6 +1,8 @@
 package com.ssafy.payment.controller;
 
 import com.ssafy.payment.dto.request.ConfirmPaymentsRequest;
+import com.ssafy.payment.dto.request.RefundOrderRequest;
+import com.ssafy.payment.service.PaymentService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class PaymentController {
 
-    private final PaymentsConfirmClient paymentsConfirmClient;
+    private final PaymentService paymentService;
 
     //    @PostMapping
     //    @Operation(summary = "백엔드 내부에서 토스페이먼츠 결제 승인 API 호출")
@@ -25,7 +27,13 @@ public class PaymentController {
     @Operation(summary = "백엔드 내부에서 토스페이먼츠 결제 승인 API 호출")
     public ResponseEntity<?> callConfirmAPI(
             @RequestBody ConfirmPaymentsRequest confirmPaymentsRequest) {
-        paymentsConfirmClient.execute(confirmPaymentsRequest);
+        paymentService.callTossPayConfirm(confirmPaymentsRequest);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/refund")
+    public ResponseEntity<?> callRefundAPI(@RequestBody RefundOrderRequest refundOrderRequest) {
+        paymentService.callTossPayRefund(refundOrderRequest);
         return ResponseEntity.ok().build();
     }
 }
