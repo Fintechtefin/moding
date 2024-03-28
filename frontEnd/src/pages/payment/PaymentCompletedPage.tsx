@@ -1,8 +1,13 @@
 import { GoCheckCircleFill } from "react-icons/go";
 import { FaRegCircle } from "react-icons/fa";
 import Receipt from "@components/payment/Receipt";
+import { useLocation } from "react-router-dom";
 
 const PaymentCompletedPage = () => {
+  const { state } = useLocation();
+
+  console.log(state);
+
   return (
     <div className="px-[3vh] py-[5vh] flex flex-col justify-between gap-[2vh] h-[100vh]">
       <div className="flex flex-col items-center gap-[2vh]">
@@ -24,7 +29,7 @@ const PaymentCompletedPage = () => {
           </div>
         </div>
       </div>
-      <Receipt />
+      <Receipt {...state} />
     </div>
   );
 };
