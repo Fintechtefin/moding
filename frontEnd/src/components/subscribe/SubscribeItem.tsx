@@ -16,9 +16,9 @@ const SubscribeItem = ({
   isType,
 }: Props) => {
   return (
-    <div className="w-[100%] relative shadow-test rounded-[1.5vh]">
+    <div className="w-full relative shadow-test rounded-[1.5vh]">
       <img
-        className="w-[100%] h-[100%] object-cover rounded-[1.5vh] brightness-[90%]"
+        className="w-full h-full object-cover rounded-[1.5vh] brightness-90"
         src={url}
         loading="lazy"
         alt="영화포스터"
