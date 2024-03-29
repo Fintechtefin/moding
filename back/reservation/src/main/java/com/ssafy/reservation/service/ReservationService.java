@@ -11,8 +11,6 @@ import com.ssafy.reservation.dto.response.TicketInfoResponse;
 import com.ssafy.reservation.exception.BadRequestException;
 import com.ssafy.reservation.exception.global.CustomExceptionStatus;
 import com.ssafy.reservation.repository.ReservationRepository;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

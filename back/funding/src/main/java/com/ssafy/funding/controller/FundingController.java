@@ -43,15 +43,18 @@ public class FundingController {
     @Operation(summary = "현재 로그인한 유저의 펀딩 참여 여부를 반환합니다.")
     @GetMapping("/{fundingId}/participation")
     public ResponseEntity getFundingParticipation(
-            @RequestHeader("accessToken") String accessToken, @PathVariable("fundingId") int fundingId) {
+            @RequestHeader("accessToken") String accessToken,
+            @PathVariable("fundingId") int fundingId) {
         return ResponseEntity.ok(fundingService.getFundingParticipation(accessToken, fundingId));
     }
 
     @Operation(summary = "예매한 티켓에 대한 펀딩과 영화 정보를 조회합니다.")
     @GetMapping("/get/{fundingId}")
     public ResponseEntity<?> getTicketInfo(
-            @RequestHeader("accessToken") String accessToken, @PathVariable("fundingId") int fundingId) {
+            @RequestHeader("accessToken") String accessToken,
+            @PathVariable("fundingId") int fundingId) {
         return ResponseEntity.ok(fundingService.getTicketInfo(accessToken, fundingId));
+    }
 
     @Operation(summary = "현재 로그인한 유저가 참여한 펀딩 목록을 반환합니다.")
     @GetMapping("/participation")
