@@ -16,6 +16,8 @@ public class UserServerService extends UserServiceGrpc.UserServiceImplBase {
         // super.getCurrentUserId(request, responseObserver);
         // String userId = AuthenticationUtil.getCurrentUserSocialId();
 
+        // CurrentUserInfo response =
+        // CurrentUserInfo.newBuilder().setUsername(AuthenticationUtil.getCurrentUserSocialId()).build();
         CurrentUserInfo response = CurrentUserInfo.newBuilder().setUsername("1").build();
 
         responseObserver.onNext(response);

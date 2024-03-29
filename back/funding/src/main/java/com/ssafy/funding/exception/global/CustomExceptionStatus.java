@@ -37,6 +37,8 @@ public enum CustomExceptionStatus implements BaseErrorCode {
 
     PAYMENT_NOT_SUPPORTED_METHOD("PAYMENTS_CREATE_NOT_SUPPORTED_METHOD", "지원되지 않는 결제 수단입니다."),
 
+    MOVIE_NOT_FOUND("MOVIE_404_1", "영화를 찾을 수 없습니다."),
+
     FUNDING_NOT_FOUND("FUNDING_404_1", "펀딩을 찾을 수 없습니다."),
     FUNDING_TIME_IS_PASSED("FUNDING_400_6", "펀딩 시작시간이 지나 예매를 할 수 없습니다."),
     FUNDING_NOT_OPEN("FUNDING_400_5", "아직 오픈되지 않은 펀딩에는 접근할 수 없습니다."),

@@ -58,9 +58,10 @@ public class Funding {
         funding.validateFundingTime();
     }
 
-    public void validateFundingTime() {
+    public boolean validateFundingTime() {
         if (!isTimeBeforeStartAt() || !isTimeBeforeEndAt())
             throw FundingTimeIsPassedException.EXCEPTION;
+        return true;
     }
 
     public void validateNotOpenStatus() {
@@ -86,11 +87,10 @@ public class Funding {
     }
 
     /*
-    아래와 같이 수정할 예정 (Redis 연결 필요)
     (전체 펀딩 모집 인원 - 펀딩에 실제 참여한 인원 수) < 현재 유저가 예매하려는 펀딩 수
      */
-    public void validEnoughQuantity(Integer peopleCount) {
-        if (this.peopleCount < peopleCount) {
+    public void validEnoughQuantity(Integer currentTotalOrderCnt, Integer requestCount) {
+        if ((this.peopleCount - currentTotalOrderCnt) < requestCount) {
             throw FundingQuantityLackException.EXCEPTION;
         }
     }
