@@ -183,4 +183,22 @@ public class MovieService {
 
         return MovieLikeResponse.of(true);
     }
+
+    public MovieLikeResponse cancelLikeMovie(String accessToken, int movieId) {
+        int userId = tokenAuthClient.getUserId(accessToken);
+
+        MovieLike movieLike = movielikeRepository.findByMovieIdAndUserId(movieId, userId);
+        if (movieLike == null) {
+            return MovieLikeResponse.of(false);
+        }
+        movielikeRepository.delete(movieLike);
+
+        String key = "likes_" + movieId;
+
+        int count = Integer.parseInt(redisUtil.getData(key));
+        redisUtil.deleteData(key);
+        redisUtil.setData(key, String.valueOf(count - 1));
+
+        return MovieLikeResponse.of(true);
+    }
 }
