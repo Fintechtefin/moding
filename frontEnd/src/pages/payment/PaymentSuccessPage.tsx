@@ -18,34 +18,33 @@ const PaymentSuccessPage = () => {
       paymentKey: searchParams.get("paymentKey"),
     };
 
-    async function confirm() {
+    const confirm = async () => {
       try {
         console.log(searchParams.get("orderId"));
         const res = await axios.post(
           `${
             import.meta.env.VITE_BASE_URL
-          }:8084/fundings/orders/${searchParams.get("orderId")}/confirm`,
+          }/api/fundings/orders/${searchParams.get("orderId")}/confirm`,
           JSON.stringify(requestData),
           {
             headers: {
               "Content-Type": "application/json",
+              Authorization: localStorage.getItem("jwt"),
             },
           }
         );
-
-        toastMsg("성공");
 
         navigate("/fund/payment/completed", {
           replace: true,
           state: res.data,
         });
       } catch (err) {
-        toastMsg("에러");
         if (axios.isAxiosError(err) && err.response) {
           navigate(`/fund/payment/fail?message=${err.response.data.message}`);
         }
       }
-    }
+    };
+
     confirm();
   }, []);
 
