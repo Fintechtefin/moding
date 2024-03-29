@@ -28,5 +28,4 @@ public class Cinema {
     private int number;
 
     private int totalSeat;
-
 }

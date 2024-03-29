@@ -4,11 +4,11 @@ import javax.persistence.*;
 import lombok.*;
 
 @Entity
-@Builder
 @AllArgsConstructor
 @Table(name = "movie_like")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@Builder
 public class MovieLike {
 
     @Id
@@ -22,4 +22,8 @@ public class MovieLike {
 
     @Column(name = "movie_id")
     private Integer movieId;
+
+    public static MovieLike of(int userId, int movieId) {
+        return MovieLike.builder().userId(userId).movieId(movieId).build();
+    }
 }
