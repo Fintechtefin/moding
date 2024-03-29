@@ -17,13 +17,13 @@ const HomeModal = ({ isClose }: Props) => {
         <div className="flex gap-[2vh] font-bold">
           <button
             onClick={isClose}
-            className="flex-1 p-[1.5vh] rounded-[1vh] bg-white text-black shadow-bgwhite"
+            className="flex-1 p-[1.5vh] rounded-[1vh] bg-white text-black"
           >
             취소
           </button>
           <button
             onClick={() => navigate("/fund/list")}
-            className="flex-1 bg-red-600 p-[1.5vh] rounded-[1vh] shadow-bgRed"
+            className="flex-1 bg-red-600 p-[1.5vh] rounded-[1vh] "
           >
             확인
           </button>

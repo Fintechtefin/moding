@@ -47,6 +47,17 @@ export function formatDateWithDay(dateString: string) {
   return formattedDate.replace(/(\d{4})\. (\d{2})\. (\d{2})\./, "$1.$2.$3");
 }
 
+export function formatDateWithDay1(dateString: string) {
+  const date = new Date(dateString);
+  const formattedDate = date.toLocaleDateString("ko-KR", {
+    month: "2-digit",
+    day: "2-digit",
+    weekday: "short",
+  });
+
+  return formattedDate.replace(/(\d{4})\. (\d{2})\. (\d{2})\./, "$1.$2.$3");
+}
+
 export function addMinutesToTime(time: string, minutesToAdd: number) {
   // 문자열 형태의 시간을 Date 객체로 파싱
   let timeParts = time.split(":");
