@@ -3,6 +3,7 @@ package com.ssafy.funding.repository;
 import com.ssafy.funding.domain.Order;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.data.domain.Slice;
 import org.springframework.data.repository.CrudRepository;
 
 public interface OrderRepository extends CrudRepository<Order, Long> {
@@ -12,4 +13,6 @@ public interface OrderRepository extends CrudRepository<Order, Long> {
     boolean existsByFundingIdAndUserId(int fundingId, int userId);
 
     List<Order> findByFundingId(int fundingId);
+
+    Slice<Order> findByUserId(int userId);
 }

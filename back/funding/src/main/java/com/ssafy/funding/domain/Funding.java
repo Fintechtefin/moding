@@ -74,10 +74,10 @@ public class Funding {
         return LocalDateTime.now().isAfter(getEndAt());
     }
 
-    public LocalDateTime getStartAt() {
-        if (this.startAt == null) return null;
-        return this.getStartAt();
-    }
+    //    public LocalDateTime getStartAt() {
+    //        if (this.startAt == null) return null;
+    //        return this.getStartAt();
+    //    }
 
     public LocalDateTime getEndAt() {
         if (this.startAt == null) return null;
