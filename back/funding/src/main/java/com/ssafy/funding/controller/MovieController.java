@@ -59,4 +59,11 @@ public class MovieController {
             @RequestHeader("accessToken") String accessToken, @PathVariable int movieId) {
         return ResponseEntity.ok(movieService.likeMovie(accessToken, movieId));
     }
+
+    @Operation(summary = "영화 좋아요를 취소합니다.")
+    @DeleteMapping("/{movieId}/likes")
+    public ResponseEntity<?> cancelLikeMovie(
+            @RequestHeader("accessToken") String accessToken, @PathVariable int movieId) {
+        return ResponseEntity.ok(movieService.cancelLikeMovie(accessToken, movieId));
+    }
 }
