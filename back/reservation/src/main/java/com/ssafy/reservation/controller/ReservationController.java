@@ -39,8 +39,7 @@ public class ReservationController {
 
     @Operation(summary = "예매된 티켓을 조회합니다.")
     @GetMapping("/get/{reservationId}")
-    public ResponseEntity<?> getTicket(
-            @RequestHeader("accessToken") String accessToken,
+    public ResponseEntity<?> getTicket(@RequestHeader("accessToken") String accessToken,
             @PathVariable final int reservationId) {
         TicketInfoResponse ticketInfoResponse =
                 reservationService.getTicket(accessToken, reservationId);
