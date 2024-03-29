@@ -39,6 +39,7 @@ const PaymentSuccessPage = () => {
           state: res.data,
         });
       } catch (err) {
+        console.log(err);
         if (axios.isAxiosError(err) && err.response) {
           navigate(`/fund/payment/fail?message=${err.response.data.message}`);
         }

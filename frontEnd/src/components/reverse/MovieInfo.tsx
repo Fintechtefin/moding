@@ -43,11 +43,12 @@ const MovieInfo = ({ max }: Props) => {
       };
 
       const res = await axios.post(
-        `${import.meta.env.VITE_BASE_URL}:8085/reservations/make`,
+        `${import.meta.env.VITE_BASE_URL}/api/reservations/make`,
         data,
         {
           headers: {
             "Content-Type": "application/json",
+            Authorization: localStorage.getItem("jwt"),
           },
         }
       );
