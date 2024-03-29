@@ -75,3 +75,7 @@ export function addMinutesToTime(time: string, minutesToAdd: number) {
 }
 
 export const toastMsg = (msg: string) => toast(msg, { duration: 1500 });
+
+export default function getIsLogin() {
+  return !!localStorage.getItem("jwt");
+}
