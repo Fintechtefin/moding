@@ -3,92 +3,79 @@ import post1 from "@assets/images/영화포스터.jpg";
 import MovieListItem from "./MovieListItem";
 import "@/assets/styles/movieList/MovieList.scss";
 import { Link } from "react-router-dom";
+import type { Movie } from "@util/types/movieType";
 
-export type Poster = {
-  id: number;
-  name: string;
-  state: string;
-  count: number;
-  url: string;
-};
+interface Props {
+  category: string;
+  sort: string;
+}
 
-const MovieList = () => {
-  const [PosterList] = useState<Poster[]>([
+const MovieList = ({ category, sort }: Props) => {
+  const [PosterList] = useState<Movie[]>([
     {
-      id: 1,
-      name: "엘리멘탈",
-      state: "무딩중",
-      count: 3663,
-      url: post1,
+      movieId: 1,
+      poster: post1,
+      status: "무딩예정",
     },
     {
-      id: 2,
-      name: "불한당",
-      state: "무딩예정",
-      count: 1763,
-      url: post1,
+      movieId: 2,
+      poster: post1,
+      status: "무딩예정",
     },
     {
-      id: 3,
-      name: "엘리멘탈",
-      state: "무딩중",
-      count: 3663,
-      url: post1,
+      movieId: 3,
+      poster: post1,
+      status: "무딩예정",
     },
     {
-      id: 4,
-      name: "불한당",
-      state: "무딩예정",
-      count: 1763,
-      url: post1,
+      movieId: 4,
+      poster: post1,
+      status: "무딩예정",
     },
     {
-      id: 5,
-      name: "엘리멘탈",
-      state: "무딩중",
-      count: 3663,
-      url: post1,
+      movieId: 5,
+      poster: post1,
+      status: "무딩예정",
     },
     {
-      id: 6,
-      name: "불한당",
-      state: "무딩예정",
-      count: 1763,
-      url: post1,
+      movieId: 6,
+      poster: post1,
+      status: "무딩예정",
     },
     {
-      id: 7,
-      name: "불한당",
-      state: "무딩예정",
-      count: 1763,
-      url: post1,
+      movieId: 7,
+      poster: post1,
+      status: "무딩예정",
     },
     {
-      id: 8,
-      name: "불한당",
-      state: "무딩예정",
-      count: 1763,
-      url: post1,
+      movieId: 8,
+      poster: post1,
+      status: "무딩예정",
     },
     {
-      id: 9,
-      name: "불한당",
-      state: "무딩예정",
-      count: 1763,
-      url: post1,
+      movieId: 9,
+      poster: post1,
+      status: "무딩예정",
     },
   ]);
 
   return (
     <div className="movielist-container">
-      <div className="">아이템</div>
-      <div className="movie-list none-scroller px-[1.5vh] mt-20 grid grid-cols-3 gap-[1.2vh] overflow-auto pb-40">
+      <div className="flex flex-col items-end pt-4 pr-3 text-gray-400">
+        <div className="text-[3.5vh]">000님을 위해</div>
+        <div className="text-[3.5vh]">
+          무딩이 준비한 {PosterList.length}편의
+        </div>
+        <div className="text-[3.5vh]">{category}</div>
+      </div>
+      <div className="movie-list none-scroller translate-y-[-20px] px-[1.5vh] grid grid-cols-3 gap-[1.2vh] overflow-auto pb-56">
         {PosterList.map((poster) => {
           return (
-            <Link to={`/fund/list/${poster.id}`} key={poster.id}>
+            <Link to={`/fund/list/${poster.movieId}`} key={poster.movieId}>
               <MovieListItem
-                state={poster.state}
-                url={poster.url}
+                state={poster.status}
+                url={poster.poster}
+                heigth="22vh"
               ></MovieListItem>
             </Link>
           );

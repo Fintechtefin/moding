@@ -70,7 +70,7 @@ const MovieDetail = () => {
           <div>{movieInfo.age}</div>
         </div>
         <div className="w-[90%] mt-8">
-          {fundingInfo && <InfoArea status={movieInfo.status} />}ㅊ
+          {fundingInfo && <InfoArea status={movieInfo.status} />}
         </div>
       </div>
       {/* 상세정보영역 */}
