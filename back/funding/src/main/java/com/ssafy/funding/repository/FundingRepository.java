@@ -46,7 +46,7 @@ public interface FundingRepository extends CrudRepository<Funding, Integer> {
     @Query(
             value =
                     "select funding.people_count crowdCnt, funding.price, funding.time movieDate, cinema.name cinemaName, (select count(*) from orders where orders.funding_id=funding.funding_id) peopleCnt from funding "
-                            + "join cinema on funding.cinema_id=cinema.cinema_id where funding.movie_id=1 order by funding.funding_id desc limit 1",
+                            + "join cinema on funding.cinema_id=cinema.cinema_id where funding.movie_id=:movieId order by funding.funding_id desc limit 1",
             nativeQuery = true)
     OpenFundingResponseInterface getOpenFundingInfo(int movieId);
 }
