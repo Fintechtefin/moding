@@ -26,6 +26,7 @@ spring:
             allowedHeaders:
               - x-requested-with
               - authorization
+              - accessToken
               - content-type
               - credential
               - X-AUTH-TOKEN
