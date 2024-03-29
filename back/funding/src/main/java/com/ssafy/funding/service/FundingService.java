@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.ssafy.funding.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -27,6 +28,7 @@ public class FundingService {
     private final TokenAuthClient tokenAuthClient;
     private final MovieFundingRepository movieFundingRepository;
     private final MovieRepository movieRepository;
+    private final OrderRepository orderRepository;
 
     public List<FundingRepository.FundingListResponseInterface> getFundingList(String status) {
         List<FundingRepository.FundingListResponseInterface> fundingListResponseInterfaceList =
@@ -69,6 +71,11 @@ public class FundingService {
 
         return fundingRepository.getOpenFundingInfo(movieId);
 
+    }
 
+    public boolean getFundingParticipation(String accessToken, int fundingId) {
+        int userId = tokenAuthClient.getUserId(accessToken);
+        System.out.println(userId);
+        return orderRepository.existsByFundingIdAndUserId(fundingId,userId);
     }
 }

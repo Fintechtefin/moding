@@ -17,8 +17,6 @@ public class FundingController {
 
     private final FundingService fundingService;
 
-    private final TokenAuthClient tokenAuthClient;
-
     @Operation(summary = "무딩중 리스트 TOP10을 조회합니다.")
     @GetMapping
     public ResponseEntity<List<FundingRepository.FundingListResponseInterface>> searchMovie(
@@ -41,4 +39,11 @@ public class FundingController {
     public ResponseEntity<FundingRepository.OpenFundingResponseInterface> getOpenFundingInfo(@PathVariable int movieId) {
         return ResponseEntity.ok(fundingService.getOpenFundingInfo(movieId));
     }
+
+    @Operation(summary="현재 로그인한 유저의 펀딩 참여 여부를 반환합니다.")
+    @GetMapping("/{fundingId}/participation")
+    public ResponseEntity getFundingParticipation(@RequestHeader("accessToken") String accessToken,@PathVariable int fundingId) {
+        return ResponseEntity.ok(fundingService.getFundingParticipation(accessToken,fundingId));
+    }
+
 }
