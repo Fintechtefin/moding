@@ -9,6 +9,8 @@ import com.ssafy.funding.repository.MovieFundingRepository;
 import com.ssafy.funding.repository.MovieRepository;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -54,5 +56,19 @@ public class FundingService {
         Movie movie = movieRepository.findById(movieId).get();
         MovieFunding movieFunding = MovieFunding.of(movieFundingRequest, userId, movie);
         movieFundingRepository.save(movieFunding);
+    }
+
+    public FundingRepository.OpenFundingResponseInterface getOpenFundingInfo(int movieId) {
+
+        // 있는지 확인
+        Optional<Movie> movie=movieRepository.findById(movieId);
+
+        if(!movie.get().getStatus().getValue().equals("OPEN")) {
+            return null;
+        }
+
+        return fundingRepository.getOpenFundingInfo(movieId);
+
+
     }
 }

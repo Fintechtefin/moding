@@ -34,6 +34,15 @@ spring:
     consumer:
       group-id: my-group
 
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    hibernate:
+      ddl-auto: update
+      dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+
 kafka:
   topics:
     test: order

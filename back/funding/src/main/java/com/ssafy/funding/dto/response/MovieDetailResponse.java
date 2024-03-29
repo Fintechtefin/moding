@@ -6,12 +6,14 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.Serializable;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class MovieDetailResponse implements Serializable {
 
     @NotNull
@@ -37,12 +39,18 @@ public class MovieDetailResponse implements Serializable {
     //    private int success;
 
     public static MovieDetailResponse of(Movie movie) {
-        MovieDetailResponse movieDetailResponse = new MovieDetailResponse();
-        movieDetailResponse.movieId = movie.getId();
-        movieDetailResponse.title = movie.getTitle();
-        movieDetailResponse.poster = movie.getPoster();
-        //        detailMovie.status = FundingStatus.valueOf(movie.getStatus().getKr()).getKr(); //
-        // 확인 필요
+        //        MovieDetailResponse movieDetailResponse = new MovieDetailResponse();
+        //        movieDetailResponse.movieId = movie.getId();
+        //        movieDetailResponse.title = movie.getTitle();
+        //        movieDetailResponse.poster = movie.getPoster();
+        //        movieDetailResponse.status = movie.getStatus();
+        MovieDetailResponse movieDetailResponse =
+                MovieDetailResponse.builder()
+                        .movieId(movie.getId())
+                        .title(movie.getTitle())
+                        .poster(movie.getPoster())
+                        .status(movie.getStatus())
+                        .build();
 
         return movieDetailResponse;
     }
