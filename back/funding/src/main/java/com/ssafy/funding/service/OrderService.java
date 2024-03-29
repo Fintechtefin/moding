@@ -2,6 +2,7 @@ package com.ssafy.funding.service;
 
 import static com.ssafy.funding.exception.global.CustomExceptionStatus.*;
 
+import com.ssafy.funding.common.aop.RedissonLock;
 import com.ssafy.funding.controller.feign.PaymentFeignClient;
 import com.ssafy.funding.domain.Funding;
 import com.ssafy.funding.domain.Order;
@@ -64,6 +65,10 @@ public class OrderService {
     /*
     결제 승인
      */
+    @RedissonLock(
+            LockName = "주문",
+            identifier = "paymentKey",
+            paramClassType = ConfirmOrderRequest.class)
     public OrderConfirmResponse confirmOrder(
             String orderUuid, ConfirmOrderRequest confirmOrderRequest, Integer userId) {
 
@@ -89,11 +94,6 @@ public class OrderService {
                         .findByUuid(uuid)
                         .orElseThrow(() -> new BadRequestException(ORDER_NOT_FOUND));
         order.refund(userId, orderValidator);
-
-        // LAZY로 인한 NULL
-        //        if (!order.getFunding().getMovie().getStatus().getValue().equals("OPEN")) {
-        //            throw new BadRequestException(ORDER_NOT_REFUND_DATE);
-        //        }
 
         paymentFeignClient.callRefundPayment(refundOrderRequest);
 
