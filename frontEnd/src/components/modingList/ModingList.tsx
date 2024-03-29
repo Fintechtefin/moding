@@ -3,6 +3,7 @@ import post1 from "@assets/images/영화포스터.jpg";
 import { Link } from "react-router-dom";
 import MovieListItem from "@components/movieList/MovieListItem";
 import ProgressArea from "@components/movieDetail/ProgressArea";
+import StatusBadge from "@components/movieDetail/StatusBadge";
 
 interface Props {
   status: number;
@@ -110,7 +111,7 @@ const ModingList = ({ getModingBack }: Props) => {
     {
       id: 10,
       url: post1,
-      state: "무딩중",
+      state: "무딩 중",
       hopeCnt: 150,
       alarmCnt: 220,
       crowd: 150,
@@ -119,16 +120,19 @@ const ModingList = ({ getModingBack }: Props) => {
   ]);
 
   return (
-    <div>
+    <div className="relative">
       <div className="flex flex-col mt-3  px-[1.6vh]">
         <Link to={`/fund/list/${PosterList[0].id}`}>
           <img
-            className="w-[100%] h-[45vh] object-cover brightness-[90%]"
+            className="w-[100%] aspect-square object-cover brightness-[90%]"
             src={PosterList[0].url}
             alt=""
           />
         </Link>
-        <div>
+        <div className="absolute w-[100%] top-0 right-3">
+          <StatusBadge status={PosterList[0].state} textSize="2.5vh" />
+        </div>
+        <div className="mt-2">
           <ProgressArea
             crowd={PosterList[0].crowd}
             joinCnt={PosterList[0].joinCnt}
@@ -143,6 +147,7 @@ const ModingList = ({ getModingBack }: Props) => {
                 <MovieListItem
                   state={poster.state}
                   url={poster.url}
+                  heigth="23vh"
                 ></MovieListItem>
               </Link>
             );

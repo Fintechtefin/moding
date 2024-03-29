@@ -5,7 +5,12 @@ import navModing from "@assets/images/navmoding.webp";
 import "@/index.scss";
 import "@/assets/styles/Navbar.scss";
 import nav1 from "@assets/images/nav1.webp";
-import { FcLikePlaceholder } from "react-icons/fc";
+import person from "@assets/images/person.webp";
+import heart from "@assets/images/heart.webp";
+import cinema from "@assets/images/cinema.png";
+import coinbank from "@assets/images/coinbank.png";
+import { GiTheaterCurtains } from "react-icons/gi";
+import { LiaPiggyBankSolid } from "react-icons/lia";
 
 const Navbar = () => {
   const navbarItemClassnames =
@@ -23,36 +28,39 @@ const Navbar = () => {
         <NavLink to={"/movie"} className={navbarItemClassnames}>
           <img src={navModing} alt="" className={modingEar} />
           <img src={nav1} className={navIcon} />
-          <div>무딩오피스</div>
+          <div className="">무딩오피스</div>
         </NavLink>
         <div className={food}>
           <img src={popcorn} alt="" />
         </div>
         <NavLink to={"/fund/list"} className={navbarItemClassnames}>
           <img src={navModing} alt="" className={modingEar} />
-          <div>무딩중</div>
+          <img src={coinbank} className={navIcon} />
+          <div className="text-[1.5vh]">무딩중</div>
         </NavLink>
         <div className={food}>
           <img src={soda} alt="" />
         </div>
         <NavLink to={"/"} className={navbarItemClassnames}>
           <img src={navModing} alt="" className={modingEar} />
-          <div> 홈</div>
+          <img src={cinema} className={navIcon} />
+          <div className="text-[1.5vh]"> 홈</div>
         </NavLink>
         <div className={food}>
           <img src={popcorn} alt="" />
         </div>
         <NavLink to={"/subscribe"} className={navbarItemClassnames}>
           <img src={navModing} alt="" className={modingEar} />
-          <FcLikePlaceholder className={navIcon} />
-          <div>좋아요</div>
+          <img src={heart} className={navIcon} />
+          <div className="text-[1.5vh]">좋아요</div>
         </NavLink>
         <div className={food}>
           <img src={soda} alt="" />
         </div>
         <NavLink to={"/user/mypage"} className={navbarItemClassnames}>
           <img src={navModing} alt="" className={modingEar} />
-          <div>마이무딩</div>
+          <img src={person} className={navIcon} />
+          <div className="text-[1.5vh]">마이무딩</div>
         </NavLink>
       </nav>
     </div>

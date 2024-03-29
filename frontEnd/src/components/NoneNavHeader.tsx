@@ -21,6 +21,7 @@ const NoneNavHeader = ({
       onBackButtonClick();
     } else {
       navigate(-1);
+      console.log("ddd");
     }
   };
 

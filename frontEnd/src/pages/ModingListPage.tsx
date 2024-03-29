@@ -23,16 +23,31 @@ const ModingListPage = () => {
     >
       <div className="text-center text-3xl pt-3">MODING</div>
       <div className="flex justify-around mt-2">
-        <div className={`${fundingTitle} border-red-700 ${modingCategory == 0 ? "select" : ""}`} onClick={() => setModingCategory(0)}>
+        <div
+          className={`${fundingTitle} border-red-700 ${
+            modingCategory == 0 ? "select" : ""
+          }`}
+          onClick={() => setModingCategory(0)}
+        >
           <div>무딩중</div>
           <div>TOP10</div>
         </div>
-        <div className={`${fundingTitle} border-red-700 ${modingCategory == 1 ? "select" : ""}`} onClick={() => setModingCategory(1)}>
+        <div
+          className={`${fundingTitle} border-red-700 ${
+            modingCategory == 1 ? "select" : ""
+          }`}
+          onClick={() => setModingCategory(1)}
+        >
           <div>무딩 요청</div>
           <div>TOP10</div>
         </div>
-        <div className={`${fundingTitle} border-red-700 ${modingCategory == 2 ? "select" : ""}`} onClick={() => setModingCategory(2)}>
-          <div>무딩 예정중</div>
+        <div
+          className={`${fundingTitle} border-red-700 ${
+            modingCategory == 2 ? "select" : ""
+          }`}
+          onClick={() => setModingCategory(2)}
+        >
+          <div>무딩 예정</div>
           <div>TOP10</div>
         </div>
       </div>

@@ -23,16 +23,16 @@ const ProgressArea = ({ crowd, joinCnt }: Props) => {
   }, []);
 
   return (
-    <div className="flex flex-col">
-      <div className="self-end mb-2 mr-2">{percent}%</div>
+    <div className="relative mb-7">
+      <div className="absolute top-[-25px] right-3">{percent}%</div>
       <div className="progressbar relative w-[100%] h-[4vh]" ref={divRef}>
         <div
-          className={`bar absolute top-[50%] trnaslate-y-[-50%] w-[${gage}px] h-[100%]`}
+          className={`bar absolute top-[50%] trnaslate-y-[-50%] w-[100px] h-[100%]`}
         >
           <span></span>
         </div>
       </div>
-      <div className=" self-end mt-2 mr-2">
+      <div className="absolute mt-2 right-3">
         {joinCnt}/{crowd}
       </div>
     </div>

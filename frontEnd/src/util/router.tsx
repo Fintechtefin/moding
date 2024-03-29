@@ -26,6 +26,7 @@ const PaymentFailPage = lazy(() => import("@pages/payment/PaymentFailPage"));
 const NotFoundPage = lazy(() => import("@pages/NotFoundPage"));
 const Notification = lazy(() => import("@pages/notification/Notification"));
 const TicketPage = lazy(() => import("@pages/user/TicketPage"));
+const MovieSearch = lazy(() => import("@pages/MovieSearch"));
 const FundingProgress = lazy(() => import("@pages/user/FundingProgress"));
 const FundingCompletedPage = lazy(
   () => import("@pages/user/FundingCompletedPage")
@@ -95,6 +96,10 @@ export const router = createBrowserRouter([
             ],
           },
         ],
+      },
+      {
+        path: "movie",
+        children: [{ path: "search", element: <MovieSearch /> }],
       },
       {
         path: "fund",
