@@ -1,11 +1,11 @@
 package com.ssafy.funding.service;
 
+import com.ssafy.funding.controller.feign.TokenAuthClient;
 import com.ssafy.funding.domain.Movie;
+import com.ssafy.funding.domain.MovieLike;
 import com.ssafy.funding.domain.document.MovieDocument;
-import com.ssafy.funding.dto.response.MovieDescResponse;
-import com.ssafy.funding.dto.response.MovieDetailResponse;
-import com.ssafy.funding.dto.response.MovieRankingResponse;
-import com.ssafy.funding.dto.response.MovieSummaryResponse;
+import com.ssafy.funding.dto.response.*;
+import com.ssafy.funding.repository.MovieLikeRepository;
 import com.ssafy.funding.repository.MovieRepository;
 import com.ssafy.funding.repository.MovieSearchNativeQueryRepository;
 import com.ssafy.funding.util.RedisUtil;
@@ -27,6 +27,8 @@ public class MovieService {
     private final MovieSearchNativeQueryRepository movieSearchNativeQueryRepository;
     private final MovieRepository movieRepository;
     private final RedisUtil redisUtil;
+    private final MovieLikeRepository movielikeRepository;
+    private final TokenAuthClient tokenAuthClient;
 
     public List<MovieDetailResponse> searchMovie(String word) {
         List<MovieDetailResponse> movies =
@@ -106,13 +108,13 @@ public class MovieService {
     }
 
     public List<MovieDetailResponse> getMovieList(int genre, String sort, int page) {
-
+        // todo: 리팩토링 필수
         List<MovieDetailResponse> movieList = new ArrayList<>();
         final String key = "movie_list_" + genre + "_" + sort + "_" + page;
 
         if (redisUtil.getObject(key) != null) {
             movieList = (List<MovieDetailResponse>) redisUtil.getObject(key);
-            System.out.println("Redis Hit!!!");
+            //            System.out.println("Redis Hit!!!");
             if ((page - 1) * 21 > movieList.size()) return null;
             if (page * 21 >= movieList.size() && (page - 1) * 21 < movieList.size()) {
                 return movieList.subList((page - 1) * 21, movieList.size());
@@ -162,5 +164,23 @@ public class MovieService {
 
     private MovieRankingResponse transInfoRanking(Movie movie) {
         return MovieRankingResponse.of(movie);
+    }
+
+    public MovieLikeResponse likeMovie(String accessToken, int movieId) {
+        int userId = tokenAuthClient.getUserId(accessToken);
+
+        movielikeRepository.save(MovieLike.of(userId, movieId));
+
+        String key = "likes_" + movieId;
+        if (redisUtil.getData(key) == null) {
+            long likeCnt = movielikeRepository.countByMovieId(movieId);
+            redisUtil.setData(key, String.valueOf(likeCnt));
+        } else {
+            int count = Integer.parseInt(redisUtil.getData(key));
+            redisUtil.deleteData(key);
+            redisUtil.setData(key, String.valueOf(count + 1));
+        }
+
+        return MovieLikeResponse.of(true);
     }
 }

@@ -52,4 +52,11 @@ public class MovieController {
             @RequestParam int genre, @RequestParam String sort, @RequestParam int page) {
         return ResponseEntity.ok(movieService.getMovieList(genre, sort, page));
     }
+
+    @Operation(summary = "영화 좋아요를 등록합니다.")
+    @GetMapping("/{movieId}/likes")
+    public ResponseEntity<?> likeMovie(
+            @RequestHeader("accessToken") String accessToken, @PathVariable int movieId) {
+        return ResponseEntity.ok(movieService.likeMovie(accessToken, movieId));
+    }
 }

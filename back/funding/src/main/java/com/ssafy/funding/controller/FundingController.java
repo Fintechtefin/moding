@@ -1,6 +1,5 @@
 package com.ssafy.funding.controller;
 
-import com.ssafy.funding.controller.feign.TokenAuthClient;
 import com.ssafy.funding.dto.request.MovieFundingRequest;
 import com.ssafy.funding.repository.FundingRepository;
 import com.ssafy.funding.service.FundingService;
@@ -36,14 +35,15 @@ public class FundingController {
 
     @Operation(summary = "현재 열린 펀딩이 있다면 정보를 반환합니다.")
     @GetMapping("/open/{movieId}")
-    public ResponseEntity<FundingRepository.OpenFundingResponseInterface> getOpenFundingInfo(@PathVariable int movieId) {
+    public ResponseEntity<FundingRepository.OpenFundingResponseInterface> getOpenFundingInfo(
+            @PathVariable int movieId) {
         return ResponseEntity.ok(fundingService.getOpenFundingInfo(movieId));
     }
 
-    @Operation(summary="현재 로그인한 유저의 펀딩 참여 여부를 반환합니다.")
+    @Operation(summary = "현재 로그인한 유저의 펀딩 참여 여부를 반환합니다.")
     @GetMapping("/{fundingId}/participation")
-    public ResponseEntity getFundingParticipation(@RequestHeader("accessToken") String accessToken,@PathVariable int fundingId) {
-        return ResponseEntity.ok(fundingService.getFundingParticipation(accessToken,fundingId));
+    public ResponseEntity getFundingParticipation(
+            @RequestHeader("accessToken") String accessToken, @PathVariable int fundingId) {
+        return ResponseEntity.ok(fundingService.getFundingParticipation(accessToken, fundingId));
     }
-
 }

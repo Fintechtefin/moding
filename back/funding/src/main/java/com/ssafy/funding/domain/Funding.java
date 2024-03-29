@@ -2,7 +2,6 @@ package com.ssafy.funding.domain;
 
 import com.ssafy.funding.exception.FundingQuantityLackException;
 import com.ssafy.funding.exception.FundingTimeIsPassedException;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import javax.persistence.*;
@@ -42,7 +41,7 @@ public class Funding {
     private Movie movie;
 
     @OneToOne
-    @JoinColumn(name="cinema_id")
+    @JoinColumn(name = "cinema_id")
     private Cinema cinema;
 
     /*
@@ -51,7 +50,6 @@ public class Funding {
      */
     //    @Enumerated(EnumType.STRING)
     //    private FundingStatus status;
-
 
     /** 펀딩 가능 시간이 아직 안지났는지. */
     public void validFundingTime(Funding funding) {
