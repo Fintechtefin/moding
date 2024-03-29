@@ -42,7 +42,10 @@ public enum CustomExceptionStatus implements BaseErrorCode {
     FUNDING_NOT_FOUND("FUNDING_404_1", "펀딩을 찾을 수 없습니다."),
     FUNDING_TIME_IS_PASSED("FUNDING_400_6", "펀딩 시작시간이 지나 예매를 할 수 없습니다."),
     FUNDING_NOT_OPEN("FUNDING_400_5", "아직 오픈되지 않은 펀딩에는 접근할 수 없습니다."),
-    FUNDING_QUANTITY_LACK("Ticket_Item_400_1", "펀딩 모집 인원을 초과했습니다.");
+    FUNDING_QUANTITY_LACK("Ticket_Item_400_1", "펀딩 모집 인원을 초과했습니다."),
+
+    NOT_AVAILABLE_REDISSON_LOCK("Redisson_500_1", "can not get redisson lock"),
+    BAD_LOCK_IDENTIFIER("AOP_500_1", "락의 키값이 잘못 세팅 되었습니다");
 
     private final String code;
     private final String message;
