@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-//@CrossOrigin(origins = "*")
+// @CrossOrigin(origins = "*")
 @RestController
 @RequiredArgsConstructor
 // @RequestMapping("/reservation")
@@ -39,7 +39,8 @@ public class ReservationController {
 
     @Operation(summary = "예매된 티켓을 조회합니다.")
     @GetMapping("/get/{reservationId}")
-    public ResponseEntity<?> getTicket(@RequestHeader("accessToken") String accessToken,
+    public ResponseEntity<?> getTicket(
+            @RequestHeader("accessToken") String accessToken,
             @PathVariable final int reservationId) {
         TicketInfoResponse ticketInfoResponse =
                 reservationService.getTicket(accessToken, reservationId);
