@@ -24,6 +24,11 @@ public class RedisUtil {
         return valueOperations.get(key);
     }
 
+    public Integer getIntegerData(String key) {
+        ValueOperations<String, Integer> valueOperations = redisTemplate.opsForValue();
+        return valueOperations.get(key);
+    }
+
     public Set getKeys(String pattern) {
         return redisTemplate.keys(pattern);
     }

@@ -46,4 +46,11 @@ public class FundingController {
             @RequestHeader("accessToken") String accessToken, @PathVariable int fundingId) {
         return ResponseEntity.ok(fundingService.getFundingParticipation(accessToken, fundingId));
     }
+
+    @Operation(summary = "현재 로그인한 유저가 참여한 펀딩 목록을 반환합니다.")
+    @GetMapping("/participation")
+    public ResponseEntity getFundingParticipation(
+            @RequestHeader("accessToken") String accessToken) {
+        return ResponseEntity.ok(fundingService.getMyFundings(accessToken));
+    }
 }
