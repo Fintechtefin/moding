@@ -2,6 +2,8 @@ package com.ssafy.funding.domain;
 
 import com.ssafy.funding.exception.FundingQuantityLackException;
 import com.ssafy.funding.exception.FundingTimeIsPassedException;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import javax.persistence.*;
 import lombok.AllArgsConstructor;
@@ -21,6 +23,13 @@ public class Funding {
     @Column(name = "funding_id")
     private Integer id;
 
+    private LocalDateTime startAt;
+
+    private LocalDate date;
+
+    @Column(length = 5)
+    private String time;
+
     private Integer peopleCount;
 
     private Integer price;
@@ -32,6 +41,10 @@ public class Funding {
     @JoinColumn(name = "movie_id")
     private Movie movie;
 
+    @OneToOne
+    @JoinColumn(name="cinema_id")
+    private Cinema cinema;
+
     /*
     이벤트 상태 필드
     ERD에서 없어서 한번 열렸다가 종료된 펀딩은 지울지 이야기 해봐야 함 -> movie에 status 있으니까 펀딩에서는 제거
@@ -39,7 +52,6 @@ public class Funding {
     //    @Enumerated(EnumType.STRING)
     //    private FundingStatus status;
 
-    private LocalDateTime startAt;
 
     /** 펀딩 가능 시간이 아직 안지났는지. */
     public void validFundingTime(Funding funding) {

@@ -5,15 +5,13 @@ import com.ssafy.funding.domain.Movie;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.Serializable;
 import javax.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
+@Builder
 public class MovieRankingResponse implements Serializable {
 
     @NotNull
@@ -35,10 +33,12 @@ public class MovieRankingResponse implements Serializable {
     private int refreshTime;
 
     public static MovieRankingResponse of(Movie movie) {
-        MovieRankingResponse movieRankingResponse = new MovieRankingResponse();
-        movieRankingResponse.movieId = movie.getId();
-        movieRankingResponse.poster = movie.getPoster();
-        movieRankingResponse.status = movie.getStatus();
+        MovieRankingResponse movieRankingResponse =
+                MovieRankingResponse.builder()
+                        .movieId(movie.getId())
+                        .poster(movie.getPoster())
+                        .status(movie.getStatus())
+                        .build();
 
         return movieRankingResponse;
     }

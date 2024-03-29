@@ -35,4 +35,10 @@ public class FundingController {
         fundingService.registerAttendance(accessToken, movieId, movieFundingRequest);
         return ResponseEntity.ok("success");
     }
+
+    @Operation(summary = "현재 열린 펀딩이 있다면 정보를 반환합니다.")
+    @GetMapping("/open/{movieId}")
+    public ResponseEntity<FundingRepository.OpenFundingResponseInterface> getOpenFundingInfo(@PathVariable int movieId) {
+        return ResponseEntity.ok(fundingService.getOpenFundingInfo(movieId));
+    }
 }
