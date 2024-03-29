@@ -13,3 +13,4 @@ public interface OrderRepository extends CrudRepository<Order, Long> {
 
     List<Order> findByFundingId(int fundingId);
 }
+
