@@ -2,11 +2,11 @@ import axios from "axios";
 
 // const BASE_URL = "http://localhost:8086";
 // const BASE_URL = "http://172.30.1.16:5174";
-const BASE_URL = "http://j10C204.p.ssafy.io:8084";
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const axiosApi = () => {
   const instance = axios.create({
-    baseURL: `${BASE_URL}`,
+    baseURL: `${BASE_URL}/api`,
   });
 
   const token = localStorage.getItem("jwt");

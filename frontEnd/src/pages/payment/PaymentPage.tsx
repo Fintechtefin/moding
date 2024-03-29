@@ -25,6 +25,8 @@ const PaymentPage = () => {
   useEffect(() => {
     const customerKey = KEY;
 
+    console.log(import.meta.env);
+
     const fetchPaymentWidget = async () => {
       try {
         const loadedWidget = await loadPaymentWidget(
