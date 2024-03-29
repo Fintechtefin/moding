@@ -1,5 +1,6 @@
 package com.ssafy.reservation.service;
 
+import static com.ssafy.reservation.exception.global.CustomExceptionStatus.NOT_CANCELED_RESERVATION_ID;
 import static com.ssafy.reservation.exception.global.CustomExceptionStatus.NOT_FOUND_RSERVATION_ID;
 
 import com.ssafy.reservation.controller.ReservationClient;
@@ -75,6 +76,10 @@ public class ReservationService {
                 reservationRepository
                         .findById(reservationId)
                         .orElseThrow(() -> new BadRequestException(NOT_FOUND_RSERVATION_ID));
+
+        if (reservation.getStatus() == 0) {
+            throw new BadRequestException(NOT_CANCELED_RESERVATION_ID);
+        }
 
         reservation.changeStatus();
         reservationRepository.save(reservation);
