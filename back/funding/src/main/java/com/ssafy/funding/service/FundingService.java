@@ -1,10 +1,15 @@
 package com.ssafy.funding.service;
 
+import static com.ssafy.funding.exception.global.CustomExceptionStatus.FUNDING_NOT_FOUND;
+
 import com.ssafy.funding.controller.feign.TokenAuthClient;
+import com.ssafy.funding.domain.Funding;
 import com.ssafy.funding.domain.Movie;
 import com.ssafy.funding.domain.MovieFunding;
 import com.ssafy.funding.domain.Order;
 import com.ssafy.funding.dto.request.MovieFundingRequest;
+import com.ssafy.funding.dto.response.FundingInfoResponse;
+import com.ssafy.funding.exception.BadRequestException;
 import com.ssafy.funding.dto.response.JoinFundingListResponse;
 import com.ssafy.funding.dto.response.JoinFundingResponse;
 import com.ssafy.funding.repository.FundingRepository;
@@ -82,6 +87,22 @@ public class FundingService {
         int userId = tokenAuthClient.getUserId(accessToken);
         //        System.out.println(userId);
         return orderRepository.existsByFundingIdAndUserId(fundingId, userId);
+    }
+
+    public FundingInfoResponse getTicketInfo(String accessToken, Integer fundingId) {
+        int userId = tokenAuthClient.getUserId(accessToken);
+        System.out.println(userId);
+
+        Funding funding =
+                fundingRepository
+                        .findById(fundingId)
+                        .orElseThrow(() -> new BadRequestException(FUNDING_NOT_FOUND));
+
+        int orderCount = orderRepository.findByUserIdAndFundingId(userId, fundingId).getCount();
+
+        FundingInfoResponse fundingInfoResponse = FundingInfoResponse.of(funding, orderCount);
+
+        return fundingInfoResponse;
     }
 
     public JoinFundingListResponse getMyFundings(String accessToken) {
