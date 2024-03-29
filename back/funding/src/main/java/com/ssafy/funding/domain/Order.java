@@ -67,6 +67,7 @@ public class Order extends BaseTime {
             Funding funding,
             Integer fundingCount,
             Integer fundingPrice,
+            Long amount,
             OrderValidator orderValidator) {
         // Integer supplyAmount = fundingCount * fundingPrice;
         Order order =
@@ -78,10 +79,18 @@ public class Order extends BaseTime {
                         .orderMethod(OrderMethod.PAYMENT)
                         .funding(funding)
                         .build();
+
+        orderValidator.validFundingIsOpen(funding);
+        orderValidator.validFundingStockEnough(order, funding);
+        orderValidator.validAmountIsSameAsRequest(
+                order, Money.wons(amount)); // 구매수량 * 펀딩 참여 금액이 요청 받은 총 금액과 일치?
+
         return order;
     }
 
-    /** 총 결제 금액을 가져옵니다. * */
+    /*
+    총 결제 금액(펀딩의 가격 * 구매 갯수)을 가져옵니다.
+     */
     public Money getTotalPaymentPrice() {
         Money money = Money.ZERO;
         for (int i = 0; i < this.getCount(); i++) {

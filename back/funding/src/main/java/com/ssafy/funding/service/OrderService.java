@@ -6,7 +6,6 @@ import com.ssafy.funding.controller.feign.PaymentFeignClient;
 import com.ssafy.funding.domain.Funding;
 import com.ssafy.funding.domain.Order;
 import com.ssafy.funding.domain.validator.OrderValidator;
-import com.ssafy.funding.dto.Money;
 import com.ssafy.funding.dto.request.ConfirmOrderRequest;
 import com.ssafy.funding.dto.request.ConfirmPaymentsRequest;
 import com.ssafy.funding.dto.request.CreatePaymentsRequest;
@@ -56,6 +55,7 @@ public class OrderService {
                         funding,
                         confirmOrderRequest.getFundingCount(),
                         funding.getPrice(),
+                        confirmOrderRequest.getAmount(),
                         orderValidator);
 
         return orderRepository.save(order);
@@ -76,12 +76,6 @@ public class OrderService {
                         .orderId(orderUuid)
                         .id(order.getId())
                         .build();
-
-        Money paymentWons = Money.wons(confirmPaymentsRequest.getAmount());
-
-        // orderValidator.validOwner(order, userId);
-        // orderValidator.validMethodIsPaymentOrder(order);
-        // orderValidator.validAmountIsSameAsRequest(order, paymentWons);
 
         // paymentClient.callTossPayConfirm(confirmPaymentsRequest, order.getId());
         paymentFeignClient.callCreatePayment(confirmPaymentsRequest);
