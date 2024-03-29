@@ -1,7 +1,7 @@
 package com.ssafy.reservation.controller;
 
 import com.ssafy.reservation.dto.request.MakeReservationRequest;
-import com.ssafy.reservation.dto.response.CreateTicketResponse;
+import com.ssafy.reservation.dto.response.TicketInfoResponse;
 import com.ssafy.reservation.service.ReservationService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -38,9 +38,12 @@ public class ReservationController {
     }
 
     @Operation(summary = "예매된 티켓을 조회합니다.")
-    @GetMapping("/create/{reservationId}")
-    public ResponseEntity<?> createTicket(@PathVariable final Integer reservationId) {
-        CreateTicketResponse createTicketResponse = reservationService.createTicket(reservationId);
-        return ResponseEntity.ok().body(createTicketResponse);
+    @GetMapping("/get/{reservationId}")
+    public ResponseEntity<?> getTicket(
+            @RequestHeader("accessToken") String accessToken,
+            @PathVariable final int reservationId) {
+        TicketInfoResponse ticketInfoResponse =
+                reservationService.getTicket(accessToken, reservationId);
+        return ResponseEntity.ok().body(ticketInfoResponse);
     }
 }

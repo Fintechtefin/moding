@@ -8,11 +8,17 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface OrderRepository extends CrudRepository<Order, Long> {
 
+    public interface OrderResponseInterface {
+        Integer getCount();
+    }
+
     Optional<Order> findByUuid(String orderUuid);
 
     boolean existsByFundingIdAndUserId(int fundingId, int userId);
 
     List<Order> findByFundingId(int fundingId);
+
+    OrderResponseInterface findByUserIdAndFundingId(Integer userId, Integer fundingInd);
 
     Slice<Order> findByUserId(int userId);
 }

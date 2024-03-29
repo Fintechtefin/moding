@@ -1,5 +1,6 @@
 package com.ssafy.reservation.dto.response;
 
+import com.ssafy.reservation.domain.Reservation;
 import com.ssafy.reservation.dto.ListSeat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.time.LocalDate;
@@ -12,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateTicketResponse {
+public class TicketInfoResponse {
 
     @Schema(description = "좌석 정보")
     private ListSeat seats;
@@ -43,4 +44,22 @@ public class CreateTicketResponse {
 
     @Schema(description = "상영관")
     private Integer number;
+
+    public static TicketInfoResponse of(
+            FundingInfoResponse fundingInfoResponse, Reservation reservation) {
+        TicketInfoResponse ticketInfoResponse =
+                TicketInfoResponse.builder()
+                        .seats(reservation.getSeats())
+                        .poster(fundingInfoResponse.getPoster())
+                        .age(fundingInfoResponse.getAge())
+                        .title(fundingInfoResponse.getTitle())
+                        .date(fundingInfoResponse.getDate())
+                        .startTime(fundingInfoResponse.getStartTime())
+                        .runningTime(fundingInfoResponse.getRunningTime())
+                        .count(fundingInfoResponse.getCount())
+                        .name(fundingInfoResponse.getName())
+                        .number(fundingInfoResponse.getNumber())
+                        .build();
+        return ticketInfoResponse;
+    }
 }

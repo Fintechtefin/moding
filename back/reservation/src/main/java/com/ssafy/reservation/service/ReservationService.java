@@ -6,7 +6,8 @@ import static com.ssafy.reservation.exception.global.CustomExceptionStatus.NOT_F
 import com.ssafy.reservation.controller.ReservationClient;
 import com.ssafy.reservation.domain.Reservation;
 import com.ssafy.reservation.dto.request.MakeReservationRequest;
-import com.ssafy.reservation.dto.response.CreateTicketResponse;
+import com.ssafy.reservation.dto.response.FundingInfoResponse;
+import com.ssafy.reservation.dto.response.TicketInfoResponse;
 import com.ssafy.reservation.exception.BadRequestException;
 import com.ssafy.reservation.exception.global.CustomExceptionStatus;
 import com.ssafy.reservation.repository.ReservationRepository;
@@ -50,24 +51,23 @@ public class ReservationService {
         return reservationId;
     }
 
-    public CreateTicketResponse createTicket(Integer reservationId) {
-        Reservation reservation = reservationRepository.findById(reservationId).orElseThrow();
+    public TicketInfoResponse getTicket(String accessToken, Integer reservationId) {
+        Reservation reservation =
+                reservationRepository
+                        .findById(reservationId)
+                        .orElseThrow(() -> new BadRequestException(NOT_FOUND_RSERVATION_ID));
+
         if (reservation.getStatus() == 0) {
             throw new BadRequestException(CustomExceptionStatus.CANCELED_RSERVATION_ID);
         }
-        CreateTicketResponse createTicketResponse =
-                new CreateTicketResponse(
-                        reservation.getSeats(),
-                        "poster.jpg",
-                        "15세 이상 관람가",
-                        "엘리멘탈",
-                        LocalDate.parse("2024-04-05", DateTimeFormatter.ISO_DATE),
-                        "12:30",
-                        120,
-                        1,
-                        "광주 롯데시네마 수완점",
-                        5);
-        return createTicketResponse;
+
+        FundingInfoResponse fundingInfoResponse =
+                reservationClient.getTicketInfo(accessToken, reservation.getFundingId());
+
+        TicketInfoResponse ticketInfoResponse =
+                TicketInfoResponse.of(fundingInfoResponse, reservation);
+
+        return ticketInfoResponse;
     }
 
     @Transactional
