@@ -116,4 +116,15 @@ public class OrderValidator {
     public void validCanWithDraw(Order order) {
         order.getFunding().validateFundingTime();
     }
+
+    /*
+    한 펀딩에 하나의 주문만 가능
+     */
+    public void validOnlyOneOrder(int userId, int fundingId) {
+        OrderRepository.OrderResponseInterface result =
+                orderRepository.findByUserIdAndFundingId(userId, fundingId);
+        if (result.getCount() > 0) {
+            throw new BadRequestException(ORDER_FORBIDDEN);
+        }
+    }
 }

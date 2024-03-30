@@ -19,8 +19,10 @@ public enum CustomExceptionStatus implements BaseErrorCode {
     ORDER_NOT_PAYMENT("Order_400_8", "결제 주문이 아닙니다."),
 
     ORDER_NOT_REFUND_DATE("Order_400_9", "환불을 할 수 있는 기한을 지났습니다."),
+    ORDER_FORBIDDEN("Order_400_10", "한 펀딩은 한 번만 주문할 수 있습니다. 다시 주문하고 싶으면 이전 주문을 취소하세요."),
     ORDER_NOT_FOUND("Order_404_1", "주문을 찾을 수 없습니다."),
     ORDER_FUNDING_FOUND("Order_404_2", "주문 라인을 찾을 수 없습니다."),
+
     // ORDER_NOT_FREE("Order_400_10", "무료 주문이 아닙니다."),
 
     // ORDER_LESS_THAN_MINIMUM("Order_400_11", "최소 결제금액인 1000원보다 낮은 주문입니다."),
