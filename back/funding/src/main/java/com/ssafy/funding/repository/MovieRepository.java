@@ -2,10 +2,13 @@ package com.ssafy.funding.repository;
 
 import com.ssafy.funding.domain.FundingStatus;
 import com.ssafy.funding.domain.Movie;
+import com.ssafy.funding.domain.MovieFunding;
 import com.ssafy.funding.dto.response.MovieDetailResponse;
 import com.ssafy.funding.dto.response.MovieSummaryResponse;
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -34,22 +37,5 @@ public interface MovieRepository extends CrudRepository<Movie, Integer> {
             "SELECT count(fh) FROM FundingHistory fh WHERE fh.funding.movie.id=:movieId and fh.fundingFinalResult=true")
     int getSuccessCountById(@Param("movieId") int movieId);
 
-    @Query(
-            value =
-                    " select movie.movie_id movieId, poster, title, status, (select count(*) from movie_like where movie.movie_id=movie_like.movie_id) likeCnt"
-                            + "  from movie join movie_like on movie.movie_id=movie_like.movie_id where movie_like.user_id=:userId",
-            nativeQuery = true)
-    List<UserLikeMovieResponse> getMyLikeList(int userId);
 
-    public interface UserLikeMovieResponse {
-        int getMovieId();
-
-        String getTitle();
-
-        String getPoster();
-
-        int getLikeCnt();
-
-        FundingStatus getStatus();
-    }
 }

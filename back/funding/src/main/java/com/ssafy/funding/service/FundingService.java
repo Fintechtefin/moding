@@ -139,10 +139,6 @@ public class FundingService {
         return orderList.stream().filter(o -> o.isStatus()).mapToInt(o -> o.getCount()).sum();
     }
 
-    public List<MovieRepository.UserLikeMovieResponse> getMyLikeList(String accessToken) {
-        int userId = tokenAuthClient.getUserId(accessToken);
-        return movieRepository.getMyLikeList(userId);
-    }
 
     public List<FundingRepository.AfterMoodingResponseInterface> getMyFundingResult(
             String accessToken) {
