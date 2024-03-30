@@ -12,7 +12,7 @@ public interface FundingRepository extends CrudRepository<Funding, Integer> {
     @Query(
             value =
                     "select movie.movie_id movieId, movie.poster, funding.people_count crowdCnt, "
-                            + "(SELECT sum(count) FROM orders WHERE orders.funding_id = funding.funding_id) AS peopleCnt, "
+                            + "ifnull((SELECT sum(count) FROM orders WHERE orders.funding_id = funding.funding_id),0) AS peopleCnt, "
                             + "movie.status "
                             + "from funding join movie on funding.movie_id=movie.movie_id "
                             + "where movie.status='OPEN' order by peopleCnt desc limit 10",
@@ -22,7 +22,7 @@ public interface FundingRepository extends CrudRepository<Funding, Integer> {
     @Query(
             value =
                     "select movie.movie_id movieId, movie.poster, "
-                            + "(select count(*) from movie_funding where movie_funding.movie_id=movie.movie_id) as requestCnt,"
+                            + "ifnull((select count(*) from movie_funding where movie_funding.movie_id=movie.movie_id),0) as requestCnt,"
                             + "movie.status "
                             + "from movie left outer join movie_funding on movie.movie_id=movie_funding.movie_id "
                             + "where movie.status='NONE' or movie.status='READY_TO_OPEN' "
