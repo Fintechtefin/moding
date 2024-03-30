@@ -16,9 +16,9 @@ public class FundingController {
 
     private final FundingService fundingService;
 
-    @Operation(summary = "무딩중 리스트 TOP10을 조회합니다.")
+    @Operation(summary = "무딩중 리스트 TOP10 을 조회합니다.")
     @GetMapping
-    public ResponseEntity<List<FundingRepository.FundingListResponseInterface>> searchMovie(
+    public ResponseEntity<?> searchMovie(
             @RequestParam String status) {
         return ResponseEntity.ok(fundingService.getFundingList(status));
     }
