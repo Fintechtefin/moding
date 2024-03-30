@@ -30,7 +30,7 @@ public class MovieService {
     private final MovieSearchNativeQueryRepository movieSearchNativeQueryRepository;
     private final MovieRepository movieRepository;
     private final RedisUtil redisUtil;
-    private final MovieLikeRepository movielikeRepository;
+    private final MovieLikeRepository movieLikeRepository;
     private final TokenAuthClient tokenAuthClient;
     private final MovieFundingRepository movieFundingRepository;
 
@@ -41,14 +41,16 @@ public class MovieService {
         return movies;
     }
 
-    public MovieDescResponse detailMovieBySearch(int movieId) throws IOException {
+    public MovieDescResponse detailMovieBySearch(int movieId, String accessToken) throws IOException {
         // 로그 전송
         log.info(String.valueOf(movieId));
-        MovieDescResponse movieDescResponse = detailMovie(movieId);
+        MovieDescResponse movieDescResponse = detailMovie(movieId, accessToken);
         return movieDescResponse;
     }
 
-    public MovieDescResponse detailMovie(int movieId) {
+    public MovieDescResponse detailMovie(int movieId, String accessToken) {
+
+        int userId = tokenAuthClient.getUserId(accessToken);
 
         // 영화 정보 가져오기
         Optional<MovieSummaryResponse> movieSummaryResponse =
@@ -64,14 +66,16 @@ public class MovieService {
         String key = "total_cnt_" + movieId;
 
         // test
-        redisUtil.setData(key, "10");
+        redisUtil.setData(key, "100");
 
         int accumulate = Integer.parseInt(redisUtil.getData(key));
         movieDescResponse = MovieDescResponse.setTotal(movieDescResponse, accumulate);
 
-        int success = movieRepository.getSuccessCountById(movieId);
+        movieDescResponse = MovieDescResponse.setSuccess(movieDescResponse, movieRepository.getSuccessCountById(movieId));
+        movieDescResponse=MovieDescResponse.setLike(movieDescResponse, movieLikeRepository.existsByUserIdAndMovieId(userId,movieId));
+        movieDescResponse=MovieDescResponse.setRequest(movieDescResponse, movieFundingRepository.existsByUserIdAndMovieId(userId,movieId));
 
-        return MovieDescResponse.setSuccess(movieDescResponse, success);
+        return movieDescResponse;
     }
 
     public List<MovieRankingResponse> popularMovies(int time) throws IOException {
@@ -152,11 +156,11 @@ public class MovieService {
     public MovieLikeResponse likeMovie(String accessToken, int movieId) {
         int userId = tokenAuthClient.getUserId(accessToken);
 
-        movielikeRepository.save(MovieLike.of(userId, movieId));
+        movieLikeRepository.save(MovieLike.of(userId, movieId));
 
         String key = "likes_" + movieId;
         if (redisUtil.getData(key) == null) {
-            long likeCnt = movielikeRepository.countByMovieId(movieId);
+            long likeCnt = movieLikeRepository.countByMovieId(movieId);
             redisUtil.setData(key, String.valueOf(likeCnt));
         } else {
             int count = Integer.parseInt(redisUtil.getData(key));
@@ -170,11 +174,11 @@ public class MovieService {
     public MovieLikeResponse cancelLikeMovie(String accessToken, int movieId) {
         int userId = tokenAuthClient.getUserId(accessToken);
 
-        MovieLike movieLike = movielikeRepository.findByMovieIdAndUserId(movieId, userId);
+        MovieLike movieLike = movieLikeRepository.findByMovieIdAndUserId(movieId, userId);
         if (movieLike == null) {
             return MovieLikeResponse.of(false);
         }
-        movielikeRepository.delete(movieLike);
+        movieLikeRepository.delete(movieLike);
 
         String key = "likes_" + movieId;
 
@@ -187,7 +191,7 @@ public class MovieService {
 
     public List<MovieLikeRepository.UserLikeMovieResponse> getMyLikeList(String accessToken) {
         int userId = tokenAuthClient.getUserId(accessToken);
-        return movielikeRepository.getMyLikeList(userId);
+        return movieLikeRepository.getMyLikeList(userId);
     }
 
     public RequestMovieListResponse getMyRequestList(String accessToken) {

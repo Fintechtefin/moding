@@ -98,7 +98,6 @@ public interface MovieRepository extends CrudRepository<Movie, Integer> {
     )
     int getMovieCountByGenreId(int genreId);
 
-
     public interface MovieGenreListResponse extends Serializable {
         int getMovieId();
 

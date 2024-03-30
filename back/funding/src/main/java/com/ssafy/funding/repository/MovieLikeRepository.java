@@ -18,6 +18,8 @@ public interface MovieLikeRepository extends CrudRepository<MovieLike, Integer> 
             nativeQuery = true)
     List<UserLikeMovieResponse> getMyLikeList(int userId);
 
+    boolean existsByUserIdAndMovieId(int userId, int movieId);
+
     public interface UserLikeMovieResponse {
         int getMovieId();
 

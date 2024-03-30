@@ -9,4 +9,8 @@ public interface MovieFundingRepository extends CrudRepository<MovieFunding, Int
     Slice<MovieFunding> findByUserId(int userId);
 
     List<MovieFunding> findByMovieId(int movieId);
+
+    int getExistsByUserIdAndMovieId(int userId, int movieId);
+
+    boolean existsByUserIdAndMovieId(int userId, int movieId);
 }
