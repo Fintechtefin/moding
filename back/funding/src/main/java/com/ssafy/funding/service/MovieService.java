@@ -2,9 +2,12 @@ package com.ssafy.funding.service;
 
 import com.ssafy.funding.controller.feign.TokenAuthClient;
 import com.ssafy.funding.domain.Movie;
+import com.ssafy.funding.domain.MovieFunding;
 import com.ssafy.funding.domain.MovieLike;
+import com.ssafy.funding.domain.Order;
 import com.ssafy.funding.domain.document.MovieDocument;
 import com.ssafy.funding.dto.response.*;
+import com.ssafy.funding.repository.MovieFundingRepository;
 import com.ssafy.funding.repository.MovieLikeRepository;
 import com.ssafy.funding.repository.MovieRepository;
 import com.ssafy.funding.repository.MovieSearchNativeQueryRepository;
@@ -15,6 +18,7 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,6 +33,7 @@ public class MovieService {
     private final RedisUtil redisUtil;
     private final MovieLikeRepository movielikeRepository;
     private final TokenAuthClient tokenAuthClient;
+    private final MovieFundingRepository movieFundingRepository;
 
     public List<MovieDetailResponse> searchMovie(String word) {
         List<MovieDetailResponse> movies =
@@ -200,5 +205,43 @@ public class MovieService {
         redisUtil.setData(key, String.valueOf(count - 1));
 
         return MovieLikeResponse.of(true);
+    }
+
+    public List<MovieLikeRepository.UserLikeMovieResponse> getMyLikeList(String accessToken) {
+        int userId = tokenAuthClient.getUserId(accessToken);
+        return movielikeRepository.getMyLikeList(userId);
+    }
+
+    public RequestMovieListResponse getMyRequestList(String accessToken) {
+        int userId = tokenAuthClient.getUserId(accessToken);
+
+        Slice<MovieFunding> movieFundings = movieFundingRepository.findByUserId(userId);
+
+        return RequestMovieListResponse.of(
+                movieFundings.stream()
+                        .map(
+                                movieFunding ->
+                                        RequestMovieResponse.builder()
+                                                .title(movieFunding.getMovie().getTitle())
+                                                .movieId(movieFunding.getMovie().getId())
+                                                .poster(movieFunding.getMovie().getPoster())
+                                                .requestCnt(
+                                                        getRequestCount(
+                                                                movieFunding.getMovie().getId()
+                                                        )
+                                                )
+                                                .build())
+                        .collect(Collectors.toList()));
+    }
+
+    private Integer getRequestCount(int movieId) {
+        Integer requestCount=redisUtil.getIntegerData("movie_funding_"+movieId);
+
+        if(requestCount!=null) {
+            return requestCount;
+        }
+
+        List<MovieFunding> movieFundingList=movieFundingRepository.findByMovieId(movieId);
+        return movieFundingList.size();
     }
 }

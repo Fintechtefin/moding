@@ -66,4 +66,16 @@ public class MovieController {
             @RequestHeader("Authorization") String accessToken, @PathVariable int movieId) {
         return ResponseEntity.ok(movieService.cancelLikeMovie(accessToken, movieId));
     }
+
+    @Operation(description = "현재 로그인한 유저가 좋아요한 영화 목록을 반환합니다. ")
+    @GetMapping("/like")
+    public ResponseEntity<?> getMyLikeList(@RequestHeader("Authorization") String accessToken) {
+        return ResponseEntity.ok().body(movieService.getMyLikeList(accessToken));
+    }
+
+    @Operation(description = "현재 로그인한 유저가 펀딩 요청한 영화 목록을 반환합니다.")
+    @GetMapping("/request")
+    public ResponseEntity<?> getMyRequestList(@RequestHeader("Authorization") String accessToken) {
+        return ResponseEntity.ok().body(movieService.getMyRequestList(accessToken));
+    }
 }
