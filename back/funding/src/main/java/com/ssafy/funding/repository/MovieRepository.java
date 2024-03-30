@@ -1,5 +1,6 @@
 package com.ssafy.funding.repository;
 
+import com.ssafy.funding.domain.FundingStatus;
 import com.ssafy.funding.domain.Movie;
 import com.ssafy.funding.dto.response.MovieDetailResponse;
 import com.ssafy.funding.dto.response.MovieSummaryResponse;
@@ -43,7 +44,7 @@ public interface MovieRepository extends CrudRepository<Movie, Integer> {
                     "join (" +
                     "select genre_id, parent_genre_id from genre) genre " +
                     "on movie_genre.genre_id=genre.genre_id " +
-                    "where genre.parent_genre_id=:genreId group by movie.movie_id "+
+                    "where genre.parent_genre_id=:genreId group by movie.movie_id,movie.title,movie.poster,movie.status "+
                     "order by title desc "+
                     "limit :page,21 ",
             nativeQuery = true)
@@ -57,7 +58,7 @@ public interface MovieRepository extends CrudRepository<Movie, Integer> {
                     "join (" +
                     "select genre_id, parent_genre_id from genre) genre " +
                     "on movie_genre.genre_id=genre.genre_id " +
-                    "where genre.parent_genre_id=:genreId group by movie.movie_id "+
+                    "where genre.parent_genre_id=:genreId group by movie.movie_id,movie.title,movie.poster,movie.status "+
                     "order by title asc "+
                     "limit :page,21 ",
             nativeQuery = true)
@@ -71,7 +72,7 @@ public interface MovieRepository extends CrudRepository<Movie, Integer> {
                     "join (" +
                     "select genre_id, parent_genre_id from genre) genre " +
                     "on movie_genre.genre_id=genre.genre_id " +
-                    "where genre.parent_genre_id=:genreId group by movie.movie_id "+
+                    "where genre.parent_genre_id=:genreId group by movie.movie_id,movie.title,movie.poster,likeCnt,movie.status "+
                     "order by likeCnt asc "+
                     "limit :page,21 ",
             nativeQuery = true)
@@ -85,12 +86,17 @@ public interface MovieRepository extends CrudRepository<Movie, Integer> {
                     "join (" +
                     "select genre_id, parent_genre_id from genre) genre " +
                     "on movie_genre.genre_id=genre.genre_id " +
-                    "where genre.parent_genre_id=:genreId group by movie.movie_id "+
+                    "where genre.parent_genre_id=:genreId group by movie.movie_id,movie.title,movie.poster,likeCnt,movie.status "+
                     "order by likeCnt desc "+
                     "limit :page,21 ",
             nativeQuery = true)
     List<MovieGenreListResponse> getMovieByGenreLikeDesc(int genreId, int page);
 
+    @Query(
+            value="select count(*) from movie_genre where genre_id in (select genre_id from genre where parent_genre_id = :genreId)"
+            , nativeQuery = true
+    )
+    int getMovieCountByGenreId(int genreId);
 
 
     public interface MovieGenreListResponse extends Serializable {
