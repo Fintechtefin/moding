@@ -3,7 +3,8 @@ package com.ssafy.reservation.service;
 import static com.ssafy.reservation.exception.global.CustomExceptionStatus.NOT_CANCELED_RESERVATION_ID;
 import static com.ssafy.reservation.exception.global.CustomExceptionStatus.NOT_FOUND_RSERVATION_ID;
 
-import com.ssafy.reservation.controller.ReservationClient;
+import com.ssafy.reservation.controller.fegin.ReservationClient;
+import com.ssafy.reservation.controller.fegin.TokenAuthClient;
 import com.ssafy.reservation.domain.Reservation;
 import com.ssafy.reservation.dto.request.MakeReservationRequest;
 import com.ssafy.reservation.dto.response.FundingInfoResponse;
@@ -11,6 +12,8 @@ import com.ssafy.reservation.dto.response.TicketInfoResponse;
 import com.ssafy.reservation.exception.BadRequestException;
 import com.ssafy.reservation.exception.global.CustomExceptionStatus;
 import com.ssafy.reservation.repository.ReservationRepository;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +24,7 @@ public class ReservationService {
 
     private final ReservationRepository reservationRepository;
     private final ReservationClient reservationClient;
+    private final TokenAuthClient tokenAuthClient;
     private final Integer completedStatus = 1;
 
     public void checkPaymentUser(int fundingId, int userId) {
@@ -66,6 +70,31 @@ public class ReservationService {
                 TicketInfoResponse.of(fundingInfoResponse, reservation);
 
         return ticketInfoResponse;
+    }
+
+    public TicketInfoResponse getRecentTicket(String accessToken) {
+        int userId = tokenAuthClient.getUserId(accessToken);
+
+        List<ReservationRepository.ReservationInfo> reservationInfoList =
+                reservationRepository.findByUserIdAndStatus(userId, 1);
+
+        if (reservationInfoList.size() == 0) {
+            return null;
+        }
+
+        List<Integer> fundingList = new ArrayList<>();
+        for (int i = 0; i < reservationInfoList.size(); i++) {
+            fundingList.add(reservationInfoList.get(i).getFundingId());
+        }
+
+        int fundingId = reservationClient.getFundingId(fundingList);
+
+        int reservationId =
+                reservationRepository
+                        .findByUserIdAndFundingIdAndStatus(userId, fundingId, 1)
+                        .getFundingId();
+
+        return getTicket(accessToken, reservationId);
     }
 
     @Transactional

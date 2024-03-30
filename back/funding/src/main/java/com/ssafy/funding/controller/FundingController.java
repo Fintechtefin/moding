@@ -69,4 +69,11 @@ public class FundingController {
             @RequestHeader("Authorization") String accessToken) {
         return ResponseEntity.ok().body(fundingService.getMyFundingResult(accessToken));
     }
+
+    @Operation(summary = "가장 빠른 상영 예정의 펀딩 아이디를 반환합니다.")
+    @GetMapping("/get/date/{fundingIdList}")
+    public ResponseEntity<?> getFundingId(
+            @PathVariable("fundingIdList") List<Integer> fundingIdList) {
+        return ResponseEntity.ok(fundingService.getFundingId(fundingIdList));
+    }
 }
