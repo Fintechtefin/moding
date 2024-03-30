@@ -111,7 +111,7 @@ public class MovieService {
         return movieList;
     }
 
-    public List<MovieRepository.MovieGenreListResponse> getMovieList(int genreId, String sort, int page) {
+    public Map<String,Object> getMovieList(int genreId, String sort, int page) {
 
         List<MovieRepository.MovieGenreListResponse> movieList = new ArrayList<>();
 
@@ -120,7 +120,16 @@ public class MovieService {
         else if(sort.equals("titleDesc")) movieList=movieRepository.getMovieByGenreTitleDesc(genreId, (page-1)*21);
         else movieList=movieRepository.getMovieByGenreTitleAsc(genreId,(page-1)*21);
 
-        return movieList;
+        String key="genreCount_"+genreId;
+        if(redisUtil.getData(key)==null) {
+            redisUtil.setData(key,String.valueOf(movieRepository.getMovieCountByGenreId(genreId)));
+        }
+
+        Map<String,Object> result=new HashMap<>();
+        result.put("movieList",movieList);
+        result.put("totalCnt",redisUtil.getData(key));
+
+        return result;
     }
 
 
