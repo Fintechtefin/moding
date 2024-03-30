@@ -1,7 +1,6 @@
 package com.ssafy.funding.domain;
 
 import com.ssafy.funding.exception.FundingQuantityLackException;
-import com.ssafy.funding.exception.FundingTimeIsPassedException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import javax.persistence.*;
@@ -57,8 +56,8 @@ public class Funding {
     }
 
     public boolean validateFundingTime() {
-        if (!isTimeBeforeStartAt() || !isTimeBeforeEndAt())
-            throw FundingTimeIsPassedException.EXCEPTION;
+        if (isTimeBeforeStartAt() || isTimeAfterEndAt()) return false;
+        // throw FundingTimeIsPassedException.EXCEPTION;
         return true;
     }
 
@@ -70,7 +69,7 @@ public class Funding {
         return LocalDateTime.now().isBefore(getStartAt());
     }
 
-    public boolean isTimeBeforeEndAt() {
+    public boolean isTimeAfterEndAt() {
         return LocalDateTime.now().isAfter(getEndAt());
     }
 

@@ -4,7 +4,6 @@ import com.ssafy.funding.controller.feign.TokenAuthClient;
 import com.ssafy.funding.domain.Movie;
 import com.ssafy.funding.domain.MovieFunding;
 import com.ssafy.funding.domain.MovieLike;
-import com.ssafy.funding.domain.Order;
 import com.ssafy.funding.domain.document.MovieDocument;
 import com.ssafy.funding.dto.response.*;
 import com.ssafy.funding.repository.MovieFundingRepository;
@@ -227,21 +226,19 @@ public class MovieService {
                                                 .poster(movieFunding.getMovie().getPoster())
                                                 .requestCnt(
                                                         getRequestCount(
-                                                                movieFunding.getMovie().getId()
-                                                        )
-                                                )
+                                                                movieFunding.getMovie().getId()))
                                                 .build())
                         .collect(Collectors.toList()));
     }
 
     private Integer getRequestCount(int movieId) {
-        Integer requestCount=redisUtil.getIntegerData("movie_funding_"+movieId);
+        Integer requestCount = redisUtil.getIntegerData("movie_funding_" + movieId);
 
-        if(requestCount!=null) {
+        if (requestCount != null) {
             return requestCount;
         }
 
-        List<MovieFunding> movieFundingList=movieFundingRepository.findByMovieId(movieId);
+        List<MovieFunding> movieFundingList = movieFundingRepository.findByMovieId(movieId);
         return movieFundingList.size();
     }
 }

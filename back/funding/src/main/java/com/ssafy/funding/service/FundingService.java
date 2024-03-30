@@ -105,7 +105,7 @@ public class FundingService {
                 orders.stream()
                         .filter(
                                 o ->
-                                        !o.getFunding().isTimeBeforeEndAt()
+                                        !o.getFunding().isTimeAfterEndAt()
                                                 && !o.getFunding().isTimeBeforeStartAt())
                         .map(
                                 order ->
@@ -138,7 +138,6 @@ public class FundingService {
 
         return orderList.stream().filter(o -> o.isStatus()).mapToInt(o -> o.getCount()).sum();
     }
-
 
     public List<FundingRepository.AfterMoodingResponseInterface> getMyFundingResult(
             String accessToken) {

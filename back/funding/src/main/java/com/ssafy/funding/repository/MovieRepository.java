@@ -1,14 +1,10 @@
 package com.ssafy.funding.repository;
 
-import com.ssafy.funding.domain.FundingStatus;
 import com.ssafy.funding.domain.Movie;
-import com.ssafy.funding.domain.MovieFunding;
 import com.ssafy.funding.dto.response.MovieDetailResponse;
 import com.ssafy.funding.dto.response.MovieSummaryResponse;
 import java.util.List;
 import java.util.Optional;
-
-import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -36,6 +32,4 @@ public interface MovieRepository extends CrudRepository<Movie, Integer> {
     @Query(
             "SELECT count(fh) FROM FundingHistory fh WHERE fh.funding.movie.id=:movieId and fh.fundingFinalResult=true")
     int getSuccessCountById(@Param("movieId") int movieId);
-
-
 }
