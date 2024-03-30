@@ -96,5 +96,10 @@ public class PaymentService {
                         .requestedAt(paymentsResponse.getRequestedAt().toLocalDateTime())
                         .amount(paymentsResponse.getTotalAmount())
                         .build());
+
+        payment.changePaymentStatus(
+                paymentStatusRepository
+                        .findById(5)
+                        .orElseThrow(() -> new BadRequestException(NOT_FOUND_PAYMENT_STATUS)));
     }
 }
