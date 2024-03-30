@@ -103,10 +103,8 @@ public class FundingService {
 
         return JoinFundingListResponse.of(
                 orders.stream()
-                        .filter(
-                                o ->
-                                        !o.getFunding().isTimeAfterEndAt()
-                                                && !o.getFunding().isTimeBeforeStartAt())
+                        .filter(o -> o.isStatus()) // 결제를 완료한 상태
+                        .filter(o -> !o.getFunding().isTimeAfterEndAt())
                         .map(
                                 order ->
                                         JoinFundingResponse.builder()
