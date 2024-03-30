@@ -1,14 +1,10 @@
 import { useState } from "react";
 import FundingCancelModal from "./FundingCancelModal";
+import { ProgressMovie } from "@util/types";
+import { calculatePercent } from "@util/commonFunction";
 
 interface Props {
-  item: {
-    id: number;
-    title: string;
-    url: string;
-    per: number;
-    date: string;
-  };
+  item: ProgressMovie;
 }
 
 const FundingProgressItem = ({ item }: Props) => {
@@ -31,31 +27,33 @@ const FundingProgressItem = ({ item }: Props) => {
     return differenceInDays;
   };
 
+  const per = calculatePercent(item.participantCount, item.recruitedCount);
+
   return (
     <div className="flex flex-col bg-bgGray p-[2vh] rounded-[1vh] gap-[2vh] shadow-test">
       <div className="w-full flex gap-[2vh]">
         <img
           className="w-[9vh] h-[13vh] object-cover rounded-[0.5vh] brightness-[90%]"
-          src={item.url}
+          src={item.moviePoster}
           alt=""
           loading="lazy"
         />
-        <div className=" flex flex-col justify-between relative w-full">
+        <div className="relative flex flex-col justify-between w-full ">
           <div className="flex items-center w-full gap-[2vh]">
             <div className="flex-1 text-[2.5vh] font-bold w-0 overflow-hidden text-ellipsis whitespace-nowrap ">
-              {item.title}
+              {item.movieTitle}
             </div>
             <div className=" text-[1.5vh] text-textGray">{`D-${aaa(
-              item.date
+              item.endAt
             )}`}</div>
           </div>
           <div>
             <div className="text-[1.5vh] py-[1vh] font-bold">
-              {`${item.per}% 진행중`}
+              {`${per}% 진행중`}
             </div>
             <div className="w-full h-[1.5vh] rounded-[1vh] parent">
               <div
-                style={{ width: `${item.per}%` }}
+                style={{ width: `${per}%` }}
                 className={`bg-[#fffbb1] rounded-[1vh] h-full brightness-100`}
               ></div>
             </div>
@@ -69,7 +67,11 @@ const FundingProgressItem = ({ item }: Props) => {
         펀딩취소
       </button>
       {isOpen && (
-        <FundingCancelModal id={item.id} handleClickFalse={handleClickFalse} />
+        <FundingCancelModal
+          id={item.id}
+          orderUuid={item.orderUuid}
+          handleClickFalse={handleClickFalse}
+        />
       )}
     </div>
   );

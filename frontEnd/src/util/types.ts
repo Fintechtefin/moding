@@ -27,3 +27,14 @@ export interface ITicket {
   name: string;
   number: number;
 }
+
+export interface ProgressMovie {
+  id: number;
+  movieId: number;
+  endAt: string;
+  moviePoster: string;
+  movieTitle: string;
+  orderUuid: string;
+  participantCount: number;
+  recruitedCount: number;
+}
