@@ -4,6 +4,7 @@ import com.ssafy.funding.dto.request.MovieFundingRequest;
 import com.ssafy.funding.repository.FundingRepository;
 import com.ssafy.funding.service.FundingService;
 import io.swagger.v3.oas.annotations.Operation;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
