@@ -50,6 +50,14 @@ oauth2:
       user-info: https://openapi.naver.com/v1/nid/me
       client-secret: DNolvvC9x8
       unlink-uri: https://nid.naver.com/oauth2.0/token
+    kakao:
+      client-id: d05009f41c13bdd89ac1bad897d45a01
+      redirect-uri: http://localhost:5174/login/KAKAO
+      token-uri: https://kauth.kakao.com/oauth/token
+      user-info: https://kapi.kakao.com/v2/user/me
+      client-secret: JccniAcITYZOL5eNBwO9CxhlKzJAXs6r
+      unlink-uri: https://kapi:kakao:com/v1/user/unlink
+      admin-key: f1adfb62afa636de79ae52cbbb4fdff5
 
 swagger:
   host: localhost:8086
