@@ -111,48 +111,18 @@ public class MovieService {
         return movieList;
     }
 
-    public List<MovieDetailResponse> getMovieList(int genre, String sort, int page) {
-        // todo: 리팩토링 필수
-        List<MovieDetailResponse> movieList = new ArrayList<>();
-        final String key = "movie_list_" + genre + "_" + sort + "_" + page;
+    public List<MovieRepository.MovieGenreListResponse> getMovieList(int genreId, String sort, int page) {
 
-        if (redisUtil.getObject(key) != null) {
-            movieList = (List<MovieDetailResponse>) redisUtil.getObject(key);
-            //            System.out.println("Redis Hit!!!");
-            if ((page - 1) * 21 > movieList.size()) return null;
-            if (page * 21 >= movieList.size() && (page - 1) * 21 < movieList.size()) {
-                return movieList.subList((page - 1) * 21, movieList.size());
-            }
-            return movieList.subList((page - 1) * 21, page * 21);
-        }
+        List<MovieRepository.MovieGenreListResponse> movieList = new ArrayList<>();
 
-        movieList = movieRepository.findMoviesByParentGenreId(genre);
-        System.out.println(movieList.size());
-        Comparator<MovieDetailResponse> comparator;
+        if(sort.equals("likeAsc")) movieList=movieRepository.getMovieByGenreLikeAsc(genreId, (page-1)*21);
+        else if(sort.equals("likeDesc")) movieList=movieRepository.getMovieByGenreLikeDesc(genreId, (page-1)*21);
+        else if(sort.equals("titleDesc")) movieList=movieRepository.getMovieByGenreTitleDesc(genreId, (page-1)*21);
+        else movieList=movieRepository.getMovieByGenreTitleAsc(genreId,(page-1)*21);
 
-        if (sort.equals("titleDesc") || sort.equals("titleAsc")) {
-            if (sort.equals("titleDesc")) {
-                comparator = Comparator.comparing(MovieDetailResponse::getTitle).reversed();
-            } else {
-                comparator = Comparator.comparing(MovieDetailResponse::getTitle);
-            }
-            Collections.sort(movieList, comparator);
-            redisUtil.setObject(key, movieList);
-        } else {
-            if (sort.equals("likeDesc")) {
-                comparator = Comparator.comparingLong(MovieDetailResponse::getLikeCnt).reversed();
-            } else {
-                comparator = Comparator.comparingLong(MovieDetailResponse::getLikeCnt);
-            }
-            Collections.sort(movieList, comparator);
-        }
-
-        if ((page - 1) * 21 > movieList.size()) return null;
-        if (page * 21 >= movieList.size() && (page - 1) * 21 < movieList.size()) {
-            return movieList.subList((page - 1) * 21, movieList.size());
-        }
-        return movieList.subList((page - 1) * 21, page * 21);
+        return movieList;
     }
+
 
     private List<Movie> transInfoList(List<MovieDocument> movies) {
         return movies.stream().map(Movie::of).collect(Collectors.toList());

@@ -3,6 +3,8 @@ package com.ssafy.funding.repository;
 import com.ssafy.funding.domain.Movie;
 import com.ssafy.funding.dto.response.MovieDetailResponse;
 import com.ssafy.funding.dto.response.MovieSummaryResponse;
+
+import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.Query;
@@ -32,4 +34,71 @@ public interface MovieRepository extends CrudRepository<Movie, Integer> {
     @Query(
             "SELECT count(fh) FROM FundingHistory fh WHERE fh.funding.movie.id=:movieId and fh.fundingFinalResult=true")
     int getSuccessCountById(@Param("movieId") int movieId);
+
+    @Query(
+            value ="select movie.movie_id movieId, movie.status, movie.poster, movie.title from movie " +
+                    "join (" +
+                    "select movie_id, genre_id from movie_genre) movie_genre " +
+                    "on movie.movie_id=movie_genre.movie_id " +
+                    "join (" +
+                    "select genre_id, parent_genre_id from genre) genre " +
+                    "on movie_genre.genre_id=genre.genre_id " +
+                    "where genre.parent_genre_id=:genreId group by movie.movie_id "+
+                    "order by title desc "+
+                    "limit :page,21 ",
+            nativeQuery = true)
+    List<MovieGenreListResponse> getMovieByGenreTitleDesc(int genreId, int page);
+
+    @Query(
+            value ="select movie.movie_id movieId, movie.status, movie.poster, movie.title from movie " +
+                    "join (" +
+                    "select movie_id, genre_id from movie_genre) movie_genre " +
+                    "on movie.movie_id=movie_genre.movie_id " +
+                    "join (" +
+                    "select genre_id, parent_genre_id from genre) genre " +
+                    "on movie_genre.genre_id=genre.genre_id " +
+                    "where genre.parent_genre_id=:genreId group by movie.movie_id "+
+                    "order by title asc "+
+                    "limit :page,21 ",
+            nativeQuery = true)
+    List<MovieGenreListResponse> getMovieByGenreTitleAsc(int genreId, int page);
+
+    @Query(
+            value ="select movie.movie_id movieId, movie.status, movie.poster, movie.title, (select count(*) from movie_like where movie_id=movie.movie_id) as likeCnt from movie " +
+                    "join (" +
+                    "select movie_id, genre_id from movie_genre) movie_genre " +
+                    "on movie.movie_id=movie_genre.movie_id " +
+                    "join (" +
+                    "select genre_id, parent_genre_id from genre) genre " +
+                    "on movie_genre.genre_id=genre.genre_id " +
+                    "where genre.parent_genre_id=:genreId group by movie.movie_id "+
+                    "order by likeCnt asc "+
+                    "limit :page,21 ",
+            nativeQuery = true)
+    List<MovieGenreListResponse> getMovieByGenreLikeAsc(int genreId, int page);
+
+    @Query(
+            value ="select movie.movie_id movieId, movie.status, movie.poster, movie.title, (select count(*) from movie_like where movie_id=movie.movie_id) as likeCnt from movie " +
+                    "join (" +
+                    "select movie_id, genre_id from movie_genre) movie_genre " +
+                    "on movie.movie_id=movie_genre.movie_id " +
+                    "join (" +
+                    "select genre_id, parent_genre_id from genre) genre " +
+                    "on movie_genre.genre_id=genre.genre_id " +
+                    "where genre.parent_genre_id=:genreId group by movie.movie_id "+
+                    "order by likeCnt desc "+
+                    "limit :page,21 ",
+            nativeQuery = true)
+    List<MovieGenreListResponse> getMovieByGenreLikeDesc(int genreId, int page);
+
+
+
+    public interface MovieGenreListResponse extends Serializable {
+        int getMovieId();
+
+        FundingStatus getStatus();
+
+        String getPoster();
+
+    }
 }
