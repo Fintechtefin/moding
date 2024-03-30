@@ -82,9 +82,9 @@ public class Order extends BaseTime {
 
         orderValidator.validFundingIsOpen(funding);
         orderValidator.validFundingStockEnough(order, funding);
-        orderValidator.validAmountIsSameAsRequest(
-                order, Money.wons(amount)); // 구매수량 * 펀딩 참여 금액이 요청 받은 총 금액과 일치?
-
+        /*orderValidator.validAmountIsSameAsRequest(
+                        order, Money.wons(amount)); // 구매수량 * 펀딩 참여 금액이 요청 받은 총 금액과 일치?
+        */
         return order;
     }
 

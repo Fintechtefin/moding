@@ -6,7 +6,6 @@ import com.ssafy.funding.common.annotation.Validator;
 import com.ssafy.funding.domain.Funding;
 import com.ssafy.funding.domain.Movie;
 import com.ssafy.funding.domain.Order;
-import com.ssafy.funding.dto.Money;
 import com.ssafy.funding.exception.*;
 import com.ssafy.funding.repository.FundingRepository;
 import com.ssafy.funding.repository.MovieRepository;
@@ -84,11 +83,11 @@ public class OrderValidator {
     }
 
     /** 결제대금과,요청금액의 비교를 통해 정상적인 주문인지 검증합니다. */
-    public void validAmountIsSameAsRequest(Order order, Money requestAmount) {
-        if (!order.getTotalPaymentPrice().equals(requestAmount)) {
-            throw InvalidOrderException.EXCEPTION;
-        }
-    }
+    //    public void validAmountIsSameAsRequest(Order order, Money requestAmount) {
+    //        if (!order.getTotalPaymentPrice().equals(requestAmount)) {
+    //            throw InvalidOrderException.EXCEPTION;
+    //        }
+    //    }
 
     private Boolean isMethodPayment(Order order) {
         return order.getOrderMethod().isPayment();

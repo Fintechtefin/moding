@@ -2,10 +2,9 @@ package com.ssafy.funding.repository;
 
 import com.ssafy.funding.domain.FundingStatus;
 import com.ssafy.funding.domain.MovieLike;
+import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-
-import java.util.List;
 
 public interface MovieLikeRepository extends CrudRepository<MovieLike, Integer> {
     long countByMovieId(int movieId);
@@ -18,7 +17,6 @@ public interface MovieLikeRepository extends CrudRepository<MovieLike, Integer> 
                             + "  from movie join movie_like on movie.movie_id=movie_like.movie_id where movie_like.user_id=:userId",
             nativeQuery = true)
     List<UserLikeMovieResponse> getMyLikeList(int userId);
-
 
     public interface UserLikeMovieResponse {
         int getMovieId();

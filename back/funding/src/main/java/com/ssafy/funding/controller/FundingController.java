@@ -63,7 +63,6 @@ public class FundingController {
         return ResponseEntity.ok(fundingService.getMyFundings(accessToken));
     }
 
-
     @Operation(description = "내가 참여한 펀딩 결과를 반환합니다. (애프터 무딩)")
     @GetMapping("/result")
     public ResponseEntity<?> getMyFundingResult(
