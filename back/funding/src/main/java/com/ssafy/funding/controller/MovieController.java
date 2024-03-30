@@ -48,7 +48,7 @@ public class MovieController {
 
     @Operation(summary = "장르별 영화를 조회합니다.")
     @GetMapping
-    public ResponseEntity<List<MovieDetailResponse>> listMovieByGenre(
+    public ResponseEntity<?> listMovieByGenre(
             @RequestParam int genre, @RequestParam String sort, @RequestParam int page) {
         return ResponseEntity.ok(movieService.getMovieList(genre, sort, page));
     }
