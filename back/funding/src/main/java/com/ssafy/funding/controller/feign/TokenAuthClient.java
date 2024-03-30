@@ -12,5 +12,5 @@ public interface TokenAuthClient {
     String thisisTest(@RequestParam("param") String param);
 
     @GetMapping("/users/auth/id")
-    int getUserId(@RequestHeader("accessToken") String accessToken);
+    int getUserId(@RequestHeader("Authorization") String accessToken);
 }

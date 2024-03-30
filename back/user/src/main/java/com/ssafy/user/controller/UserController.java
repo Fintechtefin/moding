@@ -27,7 +27,8 @@ public class UserController {
 
     @Operation(description = "내가 참여한 펀딩 결과 조회 (애프터 무딩)")
     @GetMapping("/fundings/result")
-    public ResponseEntity<?> getMyFundingResult(@RequestHeader("accessToken") String accessToken) {
+    public ResponseEntity<?> getMyFundingResult(
+            @RequestHeader("Authorization") String accessToken) {
         return ResponseEntity.ok().body(userService.getMyFundingResult(accessToken));
     }
 }

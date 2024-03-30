@@ -26,7 +26,7 @@ public class FundingController {
     @Operation(summary = "펀딩 참여 추진을 등록합니다.")
     @PostMapping("/{movieId}/attendance")
     public ResponseEntity registerAttendance(
-            @RequestHeader("accessToken") String accessToken,
+            @RequestHeader("Authorization") String accessToken,
             @PathVariable int movieId,
             @RequestBody MovieFundingRequest movieFundingRequest) {
         fundingService.registerAttendance(accessToken, movieId, movieFundingRequest);
@@ -43,7 +43,7 @@ public class FundingController {
     @Operation(summary = "현재 로그인한 유저의 펀딩 참여 여부를 반환합니다.")
     @GetMapping("/{fundingId}/participation")
     public ResponseEntity getFundingParticipation(
-            @RequestHeader("accessToken") String accessToken,
+            @RequestHeader("Authorization") String accessToken,
             @PathVariable("fundingId") int fundingId) {
         return ResponseEntity.ok(fundingService.getFundingParticipation(accessToken, fundingId));
     }
@@ -51,7 +51,7 @@ public class FundingController {
     @Operation(summary = "예매한 티켓에 대한 펀딩과 영화 정보를 조회합니다.")
     @GetMapping("/get/{fundingId}")
     public ResponseEntity<?> getTicketInfo(
-            @RequestHeader("accessToken") String accessToken,
+            @RequestHeader("Authorization") String accessToken,
             @PathVariable("fundingId") int fundingId) {
         return ResponseEntity.ok(fundingService.getTicketInfo(accessToken, fundingId));
     }
@@ -59,7 +59,7 @@ public class FundingController {
     @Operation(summary = "현재 로그인한 유저가 참여한 펀딩 목록을 반환합니다.")
     @GetMapping("/participation")
     public ResponseEntity getFundingParticipation(
-            @RequestHeader("accessToken") String accessToken) {
+            @RequestHeader("Authorization") String accessToken) {
         return ResponseEntity.ok(fundingService.getMyFundings(accessToken));
     }
 }

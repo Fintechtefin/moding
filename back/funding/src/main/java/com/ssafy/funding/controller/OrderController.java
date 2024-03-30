@@ -31,18 +31,18 @@ public class OrderController {
     @Operation(summary = "결제 확인하기. successUrl 로 돌아온 웹페이지에서 query 로 받은 응답값을 서버로 보내주세요.")
     @PostMapping("/{order_uuid}/confirm")
     public ResponseEntity<?> confirmOrder(
-            @RequestHeader("accessToken") String accessToken,
+            @RequestHeader("Authorization") String authorization,
             @PathVariable("order_uuid") String orderUuid,
             @RequestBody ConfirmOrderRequest confirmOrderRequest) {
         return ResponseEntity.ok(
                 orderService.confirmOrder(
-                        orderUuid, confirmOrderRequest, tokenAuthClient.getUserId(accessToken)));
+                        orderUuid, confirmOrderRequest, tokenAuthClient.getUserId(authorization)));
     }
 
     @Operation(summary = "결제 환불요청. 본인이 구매한 오더를 환불 시킵니다.! (본인 용)")
     @PostMapping("/{order_uuid}/refund")
     public ResponseEntity<?> refundOrder(
-            @RequestHeader("accessToken") String accessToken,
+            @RequestHeader("Authorization") String accessToken,
             @PathVariable("order_uuid") String orderUuid,
             @RequestBody RefundOrderRequest refundOrderRequest) {
         orderService.refundFunding(
