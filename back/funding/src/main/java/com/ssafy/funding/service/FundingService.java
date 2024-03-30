@@ -9,8 +9,6 @@ import com.ssafy.funding.dto.response.*;
 import com.ssafy.funding.exception.BadRequestException;
 import com.ssafy.funding.repository.*;
 import com.ssafy.funding.util.RedisUtil;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -39,10 +37,10 @@ public class FundingService {
 
         switch (status) {
             case "progress":
-                result= fundingRepository.getProgressRanking();
+                result = fundingRepository.getProgressRanking();
                 break;
             case "request":
-                result= fundingRepository.getRequestRanking();
+                result = fundingRepository.getRequestRanking();
                 break;
         }
         return result;

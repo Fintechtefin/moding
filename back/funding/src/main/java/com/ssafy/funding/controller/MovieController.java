@@ -27,14 +27,16 @@ public class MovieController {
 
     @Operation(summary = "검색을 통해 영화(펀딩) 상세 정보를 조회합니다.")
     @GetMapping("/search/{movieId}")
-    public ResponseEntity<MovieDescResponse> detailMovieBySearch(@RequestHeader("Authorization") String accessToken, @PathVariable int movieId)
+    public ResponseEntity<MovieDescResponse> detailMovieBySearch(
+            @RequestHeader("Authorization") String accessToken, @PathVariable int movieId)
             throws IOException {
         return ResponseEntity.ok(movieService.detailMovieBySearch(movieId, accessToken));
     }
 
     @Operation(summary = "영화(펀딩) 상세 정보를 조회합니다.")
     @GetMapping("/{movieId}")
-    public ResponseEntity<MovieDescResponse> detailMovie(@RequestHeader("Authorization") String accessToken, @PathVariable int movieId)
+    public ResponseEntity<MovieDescResponse> detailMovie(
+            @RequestHeader("Authorization") String accessToken, @PathVariable int movieId)
             throws IOException {
         return ResponseEntity.ok(movieService.detailMovie(movieId, accessToken));
     }

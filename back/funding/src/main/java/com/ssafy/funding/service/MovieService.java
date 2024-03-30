@@ -41,7 +41,8 @@ public class MovieService {
         return movies;
     }
 
-    public MovieDescResponse detailMovieBySearch(int movieId, String accessToken) throws IOException {
+    public MovieDescResponse detailMovieBySearch(int movieId, String accessToken)
+            throws IOException {
         // 로그 전송
         log.info(String.valueOf(movieId));
         MovieDescResponse movieDescResponse = detailMovie(movieId, accessToken);
@@ -71,9 +72,17 @@ public class MovieService {
         int accumulate = Integer.parseInt(redisUtil.getData(key));
         movieDescResponse = MovieDescResponse.setTotal(movieDescResponse, accumulate);
 
-        movieDescResponse = MovieDescResponse.setSuccess(movieDescResponse, movieRepository.getSuccessCountById(movieId));
-        movieDescResponse=MovieDescResponse.setLike(movieDescResponse, movieLikeRepository.existsByUserIdAndMovieId(userId,movieId));
-        movieDescResponse=MovieDescResponse.setRequest(movieDescResponse, movieFundingRepository.existsByUserIdAndMovieId(userId,movieId));
+        movieDescResponse =
+                MovieDescResponse.setSuccess(
+                        movieDescResponse, movieRepository.getSuccessCountById(movieId));
+        movieDescResponse =
+                MovieDescResponse.setLike(
+                        movieDescResponse,
+                        movieLikeRepository.existsByUserIdAndMovieId(userId, movieId));
+        movieDescResponse =
+                MovieDescResponse.setRequest(
+                        movieDescResponse,
+                        movieFundingRepository.existsByUserIdAndMovieId(userId, movieId));
 
         return movieDescResponse;
     }
@@ -115,27 +124,29 @@ public class MovieService {
         return movieList;
     }
 
-    public Map<String,Object> getMovieList(int genreId, String sort, int page) {
+    public Map<String, Object> getMovieList(int genreId, String sort, int page) {
 
         List<MovieRepository.MovieGenreListResponse> movieList = new ArrayList<>();
 
-        if(sort.equals("likeAsc")) movieList=movieRepository.getMovieByGenreLikeAsc(genreId, (page-1)*21);
-        else if(sort.equals("likeDesc")) movieList=movieRepository.getMovieByGenreLikeDesc(genreId, (page-1)*21);
-        else if(sort.equals("titleDesc")) movieList=movieRepository.getMovieByGenreTitleDesc(genreId, (page-1)*21);
-        else movieList=movieRepository.getMovieByGenreTitleAsc(genreId,(page-1)*21);
+        if (sort.equals("likeAsc"))
+            movieList = movieRepository.getMovieByGenreLikeAsc(genreId, (page - 1) * 21);
+        else if (sort.equals("likeDesc"))
+            movieList = movieRepository.getMovieByGenreLikeDesc(genreId, (page - 1) * 21);
+        else if (sort.equals("titleDesc"))
+            movieList = movieRepository.getMovieByGenreTitleDesc(genreId, (page - 1) * 21);
+        else movieList = movieRepository.getMovieByGenreTitleAsc(genreId, (page - 1) * 21);
 
-        String key="genreCount_"+genreId;
-        if(redisUtil.getData(key)==null) {
-            redisUtil.setData(key,String.valueOf(movieRepository.getMovieCountByGenreId(genreId)));
+        String key = "genreCount_" + genreId;
+        if (redisUtil.getData(key) == null) {
+            redisUtil.setData(key, String.valueOf(movieRepository.getMovieCountByGenreId(genreId)));
         }
 
-        Map<String,Object> result=new HashMap<>();
-        result.put("movieList",movieList);
-        result.put("totalCnt",redisUtil.getData(key));
+        Map<String, Object> result = new HashMap<>();
+        result.put("movieList", movieList);
+        result.put("totalCnt", redisUtil.getData(key));
 
         return result;
     }
-
 
     private List<Movie> transInfoList(List<MovieDocument> movies) {
         return movies.stream().map(Movie::of).collect(Collectors.toList());
