@@ -14,10 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -50,20 +46,22 @@ public class AuthController {
                         .build();
         response.addHeader(SET_COOKIE, cookie.toString());
 
-        UserDetails userDetails = myUserDetailsService.loadUserByUsername(user.getId().toString());
-        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
-                new UsernamePasswordAuthenticationToken(
-                        userDetails, null, userDetails.getAuthorities());
-        usernamePasswordAuthenticationToken.setDetails(
-                new WebAuthenticationDetailsSource().buildDetails(request));
-        SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+        //        UserDetails userDetails =
+        // myUserDetailsService.loadUserByUsername(user.getId().toString());
+        //        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
+        //                new UsernamePasswordAuthenticationToken(
+        //                        userDetails, null, userDetails.getAuthorities());
+        //        usernamePasswordAuthenticationToken.setDetails(
+        //                new WebAuthenticationDetailsSource().buildDetails(request));
+        //
+        // SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
 
         return ResponseEntity.status(CREATED)
                 .body(new AccessTokenResponse(memberTokens.getAccessToken()));
     }
 
     @GetMapping("/id")
-    public ResponseEntity getUserId(@RequestHeader("accessToken") String accessToken) {
+    public ResponseEntity getUserId(@RequestHeader("Authorization") String accessToken) {
         return ResponseEntity.ok(loginService.getUsername(accessToken));
     }
 }

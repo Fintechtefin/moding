@@ -15,6 +15,6 @@ public interface ReservationClient {
 
     @GetMapping("/fundings/get/{fundingId}")
     FundingInfoResponse getTicketInfo(
-            @RequestHeader("accessToken") String accessToken,
+            @RequestHeader("Authorization") String accessToken,
             @PathVariable("fundingId") Integer fundingId);
 }

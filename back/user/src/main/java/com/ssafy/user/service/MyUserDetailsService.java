@@ -18,7 +18,7 @@ public class MyUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> user = userRepository.findById(Integer.parseInt(username));
+        Optional<User> user = userRepository.findBySocialId(username);
         if (user == null) {
             throw new UsernameNotFoundException(username + " : 사용자 존재하지 않음");
         }
