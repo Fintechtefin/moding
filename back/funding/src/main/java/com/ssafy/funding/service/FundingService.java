@@ -33,20 +33,18 @@ public class FundingService {
     private final OrderRepository orderRepository;
     private final RedisUtil redisUtil;
 
-    public List<FundingRepository.FundingListResponseInterface> getFundingList(String status) {
-        List<FundingRepository.FundingListResponseInterface> fundingListResponseInterfaceList =
-                new ArrayList<>();
+    public Object getFundingList(String status) {
+        Object result = null;
 
         switch (status) {
             case "progress":
-                fundingListResponseInterfaceList = fundingRepository.getProgressRanking();
+                result= fundingRepository.getProgressRanking();
                 break;
             case "request":
-                fundingListResponseInterfaceList = fundingRepository.getRequestRanking();
+                result= fundingRepository.getRequestRanking();
                 break;
         }
-
-        return fundingListResponseInterfaceList;
+        return result;
     }
 
     public void registerAttendance(

@@ -3,6 +3,8 @@ package com.ssafy.funding.repository;
 import com.ssafy.funding.domain.Funding;
 import java.time.LocalDate;
 import java.util.List;
+
+import com.ssafy.funding.domain.FundingStatus;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -10,17 +12,26 @@ public interface FundingRepository extends CrudRepository<Funding, Integer> {
 
     @Query(
             value =
-                    "select funding.funding_id fundingId, movie.poster, funding.people_count crowdCnt, "
-                            + "(select count(*) from orders where orders.funding_id=funding.funding_id) as peopleCnt from funding join movie on funding.movie_id=movie.movie_id order by peopleCnt desc limit 10",
+                    "select movie.movie_id movieId, movie.poster, funding.people_count crowdCnt, " +
+                            "(SELECT count(*) FROM orders WHERE orders.funding_id = funding.funding_id) AS peopleCnt, "  +
+                            "movie.status " +
+                            "from funding join movie on funding.movie_id=movie.movie_id " +
+                            "where movie.status='OPEN' order by peopleCnt desc limit 10",
             nativeQuery = true)
-    List<FundingListResponseInterface> getProgressRanking();
+    List<FundingProgressResponseInterface> getProgressRanking();
+
 
     @Query(
             value =
-                    "select funding.funding_id fundingId, movie.poster, funding.people_count crowdCnt, "
-                            + "(select count(*) from movie_funding mf where mf.movie_id=movie.movie_id) as peopleCnt from funding join movie on funding.movie_id=movie.movie_id order by peopleCnt desc limit 10",
+                    "select movie.movie_id movieId, movie.poster, " +
+                            "(select count(*) from movie_funding where movie_funding.movie_id=movie.movie_id) as requestCnt," +
+                            "movie.status " +
+                            "from movie left outer join movie_funding on movie.movie_id=movie_funding.movie_id "+
+                            "where movie.status='NONE' or movie.status='READY_TO_OPEN' "+
+                            "group by movieId, poster, requestCnt, status "+
+                            "order by requestCnt desc limit 10",
             nativeQuery = true)
-    List<FundingListResponseInterface> getRequestRanking();
+    List<FundingRequestResponseInterface> getRequestRanking();
 
     @Query(
             value =
@@ -37,7 +48,9 @@ public interface FundingRepository extends CrudRepository<Funding, Integer> {
                             + "(select funding_final_result from funding_history where funding_history.funding_id=funding.funding_id) fundingFinalResult,"
                             + "funding.people_count goalCnt from funding "
                             + "join movie on movie.movie_id=funding.movie_id "
-                            + "join orders on orders.funding_id=funding.funding_id where orders.user_id=:userId and movie.status='CLOSED' group by funding.funding_id order by funding.funding_id desc",
+                            + "join orders on orders.funding_id=funding.funding_id where orders.user_id=:userId and movie.status='CLOSED' "
+                            + "group by funding.funding_id,movieId,title,poster,date,attendCnt,reservationId,fundingFinalResult,goalCnt "+
+                            " order by funding.funding_id desc",
             nativeQuery = true)
     List<AfterMoodingResponseInterface> getMyFundingResult(int userId);
 
@@ -59,14 +72,27 @@ public interface FundingRepository extends CrudRepository<Funding, Integer> {
         int getFundingFinalResult();
     }
 
-    public interface FundingListResponseInterface {
-        int getFundingId();
+    public interface FundingProgressResponseInterface {
+        int getMovieId();
 
         String getPoster();
 
         int getCrowdCnt();
 
         int getPeopleCnt();
+
+        FundingStatus getStatus();
+
+    }
+
+    public interface FundingRequestResponseInterface {
+        int getMovieId();
+
+        String getPoster();
+
+        long getRequestCnt();
+
+        FundingStatus getStatus();
     }
 
     public interface OpenFundingResponseInterface {
