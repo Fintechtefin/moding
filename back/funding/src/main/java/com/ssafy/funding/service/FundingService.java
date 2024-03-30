@@ -3,19 +3,11 @@ package com.ssafy.funding.service;
 import static com.ssafy.funding.exception.global.CustomExceptionStatus.FUNDING_NOT_FOUND;
 
 import com.ssafy.funding.controller.feign.TokenAuthClient;
-import com.ssafy.funding.domain.Funding;
-import com.ssafy.funding.domain.Movie;
-import com.ssafy.funding.domain.MovieFunding;
-import com.ssafy.funding.domain.Order;
+import com.ssafy.funding.domain.*;
 import com.ssafy.funding.dto.request.MovieFundingRequest;
-import com.ssafy.funding.dto.response.FundingInfoResponse;
-import com.ssafy.funding.dto.response.JoinFundingListResponse;
-import com.ssafy.funding.dto.response.JoinFundingResponse;
+import com.ssafy.funding.dto.response.*;
 import com.ssafy.funding.exception.BadRequestException;
-import com.ssafy.funding.repository.FundingRepository;
-import com.ssafy.funding.repository.MovieFundingRepository;
-import com.ssafy.funding.repository.MovieRepository;
-import com.ssafy.funding.repository.OrderRepository;
+import com.ssafy.funding.repository.*;
 import com.ssafy.funding.util.RedisUtil;
 import java.util.ArrayList;
 import java.util.List;
@@ -145,5 +137,10 @@ public class FundingService {
         List<Order> orderList = orderRepository.findByFundingId(fundingId);
 
         return orderList.stream().filter(o -> o.isStatus()).mapToInt(o -> o.getCount()).sum();
+    }
+
+    public List<MovieRepository.UserLikeMovieResponse> getMyLikeList(String accessToken) {
+        int userId = tokenAuthClient.getUserId(accessToken);
+        return movieRepository.getMyLikeList(userId);
     }
 }
