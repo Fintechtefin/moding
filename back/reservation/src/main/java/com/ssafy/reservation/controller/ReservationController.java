@@ -46,4 +46,11 @@ public class ReservationController {
                 reservationService.getTicket(accessToken, reservationId);
         return ResponseEntity.ok().body(ticketInfoResponse);
     }
+
+    @Operation(summary = "예매 내예매 내역 중 곧 상영될 티켓을 조회합니다.")
+    @GetMapping("/recent")
+    public ResponseEntity<?> getRecentTicket(@RequestHeader("Authorization") String accessToken) {
+        TicketInfoResponse ticketInfoResponse = reservationService.getRecentTicket(accessToken);
+        return ResponseEntity.ok().body(ticketInfoResponse);
+    }
 }

@@ -1,6 +1,7 @@
-package com.ssafy.reservation.controller;
+package com.ssafy.reservation.controller.fegin;
 
 import com.ssafy.reservation.dto.response.FundingInfoResponse;
+import java.util.List;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,4 +18,7 @@ public interface ReservationClient {
     FundingInfoResponse getTicketInfo(
             @RequestHeader("Authorization") String accessToken,
             @PathVariable("fundingId") Integer fundingId);
+
+    @GetMapping("/fundings/get/date/{fundingIdList}")
+    int getFundingId(@PathVariable("fundingIdList") List<Integer> fundingIdList);
 }

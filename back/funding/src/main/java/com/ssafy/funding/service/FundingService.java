@@ -9,6 +9,7 @@ import com.ssafy.funding.dto.response.*;
 import com.ssafy.funding.exception.BadRequestException;
 import com.ssafy.funding.repository.*;
 import com.ssafy.funding.util.RedisUtil;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -139,5 +140,29 @@ public class FundingService {
             String accessToken) {
         int userId = tokenAuthClient.getUserId(accessToken);
         return fundingRepository.getMyFundingResult(userId);
+    }
+
+    public Integer getFundingId(List<Integer> fundingIdList) {
+        LocalDate recentDate = LocalDate.now();
+        int fundingId = fundingIdList.get(0);
+
+        for (int i = 0; i < fundingIdList.size(); i++) {
+            Funding funding =
+                    fundingRepository
+                            .findById(fundingIdList.get(i))
+                            .orElseThrow(() -> new BadRequestException(FUNDING_NOT_FOUND));
+
+            LocalDate tmpDate = funding.getDate();
+            if (i == 0) {
+                recentDate = tmpDate;
+            } else {
+                if (tmpDate.isBefore(recentDate)) {
+                    recentDate = tmpDate;
+                    fundingId = fundingIdList.get(i);
+                }
+            }
+        }
+
+        return fundingId;
     }
 }
