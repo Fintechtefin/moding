@@ -2,8 +2,6 @@ import { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import Loading from "@pages/payment/Loading";
-import { ToasterMsg } from "@components/Common";
-import { toastMsg } from "@util/commonFunction";
 
 const PaymentSuccessPage = () => {
   const navigate = useNavigate();
@@ -18,6 +16,8 @@ const PaymentSuccessPage = () => {
       paymentKey: searchParams.get("paymentKey"),
     };
 
+    console.log(requestData);
+
     const confirm = async () => {
       try {
         console.log(searchParams.get("orderId"));
@@ -25,7 +25,7 @@ const PaymentSuccessPage = () => {
           `${
             import.meta.env.VITE_BASE_URL
           }/api/fundings/orders/${searchParams.get("orderId")}/confirm`,
-          JSON.stringify(requestData),
+          requestData,
           {
             headers: {
               "Content-Type": "application/json",
@@ -40,21 +40,16 @@ const PaymentSuccessPage = () => {
         });
       } catch (err) {
         console.log(err);
-        if (axios.isAxiosError(err) && err.response) {
-          navigate(`/fund/payment/fail?message=${err.response.data.message}`);
-        }
+        // if (axios.isAxiosError(err) && err.response) {
+        //   navigate(`/fund/payment/fail?message=${err.response.data.message}`);
+        // }
       }
     };
 
     confirm();
   }, []);
 
-  return (
-    <>
-      <ToasterMsg />
-      <Loading />
-    </>
-  );
+  return <Loading />;
 };
 
 export default PaymentSuccessPage;

@@ -13,12 +13,14 @@ import "@assets/styles/payment/Payment.scss";
 
 const KEY = nanoid();
 
+console.log(KEY);
+
 const PaymentPage = () => {
   const widgetClientKey = import.meta.env.VITE_TOSS_API_KEY;
 
   const [paymentWidget, setPaymentWidget] =
     useState<PaymentWidgetInstance | null>(null);
-  const [price] = useState(50);
+  const [price] = useState(20000);
   const [loading, setLoading] = useState(true);
   const [showPaymentButton, setShowPaymentButton] = useState(false);
 
@@ -77,7 +79,7 @@ const PaymentPage = () => {
       await paymentWidget?.requestPayment({
         orderId: KEY,
         orderName: "엘리멘탈",
-        successUrl: `${window.location.origin}/fund/payment/success?fundingCount=2&fundingId=1&method=${selectedPaymentMethod}`,
+        successUrl: `${window.location.origin}/fund/payment/success?fundingCount=1&fundingId=1&method=${selectedPaymentMethod}`,
         failUrl: `${window.location.origin}/fund/payment/fail`,
       });
     } catch (error) {

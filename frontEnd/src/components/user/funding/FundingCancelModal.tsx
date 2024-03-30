@@ -5,12 +5,13 @@ import { toastMsg } from "@util/commonFunction";
 
 interface Props {
   id: number;
+  orderUuid: string;
   handleClickFalse: () => void;
 }
 
 const RADIO_OPTIONS = ["단순 변심", "펀딩 변경", "기타"];
 
-const FundingCancelModal = ({ id, handleClickFalse }: Props) => {
+const FundingCancelModal = ({ id, orderUuid, handleClickFalse }: Props) => {
   const [reasonType, setReasonType] = useState("");
   const [reason, setReason] = useState("");
   const jwt = localStorage.getItem("jwt");
@@ -41,7 +42,9 @@ const FundingCancelModal = ({ id, handleClickFalse }: Props) => {
 
     try {
       const res = await axios.post(
-        `${import.meta.env.VITE_BASE_URL}:8084/fundings/orders/${id}/refund`,
+        `${
+          import.meta.env.VITE_BASE_URL
+        }/api/fundings/orders/${orderUuid}/refund`,
         data,
         {
           headers: {

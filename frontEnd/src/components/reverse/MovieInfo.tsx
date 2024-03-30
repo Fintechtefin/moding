@@ -48,7 +48,7 @@ const MovieInfo = ({ max }: Props) => {
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: localStorage.getItem("jwt"),
+            accessToken: localStorage.getItem("jwt"),
           },
         }
       );
