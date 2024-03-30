@@ -68,4 +68,11 @@ public class FundingController {
     public ResponseEntity<?> getMyLikeList(@RequestHeader("Authorization") String accessToken) {
         return ResponseEntity.ok().body(fundingService.getMyLikeList(accessToken));
     }
+
+    @Operation(description = "내가 참여한 펀딩 결과를 반환합니다. (애프터 무딩)")
+    @GetMapping("/result")
+    public ResponseEntity<?> getMyFundingResult(
+            @RequestHeader("Authorization") String accessToken) {
+        return ResponseEntity.ok().body(fundingService.getMyFundingResult(accessToken));
+    }
 }

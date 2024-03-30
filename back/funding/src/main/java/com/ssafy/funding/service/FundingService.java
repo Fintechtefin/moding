@@ -143,4 +143,10 @@ public class FundingService {
         int userId = tokenAuthClient.getUserId(accessToken);
         return movieRepository.getMyLikeList(userId);
     }
+
+    public List<FundingRepository.AfterMoodingResponseInterface> getMyFundingResult(
+            String accessToken) {
+        int userId = tokenAuthClient.getUserId(accessToken);
+        return fundingRepository.getMyFundingResult(userId);
+    }
 }
