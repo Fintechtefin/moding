@@ -74,6 +74,12 @@ public class MovieDescResponse implements Serializable {
     @Schema(description = "펀딩 성공 횟수")
     private int success;
 
+    @Schema(description = "좋아요 신청 여부")
+    private boolean like;
+
+    @Schema(description = "참여 요청 신청 여부")
+    private boolean request;
+
     public static MovieDescResponse of(MovieSummaryResponse movieSummaryResponse) {
         return MovieDescResponse.builder()
                 .movieId(movieSummaryResponse.getMovieId())
@@ -106,4 +112,15 @@ public class MovieDescResponse implements Serializable {
         movieDescResponse.success = success;
         return movieDescResponse;
     }
+
+    public static MovieDescResponse setLike(MovieDescResponse movieDescResponse, boolean like) {
+        movieDescResponse.like=like;
+        return movieDescResponse;
+    }
+
+    public static MovieDescResponse setRequest(MovieDescResponse movieDescResponse, boolean request) {
+        movieDescResponse.request=request;
+        return movieDescResponse;
+    }
+
 }
