@@ -114,13 +114,13 @@ public class MovieDescResponse implements Serializable {
     }
 
     public static MovieDescResponse setLike(MovieDescResponse movieDescResponse, boolean like) {
-        movieDescResponse.like=like;
+        movieDescResponse.like = like;
         return movieDescResponse;
     }
 
-    public static MovieDescResponse setRequest(MovieDescResponse movieDescResponse, boolean request) {
-        movieDescResponse.request=request;
+    public static MovieDescResponse setRequest(
+            MovieDescResponse movieDescResponse, boolean request) {
+        movieDescResponse.request = request;
         return movieDescResponse;
     }
-
 }

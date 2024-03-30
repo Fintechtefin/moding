@@ -4,7 +4,6 @@ import com.ssafy.funding.dto.request.MovieFundingRequest;
 import com.ssafy.funding.repository.FundingRepository;
 import com.ssafy.funding.service.FundingService;
 import io.swagger.v3.oas.annotations.Operation;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,8 +17,7 @@ public class FundingController {
 
     @Operation(summary = "무딩중 리스트 TOP10 을 조회합니다.")
     @GetMapping
-    public ResponseEntity<?> searchMovie(
-            @RequestParam String status) {
+    public ResponseEntity<?> searchMovie(@RequestParam String status) {
         return ResponseEntity.ok(fundingService.getFundingList(status));
     }
 
