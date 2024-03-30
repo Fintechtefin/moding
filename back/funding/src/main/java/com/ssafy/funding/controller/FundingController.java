@@ -62,4 +62,10 @@ public class FundingController {
             @RequestHeader("Authorization") String accessToken) {
         return ResponseEntity.ok(fundingService.getMyFundings(accessToken));
     }
+
+    @Operation(description = "현재 로그인한 유저가 좋아요한 영화 목록을 반환합니다. ")
+    @GetMapping("/like")
+    public ResponseEntity<?> getMyLikeList(@RequestHeader("Authorization") String accessToken) {
+        return ResponseEntity.ok().body(fundingService.getMyLikeList(accessToken));
+    }
 }
