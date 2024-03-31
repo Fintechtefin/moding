@@ -50,9 +50,9 @@ public class MovieService {
     }
 
     public MovieDescResponse detailMovie(int movieId, String accessToken) {
-        int userId=0;
+        int userId = 0;
 
-        if(accessToken!=null) {
+        if (accessToken != null) {
             userId = tokenAuthClient.getUserId(accessToken);
         }
 
@@ -78,7 +78,7 @@ public class MovieService {
         movieDescResponse =
                 MovieDescResponse.setSuccess(
                         movieDescResponse, movieRepository.getSuccessCountById(movieId));
-        if(accessToken!=null) {
+        if (accessToken != null) {
             movieDescResponse =
                     MovieDescResponse.setLike(
                             movieDescResponse,
@@ -88,7 +88,6 @@ public class MovieService {
                             movieDescResponse,
                             movieFundingRepository.existsByUserIdAndMovieId(userId, movieId));
         }
-
 
         return movieDescResponse;
     }
