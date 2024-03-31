@@ -31,7 +31,6 @@ public class KakaoUserInfo implements OauthUserInfo {
         return null;
     }
 
-
     @NoArgsConstructor(access = PRIVATE)
     private static class KakaoAccount {
 
