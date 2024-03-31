@@ -72,3 +72,10 @@ spring:
           sensitive-headers: Cookie,Set-Cookie
           filters:
             - CustomAuthFilter
+        - id: toss
+          predicates:
+            - Path=/toss/**
+          uri: lb://TOSS
+          sensitive-headers: Cookie,Set-Cookie
+          filters:
+            - CustomAuthFilter
