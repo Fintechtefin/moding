@@ -1,0 +1,8 @@
+services:
+  spring-boot:
+    restart: 'on-failure'
+    build:
+      dockerfile: Dockerfile
+    container_name: 'toss'
+    ports:
+      - 8087:8087
