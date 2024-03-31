@@ -22,6 +22,8 @@ public class NaverUserInfo implements OauthUserInfo {
         private String id;
         private String birthyear;
         private String age;
+        private String nickname;
+        private String profile_image;
     }
 
     @Override
@@ -37,7 +39,12 @@ public class NaverUserInfo implements OauthUserInfo {
     }
 
     @Override
-    public String getAge() {
-        return response.age;
+    public String getProfileImage() {
+        return response.profile_image;
+    }
+
+    @Override
+    public String getNickname() {
+        return response.nickname;
     }
 }

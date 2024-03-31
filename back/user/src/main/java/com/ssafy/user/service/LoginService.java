@@ -33,22 +33,40 @@ public class LoginService {
                 findOrCreateMember(
                         providerName,
                         oauthUserInfo.getSocialLoginId(),
-                        oauthUserInfo.getBirthYear());
+                        oauthUserInfo.getBirthYear(),
+                        oauthUserInfo.getNickname(),
+                        oauthUserInfo.getProfileImage());
         return user;
     }
 
     private User findOrCreateMember(
-            final String providerName, final String socialLoginId, final int birthYear) {
+            final String providerName,
+            final String socialLoginId,
+            final int birthYear,
+            final String nickname,
+            final String profileImage) {
         return userRepository
                 .findBySocialId(socialLoginId)
-                .orElseGet(() -> createUser(providerName, socialLoginId, birthYear, "ROLE_USER"));
+                .orElseGet(
+                        () ->
+                                createUser(
+                                        providerName,
+                                        socialLoginId,
+                                        birthYear,
+                                        "ROLE_USER",
+                                        nickname,
+                                        profileImage,
+                                        true));
     }
 
     private User createUser(
             final String providerName,
             final String socialLoginId,
             final int birthYear,
-            final String role) {
+            final String role,
+            final String nickName,
+            final String profileImage,
+            final boolean isSignIn) {
         // 랜덤 닉네임 생성 : to do
         return userRepository.save(
                 User.builder()
@@ -56,6 +74,9 @@ public class LoginService {
                         .platform(Platform.valueOf(providerName))
                         .age(birthYear)
                         .role(Role.valueOf(role))
+                        .nickName(nickName)
+                        .imageUrl(profileImage)
+                        .isSignIn(isSignIn)
                         .build());
     }
 
