@@ -1,22 +1,21 @@
 package com.ssafy.user.infrastructure.oauthprovider;
 
+import static com.ssafy.user.common.CustomExceptionStatus.*;
+import static java.lang.Boolean.TRUE;
+
 import com.ssafy.user.dto.OauthAccessToken;
 import com.ssafy.user.exception.AuthException;
 import com.ssafy.user.infrastructure.oauthuserinfo.KakaoUserInfo;
 import com.ssafy.user.infrastructure.oauthuserinfo.OauthUserInfo;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.HttpStatusCodeException;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-
-import static com.ssafy.user.common.CustomExceptionStatus.*;
-import static java.lang.Boolean.TRUE;
 
 @Component
 public class KakaoOauthProvider implements OauthProvider {
@@ -124,5 +123,4 @@ public class KakaoOauthProvider implements OauthProvider {
             throw new AuthException(FAILED_TO_DISCONNECT_SOCIAL);
         }
     }
-
 }

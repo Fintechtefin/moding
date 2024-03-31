@@ -50,8 +50,11 @@ public class MovieService {
     }
 
     public MovieDescResponse detailMovie(int movieId, String accessToken) {
+        int userId=0;
 
-        int userId = tokenAuthClient.getUserId(accessToken);
+        if(accessToken!=null) {
+            userId = tokenAuthClient.getUserId(accessToken);
+        }
 
         // 영화 정보 가져오기
         Optional<MovieSummaryResponse> movieSummaryResponse =
@@ -75,14 +78,17 @@ public class MovieService {
         movieDescResponse =
                 MovieDescResponse.setSuccess(
                         movieDescResponse, movieRepository.getSuccessCountById(movieId));
-        movieDescResponse =
-                MovieDescResponse.setLike(
-                        movieDescResponse,
-                        movieLikeRepository.existsByUserIdAndMovieId(userId, movieId));
-        movieDescResponse =
-                MovieDescResponse.setRequest(
-                        movieDescResponse,
-                        movieFundingRepository.existsByUserIdAndMovieId(userId, movieId));
+        if(accessToken!=null) {
+            movieDescResponse =
+                    MovieDescResponse.setLike(
+                            movieDescResponse,
+                            movieLikeRepository.existsByUserIdAndMovieId(userId, movieId));
+            movieDescResponse =
+                    MovieDescResponse.setRequest(
+                            movieDescResponse,
+                            movieFundingRepository.existsByUserIdAndMovieId(userId, movieId));
+        }
+
 
         return movieDescResponse;
     }
@@ -206,6 +212,7 @@ public class MovieService {
     }
 
     public RequestMovieListResponse getMyRequestList(String accessToken) {
+
         int userId = tokenAuthClient.getUserId(accessToken);
 
         Slice<MovieFunding> movieFundings = movieFundingRepository.findByUserId(userId);
