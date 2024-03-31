@@ -128,7 +128,7 @@ spotless {
 task copyPrivate(type: Copy) {
 	copy {
 		from '../mooding_back_submodule'
-		include "application-funding-*.yml"
+		include "application-funding.yml"
 		into 'src/main/resources'
 	}
 }
