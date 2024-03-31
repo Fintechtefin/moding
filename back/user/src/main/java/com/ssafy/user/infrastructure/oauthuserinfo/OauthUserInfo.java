@@ -5,5 +5,7 @@ public interface OauthUserInfo {
 
     int getBirthYear();
 
-    String getAge();
+    String getProfileImage();
+
+    String getNickname();
 }

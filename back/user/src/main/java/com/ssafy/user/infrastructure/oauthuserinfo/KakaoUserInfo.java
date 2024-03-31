@@ -27,8 +27,13 @@ public class KakaoUserInfo implements OauthUserInfo {
     }
 
     @Override
-    public String getAge() {
-        return null;
+    public String getProfileImage() {
+        return kakaoAccount.kakaoProfile.image;
+    }
+
+    @Override
+    public String getNickname() {
+        return kakaoAccount.kakaoProfile.nickname;
     }
 
     @NoArgsConstructor(access = PRIVATE)
