@@ -1,7 +1,7 @@
 import { useState } from "react";
 import FundingCancelModal from "./FundingCancelModal";
 import { ProgressMovie } from "@util/types";
-import { calculatePercent } from "@util/commonFunction";
+import UserFundProgressBar from "@components/common/UserFundProgressBar";
 
 interface Props {
   item: ProgressMovie;
@@ -27,7 +27,7 @@ const FundingProgressItem = ({ item }: Props) => {
     return differenceInDays;
   };
 
-  const per = calculatePercent(item.participantCount, item.recruitedCount);
+  // const per = calculatePercent(item.participantCount, item.recruitedCount);
 
   return (
     <div className="flex flex-col bg-bgGray p-[2vh] rounded-[1vh] gap-[2vh] shadow-test">
@@ -47,7 +47,12 @@ const FundingProgressItem = ({ item }: Props) => {
               item.endAt
             )}`}</div>
           </div>
-          <div>
+          <UserFundProgressBar
+            type="progress-bar"
+            attendCnt={item.participantCount}
+            goalCnt={item.recruitedCount}
+          />
+          {/* <div>
             <div className="text-[1.5vh] py-[1vh] font-bold">
               {`${per}% 진행중`}
             </div>
@@ -57,7 +62,7 @@ const FundingProgressItem = ({ item }: Props) => {
                 className={`bg-[#fffbb1] rounded-[1vh] h-full brightness-100`}
               ></div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
       <button

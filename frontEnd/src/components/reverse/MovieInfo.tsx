@@ -29,9 +29,13 @@ const MovieInfo = ({ max }: Props) => {
     try {
       const [line, col] = selectSeats[0];
 
+      // const col = Number(col1);
+
+      console.log(line, col);
+
       const data = {
         fundingId: 1,
-        seat: {
+        seats: {
           seat: [
             {
               col,
@@ -42,24 +46,35 @@ const MovieInfo = ({ max }: Props) => {
         userId: 1,
       };
 
+      console.log(data);
+
       const res = await axios.post(
         `${import.meta.env.VITE_BASE_URL}/api/reservations/make`,
         data,
         {
           headers: {
             "Content-Type": "application/json",
-            accessToken: localStorage.getItem("jwt"),
+            Authorization: localStorage.getItem("jwt"),
           },
         }
       );
 
+      console.log(res.data);
+
       const res1 = await axios.get(
-        `${import.meta.env.VITE_BASE_URL}:8085/reservations/create/${res.data}`
+        `${import.meta.env.VITE_BASE_URL}/api/reservations/get/${7}`,
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwt"),
+          },
+        }
       );
+
+      console.log(res1);
 
       resetSeats();
 
-      navigate(`/user/ticket/${res.data}`, {
+      navigate(`/user/ticket/${7}`, {
         state: res1.data,
         replace: true,
       });

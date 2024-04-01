@@ -1,21 +1,32 @@
-.FundingCompletedPage {
-  .success::before {
-    content: "";
-    position: absolute;
-    height: 1.5vh;
-    inset-inline: 0;
-    background-color: #2cd9aa; /* bg-red-600에 해당하는 색상 */
-    border-radius: 1vh;
-    filter: brightness(20%);
-  }
+.success-bar::before {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  inset-inline: 0;
+  background-color: #2cd9aa; /* bg-red-600에 해당하는 색상 */
+  border-radius: 9999px;
+  filter: brightness(20%);
+}
 
-  .fail::before {
-    content: "";
-    position: absolute;
-    height: 1.5vh;
-    inset-inline: 0;
-    background-color: #c00202; /* bg-red-600에 해당하는 색상 */
-    border-radius: 1vh;
-    filter: brightness(20%);
-  }
+.fail-bar::before {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  inset-inline: 0;
+  background-color: #c00202; /* bg-red-600에 해당하는 색상 */
+  border-radius: 9999px;
+  filter: brightness(20%);
+}
+
+.progress-bar::before {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  inset-inline: 0;
+  background-color: #fffbb1; /* bg-red-600에 해당하는 색상 */
+  border-radius: 9999px;
+  filter: brightness(20%);
 }

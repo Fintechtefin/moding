@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router";
+import ModalButton from "./common/ModalButton";
 
 interface Props {
   isClose: () => void;
@@ -6,6 +7,8 @@ interface Props {
 
 const HomeModal = ({ isClose }: Props) => {
   const navigate = useNavigate();
+
+  const moveFund = () => navigate("/fund/list");
 
   return (
     <div className="absolute inset-0 z-20 flex items-center justify-center bg-black bg-opacity-80">
@@ -15,18 +18,8 @@ const HomeModal = ({ isClose }: Props) => {
           <div>지금 무딩중 페이지로 이동하시겠습니까?</div>
         </div>
         <div className="flex gap-[2vh] font-bold">
-          <button
-            onClick={isClose}
-            className="flex-1 p-[1.5vh] rounded-[1vh] bg-white text-black"
-          >
-            취소
-          </button>
-          <button
-            onClick={() => navigate("/fund/list")}
-            className="flex-1 bg-red-600 p-[1.5vh] rounded-[1vh] "
-          >
-            확인
-          </button>
+          <ModalButton func={isClose} type={false} title={"취소"} />
+          <ModalButton func={moveFund} type={true} title={"확인"} />
         </div>
       </div>
     </div>
