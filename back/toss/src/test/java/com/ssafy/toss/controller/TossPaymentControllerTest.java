@@ -38,7 +38,7 @@ public class TossPaymentControllerTest {
         // when
         ResultActions actions =
                 mockMvc.perform(
-                        post("/v1/payments.confirm")
+                        post("/v1/payments/confirm")
                                 .content(objectMapper.writeValueAsString(confirmPaymentsRequest)));
 
         // then

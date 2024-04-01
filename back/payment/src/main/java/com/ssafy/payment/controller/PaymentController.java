@@ -2,6 +2,7 @@ package com.ssafy.payment.controller;
 
 import com.ssafy.payment.dto.request.ConfirmPaymentsRequest;
 import com.ssafy.payment.dto.request.RefundOrderRequest;
+import com.ssafy.payment.service.MockService;
 import com.ssafy.payment.service.PaymentService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 public class PaymentController {
 
     private final PaymentService paymentService;
+    private final MockService mockservice;
 
     //    @PostMapping
     //    @Operation(summary = "백엔드 내부에서 토스페이먼츠 결제 승인 API 호출")
@@ -28,6 +30,14 @@ public class PaymentController {
     public ResponseEntity<?> callConfirmAPI(
             @RequestBody ConfirmPaymentsRequest confirmPaymentsRequest) {
         paymentService.callTossPayConfirm(confirmPaymentsRequest);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/test/confirm")
+    @Operation(summary = "[성능 테스트용] 백엔드 내부에서 Mock 토스페이먼츠 결제 승인 API 호출")
+    public ResponseEntity<?> callTestConfirmAPI(
+            @RequestBody ConfirmPaymentsRequest confirmPaymentsRequest) {
+        mockservice.confirmPayment(confirmPaymentsRequest);
         return ResponseEntity.ok().build();
     }
 
