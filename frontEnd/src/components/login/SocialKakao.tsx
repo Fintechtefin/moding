@@ -10,7 +10,12 @@ const SocialKakao = () => {
   };
   return (
     <>
-      <img className="w-[50px]" src={kakao_logo} alt="카카오로그인" onClick={handleLogin} />
+      <img
+        className="w-[50px]"
+        src={kakao_logo}
+        alt="카카오로그인"
+        onClick={handleLogin}
+      />
     </>
   );
 };

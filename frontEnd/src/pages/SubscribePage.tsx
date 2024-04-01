@@ -1,26 +1,53 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import NavHeader from "@components/NavHeader";
 import Subscribe from "@components/subscribe/Subscribe";
 import SubscribeType from "@components/subscribe/SubscribeType";
+import { MovieFund } from "@util/types";
+import { axiosApi } from "@util/commons";
 
 const SubscribePage = () => {
   const [check, setCheck] = useState("like");
+  const [likeFund, setLikeFund] = useState<MovieFund[]>([]);
+  const [reqFund, setReqFund] = useState<MovieFund[]>([]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setCheck(e.target.value);
   };
+
+  const getFund = async (type: "like" | "req") => {
+    const endpoint = `/fundings/movies/${type === "like" ? "like" : "request"}`;
+    try {
+      const { data } = await axiosApi().get(endpoint);
+      console.log(data);
+
+      if (type === "like") {
+        setLikeFund(data);
+      } else {
+        setReqFund(data.requestMovieResponseList);
+      }
+    } catch (error) {
+      console.error("Error fetching funds", error);
+    }
+  };
+
+  useEffect(() => {
+    getFund("like");
+    getFund("req");
+  }, []);
 
   return (
     <div className="flex flex-col subscribe-container">
       <NavHeader leftWord="관심 있는 소식만 모았어요" />
       <div>
         <SubscribeType check={check} handleChange={handleChange} />
-        <div className="none-scroll max-h-[88vh] overflow-auto p-[3vh] pb-[10vh] grid grid-cols-2 gap-[3vh]">
-          {check === "like" ? (
-            <Subscribe type="좋아요" />
-          ) : (
-            <Subscribe type="펀딩요청" />
-          )}
+        <div className="h-[88vh] relative">
+          <div className="none-scroll max-h-[88vh] overflow-auto p-[3vh] pb-[10vh] grid grid-cols-2 gap-[3vh]">
+            {check === "like" ? (
+              <Subscribe type="like" data={likeFund} setData={setLikeFund} />
+            ) : (
+              <Subscribe type="req" data={reqFund} setData={setReqFund} />
+            )}
+          </div>
         </div>
       </div>
     </div>

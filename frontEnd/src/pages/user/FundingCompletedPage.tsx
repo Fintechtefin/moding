@@ -46,7 +46,7 @@ const FundingCompletedPage = () => {
       <NoneNavHeader centerText="애프터 무딩" />
       <div className="FundingCompletedPage-body ">
         <FundingCompletedMenu state={state} handleChange={handleChange} />
-        <div className="none-scroll h-[88vh] overflow-auto p-[3vh] flex flex-col gap-[3vh] ">
+        <div className="none-scroll h-[88vh] overflow-auto p-[3vh] flex flex-col gap-[3vh] relative">
           {state === "success" ? (
             <FundingSuccess successData={successData} />
           ) : (

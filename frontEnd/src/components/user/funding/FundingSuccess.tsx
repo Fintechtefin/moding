@@ -1,6 +1,7 @@
 import { useState } from "react";
 import FundingSuccessItem from "./FundingSuccessItem";
 import { FundingCompleted } from "@util/types";
+import NoneData from "@components/common/NoneData";
 
 interface Props {
   successData: FundingCompleted[];
@@ -40,15 +41,19 @@ const FundingSuccess = ({ successData }: Props) => {
 
   return (
     <>
-      {successData.map((item) => {
-        return (
-          <FundingSuccessItem
-            key={item.reservationId}
-            item={item}
-            removeFund={removeFund}
-          />
-        );
-      })}
+      {successData.length ? (
+        successData.map((item) => {
+          return (
+            <FundingSuccessItem
+              key={item.reservationId}
+              item={item}
+              removeFund={removeFund}
+            />
+          );
+        })
+      ) : (
+        <NoneData content="성공한 펀딩이 없습니다." />
+      )}
     </>
   );
 };

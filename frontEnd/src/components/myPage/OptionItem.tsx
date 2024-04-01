@@ -1,28 +1,20 @@
 import { useNavigate } from "react-router-dom";
-import { MdOutlineArrowForwardIos } from "react-icons/md";
+import { IoIosArrowForward } from "react-icons/io";
+import { MenuOptionItem } from "@util/types";
 
-const OPTION_CONTENT_ITEM = "flex justify-between cursor-pointer";
-const RIGHT_OPTION_CONTENT = "flex items-center gap-[1.5vh]";
-
-interface Props {
-  name: string;
-  url: string;
-}
+interface Props extends MenuOptionItem {}
 
 const OptionItem = ({ name, url }: Props) => {
   const navigate = useNavigate();
-  // const jwt = localStorage.getItem("jwt");
-
-  const handleClick = () => {
-    // navigate(jwt ? "/login" : url);
-    navigate(url);
-  };
 
   return (
-    <div className={OPTION_CONTENT_ITEM} onClick={handleClick}>
+    <div
+      className="flex justify-between cursor-pointer"
+      onClick={() => navigate(url)}
+    >
       <div>{name}</div>
-      <div className={RIGHT_OPTION_CONTENT}>
-        <MdOutlineArrowForwardIos />
+      <div className="flex items-center gap-[1.5vh] text-[2.5vh]">
+        <IoIosArrowForward />
       </div>
     </div>
   );

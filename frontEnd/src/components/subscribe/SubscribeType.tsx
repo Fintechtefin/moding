@@ -16,7 +16,7 @@ const SubscribeType = ({ check, handleChange }: Props) => {
       />
       <SubscribeTypeItem
         value="req"
-        label="펀딩 요청"
+        label="펀딩요청"
         checkedValue={check}
         onChange={handleChange}
       />
