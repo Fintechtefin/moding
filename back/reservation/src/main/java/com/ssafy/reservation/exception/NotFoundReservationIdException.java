@@ -7,6 +7,6 @@ public class NotFoundReservationIdException extends CodeException {
     public static final CodeException EXCEPTION = new NotFoundReservationIdException();
 
     private NotFoundReservationIdException() {
-        super(CustomExceptionStatus.NOT_PAYMENTS_USER);
+        super(CustomExceptionStatus.NOT_FOUND_RSERVATION_ID);
     }
 }

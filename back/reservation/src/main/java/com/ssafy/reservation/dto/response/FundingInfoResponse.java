@@ -1,6 +1,5 @@
 package com.ssafy.reservation.dto.response;
 
-import com.ssafy.reservation.dto.ListSeat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.time.LocalDate;
 import lombok.AllArgsConstructor;
@@ -13,9 +12,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FundingInfoResponse {
-
-    @Schema(description = "좌석 정보")
-    private ListSeat seats;
 
     @Schema(description = "영화 포스터")
     private String poster;
