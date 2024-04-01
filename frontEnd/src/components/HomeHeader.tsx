@@ -3,15 +3,27 @@ import { LuBellRing } from "react-icons/lu";
 import { useNavigate } from "react-router-dom";
 import HomeModal from "./HomeModal";
 import { useState } from "react";
+import { axiosApi } from "@util/commons";
 
 const TopNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const navigate = useNavigate();
+  const api = axiosApi();
 
-  const handleClick = () => {
-    setIsOpen(true);
-    // navigate("user/ticket")
+  const handleClick = async () => {
+    try {
+      const { data } = await api.get("/reservations/recent");
+      console.log(data);
+
+      if (data) {
+        navigate("user/ticket");
+      } else {
+        setIsOpen(true);
+      }
+    } catch (error) {
+      console.error("Error fetching funds", error);
+    }
   };
 
   const isClose = () => setIsOpen(false);

@@ -1,3 +1,34 @@
+export interface MovieInfo {
+  title: string;
+  poster: string;
+  movieId: number;
+}
+
+export interface ProgressMovie {
+  id: number;
+  movieId: number;
+  endAt: string;
+  moviePoster: string;
+  movieTitle: string;
+  orderUuid: string;
+  participantCount: number;
+  recruitedCount: number;
+}
+
+export interface FundingCompleted extends MovieInfo {
+  fundingFinalResult: number;
+  goalCnt: number;
+  attendCnt: number;
+  reservationId: number;
+  date: string;
+}
+
+export interface MovieFund extends MovieInfo {
+  status?: string;
+  likeCnt?: number;
+  requestCnt?: number;
+}
+
 export interface Subscribe {
   id: number;
   name: string;
@@ -28,24 +59,8 @@ export interface ITicket {
   number: number;
 }
 
-export interface ProgressMovie {
-  id: number;
-  movieId: number;
-  endAt: string;
-  moviePoster: string;
-  movieTitle: string;
-  orderUuid: string;
-  participantCount: number;
-  recruitedCount: number;
-}
-
-export interface FundingCompleted {
-  title: string;
-  poster: string;
-  movieId: number;
-  fundingFinalResult: number;
-  goalCnt: number;
-  attendCnt: number;
-  reservationId: number;
-  date: string;
+// 마이 페이지
+export interface MenuOptionItem {
+  name: string;
+  url: string;
 }

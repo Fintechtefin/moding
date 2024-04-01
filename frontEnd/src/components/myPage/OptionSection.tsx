@@ -1,8 +1,9 @@
 import OptionItem from "@components/myPage/OptionItem";
+import { MenuOptionItem } from "@util/types";
 
 interface Props {
   title: string;
-  items: { name: string; url: string }[];
+  items: MenuOptionItem[];
 }
 
 const OptionSection = ({ title, items }: Props) => {
