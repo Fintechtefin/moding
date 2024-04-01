@@ -9,9 +9,6 @@ import lombok.Getter;
 @Builder
 public class MakeReservationRequest {
 
-    @Schema(description = "회원 번호")
-    private Integer userId;
-
     @Schema(description = "좌석 위치")
     private ListSeat seats;
 

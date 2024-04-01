@@ -31,14 +31,14 @@ public class ReservationService {
     private final TokenAuthClient tokenAuthClient;
     private final int completedStatus = 1;
 
-    public int checkReservation(String accesToken, int fundingId) {
-        int userId = tokenAuthClient.getUserId(accesToken);
+    public int getCurrentUserId(String accessToken) {
+        return tokenAuthClient.getUserId(accessToken);
+    }
 
+    public void checkReservation(int fundingId, int userId) {
         if (reservationRepository.findByUserIdAndFundingIdAndStatus(userId, fundingId, 1) != null) {
             throw new BadRequestException(CustomExceptionStatus.RESERVATION_USER);
         }
-
-        return userId;
     }
 
     public void checkPaymentUser(int fundingId, int userId) {
@@ -72,10 +72,10 @@ public class ReservationService {
 
     // 좌석 예매 내역 db 저장
     @Transactional
-    public Integer makeReservation(MakeReservationRequest makeReservationRequest, int userId) {
+    public int makeReservation(MakeReservationRequest makeReservationRequest, int userId) {
         Reservation reservation = Reservation.of(makeReservationRequest, userId, completedStatus);
         reservationRepository.save(reservation);
-        Integer reservationId = reservation.getId();
+        int reservationId = reservation.getId();
         return reservationId;
     }
 
@@ -98,8 +98,7 @@ public class ReservationService {
         return ticketInfoResponse;
     }
 
-    public TicketInfoResponse getRecentTicket(String accessToken) {
-        int userId = tokenAuthClient.getUserId(accessToken);
+    public TicketInfoResponse getRecentTicket(String accessToken, int userId) {
 
         List<ReservationRepository.ReservationInfo> reservationInfoList =
                 reservationRepository.findByUserIdAndStatus(userId, 1);
