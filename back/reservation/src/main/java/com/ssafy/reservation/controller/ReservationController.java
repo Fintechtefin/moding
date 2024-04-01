@@ -39,7 +39,8 @@ public class ReservationController {
             @RequestHeader("Authorization") String accessToken,
             @PathVariable final Integer reservationId) {
         int userId = reservationService.getCurrentUserId(accessToken);
-        reservationService.cancelReservation(reservationId);
+
+        reservationService.cancelReservation(reservationId, userId);
         return ResponseEntity.noContent().build();
     }
 
