@@ -1,6 +1,5 @@
 package com.ssafy.reservation.domain;
 
-import com.ssafy.reservation.dto.ListSeat;
 import com.ssafy.reservation.dto.request.MakeReservationRequest;
 import io.hypersistence.utils.hibernate.type.json.JsonType;
 import javax.persistence.*;
@@ -8,7 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
 @Entity
@@ -24,10 +22,6 @@ public class Reservation extends BaseTime {
     @Column(name = "reservation_id")
     private Integer id;
 
-    @Type(type = "json")
-    @Column(columnDefinition = "json")
-    private ListSeat seats;
-
     private Integer status;
 
     private Integer userId;
@@ -42,7 +36,6 @@ public class Reservation extends BaseTime {
             final MakeReservationRequest makeReservationRequest, int userId, int status) {
         Reservation reservation =
                 Reservation.builder()
-                        .seats(makeReservationRequest.getSeats())
                         .status(status)
                         .userId(userId)
                         .fundingId(makeReservationRequest.getFundingId())
