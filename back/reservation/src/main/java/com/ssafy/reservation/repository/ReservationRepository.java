@@ -19,4 +19,7 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
 
     ReservationIdInterface findByUserIdAndFundingIdAndStatus(
             final Integer userId, final Integer fundingId, final Integer status);
+
+    Reservation findByIdAndUserIdAndStatus(
+            final int reservationId, final int userId, final int status);
 }

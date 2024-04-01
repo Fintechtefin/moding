@@ -123,11 +123,13 @@ public class ReservationService {
     }
 
     @Transactional
-    public void cancelReservation(final Integer reservationId) {
+    public void cancelReservation(final int reservationId, final int userId) {
         final Reservation reservation =
-                reservationRepository
-                        .findById(reservationId)
-                        .orElseThrow(() -> new BadRequestException(NOT_FOUND_RSERVATION_ID));
+                reservationRepository.findByIdAndUserIdAndStatus(reservationId, userId, 1);
+
+        if (reservation == null) {
+            throw new BadRequestException(NOT_FOUND_RSERVATION_ID);
+        }
 
         if (reservation.getStatus() == 0) {
             throw new BadRequestException(NOT_CANCELED_RESERVATION_ID);

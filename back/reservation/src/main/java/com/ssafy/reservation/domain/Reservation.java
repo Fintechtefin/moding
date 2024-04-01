@@ -22,7 +22,7 @@ public class Reservation extends BaseTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "reservation_id")
-    private Integer Id;
+    private Integer id;
 
     @Type(type = "json")
     @Column(columnDefinition = "json")
