@@ -19,15 +19,19 @@ public class ReservationController {
     //    @RequestMapping(value = "/make", method = RequestMethod.POST)
     @PostMapping("/make")
     public ResponseEntity<?> makeReservation(
+            @RequestHeader("Authorization") String accessToken,
             @RequestBody MakeReservationRequest makeReservationRequest) {
+        int userId =
+                reservationService.checkReservation(
+                        accessToken, makeReservationRequest.getFundingId());
+
         reservationService.checkPaymentUser(
                 makeReservationRequest.getFundingId(), makeReservationRequest.getUserId());
 
         reservationService.checkSeat(makeReservationRequest);
-        Integer reservationId = reservationService.makeReservation(makeReservationRequest);
+        Integer reservationId = reservationService.makeReservation(makeReservationRequest, userId);
 
         return ResponseEntity.ok().body(reservationId);
-        //        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @Operation(summary = "좌석 예매를 취소합니다.")

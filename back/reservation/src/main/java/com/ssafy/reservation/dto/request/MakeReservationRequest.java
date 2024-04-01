@@ -13,7 +13,7 @@ public class MakeReservationRequest {
     private Integer userId;
 
     @Schema(description = "좌석 위치")
-    private ListSeat seat;
+    private ListSeat seats;
 
     @Schema(description = "예매할 펀딩 번호")
     private Integer fundingId;

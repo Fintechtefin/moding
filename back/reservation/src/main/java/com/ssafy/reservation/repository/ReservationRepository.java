@@ -1,14 +1,10 @@
 package com.ssafy.reservation.repository;
 
 import com.ssafy.reservation.domain.Reservation;
-import com.ssafy.reservation.dto.ListSeat;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ReservationRepository extends JpaRepository<Reservation, Integer> {
-
-    //    List<ReservationRepository.ReservationInfo> ReservationInfo = ;
-
     public interface ReservationInfo {
         int getFundingId();
     }
@@ -17,7 +13,7 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
         int getFundingId();
     }
 
-    Reservation findByFundingIdAndSeats(final Integer fundingId, final ListSeat seats);
+    List<Reservation> findListByFundingIdAndStatus(final int fundingId, final int status);
 
     List<ReservationInfo> findByUserIdAndStatus(final Integer userId, final Integer status);
 

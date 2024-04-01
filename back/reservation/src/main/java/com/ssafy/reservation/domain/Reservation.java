@@ -38,12 +38,13 @@ public class Reservation extends BaseTime {
         this.status = 0;
     }
 
-    public static Reservation of(final MakeReservationRequest makeReservationRequest, int status) {
+    public static Reservation of(
+            final MakeReservationRequest makeReservationRequest, int userId, int status) {
         Reservation reservation =
                 Reservation.builder()
-                        .seats(makeReservationRequest.getSeat())
+                        .seats(makeReservationRequest.getSeats())
                         .status(status)
-                        .userId(makeReservationRequest.getUserId())
+                        .userId(userId)
                         .fundingId(makeReservationRequest.getFundingId())
                         .build();
         return reservation;
