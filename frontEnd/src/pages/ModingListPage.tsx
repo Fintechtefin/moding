@@ -1,16 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "@/assets/styles/modingList/ModingListPage.scss";
 import ModingList from "@components/modingList/ModingList";
 
 const ModingListPage = () => {
-  const [modingCategory, setModingCategory] = useState(0);
+  const [modingCategory, setModingCategory] = useState("progress");
 
   const [modingBack, setModingBack] = useState("");
+
   const getModingBack = (url: string) => {
     setModingBack(url);
   };
 
-  const fundingTitle = "flex flex-col items-center text-[1.5vh] basis-1/3 p-3";
+  useEffect(() => {}, [getModingBack]);
+
+  const fundingTitle = "flex flex-col items-center text-[2vh] basis-1/2 p-1";
 
   return (
     <div
@@ -23,31 +26,12 @@ const ModingListPage = () => {
     >
       <div className="text-center text-3xl pt-3">MODING</div>
       <div className="flex justify-around mt-2">
-        <div
-          className={`${fundingTitle} border-red-700 ${
-            modingCategory == 0 ? "select" : ""
-          }`}
-          onClick={() => setModingCategory(0)}
-        >
+        <div className={`${fundingTitle} border-red-700 ${modingCategory == "progress" ? "select" : ""}`} onClick={() => setModingCategory("progress")}>
           <div>무딩중</div>
           <div>TOP10</div>
         </div>
-        <div
-          className={`${fundingTitle} border-red-700 ${
-            modingCategory == 1 ? "select" : ""
-          }`}
-          onClick={() => setModingCategory(1)}
-        >
+        <div className={`${fundingTitle} border-red-700 ${modingCategory == "request" ? "select" : ""}`} onClick={() => setModingCategory("request")}>
           <div>무딩 요청</div>
-          <div>TOP10</div>
-        </div>
-        <div
-          className={`${fundingTitle} border-red-700 ${
-            modingCategory == 2 ? "select" : ""
-          }`}
-          onClick={() => setModingCategory(2)}
-        >
-          <div>무딩 예정</div>
           <div>TOP10</div>
         </div>
       </div>

@@ -1,162 +1,67 @@
 import { useState, useEffect } from "react";
-import post1 from "@assets/images/영화포스터.jpg";
+import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import MovieListItem from "@components/movieList/MovieListItem";
 import ProgressArea from "@components/movieDetail/ProgressArea";
 import StatusBadge from "@components/movieDetail/StatusBadge";
+import type { ModingList } from "@util/types/movieType";
+import { getTopTen } from "@api/funding";
 
 interface Props {
-  status: number;
+  status: string;
   getModingBack: (url: string) => void;
 }
 
-interface ModingInfo {
-  id: number;
-  state: string;
-  url: string;
-  hopeCnt: number;
-  alarmCnt: number;
-  crowd: number;
-  joinCnt: number;
-}
-
 // status 내려받기
-const ModingList = ({ getModingBack }: Props) => {
-  useEffect(() => {
-    getModingBack(PosterList[0].url);
-  }, []);
+const ModingList = ({ status, getModingBack }: Props) => {
+  const [posterList, setPosterList] = useState<ModingList[]>();
 
-  const [PosterList] = useState<ModingInfo[]>([
-    {
-      id: 1,
-      url: post1,
-      state: "무딩중",
-      hopeCnt: 150,
-      alarmCnt: 220,
-      crowd: 150,
-      joinCnt: 110,
-    },
-    {
-      id: 2,
-      url: post1,
-      state: "무딩중",
-      hopeCnt: 150,
-      alarmCnt: 220,
-      crowd: 150,
-      joinCnt: 110,
-    },
-    {
-      id: 3,
-      url: post1,
-      state: "무딩중",
-      hopeCnt: 150,
-      alarmCnt: 220,
-      crowd: 150,
-      joinCnt: 110,
-    },
-    {
-      id: 4,
-      url: post1,
-      state: "무딩중",
-      hopeCnt: 150,
-      alarmCnt: 220,
-      crowd: 150,
-      joinCnt: 110,
-    },
-    {
-      id: 5,
-      url: post1,
-      state: "무딩중",
-      hopeCnt: 150,
-      alarmCnt: 220,
-      crowd: 150,
-      joinCnt: 110,
-    },
-    {
-      id: 6,
-      url: post1,
-      state: "무딩중",
-      hopeCnt: 150,
-      alarmCnt: 220,
-      crowd: 150,
-      joinCnt: 110,
-    },
-    {
-      id: 7,
-      url: post1,
-      state: "무딩중",
-      hopeCnt: 150,
-      alarmCnt: 220,
-      crowd: 150,
-      joinCnt: 110,
-    },
-    {
-      id: 8,
-      url: post1,
-      state: "무딩중",
-      hopeCnt: 150,
-      alarmCnt: 220,
-      crowd: 150,
-      joinCnt: 110,
-    },
-    {
-      id: 9,
-      url: post1,
-      state: "무딩중",
-      hopeCnt: 150,
-      alarmCnt: 220,
-      crowd: 150,
-      joinCnt: 110,
-    },
-    {
-      id: 10,
-      url: post1,
-      state: "무딩 중",
-      hopeCnt: 150,
-      alarmCnt: 220,
-      crowd: 150,
-      joinCnt: 110,
-    },
-  ]);
+  const { data: modingList } = useQuery<ModingList[], Error>({
+    queryKey: ["modingListResult", status], // 쿼리 키를 지정합니다.
+    queryFn: () => getTopTen(status),
+  });
+
+  useEffect(() => {
+    if (modingList) {
+      setPosterList(modingList);
+      console.log(posterList);
+      if (posterList) {
+        getModingBack(posterList[0].poster);
+      }
+    }
+  }, [modingList, posterList]);
 
   return (
-    <div className="relative">
-      <div className="flex flex-col mt-3  px-[1.6vh]">
-        <Link to={`/fund/list/${PosterList[0].id}`}>
-          <img
-            className="w-[100%] aspect-square object-cover brightness-[90%]"
-            src={PosterList[0].url}
-            alt=""
-          />
-        </Link>
-        <div className="absolute w-[100%] top-0 right-3">
-          <StatusBadge status={PosterList[0].state} textSize="2.5vh" />
+    <>
+      {posterList && (
+        <div className="relative">
+          <div className="flex flex-col mt-3  px-[1.6vh]">
+            <Link to={`/fund/list/${posterList[0].movieId}`} state={{ type: "list" }}>
+              <img className="w-[100%] aspect-square object-cover brightness-[90%]" src={posterList[0].poster} alt="" />
+            </Link>
+            <div className="absolute w-[100%] top-0 right-3">
+              <StatusBadge status={posterList[0].status} textSize="2.5vh" />
+            </div>
+            <div className="mt-2">
+              <ProgressArea crowd={posterList[0].crowdCnt} joinCnt={posterList[0].peopleCnt} />
+            </div>
+          </div>
+          <div className="movie-list none-scroller px-[1.6vh] mt-5 grid grid-cols-3 gap-[1.2vh] overflow-auto pb-20">
+            {posterList.map((poster, index) => {
+              if (index !== 0) {
+                return (
+                  <Link to={`/fund/list/${poster.movieId}`} key={index} state={{ type: "list" }}>
+                    <MovieListItem state={poster.status} url={poster.poster} heigth="23vh"></MovieListItem>
+                  </Link>
+                );
+              } else {
+                return null;
+              }
+            })}
+          </div>
         </div>
-        <div className="mt-2">
-          <ProgressArea
-            crowd={PosterList[0].crowd}
-            joinCnt={PosterList[0].joinCnt}
-          />
-        </div>
-      </div>
-      <div className="movie-list none-scroller px-[1.6vh] mt-5 grid grid-cols-3 gap-[1.2vh] overflow-auto pb-20">
-        {PosterList.map((poster) => {
-          if (poster.id !== 1) {
-            return (
-              <Link to={`/fund/list/${poster.id}`} key={poster.id}>
-                <MovieListItem
-                  state={poster.state}
-                  url={poster.url}
-                  heigth="23vh"
-                ></MovieListItem>
-              </Link>
-            );
-          } else {
-            return null;
-          }
-        })}
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 
