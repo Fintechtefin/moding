@@ -14,9 +14,9 @@ public class TossPaymentController {
 
     private final TossPaymentService tossPaymentService;
 
-    @PostMapping("/v1/payments.confirm")
+    @PostMapping("/v1/payments/confirm")
     public ResponseEntity<?> tossPaymentConfirm(
             @RequestBody ConfirmPaymentsRequest confirmPaymentsRequest) {
-        return ResponseEntity.ok(tossPaymentService);
+        return ResponseEntity.ok(tossPaymentService.confirmPayment(confirmPaymentsRequest));
     }
 }

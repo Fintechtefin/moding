@@ -4,6 +4,7 @@ import com.ssafy.funding.controller.feign.TokenAuthClient;
 import com.ssafy.funding.dto.request.ConfirmOrderRequest;
 import com.ssafy.funding.dto.request.CreatePaymentsRequest;
 import com.ssafy.funding.dto.request.RefundOrderRequest;
+import com.ssafy.funding.service.MockService;
 import com.ssafy.funding.service.OrderService;
 import com.ssafy.funding.service.client.UserClient;
 import io.swagger.v3.oas.annotations.Operation;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 public class OrderController {
 
     private final OrderService orderService;
+    private final MockService mockService;
     private final UserClient userClient;
     private final TokenAuthClient tokenAuthClient;
 
@@ -36,6 +38,19 @@ public class OrderController {
             @RequestBody ConfirmOrderRequest confirmOrderRequest) {
         return ResponseEntity.ok(
                 orderService.confirmOrder(
+                        orderUuid, confirmOrderRequest, tokenAuthClient.getUserId(authorization)));
+    }
+
+    @Operation(
+            summary =
+                    "[성능 테스트] MockServer에 결제 확인하기. successUrl 로 돌아온 웹페이지에서 query 로 받은 응답값을 서버로 보내주세요.")
+    @PostMapping("/test/{order_uuid}/confirm")
+    public ResponseEntity<?> confirmOrderToMockServer(
+            @RequestHeader("Authorization") String authorization,
+            @PathVariable("order_uuid") String orderUuid,
+            @RequestBody ConfirmOrderRequest confirmOrderRequest) {
+        return ResponseEntity.ok(
+                mockService.confirmOrder(
                         orderUuid, confirmOrderRequest, tokenAuthClient.getUserId(authorization)));
     }
 

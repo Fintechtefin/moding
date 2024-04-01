@@ -11,6 +11,7 @@ import com.ssafy.funding.repository.FundingRepository;
 import com.ssafy.funding.repository.MovieRepository;
 import com.ssafy.funding.repository.OrderRepository;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -121,10 +122,13 @@ public class OrderValidator {
     한 펀딩에 하나의 주문만 가능
      */
     public void validOnlyOneOrder(int userId, int fundingId) {
-        OrderRepository.OrderResponseInterface result =
-                orderRepository.findByUserIdAndFundingId(userId, fundingId);
-        if (result.getCount() > 0) {
+        Optional<Order> result =
+                orderRepository.findByUserIdAndFundingIdAndStatus(userId, fundingId, true);
+        if (!result.isEmpty()) {
             throw new BadRequestException(ORDER_FORBIDDEN);
         }
+        //        if (result.getCount() > 0) {
+        //            throw new BadRequestException(ORDER_FORBIDDEN);
+        //        }
     }
 }

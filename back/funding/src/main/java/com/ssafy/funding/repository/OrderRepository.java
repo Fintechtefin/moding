@@ -20,5 +20,8 @@ public interface OrderRepository extends CrudRepository<Order, Long> {
 
     OrderResponseInterface findByUserIdAndFundingId(Integer userId, Integer fundingInd);
 
+    Optional<Order> findByUserIdAndFundingIdAndStatus(
+            Integer userId, Integer fundingId, Boolean status);
+
     Slice<Order> findByUserId(int userId);
 }

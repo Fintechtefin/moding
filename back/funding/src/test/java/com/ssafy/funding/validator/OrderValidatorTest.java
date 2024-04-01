@@ -3,13 +3,14 @@ package com.ssafy.funding.validator;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+import com.ssafy.funding.domain.Order;
 import com.ssafy.funding.domain.validator.OrderValidator;
-import com.ssafy.funding.dto.response.OrderResponseInterface;
 import com.ssafy.funding.exception.BadRequestException;
 import com.ssafy.funding.exception.global.CustomExceptionStatus;
 import com.ssafy.funding.repository.FundingRepository;
 import com.ssafy.funding.repository.MovieRepository;
 import com.ssafy.funding.repository.OrderRepository;
+import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -31,8 +32,8 @@ public class OrderValidatorTest {
         int userId = 1;
         int fundingId = 123;
 
-        when(orderRepository.findByUserIdAndFundingId(userId, fundingId))
-                .thenReturn(OrderResponseInterface.builder().count(1).build());
+        when(orderRepository.findByUserIdAndFundingIdAndStatus(userId, fundingId, true))
+                .thenReturn(Optional.ofNullable(Order.builder().build()));
 
         // when, then
         BadRequestException exception =
@@ -42,7 +43,8 @@ public class OrderValidatorTest {
                             orderValidator.validOnlyOneOrder(userId, fundingId);
                         });
         assertEquals(CustomExceptionStatus.ORDER_FORBIDDEN.getMessage(), exception.getMessage());
-        verify(orderRepository, times(1)).findByUserIdAndFundingId(userId, fundingId);
+        verify(orderRepository, times(1))
+                .findByUserIdAndFundingIdAndStatus(userId, fundingId, true);
     }
 
     @Test
@@ -52,14 +54,15 @@ public class OrderValidatorTest {
         int userId = 1;
         int fundingId = 123;
 
-        when(orderRepository.findByUserIdAndFundingId(userId, fundingId))
-                .thenReturn(OrderResponseInterface.builder().count(0).build());
+        when(orderRepository.findByUserIdAndFundingIdAndStatus(userId, fundingId, true))
+                .thenReturn(Optional.empty());
 
         // when, then
         assertDoesNotThrow(
                 () -> {
                     orderValidator.validOnlyOneOrder(userId, fundingId);
                 });
-        verify(orderRepository, times(1)).findByUserIdAndFundingId(userId, fundingId);
+        verify(orderRepository, times(1))
+                .findByUserIdAndFundingIdAndStatus(userId, fundingId, true);
     }
 }

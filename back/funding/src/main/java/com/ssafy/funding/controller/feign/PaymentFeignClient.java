@@ -12,6 +12,9 @@ public interface PaymentFeignClient {
     //    @PostMapping("/payments")
     //    void callCreatePayment(@RequestBody ConfirmPaymentsRequest confirmPaymentsRequest);
 
+    @PostMapping("/payments/test/confirm")
+    void callCreatePaymentTest(@RequestBody ConfirmPaymentsRequest confirmPaymentsRequest);
+
     @PostMapping("/payments/confirm")
     void callCreatePayment(@RequestBody ConfirmPaymentsRequest confirmPaymentsRequest);
 
