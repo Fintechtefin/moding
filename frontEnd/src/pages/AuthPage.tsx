@@ -16,8 +16,8 @@ const AuthPage = () => {
         localStorage.setItem("jwt", data);
       });
       await getUser().then((res) => {
-        const user = res;
-        localStorage.setItem("user", user);
+        localStorage.setItem("imageUrl", res.imageUrl);
+        localStorage.setItem("nickname", res.nickname);
       });
       navigate("/", { replace: true });
     } else {

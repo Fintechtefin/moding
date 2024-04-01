@@ -1,0 +1,98 @@
+$deg1: 180 - (900/7 * 1);
+$deg2: $deg1 * 2;
+$deg3: $deg1 * 3;
+$deg4: $deg1 * 4;
+$deg5: $deg1 * 5;
+$deg6: $deg1 * 6;
+
+.object {
+  overflow: hidden;
+  position: relative;
+  width: 90%;
+  height: 80vh;
+  margin: 20px auto;
+  perspective: 1000px;
+}
+
+.carousel {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  transform: translateZ(-288px);
+  transform-style: preserve-3d;
+  transition: transform 1s;
+}
+
+.cell {
+  position: absolute;
+  width: 90%;
+  height: 70vh;
+  left: 10px;
+  top: 0px;
+  color: white;
+  text-align: center;
+}
+
+.cell:nth-child(1) {
+  background: #ffb9e1cc;
+  transform: rotateY(1deg) translateZ(400px);
+}
+.cell:nth-child(2) {
+  background: #ffffffcc;
+  transform: rotateY(#{$deg1}deg) translateZ(400px);
+}
+.cell:nth-child(3) {
+  background: #46085acc;
+  transform: rotateY(#{$deg2}deg) translateZ(400px);
+}
+.cell:nth-child(4) {
+  background: #bf0e12cc;
+  transform: rotateY(#{$deg3}deg) translateZ(400px);
+}
+.cell:nth-child(5) {
+  background: #0b2c67cc;
+  transform: rotateY(#{$deg4}deg) translateZ(400px);
+}
+.cell:nth-child(6) {
+  background: #0b2c67cc;
+  transform: rotateY(#{$deg5}deg) translateZ(400px);
+}
+.cell:nth-child(7) {
+  background: #0b2c67cc;
+  transform: rotateY(#{$deg6}deg) translateZ(400px);
+}
+
+.button-group {
+  text-align: center;
+}
+
+.previous-button,
+.next-button {
+  background-color: #4caf50;
+}
+
+.previous-button:hover,
+.next-button:hover {
+  background-color: #2edbdc;
+  color: white;
+  font-weight: 700;
+}
+
+.previous-button,
+.next-button {
+  border: none;
+  outline: none; /*I think this style no one lese at the class will use*/
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
+}
+
+#image {
+  width: 100%;
+  height: 72%;
+}
