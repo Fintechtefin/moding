@@ -2,6 +2,7 @@ package com.ssafy.funding.service;
 
 import static com.ssafy.funding.exception.global.CustomExceptionStatus.*;
 
+import com.ssafy.funding.common.aop.RedissonLock;
 import com.ssafy.funding.controller.feign.PaymentFeignClient;
 import com.ssafy.funding.domain.Funding;
 import com.ssafy.funding.domain.Order;
@@ -64,10 +65,10 @@ public class OrderService {
     /*
     결제 승인
      */
-    /*@RedissonLock(
-    LockName = "주문",
-    identifier = "paymentKey",
-    paramClassType = ConfirmOrderRequest.class)*/
+    @RedissonLock(
+            LockName = "주문",
+            identifier = "paymentKey",
+            paramClassType = ConfirmOrderRequest.class)
     public OrderConfirmResponse confirmOrder(
             String orderUuid, ConfirmOrderRequest confirmOrderRequest, Integer userId) {
 
