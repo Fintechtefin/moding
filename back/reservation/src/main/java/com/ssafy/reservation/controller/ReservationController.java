@@ -21,22 +21,24 @@ public class ReservationController {
     public ResponseEntity<?> makeReservation(
             @RequestHeader("Authorization") String accessToken,
             @RequestBody MakeReservationRequest makeReservationRequest) {
-        int userId =
-                reservationService.checkReservation(
-                        accessToken, makeReservationRequest.getFundingId());
+        int userId = reservationService.getCurrentUserId(accessToken);
 
-        reservationService.checkPaymentUser(
-                makeReservationRequest.getFundingId(), makeReservationRequest.getUserId());
+        reservationService.checkReservation(makeReservationRequest.getFundingId(), userId);
+
+        reservationService.checkPaymentUser(makeReservationRequest.getFundingId(), userId);
 
         reservationService.checkSeat(makeReservationRequest);
-        Integer reservationId = reservationService.makeReservation(makeReservationRequest, userId);
+        int reservationId = reservationService.makeReservation(makeReservationRequest, userId);
 
         return ResponseEntity.ok().body(reservationId);
     }
 
     @Operation(summary = "좌석 예매를 취소합니다.")
     @PutMapping("/cancel/{reservationId}")
-    public ResponseEntity<?> cancelReservation(@PathVariable final Integer reservationId) {
+    public ResponseEntity<?> cancelReservation(
+            @RequestHeader("Authorization") String accessToken,
+            @PathVariable final Integer reservationId) {
+        int userId = reservationService.getCurrentUserId(accessToken);
         reservationService.cancelReservation(reservationId);
         return ResponseEntity.noContent().build();
     }
@@ -54,7 +56,9 @@ public class ReservationController {
     @Operation(summary = "예매 내예매 내역 중 곧 상영될 티켓을 조회합니다.")
     @GetMapping("/recent")
     public ResponseEntity<?> getRecentTicket(@RequestHeader("Authorization") String accessToken) {
-        TicketInfoResponse ticketInfoResponse = reservationService.getRecentTicket(accessToken);
+        int userId = reservationService.getCurrentUserId(accessToken);
+        TicketInfoResponse ticketInfoResponse =
+                reservationService.getRecentTicket(accessToken, userId);
         return ResponseEntity.ok().body(ticketInfoResponse);
     }
 }
