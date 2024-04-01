@@ -1,45 +1,87 @@
 import { formatDateWithDay1 } from "@util/commonFunction";
+import { FundingCompleted } from "@util/types";
 import axios from "axios";
+import { useState } from "react";
 import { useNavigate } from "react-router";
+import UserFundProgressBar from "@components/common/UserFundProgressBar";
+import Prompt from "@components/reverse/Prompt";
 
 interface Props {
-  item: {
-    id: number;
-    title: string;
-    url: string;
-    per: number;
-    date: string;
-  };
+  item: FundingCompleted;
+  removeFund: (reservationId: number) => void;
 }
 
-const FundingSuccessItem = ({ item }: Props) => {
+const FundingSuccessItem = ({ item, removeFund }: Props) => {
+  const [isOpen, setIsOpen] = useState(false);
+
   const navigate = useNavigate();
 
-  const handleClick = async () => {
+  const checkTicket = async () => {
     try {
       const res = await axios.get(
-        `${import.meta.env.VITE_BASE_URL}:8085/reservations/create/${item.id}`
+        `${import.meta.env.VITE_BASE_URL}/api/reservations/get/${
+          item.reservationId
+        }`,
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwt"),
+          },
+        }
       );
 
       navigate(`/user/ticket/${res.data}`, {
         state: res.data,
-        replace: true,
       });
     } catch (err) {
       console.log(err);
     }
   };
 
+  const cancelReservation = async () => {
+    try {
+      const res = await axios.put(
+        `${import.meta.env.VITE_BASE_URL}/api/reservations/cancel/${
+          item.reservationId
+        }`,
+        null,
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwt"),
+          },
+        }
+      );
+
+      console.log(res);
+
+      removeFund(item.reservationId);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const calculationDate = (targetDate: string) => {
+    const today = new Date();
+    const specificDate = new Date(targetDate);
+    today.setHours(0, 0, 0, 0);
+    specificDate.setHours(0, 0, 0, 0);
+
+    const diffInHours =
+      (specificDate.getTime() - today.getTime()) / (1000 * 60 * 60);
+    const diffInDays = diffInHours / 24;
+
+    return diffInDays;
+  };
+
   return (
-    <div className="flex flex-col bg-bgGray p-[2vh] rounded-[1vh] gap-[2vh] shadow-test">
+    <div className="flex flex-col bg-bgGray p-[2vh] rounded-lg gap-[2vh] shadow-test">
       <div className="w-full flex gap-[2vh]">
         <img
-          className="w-[9vh] h-[13vh] object-cover rounded-[0.5vh] brightness-[90%]"
-          src={item.url}
+          className="w-[9vh] h-[13vh] object-cover rounded brightness-[90%]"
+          src={item.poster}
           alt=""
           loading="lazy"
         />
-        <div className="flex flex-col justify-between relative w-full">
+        <div className="relative flex flex-col justify-between w-full">
           <div className="flex items-center w-full gap-[2vh] ">
             <div className="flex-1 text-[2.5vh] font-bold w-0 overflow-hidden text-ellipsis whitespace-nowrap ">
               {item.title}
@@ -48,25 +90,48 @@ const FundingSuccessItem = ({ item }: Props) => {
               item.date
             )}`}</div>
           </div>
-          <div>
+          <UserFundProgressBar
+            type="success-bar"
+            attendCnt={item.attendCnt}
+            goalCnt={item.goalCnt}
+          />
+          {/* <div>
             <div className="text-[1.5vh] py-[1vh] font-bold">
-              {`${item.per}% 펀딩성공`}
+              {`${calculatePercent(item.attendCnt, item.goalCnt)}% 펀딩성공`}
             </div>
             <div className="w-[100%] h-[1.5vh] rounded-[1vh] success">
               <div
-                style={{ width: `${item.per}%` }}
+                style={{
+                  width: `${calculatePercent(item.attendCnt, item.goalCnt)}%`,
+                }}
                 className={`bg-[#2CD9AA] rounded-[1vh] h-[100%] brightness-100`}
               ></div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
-      <button
-        className="p-[1vh] border border-textGray rounded-[1vh] text-[2vh]"
-        onClick={handleClick}
-      >
-        티켓확인
-      </button>
+      <div className="flex gap-[1vh]">
+        {calculationDate(item.date) > 1 && (
+          <button
+            className="flex-1 p-[1vh] border border-textGray rounded-lg text-[2vh]"
+            onClick={() => setIsOpen(true)}
+          >
+            좌석취소
+          </button>
+        )}
+        <button
+          className="flex-1 p-[1vh] border border-textGray rounded-lg text-[2vh]"
+          onClick={checkTicket}
+        >
+          티켓확인
+        </button>
+      </div>
+      {isOpen && (
+        <Prompt
+          onClose={() => setIsOpen(false)}
+          onConfirm={cancelReservation}
+        />
+      )}
     </div>
   );
 };

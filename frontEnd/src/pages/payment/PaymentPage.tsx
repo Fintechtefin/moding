@@ -79,7 +79,7 @@ const PaymentPage = () => {
       await paymentWidget?.requestPayment({
         orderId: KEY,
         orderName: "엘리멘탈",
-        successUrl: `${window.location.origin}/fund/payment/success?fundingCount=1&fundingId=1&method=${selectedPaymentMethod}`,
+        successUrl: `${window.location.origin}/fund/payment/success?fundingCount=1&fundingId=2&method=${selectedPaymentMethod}`,
         failUrl: `${window.location.origin}/fund/payment/fail`,
       });
     } catch (error) {

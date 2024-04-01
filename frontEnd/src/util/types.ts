@@ -38,3 +38,14 @@ export interface ProgressMovie {
   participantCount: number;
   recruitedCount: number;
 }
+
+export interface FundingCompleted {
+  title: string;
+  poster: string;
+  movieId: number;
+  fundingFinalResult: number;
+  goalCnt: number;
+  attendCnt: number;
+  reservationId: number;
+  date: string;
+}
