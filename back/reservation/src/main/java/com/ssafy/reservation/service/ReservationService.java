@@ -6,6 +6,7 @@ import static com.ssafy.reservation.exception.global.CustomExceptionStatus.NOT_F
 import com.ssafy.reservation.controller.fegin.ReservationClient;
 import com.ssafy.reservation.controller.fegin.TokenAuthClient;
 import com.ssafy.reservation.domain.Reservation;
+import com.ssafy.reservation.dto.Seat;
 import com.ssafy.reservation.dto.request.MakeReservationRequest;
 import com.ssafy.reservation.dto.response.FundingInfoResponse;
 import com.ssafy.reservation.dto.response.TicketInfoResponse;
@@ -14,6 +15,9 @@ import com.ssafy.reservation.exception.global.CustomExceptionStatus;
 import com.ssafy.reservation.repository.ReservationRepository;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,29 +29,51 @@ public class ReservationService {
     private final ReservationRepository reservationRepository;
     private final ReservationClient reservationClient;
     private final TokenAuthClient tokenAuthClient;
-    private final Integer completedStatus = 1;
+    private final int completedStatus = 1;
+
+    public int checkReservation(String accesToken, int fundingId) {
+        int userId = tokenAuthClient.getUserId(accesToken);
+
+        if (reservationRepository.findByUserIdAndFundingIdAndStatus(userId, fundingId, 1) != null) {
+            throw new BadRequestException(CustomExceptionStatus.RESERVATION_USER);
+        }
+
+        return userId;
+    }
 
     public void checkPaymentUser(int fundingId, int userId) {
-
         if (!reservationClient.checkPaymentUser(fundingId, userId)) {
             throw new BadRequestException(CustomExceptionStatus.NOT_PAYMENTS_USER);
         }
     }
 
     public void checkSeat(MakeReservationRequest makeReservationRequest) {
-        Reservation reservation =
-                reservationRepository.findByFundingIdAndSeats(
-                        makeReservationRequest.getFundingId(), makeReservationRequest.getSeat());
+        List<Reservation> reservationList =
+                reservationRepository.findListByFundingIdAndStatus(
+                        makeReservationRequest.getFundingId(), 1);
 
-        if (reservation != null) {
+        List<Seat> requestSeat = makeReservationRequest.getSeats().getSeat();
+
+        List<Seat> seatList =
+                reservationList.stream()
+                        .map(reservation -> reservation.getSeats().getSeat())
+                        .flatMap(inner -> inner.stream())
+                        .collect(Collectors.toList());
+
+        Optional<Seat> result =
+                requestSeat.stream()
+                        .filter(seat -> seatList.stream().anyMatch(Predicate.isEqual(seat)))
+                        .findFirst();
+
+        if (result.isPresent()) {
             throw new BadRequestException(CustomExceptionStatus.RESERVATION_SEAT);
         }
     }
 
     // 좌석 예매 내역 db 저장
     @Transactional
-    public Integer makeReservation(MakeReservationRequest makeReservationRequest) {
-        Reservation reservation = Reservation.of(makeReservationRequest, completedStatus);
+    public Integer makeReservation(MakeReservationRequest makeReservationRequest, int userId) {
+        Reservation reservation = Reservation.of(makeReservationRequest, userId, completedStatus);
         reservationRepository.save(reservation);
         Integer reservationId = reservation.getId();
         return reservationId;
