@@ -12,6 +12,8 @@ import com.ssafy.funding.repository.MovieRepository;
 import com.ssafy.funding.repository.MovieSearchNativeQueryRepository;
 import com.ssafy.funding.util.RedisUtil;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -37,7 +39,7 @@ public class MovieService {
     public List<MovieDetailResponse> searchMovie(String word) {
         List<MovieDetailResponse> movies =
                 movieRepository.findByTitleContainingOrActorsContaining(word, word);
-        System.out.println(movies.size());
+//        System.out.println(movies.size());
         return movies;
     }
 
@@ -50,29 +52,37 @@ public class MovieService {
     }
 
     public MovieDescResponse detailMovie(int movieId, String accessToken) {
+
         int userId = 0;
+        MovieSummaryResponse movieSummaryResponse;
+        MovieDescResponse movieDescResponse;
 
         if (accessToken != null) {
             userId = tokenAuthClient.getUserId(accessToken);
         }
 
-        // 영화 정보 가져오기
-        Optional<MovieSummaryResponse> movieSummaryResponse =
-                movieRepository.getMovieDetailById(movieId);
+        String redisKey = "movie_" + movieId;   // 상세 정보 저장용
 
-        MovieDescResponse movieDescResponse = MovieDescResponse.of(movieSummaryResponse.get());
+        if (redisUtil.getObject(redisKey) != null) {
+            movieDescResponse = (MovieDescResponse) redisUtil.getObject(redisKey);
+//            System.out.println("Redis Detail Hit!!!");
+        } else {
+            movieSummaryResponse =
+                    movieRepository.getMovieDetailById(movieId).get();
 
-        // genre 가져오기
-        Optional<List<String>> genreList = movieRepository.getGenreById(movieId);
-        movieDescResponse = MovieDescResponse.setGenre(movieDescResponse, genreList.get());
+            movieDescResponse = MovieDescResponse.of(movieSummaryResponse);
+            Optional<List<String>> genreList = movieRepository.getGenreById(movieId);
+            movieDescResponse = MovieDescResponse.setGenre(movieDescResponse, genreList.get());
+            redisUtil.setObject(redisKey, movieDescResponse);
+        }
 
-        // total 지정
-        String key = "total_cnt_" + movieId;
+        // total 지정 (누적 요청 수)
+        redisKey = "total_cnt_" + movieId;
 
-        // test
-        redisUtil.setData(key, "100");
+        // 임시 값
+        redisUtil.setData(redisKey, "100");
 
-        int accumulate = Integer.parseInt(redisUtil.getData(key));
+        int accumulate = Integer.parseInt(redisUtil.getData(redisKey));
         movieDescResponse = MovieDescResponse.setTotal(movieDescResponse, accumulate);
 
         movieDescResponse =
@@ -92,12 +102,13 @@ public class MovieService {
         return movieDescResponse;
     }
 
-    public List<MovieRankingResponse> popularMovies(int time) throws IOException {
+    public List<MovieRankingResponse> popularMovies() throws IOException {
+        int time = LocalDateTime.now().truncatedTo(ChronoUnit.HOURS).getHour(); // 현재 시각
 
-        String redisKey = "movie_ranking_" + (time);
+        String redisKey = "movie_ranking_" + (time-1); // 직전 기록 가져오기
 
         if (redisUtil.getObject(redisKey) != null) {
-            System.out.println("Redis Hit!!!");
+//            System.out.println("Redis Hit!!!");
             return (List<MovieRankingResponse>) redisUtil.getObject(redisKey);
         }
 
@@ -121,7 +132,7 @@ public class MovieService {
         }
 
         redisUtil.setObject(redisKey, movieList);
-        redisKey = "movie_ranking_" + (time - 1);
+        redisKey = "movie_ranking_" + (time - 2);
         if (redisUtil.getObject(redisKey) != null) {
             redisUtil.deleteData(redisKey);
         }

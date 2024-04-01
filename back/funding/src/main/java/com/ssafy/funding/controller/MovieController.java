@@ -45,9 +45,8 @@ public class MovieController {
 
     @Operation(summary = "실시간 인기 영화를 조회합니다.")
     @GetMapping("/popular")
-    public ResponseEntity<List<MovieRankingResponse>> popularMovies(@RequestParam int time)
-            throws IOException {
-        return ResponseEntity.ok(movieService.popularMovies(time));
+    public ResponseEntity<List<MovieRankingResponse>> popularMovies() throws IOException {
+        return ResponseEntity.ok(movieService.popularMovies());
     }
 
     @Operation(summary = "장르별 영화를 조회합니다.")
