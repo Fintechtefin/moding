@@ -33,7 +33,6 @@ public class LoginService {
                 findOrCreateMember(
                         providerName,
                         oauthUserInfo.getSocialLoginId(),
-                        oauthUserInfo.getBirthYear(),
                         oauthUserInfo.getNickname(),
                         oauthUserInfo.getProfileImage());
         return user;
@@ -42,7 +41,6 @@ public class LoginService {
     private User findOrCreateMember(
             final String providerName,
             final String socialLoginId,
-            final int birthYear,
             final String nickname,
             final String profileImage) {
         return userRepository
@@ -52,7 +50,6 @@ public class LoginService {
                                 createUser(
                                         providerName,
                                         socialLoginId,
-                                        birthYear,
                                         "ROLE_USER",
                                         nickname,
                                         profileImage,
@@ -62,7 +59,6 @@ public class LoginService {
     private User createUser(
             final String providerName,
             final String socialLoginId,
-            final int birthYear,
             final String role,
             final String nickName,
             final String profileImage,
@@ -72,7 +68,6 @@ public class LoginService {
                 User.builder()
                         .socialId(socialLoginId)
                         .platform(Platform.valueOf(providerName))
-                        .age(birthYear)
                         .role(Role.valueOf(role))
                         .nickName(nickName)
                         .imageUrl(profileImage)

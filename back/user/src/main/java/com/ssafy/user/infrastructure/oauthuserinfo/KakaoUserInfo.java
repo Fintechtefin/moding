@@ -22,11 +22,6 @@ public class KakaoUserInfo implements OauthUserInfo {
     }
 
     @Override
-    public int getBirthYear() {
-        return 0;
-    }
-
-    @Override
     public String getProfileImage() {
         return kakaoAccount.kakaoProfile.image;
     }
