@@ -22,6 +22,7 @@ export interface MovieRanking extends Movie {
 export interface ModingList extends Movie {
   crowdCnt: number;
   peopleCnt: number;
+  requestCnt: number;
 }
 
 export interface MovieInfo extends Movie {
@@ -31,7 +32,9 @@ export interface MovieInfo extends Movie {
   age: string;
   actors: string;
   plot: string;
+  like: boolean;
   likeCnt: number;
+  request: boolean;
   hopeCnt: number;
   total: number;
   genere: Array<string>;
@@ -39,9 +42,12 @@ export interface MovieInfo extends Movie {
 }
 
 export interface FundingInfo {
-  cinemaName: string;
-  crowdCnt: number;
-  movieDate: string;
-  peopleCnt: number;
+  time: string;
+  date: Date;
+  fundingId: number;
   price: number;
+  cinemaName: string;
+  movieDate: string;
+  crowdCnt: number;
+  peopleCnt: number;
 }

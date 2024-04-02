@@ -4,9 +4,11 @@ import "@/assets/styles/movieDetail/ProgressArea.scss";
 interface Props {
   crowd: number;
   joinCnt: number;
+  height: string;
+  size: string;
 }
 
-const ProgressArea = ({ crowd, joinCnt }: Props) => {
+const ProgressArea = ({ crowd, joinCnt, height, size }: Props) => {
   const [percent, setPercent] = useState(0);
   const [gage, setGage] = useState(0);
 
@@ -22,21 +24,35 @@ const ProgressArea = ({ crowd, joinCnt }: Props) => {
     const progressWidth = progressRef?.offsetWidth ?? 0;
 
     setGage(Math.round((progressWidth / 100) * per));
-  }, []);
+  }, [percent]);
 
   return (
-    <div className="relative mb-7">
-      <div className="absolute top-[-25px] right-3">{percent}%</div>
-      <div className="progressbar relative w-[100%] h-[4vh]" ref={divRef}>
+    <div className="relative">
+      {size == "big" && (
+        <>
+          <div className="absolute top-[-6vh] right-1 text-4xl">{percent}%</div>
+        </>
+      )}
+      <div
+        className={`progressbar relative w-[100%] h-[${height}]`}
+        ref={divRef}
+      >
         <div
           className={`bar absolute top-[50%] trnaslate-y-[-50%] w-[100px] h-[100%]`}
+          style={{
+            width: `${gage}px`,
+          }}
         >
           <span></span>
         </div>
       </div>
-      <div className="absolute mt-2 right-3">
-        {joinCnt}/{crowd}
-      </div>
+      {size == "big" && (
+        <>
+          <div className="absolute mt-1 right-2">
+            {joinCnt}/{crowd}
+          </div>
+        </>
+      )}
     </div>
   );
 };

@@ -13,7 +13,7 @@ const ModingListPage = () => {
 
   useEffect(() => {}, [getModingBack]);
 
-  const fundingTitle = "flex flex-col items-center text-[2vh] basis-1/2 p-1";
+  const fundingTitle = "flex flex-col items-center text-[1.7vh] basis-1/2 p-1";
 
   return (
     <div
@@ -26,11 +26,21 @@ const ModingListPage = () => {
     >
       <div className="text-center text-3xl pt-3">MODING</div>
       <div className="flex justify-around mt-2">
-        <div className={`${fundingTitle} border-red-700 ${modingCategory == "progress" ? "select" : ""}`} onClick={() => setModingCategory("progress")}>
+        <div
+          className={`${fundingTitle} border-red-700 ${
+            modingCategory == "progress" ? "select" : ""
+          }`}
+          onClick={() => setModingCategory("progress")}
+        >
           <div>무딩중</div>
           <div>TOP10</div>
         </div>
-        <div className={`${fundingTitle} border-red-700 ${modingCategory == "request" ? "select" : ""}`} onClick={() => setModingCategory("request")}>
+        <div
+          className={`${fundingTitle} border-red-700 ${
+            modingCategory == "request" ? "select" : ""
+          }`}
+          onClick={() => setModingCategory("request")}
+        >
           <div>무딩 요청</div>
           <div>TOP10</div>
         </div>

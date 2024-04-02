@@ -20,7 +20,8 @@ const MovieList = ({ category, cateTitle, sort }: Props) => {
 
   const { data } = useQuery<MovieCategory>({
     queryKey: ["GenreList", category, page, sort], // 쿼리 키를 지정합니다.
-    queryFn: () => getGenreList(category, page, sort), // getNowRanking 함수를 호출합니다.
+    queryFn: () => getGenreList(category, page, sort),
+    // getNowRanking 함수를 호출합니다.
   });
 
   useEffect(() => {
@@ -58,9 +59,7 @@ const MovieList = ({ category, cateTitle, sort }: Props) => {
     <div className="movielist-container">
       <div className="flex flex-col items-end pt-4 pr-3 text-gray-400">
         <div className="text-[3vh]">{nickname}님을 위해</div>
-        <div className="text-[3vh]">
-          무딩이 준비한 {PosterList && PosterList.totalCnt}편의
-        </div>
+        <div className="text-[3vh]">무딩이 준비한 {PosterList && PosterList.totalCnt}편의</div>
         <div className="text-[3vh]">{cateTitle}</div>
       </div>
       <div className="movie-list none-scroller translate-y-[-40px] px-[1.5vh] grid grid-cols-3 gap-[1.2vh] overflow-auto pb-56">
@@ -68,16 +67,8 @@ const MovieList = ({ category, cateTitle, sort }: Props) => {
           <>
             {PosterList.movieList.map((poster) => {
               return (
-                <Link
-                  to={`/fund/list/${poster.movieId}`}
-                  key={poster.movieId}
-                  state={{ type: "list" }}
-                >
-                  <MovieListItem
-                    state={poster.status}
-                    url={poster.poster}
-                    heigth="22vh"
-                  ></MovieListItem>
+                <Link to={`/fund/list/${poster.movieId}`} key={poster.movieId} state={{ type: "list" }}>
+                  <MovieListItem state={poster.status} url={poster.poster} heigth="22vh"></MovieListItem>
                 </Link>
               );
             })}

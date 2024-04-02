@@ -5,7 +5,11 @@ const SocialNaver = () => {
 
   const stateString = "DNolvvC9x8";
 
+<<<<<<< HEAD
+  const reUrl = `http://localhost:5174/login/NAVER`;
+=======
   const reUrl = `${import.meta.env.VITE_REDIRECT_URL}/login/NAVER`;
+>>>>>>> 3e2520669162034c3a4d156a7f9820bc3637f1c4
 
   const naverUrl = `https://nid.naver.com/oauth2.0/authorize?client_id=${clientId}&response_type=code&redirect_uri=${reUrl}&state=${stateString}`;
 

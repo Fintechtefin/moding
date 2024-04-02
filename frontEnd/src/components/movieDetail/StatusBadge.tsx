@@ -10,14 +10,15 @@ const StatusBadge = ({ status, textSize }: props) => {
   const [state, setState] = useState("무딩중");
 
   useEffect(() => {
-    if (status == "무딩 준비 중") {
+    setBadgeOn(true);
+    if (status === "무딩 준비 중") {
       setBadgeOn(false);
-    } else if (status == "무딩예정") {
+    } else if (status === "무딩예정") {
       setState("무딩예정");
-    } else if (status == "무딩종료") {
+    } else if (status === "무딩종료") {
       setState("무딩종료");
     }
-  }, []);
+  }, [status]);
 
   return (
     <>
@@ -31,7 +32,7 @@ const StatusBadge = ({ status, textSize }: props) => {
                   : status == "무딩종료"
                   ? "bg-[#02c031]"
                   : "bg-[#C00202]"
-              }  w-[100%] h-[100%] blur-sm rounded-lg `}
+              }  w-[100%] h-[100%] blur-sm rounded-[25%] `}
             ></div>
             <div
               className={`text-[${textSize}] relative top-[-100%] right-0 my-[0.5vh] mx-[1vh]`}

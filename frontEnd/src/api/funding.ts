@@ -1,5 +1,4 @@
 import { axiosApi } from "@/util/commons";
-// import { Movie, MovieRanking } from "@util/types/movieType";
 
 const url = "/fundings";
 
@@ -17,4 +16,16 @@ async function postSurvey(movieId: string, surveyData: Object) {
   console.log("보냄");
 }
 
-export { getTopTen, postSurvey };
+async function getFundingInfo(movieId: string) {
+  const { data } = await api.get(`${url}/open/${movieId}`);
+  console.log(data);
+  return data;
+}
+
+async function getFundingResult(fundingId: number) {
+  console.log(fundingId);
+  const result = await api.get(`${url}/${fundingId}/participation`);
+  return result.data;
+}
+
+export { getTopTen, postSurvey, getFundingInfo, getFundingResult };

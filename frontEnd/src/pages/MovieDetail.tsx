@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import "@/assets/styles/movieDetail/MovieDetail.scss";
 import NoneNavHeader from "@components/NoneNavHeader";
@@ -9,15 +9,19 @@ import AboutNote from "@components/movieDetail/AboutNote";
 import MovieDetailButton from "@components/movieDetail/MovieDetailButton";
 import HopeSurvey from "@components/movieDetail/HopeSurvey";
 import InfoArea from "@components/movieDetail/InfoArea";
-import type { MovieInfo } from "@util/types/movieType";
+import type { MovieInfo, FundingInfo } from "@util/types/movieType";
 import { getSearchDetail, getMovieDetail } from "@api/movie";
+import { getFundingInfo } from "@api/funding";
 
 const MovieDetail = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+
   const way = location.state.type;
   const { id } = useParams() as { id: string };
   const [log, setLog] = useState("");
   const [movieId, setMovieId] = useState("");
+  const [fundMovieId, setFundMovieId] = useState("");
 
   const { data: searchDetail } = useQuery<MovieInfo, Error>({
     queryKey: ["logResult", log], // 쿼리 키를 지정합니다.
@@ -41,8 +45,20 @@ const MovieDetail = () => {
     },
   });
 
+  const { data: fundinfo } = useQuery<FundingInfo, Error>({
+    queryKey: ["logResult", fundMovieId], // 쿼리 키를 지정합니다.
+    queryFn: () => {
+      if (fundMovieId.length === 0) {
+        return Promise.resolve([]);
+      } else {
+        return getFundingInfo(fundMovieId);
+      }
+    },
+  });
+
   useEffect(() => {
     console.log(id);
+    setFundMovieId(id);
     if (way === "search") {
       setLog(id);
       if (searchDetail) {
@@ -64,6 +80,18 @@ const MovieDetail = () => {
   const [modalShow, setModalShow] = useState(false);
   // 무딩 준비 중이거나 무딩 완료 시에 false로 바꾸기
   const [fundingInfo, setFundingInfo] = useState(true);
+
+  const sendFundingInfo = (type: string) => {
+    const fundinfos = {
+      fundinfo: fundinfo,
+      poster: movieInfo?.poster,
+    };
+    if (type === "join") {
+      navigate(`/fund/payment`, { state: fundinfos });
+    } else if (type === "book") {
+      navigate(`/fund/reserve`, { state: fundinfos });
+    }
+  };
 
   useEffect(() => {
     if (movieInfo) {
@@ -88,7 +116,7 @@ const MovieDetail = () => {
         <div
           className="movie-detail w-[100%]"
           style={{
-            backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9)), url(${movieInfo.poster})`,
+            backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9)), url(${movieInfo.poster})`,
             backgroundSize: "auto 800px, contain",
             backgroundRepeat: "no-repeat",
           }}
@@ -105,7 +133,9 @@ const MovieDetail = () => {
               <div>{movieInfo.age}</div>
             </div>
             <div className="w-[90%] mt-8">
-              {fundingInfo && <InfoArea status={movieInfo.status} />}
+              {fundingInfo && (
+                <InfoArea status={movieInfo.status} fundInfo={fundinfo} />
+              )}
             </div>
           </div>
           {/* 상세정보영역 */}
@@ -152,6 +182,8 @@ const MovieDetail = () => {
               likeCnt={movieInfo.likeCnt}
               hopeCnt={movieInfo.hopeCnt}
               modalDown={modalDown}
+              sendFundingInfo={sendFundingInfo}
+              fundingId={fundinfo?.fundingId}
             />
           </div>
           {modalShow && <HopeSurvey modalDown={modalDown} id={movieId} />}
