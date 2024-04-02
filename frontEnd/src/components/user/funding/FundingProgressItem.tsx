@@ -2,6 +2,7 @@ import { useState } from "react";
 import FundingCancelModal from "./FundingCancelModal";
 import { ProgressMovie } from "@util/types";
 import UserFundProgressBar from "@components/common/UserFundProgressBar";
+import { useNavigate } from "react-router";
 
 interface Props {
   item: ProgressMovie;
@@ -12,6 +13,11 @@ const FundingProgressItem = ({ item }: Props) => {
 
   const handleClickTrue = () => setIsOpen(true);
   const handleClickFalse = () => setIsOpen(false);
+
+  const navigate = useNavigate();
+
+  const moveMovieDetail = () =>
+    navigate(`/fund/list/${item.movieId}`, { state: { type: "list" } });
 
   const aaa = (date: string) => {
     const targetDate = new Date(date);
@@ -30,17 +36,21 @@ const FundingProgressItem = ({ item }: Props) => {
   // const per = calculatePercent(item.participantCount, item.recruitedCount);
 
   return (
-    <div className="flex flex-col bg-bgGray p-[2vh] rounded-[1vh] gap-[2vh] shadow-test">
+    <div className="flex flex-col bg-bgGray p-[2vh] rounded-lg gap-[2vh] shadow-test">
       <div className="w-full flex gap-[2vh]">
         <img
-          className="w-[9vh] h-[13vh] object-cover rounded-[0.5vh] brightness-[90%]"
+          className="w-[9vh] h-[13vh] object-cover rounded-md"
           src={item.moviePoster}
           alt=""
           loading="lazy"
+          onClick={moveMovieDetail}
         />
         <div className="relative flex flex-col justify-between w-full ">
           <div className="flex items-center w-full gap-[2vh]">
-            <div className="flex-1 text-[2.5vh] font-bold w-0 overflow-hidden text-ellipsis whitespace-nowrap ">
+            <div
+              className="flex-1 text-[2.5vh] font-bold w-0 overflow-hidden text-ellipsis whitespace-nowrap "
+              onClick={moveMovieDetail}
+            >
               {item.movieTitle}
             </div>
             <div className=" text-[1.5vh] text-textGray">{`D-${aaa(

@@ -24,6 +24,7 @@ const SubscribeItem = ({
 
   const onHeartClick = (e: React.MouseEvent<SVGElement>) => {
     e.stopPropagation(); // 이벤트 버블링을 막습니다.
+    console.log(movieId);
     handleClick(movieId);
   };
 
