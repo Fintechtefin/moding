@@ -19,7 +19,8 @@ const SubscribeItem = ({
 }: Props) => {
   const navigate = useNavigate();
 
-  const moveDetailMovie = () => navigate(`/fund/list/${movieId}`);
+  const moveDetailMovie = () =>
+    navigate(`/fund/list/${movieId}`, { state: { type: "list" } });
 
   const onHeartClick = (e: React.MouseEvent<SVGElement>) => {
     e.stopPropagation(); // 이벤트 버블링을 막습니다.
@@ -28,11 +29,11 @@ const SubscribeItem = ({
 
   return (
     <div
-      className="w-full relative shadow-test rounded-[1.5vh] cursor-pointer"
+      className="w-full relative shadow-test rounded-lg cursor-pointer"
       onClick={moveDetailMovie}
     >
       <img
-        className="w-full h-full object-cover rounded-[1.5vh] brightness-90"
+        className="w-full h-full object-cover rounded-lg"
         src={poster}
         loading="lazy"
         alt="영화포스터"
@@ -54,7 +55,7 @@ const SubscribeItem = ({
             </>
           )}
         </div>
-        <div className="py-[1vh] px-[2vh] flex flex-col gap-[1vh] bg-black rounded-b-[1.5vh] bg-opacity-80 ">
+        <div className="py-[1vh] px-[2vh] flex flex-col gap-[1vh] bg-black rounded-b-lg bg-opacity-85 ">
           <div className="text-[2vh]">{title}</div>
           <div className="text-[1.5vh] text-[#C00202] font-bold ">
             {isType ? `${likeCnt}명 좋아해요` : `${requestCnt}명 요청했어요`}

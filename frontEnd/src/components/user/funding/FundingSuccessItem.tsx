@@ -16,6 +16,9 @@ const FundingSuccessItem = ({ item, removeFund }: Props) => {
 
   const navigate = useNavigate();
 
+  const moveMovieDetail = () =>
+    navigate(`/fund/list/${item.movieId}`, { state: { type: "list" } });
+
   const checkTicket = async () => {
     try {
       const res = await axios.get(
@@ -76,10 +79,11 @@ const FundingSuccessItem = ({ item, removeFund }: Props) => {
     <div className="flex flex-col bg-bgGray p-[2vh] rounded-lg gap-[2vh] shadow-test">
       <div className="w-full flex gap-[2vh]">
         <img
-          className="w-[9vh] h-[13vh] object-cover rounded brightness-[90%]"
+          className="w-[9vh] h-[13vh] object-cover rounded-md"
           src={item.poster}
           alt=""
           loading="lazy"
+          onClick={moveMovieDetail}
         />
         <div className="relative flex flex-col justify-between w-full">
           <div className="flex items-center w-full gap-[2vh] ">
@@ -95,19 +99,6 @@ const FundingSuccessItem = ({ item, removeFund }: Props) => {
             attendCnt={item.attendCnt}
             goalCnt={item.goalCnt}
           />
-          {/* <div>
-            <div className="text-[1.5vh] py-[1vh] font-bold">
-              {`${calculatePercent(item.attendCnt, item.goalCnt)}% 펀딩성공`}
-            </div>
-            <div className="w-[100%] h-[1.5vh] rounded-[1vh] success">
-              <div
-                style={{
-                  width: `${calculatePercent(item.attendCnt, item.goalCnt)}%`,
-                }}
-                className={`bg-[#2CD9AA] rounded-[1vh] h-[100%] brightness-100`}
-              ></div>
-            </div>
-          </div> */}
         </div>
       </div>
       <div className="flex gap-[1vh]">
