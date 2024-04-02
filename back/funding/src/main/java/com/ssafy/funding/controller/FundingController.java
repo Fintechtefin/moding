@@ -35,8 +35,9 @@ public class FundingController {
     @Operation(summary = "현재 열린 펀딩이 있다면 정보를 반환합니다.")
     @GetMapping("/open/{movieId}")
     public ResponseEntity<FundingRepository.OpenFundingResponseInterface> getOpenFundingInfo(
+            @RequestHeader(value = "Authorization", required = false) String accessToken,
             @PathVariable int movieId) {
-        return ResponseEntity.ok(fundingService.getOpenFundingInfo(movieId));
+        return ResponseEntity.ok(fundingService.getOpenFundingInfo(movieId, accessToken));
     }
 
     @Operation(summary = "현재 로그인한 유저의 펀딩 참여 여부를 반환합니다.")

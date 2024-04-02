@@ -61,7 +61,12 @@ public class FundingService {
         movieFundingRepository.save(movieFunding);
     }
 
-    public FundingRepository.OpenFundingResponseInterface getOpenFundingInfo(int movieId) {
+    public FundingRepository.OpenFundingResponseInterface getOpenFundingInfo(
+            int movieId, String accessToken) {
+
+        int userId = 0;
+
+        if (accessToken != null) userId = tokenAuthClient.getUserId(accessToken);
 
         // 있는지 확인
         Optional<Movie> movie = movieRepository.findById(movieId);
@@ -70,7 +75,7 @@ public class FundingService {
             return null;
         }
 
-        return fundingRepository.getOpenFundingInfo(movieId);
+        return fundingRepository.getOpenFundingInfo(movieId, userId);
     }
 
     public boolean getFundingParticipation(String accessToken, int fundingId) {

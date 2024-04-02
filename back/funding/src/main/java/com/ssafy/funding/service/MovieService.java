@@ -6,10 +6,7 @@ import com.ssafy.funding.domain.MovieFunding;
 import com.ssafy.funding.domain.MovieLike;
 import com.ssafy.funding.domain.document.MovieDocument;
 import com.ssafy.funding.dto.response.*;
-import com.ssafy.funding.repository.MovieFundingRepository;
-import com.ssafy.funding.repository.MovieLikeRepository;
-import com.ssafy.funding.repository.MovieRepository;
-import com.ssafy.funding.repository.MovieSearchNativeQueryRepository;
+import com.ssafy.funding.repository.*;
 import com.ssafy.funding.util.RedisUtil;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -35,11 +32,12 @@ public class MovieService {
     private final MovieLikeRepository movieLikeRepository;
     private final TokenAuthClient tokenAuthClient;
     private final MovieFundingRepository movieFundingRepository;
+    private final MovieQueryRepository movieQueryRepository;
 
     public List<MovieDetailResponse> searchMovie(String word) {
         List<MovieDetailResponse> movies =
                 movieRepository.findByTitleContainingOrActorsContaining(word, word);
-//        System.out.println(movies.size());
+        //        System.out.println(movies.size());
         return movies;
     }
 
@@ -61,14 +59,13 @@ public class MovieService {
             userId = tokenAuthClient.getUserId(accessToken);
         }
 
-        String redisKey = "movie_" + movieId;   // 상세 정보 저장용
+        String redisKey = "movie_" + movieId; // 상세 정보 저장용
 
         if (redisUtil.getObject(redisKey) != null) {
             movieDescResponse = (MovieDescResponse) redisUtil.getObject(redisKey);
-//            System.out.println("Redis Detail Hit!!!");
+            //            System.out.println("Redis Detail Hit!!!");
         } else {
-            movieSummaryResponse =
-                    movieRepository.getMovieDetailById(movieId).get();
+            movieSummaryResponse = movieRepository.getMovieDetailById(movieId).get();
 
             movieDescResponse = MovieDescResponse.of(movieSummaryResponse);
             Optional<List<String>> genreList = movieRepository.getGenreById(movieId);
@@ -105,10 +102,10 @@ public class MovieService {
     public List<MovieRankingResponse> popularMovies() throws IOException {
         int time = LocalDateTime.now().truncatedTo(ChronoUnit.HOURS).getHour(); // 현재 시각
 
-        String redisKey = "movie_ranking_" + (time-1); // 직전 기록 가져오기
+        String redisKey = "movie_ranking_" + (time - 1); // 직전 기록 가져오기
 
         if (redisUtil.getObject(redisKey) != null) {
-//            System.out.println("Redis Hit!!!");
+            //            System.out.println("Redis Hit!!!");
             return (List<MovieRankingResponse>) redisUtil.getObject(redisKey);
         }
 
@@ -163,6 +160,23 @@ public class MovieService {
 
         return result;
     }
+
+    //    public List<MovieGenreResponse> getMovieList(int genreId, String sort, int page) {
+    //        PageRequest pageRequest=PageRequest.of(page-1,21);  // page << 1부터 받으니까
+    //
+    //        final Slice<MovieGenreResponse> slice =
+    //                movieQueryRepository.findByGenre(
+    //                        GenreSearchCondition.builder()
+    //                                .parentGenreId(genreId)
+    //                                .order(sort)
+    //                                .build(),
+    //                        pageRequest);
+    //
+    //        // Slice에서 Content를 가져와 List로 변환
+    //        List<MovieGenreResponse> movieList = slice.getContent();
+    //        return movieList;
+    //
+    //    }
 
     private List<Movie> transInfoList(List<MovieDocument> movies) {
         return movies.stream().map(Movie::of).collect(Collectors.toList());
