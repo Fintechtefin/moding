@@ -15,7 +15,17 @@ import org.springframework.web.bind.annotation.*;
 public class ReservationController {
     public final ReservationService reservationService;
 
-    @Operation(summary = "좌석 예매를 합니다. 예매 전, 요청한 좌석이 빈좌석일경우에만 예매 가능합니다. 예매 완료후에는 티켓이 발급됩니다.")
+    @Operation(summary = "해당 펀딩에 예약된 좌석을 조회합니다.")
+    @GetMapping("/get/seat/{fundingId}")
+    public ResponseEntity<?> getSeatList(
+            @RequestHeader("Authorization") String accessToken,
+            @PathVariable("fundingId") int fundingId) {
+        int userId = reservationService.getCurrentUserId(accessToken);
+
+        return ResponseEntity.ok().body(reservationService.getSeatList(userId, fundingId));
+    }
+
+    @Operation(summary = "좌석 예매를 합니다. 예매 전, 요청한 좌석이 빈좌석일경우에만 예매 가능합니다. 예매 완료 후 예매 번호를 반환합니다.")
     //    @RequestMapping(value = "/make", method = RequestMethod.POST)
     @PostMapping("/make")
     public ResponseEntity<?> makeReservation(
@@ -25,10 +35,9 @@ public class ReservationController {
 
         reservationService.checkReservation(makeReservationRequest.getFundingId(), userId);
 
-        reservationService.checkPaymentUser(makeReservationRequest.getFundingId(), userId);
-
-        reservationService.checkSeat(makeReservationRequest);
-        int reservationId = reservationService.makeReservation(makeReservationRequest, userId);
+        int reservationId = reservationService.checkSeat(makeReservationRequest, userId);
+        //        int reservationId = reservationService.makeReservation(makeReservationRequest,
+        // userId);
 
         return ResponseEntity.ok().body(reservationId);
     }
