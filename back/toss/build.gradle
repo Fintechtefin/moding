@@ -26,6 +26,9 @@ dependencies {
 	// cloud
 	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 
+	// redis
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
 	// lombok
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
