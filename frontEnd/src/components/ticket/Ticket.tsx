@@ -26,7 +26,6 @@ const Ticket = () => {
         />
         <TicketBack state={state} />
       </div>
-      <div className="test">111111111</div>
     </div>
   );
 };

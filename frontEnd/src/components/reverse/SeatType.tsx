@@ -8,7 +8,7 @@ const SeatItem = ({ label, color }: Props) => {
     <div className="flex items-center gap-[0.5vh]">
       <div className="text-[2vh]">{label}</div>
       <div
-        className={`w-[2.5vh] h-[2.3vh] bg-${color} rounded-t-[1vh] rounded-b-[0.3vh] shj`}
+        className={`w-[2.5vh] h-[2.3vh] bg-${color} rounded-t-lg rounded-b-sm`}
       ></div>
     </div>
   );
