@@ -140,10 +140,16 @@ public class FundingService {
         return orderList.stream().filter(o -> o.isStatus()).mapToInt(o -> o.getCount()).sum();
     }
 
-    public List<FundingRepository.AfterMoodingResponseInterface> getMyFundingResult(
+    public List<FundingRepository.AfterMoodingSuccessResponseInterface> getMySuccessFundingResult(
             String accessToken) {
         int userId = tokenAuthClient.getUserId(accessToken);
-        return fundingRepository.getMyFundingResult(userId);
+        return fundingRepository.getMySuccessFundingResult(userId);
+    }
+
+    public List<FundingRepository.AfterMoodingFailureResponseInterface> getMyFailureFundingResult(
+            String accessToken) {
+        int userId = tokenAuthClient.getUserId(accessToken);
+        return fundingRepository.getMyFailureFundingResult(userId);
     }
 
     public Integer getFundingId(List<Integer> fundingIdList) {

@@ -141,15 +141,22 @@ public class MovieService {
 
         List<MovieRepository.MovieGenreListResponse> movieList = new ArrayList<>();
 
-        if (sort.equals("likeAsc"))
-            movieList = movieRepository.getMovieByGenreLikeAsc(genreId, (page - 1) * 21);
-        else if (sort.equals("likeDesc"))
-            movieList = movieRepository.getMovieByGenreLikeDesc(genreId, (page - 1) * 21);
-        else if (sort.equals("titleDesc"))
-            movieList = movieRepository.getMovieByGenreTitleDesc(genreId, (page - 1) * 21);
-        else movieList = movieRepository.getMovieByGenreTitleAsc(genreId, (page - 1) * 21);
+        String key = "genre_" + genreId + "_" + sort + "_" + page;
+        if (redisUtil.getObject(key) != null) {
+            System.out.println("RedisHit!!!");
+            movieList = (List<MovieRepository.MovieGenreListResponse>) redisUtil.getObject(key);
+        } else {
+            if (sort.equals("likeAsc"))
+                movieList = movieRepository.getMovieByGenreLikeAsc(genreId, (page - 1) * 21);
+            else if (sort.equals("likeDesc"))
+                movieList = movieRepository.getMovieByGenreLikeDesc(genreId, (page - 1) * 21);
+            else if (sort.equals("titleDesc"))
+                movieList = movieRepository.getMovieByGenreTitleDesc(genreId, (page - 1) * 21);
+            else movieList = movieRepository.getMovieByGenreTitleAsc(genreId, (page - 1) * 21);
+            redisUtil.setObject(key, movieList);
+        }
 
-        String key = "genreCount_" + genreId;
+        key = "genreCount_" + genreId;
         if (redisUtil.getData(key) == null) {
             redisUtil.setData(key, String.valueOf(movieRepository.getMovieCountByGenreId(genreId)));
         }
@@ -161,22 +168,25 @@ public class MovieService {
         return result;
     }
 
-    //    public List<MovieGenreResponse> getMovieList(int genreId, String sort, int page) {
-    //        PageRequest pageRequest=PageRequest.of(page-1,21);  // page << 1부터 받으니까
+    //        public List<MovieGenreResponse> getMovieList(int genreId, String sort, int page) {
+    //            PageRequest pageRequest=PageRequest.of(page-1,21);  // page << 1부터 받으니까
     //
-    //        final Slice<MovieGenreResponse> slice =
-    //                movieQueryRepository.findByGenre(
-    //                        GenreSearchCondition.builder()
-    //                                .parentGenreId(genreId)
-    //                                .order(sort)
-    //                                .build(),
-    //                        pageRequest);
+    //            final Slice<MovieGenreResponse> slice =
+    //                    movieQueryRepository.findByGenre(
+    //                            GenreSearchCondition.builder()
+    //                                    .parentGenreId(genreId)
+    //                                    .order(sort)
+    //                                    .build(),
+    //                            pageRequest);
     //
-    //        // Slice에서 Content를 가져와 List로 변환
-    //        List<MovieGenreResponse> movieList = slice.getContent();
-    //        return movieList;
+    //            // Slice에서 Content를 가져와 List로 변환
+    //            List<MovieGenreResponse> movieList = slice.getContent();
     //
-    //    }
+    //            // totalCnt add
+    //
+    //            return movieList;
+    //
+    //        }
 
     private List<Movie> transInfoList(List<MovieDocument> movies) {
         return movies.stream().map(Movie::of).collect(Collectors.toList());

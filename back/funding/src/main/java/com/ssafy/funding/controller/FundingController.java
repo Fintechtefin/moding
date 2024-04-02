@@ -63,11 +63,18 @@ public class FundingController {
         return ResponseEntity.ok(fundingService.getMyFundings(accessToken));
     }
 
-    @Operation(description = "내가 참여한 펀딩 결과를 반환합니다. (애프터 무딩)")
-    @GetMapping("/result")
-    public ResponseEntity<?> getMyFundingResult(
+    @Operation(description = "내가 참여한 성공 펀딩의 결과를 반환합니다. (애프터 무딩)")
+    @GetMapping("/result/success")
+    public ResponseEntity<?> getMySuccessFundingResult(
             @RequestHeader("Authorization") String accessToken) {
-        return ResponseEntity.ok().body(fundingService.getMyFundingResult(accessToken));
+        return ResponseEntity.ok().body(fundingService.getMySuccessFundingResult(accessToken));
+    }
+
+    @Operation(description = "내가 참여한 실패 펀딩의 결과를 반환합니다. (애프터 무딩)")
+    @GetMapping("/result/failure")
+    public ResponseEntity<?> getMyFailureFundingResult(
+            @RequestHeader("Authorization") String accessToken) {
+        return ResponseEntity.ok().body(fundingService.getMyFailureFundingResult(accessToken));
     }
 
     @Operation(summary = "가장 빠른 상영 예정의 펀딩 아이디를 반환합니다.")
