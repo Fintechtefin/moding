@@ -33,10 +33,12 @@ public interface FundingRepository extends CrudRepository<Funding, Integer> {
 
     @Query(
             value =
-                    "select funding.people_count crowdCnt, funding.price, funding.time movieDate, cinema.name cinemaName, (select sum(count) from orders where orders.funding_id=funding.funding_id) peopleCnt from funding "
-                            + "join cinema on funding.cinema_id=cinema.cinema_id where funding.movie_id=:movieId order by funding.funding_id desc limit 1",
+                    "select funding.funding_id fundingId, funding.people_count crowdCnt, funding.price price, funding.time time, funding.date date, cinema.name cinemaName, ifnull((select sum(count) from orders where orders.funding_id=funding.funding_id),0) peopleCnt, "
+                            + "ifnull((select count(*) from orders where orders.funding_id=funding.funding_id and orders.user_id= :userId),0) as participant from funding "
+                            + "join cinema on funding.cinema_id=cinema.cinema_id "
+                            + "where funding.movie_id= :movieId order by funding.funding_id desc limit 1",
             nativeQuery = true)
-    OpenFundingResponseInterface getOpenFundingInfo(int movieId);
+    OpenFundingResponseInterface getOpenFundingInfo(int movieId, int userId);
 
     @Query(
             value =
@@ -95,12 +97,18 @@ public interface FundingRepository extends CrudRepository<Funding, Integer> {
     public interface OpenFundingResponseInterface {
         String getCinemaName();
 
-        String getMovieDate();
+        String getTime();
 
         int getCrowdCnt();
 
         int getPrice();
 
         int getPeopleCnt();
+
+        int getFundingId();
+
+        LocalDate getDate();
+
+        int getParticipant();
     }
 }
