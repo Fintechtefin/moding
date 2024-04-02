@@ -58,7 +58,7 @@ public class MovieQueryRepository {
         Expression<Long> likeCountExpression =
                 JPAExpressions.select(movieLike.count())
                         .from(movieLike)
-                        .where(movieLike.movieId.eq(movieId));
+                        .where(movieLike.movieId.eq(movieId.intValue()));
 
         if ("likeAsc".equals(orderByField)) {
             return Expressions.asNumber(likeCountExpression).asc();

@@ -44,17 +44,30 @@ public interface FundingRepository extends CrudRepository<Funding, Integer> {
             value =
                     "select movie.movie_id movieId, movie.title, movie.poster, funding.date,"
                             + "(select sum(count) from orders where orders.funding_id=funding.funding_id) attendCnt,"
-                            + "(select reservation_id from reservation where reservation.funding_id=funding.funding_id) reservationId,"
-                            + "(select funding_final_result from funding_history where funding_history.funding_id=funding.funding_id) fundingFinalResult,"
+                            + "ifnull((select reservation_id from reservation where reservation.funding_id=funding.funding_id),0) reservationId,"
                             + "funding.people_count goalCnt from funding "
                             + "join movie on movie.movie_id=funding.movie_id "
-                            + "join orders on orders.funding_id=funding.funding_id where orders.user_id=:userId and movie.status='CLOSED' "
-                            + "group by funding.funding_id,movieId,title,poster,date,attendCnt,reservationId,fundingFinalResult,goalCnt "
-                            + " order by funding.funding_id desc",
+                            + "join orders on orders.funding_id=funding.funding_id "
+                            + "where (orders.user_id=1 and movie.status='CLOSED' and (select funding_final_result from funding_history where funding_history.funding_id=funding.funding_id)=true) or movie.status='RESERVATION' "
+                            + "group by funding.funding_id,movieId,title,poster,date,attendCnt,reservationId,goalCnt "
+                            + "order by funding.funding_id desc",
             nativeQuery = true)
-    List<AfterMoodingResponseInterface> getMyFundingResult(int userId);
+    List<AfterMoodingSuccessResponseInterface> getMySuccessFundingResult(int userId);
 
-    public interface AfterMoodingResponseInterface {
+    @Query(
+            value =
+                    "select movie.movie_id movieId, movie.title, movie.poster, funding.date,"
+                            + "ifnull((select sum(count) from orders where orders.funding_id=funding.funding_id),0) attendCnt,"
+                            + "funding.people_count goalCnt from funding "
+                            + "join movie on movie.movie_id=funding.movie_id "
+                            + "join orders on orders.funding_id=funding.funding_id "
+                            + "where orders.user_id=1 and movie.status='CLOSED' and (select funding_final_result from funding_history where funding_history.funding_id=funding.funding_id)=false "
+                            + "group by funding.funding_id,movieId,title,poster,date,attendCnt,goalCnt "
+                            + "order by funding.funding_id desc",
+            nativeQuery = true)
+    List<AfterMoodingFailureResponseInterface> getMyFailureFundingResult(int userId);
+
+    public interface AfterMoodingSuccessResponseInterface {
         int getMovieId();
 
         String getTitle();
@@ -68,8 +81,20 @@ public interface FundingRepository extends CrudRepository<Funding, Integer> {
         int getGoalCnt();
 
         int getReservationId();
+    }
 
-        int getFundingFinalResult();
+    public interface AfterMoodingFailureResponseInterface {
+        int getMovieId();
+
+        String getTitle();
+
+        String getPoster();
+
+        LocalDate getDate();
+
+        int getAttendCnt();
+
+        int getGoalCnt();
     }
 
     public interface FundingProgressResponseInterface {
