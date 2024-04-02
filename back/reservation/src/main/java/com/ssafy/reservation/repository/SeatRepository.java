@@ -9,7 +9,11 @@ public interface SeatRepository extends JpaRepository<Seat, Integer> {
         String getPosition();
     }
 
+    List<Seat> findByFundingId(int fundingId);
+
     Seat findByFundingIdAndPosition(int fundingId, String position);
 
     List<SeatPositionInfo> findByReservationIdAndFundingId(int reservationId, int fundingId);
+
+    Seat findByReservationId(int reservationid);
 }
