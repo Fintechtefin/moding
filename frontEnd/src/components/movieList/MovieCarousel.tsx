@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "@/assets/styles/movieList/MovieCarousel.scss";
 import { Link } from "react-router-dom";
 
@@ -42,18 +42,18 @@ const images = [
 
 const MovieCarousel = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [startTouchX, setStartTouchX] = useState(null);
+  const [startTouchX, setStartTouchX] = useState(0);
 
   const rotateCarousel = () => {
     const angle = (selectedIndex / images.length) * -360;
     return { transform: `translateZ(-275px) rotateY(${angle}deg)` };
   };
 
-  const handleTouchStart = (event) => {
+  const handleTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
     setStartTouchX(event.touches[0].clientX);
   };
 
-  const handleTouchMove = (event) => {
+  const handleTouchMove = (event: React.TouchEvent<HTMLDivElement>) => {
     if (!startTouchX) return;
 
     const currentTouchX = event.touches[0].clientX;
@@ -63,10 +63,10 @@ const MovieCarousel = () => {
       setSelectedIndex(
         (prevIndex) => (prevIndex - 1 + images.length) % images.length
       );
-      setStartTouchX(null);
+      setStartTouchX(0);
     } else if (deltaX < -50) {
       setSelectedIndex((prevIndex) => (prevIndex + 1) % images.length);
-      setStartTouchX(null);
+      setStartTouchX(0);
     }
   };
 

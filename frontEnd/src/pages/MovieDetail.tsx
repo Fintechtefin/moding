@@ -15,11 +15,11 @@ import { getSearchDetail, getMovieDetail } from "@api/movie";
 const MovieDetail = () => {
   const location = useLocation();
   const way = location.state.type;
-  const { id } = useParams<{ id: string }>();
+  const { id } = useParams() as { id: string };
   const [log, setLog] = useState("");
   const [movieId, setMovieId] = useState("");
 
-  const { data: searchDetail } = useQuery<MovieInfo[], Error>({
+  const { data: searchDetail } = useQuery<MovieInfo, Error>({
     queryKey: ["logResult", log], // 쿼리 키를 지정합니다.
     queryFn: () => {
       if (log.length === 0) {
@@ -30,7 +30,7 @@ const MovieDetail = () => {
     },
   });
 
-  const { data: movieDetail } = useQuery<MovieInfo[], Error>({
+  const { data: movieDetail } = useQuery<MovieInfo, Error>({
     queryKey: ["movieResult", movieId], // 쿼리 키를 지정합니다.
     queryFn: () => {
       if (movieId.length === 0) {
@@ -58,7 +58,7 @@ const MovieDetail = () => {
     }
   }, [searchDetail, movieDetail]);
 
-  const [movieInfo, setMovieInfo] = useState<MovieInfo[]>();
+  const [movieInfo, setMovieInfo] = useState<MovieInfo>();
 
   const [infoCategory, setInfoCategory] = useState(0);
   const [modalShow, setModalShow] = useState(false);
@@ -67,7 +67,11 @@ const MovieDetail = () => {
 
   useEffect(() => {
     if (movieInfo) {
-      if (movieInfo.status === "무딩 준비 중" || movieInfo.status === "무딩종료") {
+      console.log(movieInfo);
+      if (
+        movieInfo.status === "무딩 준비 중" ||
+        movieInfo.status === "무딩종료"
+      ) {
         setFundingInfo(false);
       }
     }
@@ -100,30 +104,55 @@ const MovieDetail = () => {
               <span>|</span>
               <div>{movieInfo.age}</div>
             </div>
-            <div className="w-[90%] mt-8">{fundingInfo && <InfoArea status={movieInfo.status} />}</div>
+            <div className="w-[90%] mt-8">
+              {fundingInfo && <InfoArea status={movieInfo.status} />}
+            </div>
           </div>
           {/* 상세정보영역 */}
           <div>
             <div className="info-detail flex flex-row justify-around mt-10 text-[2.3vh] border-red-700">
-              <div className={`border-red-700 ${infoCategory == 0 ? "select" : ""}`} onClick={() => setInfoCategory(0)}>
+              <div
+                className={`border-red-700 ${
+                  infoCategory == 0 ? "select" : ""
+                }`}
+                onClick={() => setInfoCategory(0)}
+              >
                 영화 정보
               </div>
-              <div className={`border-red-700 ${infoCategory == 1 ? "select" : ""}`} onClick={() => setInfoCategory(1)}>
+              <div
+                className={`border-red-700 ${
+                  infoCategory == 1 ? "select" : ""
+                }`}
+                onClick={() => setInfoCategory(1)}
+              >
                 펀딩 정보
               </div>
-              <div className={`border-red-700 ${infoCategory == 2 ? "select" : ""}`} onClick={() => setInfoCategory(2)}>
+              <div
+                className={`border-red-700 ${
+                  infoCategory == 2 ? "select" : ""
+                }`}
+                onClick={() => setInfoCategory(2)}
+              >
                 유의 사항
               </div>
             </div>
             <div className="px-4 pt-4 pb-20">
-              {infoCategory == 0 && <AboutMovie actors={movieInfo.actors} plot={movieInfo.plot} />}
+              {infoCategory == 0 && (
+                <AboutMovie actors={movieInfo.actors} plot={movieInfo.plot} />
+              )}
               {infoCategory == 1 && <AboutFunding />}
               {infoCategory == 2 && <AboutNote />}
             </div>
           </div>
           {/* 버튼 */}
           <div className="z-[2] button-area cursor-pointer sticky bottom-0 w-[100%] h-[8vh]">
-            <MovieDetailButton id={movieInfo.id} status={movieInfo.status} likeCnt={movieInfo.likeCnt} hopeCnt={movieInfo.hopeCnt} alarmCnt={movieInfo.alarmCnt} modalDown={modalDown} />
+            <MovieDetailButton
+              id={movieInfo.movieId}
+              status={movieInfo.status}
+              likeCnt={movieInfo.likeCnt}
+              hopeCnt={movieInfo.hopeCnt}
+              modalDown={modalDown}
+            />
           </div>
           {modalShow && <HopeSurvey modalDown={modalDown} id={movieId} />}
         </div>

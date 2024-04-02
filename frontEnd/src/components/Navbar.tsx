@@ -9,11 +9,10 @@ import person from "@assets/images/person.webp";
 import heart from "@assets/images/heart.webp";
 import cinema from "@assets/images/cinema.png";
 import coinbank from "@assets/images/coinbank.png";
-import { GiTheaterCurtains } from "react-icons/gi";
-import { LiaPiggyBankSolid } from "react-icons/lia";
 
 const Navbar = () => {
-  const navbarItemClassnames = "group relative flex flex-col justify-around items-center p-1 w-[100%] h-[100%] text-xs text-white bg-red-600 rounded-t-[20px]";
+  const navbarItemClassnames =
+    "group relative flex flex-col justify-around items-center p-1 w-[100%] h-[100%] text-xs text-white bg-red-600 rounded-t-[20px]";
 
   const food = "food w-2.5 h-2/4 flex justify-center self-end translate-y-0.5";
 

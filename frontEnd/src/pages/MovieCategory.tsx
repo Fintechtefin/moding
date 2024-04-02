@@ -68,12 +68,12 @@ const MovieCategory = () => {
     }
   };
 
-  const changeCategory = (swiper) => {
-    const activeIdx = swiper.activeIndex;
-    setActiveIndex(activeIdx);
-    setCategory(categoryNav[activeIdx].id);
-    setCateTitle(categoryNav[activeIdx].category);
-  };
+  // const changeCategory = (swiper:Swiper) => {
+  //   const activeIdx = swiper.activeIndex;
+  //   setActiveIndex(activeIdx);
+  //   setCategory(categoryNav[activeIdx].id);
+  //   setCateTitle(categoryNav[activeIdx].category);
+  // };
 
   const goTop = () => {
     if (!window.scrollY) return;
@@ -98,7 +98,12 @@ const MovieCategory = () => {
           effect="coverflow"
           slidesPerView={3}
           centeredSlides={true}
-          onSlideChange={changeCategory}
+          onSlideChange={(swiper) => {
+            const activeIdx = swiper.activeIndex;
+            setActiveIndex(activeIdx);
+            setCategory(categoryNav[activeIdx].id);
+            setCateTitle(categoryNav[activeIdx].category);
+          }}
           slideToClickedSlide={true}
           coverflowEffect={{
             rotate: 0,

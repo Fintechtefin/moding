@@ -10,6 +10,8 @@ const ProgressArea = ({ crowd, joinCnt }: Props) => {
   const [percent, setPercent] = useState(0);
   const [gage, setGage] = useState(0);
 
+  console.log(gage);
+
   const divRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
