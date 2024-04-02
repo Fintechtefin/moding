@@ -4,11 +4,13 @@ import Subscribe from "@components/subscribe/Subscribe";
 import SubscribeType from "@components/subscribe/SubscribeType";
 import { MovieFund } from "@util/types";
 import { axiosApi } from "@util/commons";
+import Loading from "@pages/payment/Loading";
 
 const SubscribePage = () => {
   const [check, setCheck] = useState("like");
   const [likeFund, setLikeFund] = useState<MovieFund[]>([]);
   const [reqFund, setReqFund] = useState<MovieFund[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setCheck(e.target.value);
@@ -24,6 +26,7 @@ const SubscribePage = () => {
         setLikeFund(data);
       } else {
         setReqFund(data.requestMovieResponseList);
+        setIsLoading(false);
       }
     } catch (error) {
       console.error("Error fetching funds", error);
@@ -41,13 +44,17 @@ const SubscribePage = () => {
       <div>
         <SubscribeType check={check} handleChange={handleChange} />
         <div className="h-[88vh] relative">
-          <div className="none-scroll max-h-[88vh] overflow-auto p-[3vh] pb-[10vh] grid grid-cols-2 gap-[3vh]">
-            {check === "like" ? (
-              <Subscribe type="like" data={likeFund} setData={setLikeFund} />
-            ) : (
-              <Subscribe type="req" data={reqFund} setData={setReqFund} />
-            )}
-          </div>
+          {isLoading ? (
+            <Loading />
+          ) : (
+            <div className="none-scroll max-h-[88vh] overflow-auto p-[3vh] pb-[10vh] grid grid-cols-2 gap-[3vh]">
+              {check === "like" ? (
+                <Subscribe type="like" data={likeFund} setData={setLikeFund} />
+              ) : (
+                <Subscribe type="req" data={reqFund} setData={setReqFund} />
+              )}
+            </div>
+          )}
         </div>
       </div>
     </div>
