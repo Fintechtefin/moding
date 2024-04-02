@@ -1,5 +1,6 @@
 package com.ssafy.funding.config;
 
+import io.lettuce.core.ReadFrom;
 import java.time.Duration;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
@@ -11,6 +12,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.connection.RedisStaticMasterReplicaConfiguration;
+import org.springframework.data.redis.connection.lettuce.LettuceClientConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
@@ -22,10 +25,10 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @EnableRedisRepositories
 public class RedisConfig {
 
-    @Value("${redis.host}")
+    @Value("${redis.master.host}")
     private String redisHost;
 
-    @Value("${redis.port}")
+    @Value("${redis.master.port}")
     private int redisPort;
 
     private static final String REDISSON_HOST_PREFIX = "redis://";
@@ -39,7 +42,15 @@ public class RedisConfig {
 
     @Bean
     public RedisConnectionFactory redisConnectionFactory() {
-        return new LettuceConnectionFactory(redisHost, redisPort);
+        LettuceClientConfiguration clientConfig =
+                LettuceClientConfiguration.builder()
+                        .readFrom(
+                                ReadFrom.REPLICA_PREFERRED) // replica에서 우선적으로 읽지만 replica에서 읽어오지 못할
+                        // 경우 Master에서 읽어옴
+                        .build();
+        RedisStaticMasterReplicaConfiguration slaveConfig =
+                new RedisStaticMasterReplicaConfiguration(redisHost, redisPort);
+        return new LettuceConnectionFactory(slaveConfig, clientConfig);
     }
 
     @Bean
