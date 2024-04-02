@@ -10,13 +10,13 @@ interface Props {
 const MainLayout = ({ type }: Props) => {
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   const { pathname } = window.location;
-  //   const isLogin = getIsLogin();
-  //   const isLoginPage = pathname.startsWith("/login");
+  useEffect(() => {
+    const { pathname } = window.location;
+    const isLogin = getIsLogin();
+    const isLoginPage = pathname.startsWith("/login");
 
-  //   if (!isLogin && !isLoginPage) navigate("/login", { replace: true });
-  // }, []);
+    if (!isLogin && !isLoginPage) navigate("/login", { replace: true });
+  }, []);
 
   return (
     <>
