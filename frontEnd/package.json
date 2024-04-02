@@ -4,8 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "dotenv -e ./moding_front_submodule/.env vite",
-    "build": "tsc && dotenv -e ./moding_front_submodule/.env  vite build",
+    "dev": "dotenv -e ./moding_front_submodule/.env -e ./moding_front_submodule/.env.dev vite",
+    "build": "tsc && dotenv -e ./moding_front_submodule/.env -e ./moding_front_submodule/.env.prod  vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
