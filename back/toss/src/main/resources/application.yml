@@ -6,3 +6,13 @@ server:
   port: 8087
   servlet:
     context-path: /toss
+
+redis:
+  master:
+    host: 172.23.0.1
+    port: 27890
+  slaves:
+    - host: 172.23.0.1
+      port: 27891
+    - host: 172.23.0.1
+      port: 27892
