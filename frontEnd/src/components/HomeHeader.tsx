@@ -7,17 +7,15 @@ import { axiosApi } from "@util/commons";
 
 const TopNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-
   const navigate = useNavigate();
-  const api = axiosApi();
 
-  const handleClick = async () => {
+  const clickTicket = async () => {
     try {
-      const { data } = await api.get("/reservations/recent");
+      const { data } = await axiosApi().get("/reservations/recent");
       console.log(data);
 
       if (data) {
-        navigate("user/ticket");
+        navigate(`user/ticket/${data.number}`, { state: data });
       } else {
         setIsOpen(true);
       }
@@ -30,7 +28,7 @@ const TopNavbar = () => {
 
   return (
     <div className="h-[7vh] flex gap-4 justify-end items-center px-[3vh] text-[3vh]">
-      <IoTicketOutline className="cursor-pointer" onClick={handleClick} />
+      <IoTicketOutline className="cursor-pointer" onClick={clickTicket} />
       <LuBellRing
         className="cursor-pointer"
         onClick={() => navigate("user/notification")}

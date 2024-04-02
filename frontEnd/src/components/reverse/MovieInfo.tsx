@@ -1,13 +1,14 @@
+import { useRecoilValue, useResetRecoilState } from "recoil";
 import {
   selectSeatsAtom,
   selectSeatsLengthSelector,
 } from "@recoil/reserveStore";
-import { useRecoilValue, useResetRecoilState } from "recoil";
 import { toastMsg } from "@util/commonFunction";
 import { ToasterMsg } from "@components/Common";
 import moviePost from "@assets/images/영화포스터.jpg";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { axiosApi } from "@util/commons";
 
 interface Props {
   max: number;
@@ -16,7 +17,7 @@ interface Props {
 const MovieInfo = ({ max }: Props) => {
   const selectSeatsLength = useRecoilValue(selectSeatsLengthSelector);
   const selectSeats = useRecoilValue(selectSeatsAtom);
-  const resetSeats = useResetRecoilState(selectSeatsAtom);
+  const resetSelectSeats = useResetRecoilState(selectSeatsAtom);
 
   const navigate = useNavigate();
 
@@ -33,46 +34,29 @@ const MovieInfo = ({ max }: Props) => {
 
       console.log(line, col);
 
-      const data = {
+      const seatData = {
         fundingId: 1,
         seats: {
           seat: [
             {
-              col,
-              line,
+              col: 11,
+              line: "J",
             },
           ],
         },
-        userId: 1,
       };
 
-      console.log(data);
+      console.log(seatData);
 
-      const res = await axios.post(
-        `${import.meta.env.VITE_BASE_URL}/api/reservations/make`,
-        data,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: localStorage.getItem("jwt"),
-          },
-        }
-      );
+      const res = await axiosApi().post(`reservations/make`, seatData);
 
       console.log(res.data);
 
-      const res1 = await axios.get(
-        `${import.meta.env.VITE_BASE_URL}/api/reservations/get/${7}`,
-        {
-          headers: {
-            Authorization: localStorage.getItem("jwt"),
-          },
-        }
-      );
+      const res1 = await axiosApi().get(`/reservations/get/${7}`);
 
       console.log(res1);
 
-      resetSeats();
+      resetSelectSeats();
 
       navigate(`/user/ticket/${7}`, {
         state: res1.data,
@@ -80,11 +64,18 @@ const MovieInfo = ({ max }: Props) => {
       });
     } catch (err) {
       console.log(err);
+      if (
+        axios.isAxiosError(err) &&
+        err.response?.data.code === "Reservation_400_6"
+      ) {
+        toastMsg("이미 예약 된 자석입니다.");
+        resetSelectSeats();
+      }
     }
   };
 
   return (
-    <div className="text-black bg-white w-[100%] h-[20vh] rounded-t-[3vh] ">
+    <div className="text-black bg-white w-full h-[20vh] rounded-t-2xl ">
       <div className="p-[2vh] flex gap-[3vh]">
         <div className="flex flex-col justify-between grow text-[2.5vh]">
           <div className="flex gap-[2vh]">
@@ -97,7 +88,7 @@ const MovieInfo = ({ max }: Props) => {
           </div>
         </div>
         <img
-          className="h-[10vh] object-cover rounded-[0.8vh]"
+          className="h-[10vh] object-cover rounded"
           src={moviePost}
           alt="영화포스터"
         />

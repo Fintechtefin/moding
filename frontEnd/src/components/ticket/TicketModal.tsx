@@ -6,8 +6,8 @@ const TicketModal = ({ setOpen }: Props) => {
   const handleClick = () => setOpen(false);
 
   return (
-    <div className="absolute top-0 left-0 h-[100vh] w-[100%] bg-black/80 flex justify-center items-center">
-      <div className="bg-bgGray w-[43vh] h-[78vh] rounded-[2vh] border border-solid border-red-600 flex flex-col shadow-bgTT shadow-red-600">
+    <div className="absolute inset-0 flex items-center justify-center bg-black/80">
+      <div className="bg-bgGray w-[43vh] h-[78vh] rounded-2xl border border-solid border-red-600 flex flex-col shadow-bgTT shadow-red-600">
         <div className="p-[1vh] flex flex-col items-center ">
           <div className="p-[3vh] text-[3vh] font-bold">상영안내</div>
           <hr className="w-[90%] border border-red-600 shadow-bgTT shadow-red-600" />
@@ -27,7 +27,7 @@ const TicketModal = ({ setOpen }: Props) => {
           </div>
         </div>
         <button
-          className="w-[100%] border-none bg-red-600 text-[3vh] flex-1 rounded-b-[2vh] text-white cursor-pointer shadow-bgRed"
+          className="w-[100%] border-none bg-red-600 text-[3vh] flex-1 rounded-b-2xl text-white cursor-pointer shadow-bgRed"
           onClick={handleClick}
         >
           확인

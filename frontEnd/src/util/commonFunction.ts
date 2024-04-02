@@ -74,7 +74,7 @@ export function addMinutesToTime(time: string, minutesToAdd: number) {
   return `${hours}:${minutes}`;
 }
 
-export const toastMsg = (msg: string) => toast(msg, { duration: 1500 });
+export const toastMsg = (msg: string) => toast(msg, { duration: 2000 });
 
 export default function getIsLogin() {
   return !!localStorage.getItem("jwt");
