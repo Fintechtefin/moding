@@ -1,5 +1,5 @@
 import { axiosApi } from "@/util/commons";
-import { Movie, MovieRanking } from "@util/types/movieType";
+// import { Movie, MovieRanking } from "@util/types/movieType";
 
 const url = "/fundings";
 

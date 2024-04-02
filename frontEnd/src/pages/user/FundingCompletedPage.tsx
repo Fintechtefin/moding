@@ -15,6 +15,12 @@ const FundingCompletedPage = () => {
     setState(e.target.value);
   };
 
+  const removeFund = (reservationId: number) => {
+    setSuccessData((prev) =>
+      prev.filter((item) => item.reservationId !== reservationId)
+    );
+  };
+
   useEffect(() => {
     const getAfterModing = async () => {
       try {
@@ -48,7 +54,7 @@ const FundingCompletedPage = () => {
         <FundingCompletedMenu state={state} handleChange={handleChange} />
         <div className="none-scroll h-[88vh] overflow-auto p-[3vh] flex flex-col gap-[3vh] relative">
           {state === "success" ? (
-            <FundingSuccess successData={successData} />
+            <FundingSuccess successData={successData} removeFund={removeFund} />
           ) : (
             <FundingFail failData={failData} />
           )}
