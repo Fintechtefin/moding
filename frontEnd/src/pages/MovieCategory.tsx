@@ -54,6 +54,7 @@ const MovieCategory = () => {
 
   useEffect(() => {
     setCategory(categoryNav[idx].id);
+    setCateTitle(categoryNav[idx].category);
   }, []);
 
   const changeSort = () => {
@@ -67,13 +68,6 @@ const MovieCategory = () => {
       setSort("titleAsc");
     }
   };
-
-  // const changeCategory = (swiper:Swiper) => {
-  //   const activeIdx = swiper.activeIndex;
-  //   setActiveIndex(activeIdx);
-  //   setCategory(categoryNav[activeIdx].id);
-  //   setCateTitle(categoryNav[activeIdx].category);
-  // };
 
   const goTop = () => {
     if (!window.scrollY) return;

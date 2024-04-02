@@ -9,7 +9,7 @@ type PosterProps = {
 const MovieListItem = ({ state, url, heigth }: PosterProps) => {
   return (
     <div className="w-[100%] relative">
-      <StatusBadge status={state} textSize="1vh" />
+      <StatusBadge status={state} textSize="2vh" />
       <div className="w-[100%]"></div>
       <img
         className={`w-[100%] h-[${heigth}] object-cover brightness-[90%]"`}

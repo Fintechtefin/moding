@@ -35,24 +35,79 @@ const ModingList = ({ status, getModingBack }: Props) => {
     <>
       {posterList && (
         <div className="relative">
-          <div className="flex flex-col mt-3  px-[1.6vh]">
-            <Link to={`/fund/list/${posterList[0].movieId}`} state={{ type: "list" }}>
-              <img className="w-[100%] aspect-square object-cover brightness-[90%]" src={posterList[0].poster} alt="" />
+          <div className="flex flex-col mt-3 px-[1.6vh] relative">
+            <Link
+              to={`/fund/list/${posterList[0].movieId}`}
+              state={{ type: "list" }}
+            >
+              <img
+                className="w-[100%] aspect-square object-cover brightness-[90%]"
+                src={posterList[0].poster}
+                alt=""
+              />
             </Link>
             <div className="absolute w-[100%] top-0 right-3">
-              <StatusBadge status={posterList[0].status} textSize="2.5vh" />
+              <StatusBadge status={posterList[0].status} textSize="3vh" />
             </div>
             <div className="mt-2">
-              <ProgressArea crowd={posterList[0].crowdCnt} joinCnt={posterList[0].peopleCnt} />
+              {posterList[0].status == "무딩중" && (
+                <>
+                  <ProgressArea
+                    crowd={posterList[0].crowdCnt}
+                    joinCnt={posterList[0].peopleCnt}
+                    height="4vh"
+                    size="big"
+                  />
+                </>
+              )}
+              {posterList[0].status == "무딩 준비 중" && (
+                <>
+                  <div className="absolute right-5 bottom-3 text-white text-2xl">
+                    {posterList[0].requestCnt}/200
+                  </div>
+                </>
+              )}
             </div>
+            <div className="absolute text-8xl top-0">1</div>
           </div>
-          <div className="movie-list none-scroller px-[1.6vh] mt-5 grid grid-cols-3 gap-[1.2vh] overflow-auto pb-20">
+          <div className="movie-list relative none-scroller px-[1.6vh] mt-10 grid grid-cols-3 gap-[1.2vh] overflow-auto pb-20">
             {posterList.map((poster, index) => {
               if (index !== 0) {
                 return (
-                  <Link to={`/fund/list/${poster.movieId}`} key={index} state={{ type: "list" }}>
-                    <MovieListItem state={poster.status} url={poster.poster} heigth="23vh"></MovieListItem>
-                  </Link>
+                  <div key={index} className="relative">
+                    <Link
+                      to={`/fund/list/${poster.movieId}`}
+                      state={{ type: "list" }}
+                    >
+                      <MovieListItem
+                        state={poster.status}
+                        url={poster.poster}
+                        heigth="23vh"
+                      ></MovieListItem>
+                    </Link>
+                    <div className="absolute top-0 left-1 text-[4vh]">
+                      {index + 1}
+                    </div>
+                    <div className="mt-1 mb-3">
+                      {poster.status == "무딩중" && (
+                        <>
+                          <ProgressArea
+                            crowd={poster.crowdCnt}
+                            joinCnt={poster.peopleCnt}
+                            height="1vh"
+                            size="small"
+                          />
+                        </>
+                      )}
+                      {poster.status == "무딩 준비 중" && (
+                        <>
+                          <div className="absolute bottom-[2vh] right-1">
+                            {poster.requestCnt}/200
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  </div>
                 );
               } else {
                 return null;
