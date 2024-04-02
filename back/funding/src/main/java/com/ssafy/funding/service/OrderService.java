@@ -39,7 +39,7 @@ public class OrderService {
 
     public Order orderFunding(final ConfirmOrderRequest confirmOrderRequest, Integer userId) {
         final Order order = createFundingOrder(confirmOrderRequest, userId);
-        order.confirm(1, orderValidator);
+        order.confirm(userId, orderValidator);
         return order;
     }
 
