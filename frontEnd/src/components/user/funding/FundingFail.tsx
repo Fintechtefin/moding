@@ -11,7 +11,7 @@ const FundingFail = ({ failData }: Props) => {
     <>
       {failData.length ? (
         failData.map((item) => {
-          return <FundingFailItem key={item.reservationId} item={item} />;
+          return <FundingFailItem key={item.movieId} item={item} />;
         })
       ) : (
         <NoneData content="실패한 펀딩이 없습니다." />

@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import Loading from "@pages/payment/Loading";
+import { axiosApi } from "@util/commons";
 
 const PaymentSuccessPage = () => {
   const navigate = useNavigate();
@@ -21,17 +22,9 @@ const PaymentSuccessPage = () => {
     const confirm = async () => {
       try {
         console.log(searchParams.get("orderId"));
-        const res = await axios.post(
-          `${
-            import.meta.env.VITE_BASE_URL
-          }/api/fundings/orders/${searchParams.get("orderId")}/confirm`,
-          requestData,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: localStorage.getItem("jwt"),
-            },
-          }
+        const res = await axiosApi().post(
+          `/fundings/orders/${searchParams.get("orderId")}/confirm`,
+          requestData
         );
 
         navigate("/fund/payment/completed", {

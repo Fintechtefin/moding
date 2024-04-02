@@ -16,14 +16,14 @@ import {
 
 const ReservePage = () => {
   const resetSeats = useResetRecoilState(selectSeatsAtom);
-
   const selectSeatsLength = useRecoilValue(selectSeatsLengthSelector);
 
+  const navigate = useNavigate();
+
   const [isModalOpen, setIsModalOpen] = useState(false);
+
   const [max] = useState(1);
   const occupiedSeats: string[] = ["B5", "C6", "D7"];
-
-  const navigate = useNavigate();
 
   const handleBackButtonClick = () => {
     if (selectSeatsLength) {
