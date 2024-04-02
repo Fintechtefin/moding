@@ -6,6 +6,7 @@ import FundingFail from "@components/user/funding/FundingFail";
 import axios from "axios";
 import { FundingCompleted } from "@util/types";
 import Loading from "@pages/payment/Loading";
+import { axiosApi } from "@util/commons";
 
 const FundingCompletedPage = () => {
   const [state, setState] = useState("success");
@@ -26,21 +27,13 @@ const FundingCompletedPage = () => {
   useEffect(() => {
     const getAfterModing = async () => {
       try {
-        const res = await axios.get<FundingCompleted[]>(
-          `${import.meta.env.VITE_BASE_URL}/api/fundings/result`,
-          {
-            headers: {
-              Authorization: localStorage.getItem("jwt"),
-            },
-          }
-        );
+        const res = await axiosApi().get(`/fundings/result/success`);
+        const res1 = await axiosApi().get(`/fundings/result/failure`);
 
-        const completedData = res.data;
+        console.log(res1.data);
 
-        console.log(completedData);
-
-        setSuccessData(completedData.filter((data) => data.fundingFinalResult));
-        setFailData(completedData.filter((data) => !data.fundingFinalResult));
+        setSuccessData(res.data);
+        setFailData(res1.data);
         setIsLoading(false);
       } catch (error) {
         console.log(error);

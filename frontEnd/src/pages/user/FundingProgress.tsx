@@ -17,6 +17,7 @@ const FundingProgress = () => {
     const getFund = async () => {
       try {
         const { data } = await api.get("/fundings/participation");
+        console.log(data);
         console.log(data.joinFundingResponseList);
         setData(data.joinFundingResponseList);
         setIsLoading(false);

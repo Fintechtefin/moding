@@ -5,10 +5,10 @@ import {
 } from "@recoil/reserveStore";
 import { toastMsg } from "@util/commonFunction";
 import { ToasterMsg } from "@components/Common";
-import moviePost from "@assets/images/영화포스터.jpg";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { axiosApi } from "@util/commons";
+import { useState } from "react";
 
 interface Props {
   max: number;
@@ -20,6 +20,11 @@ const MovieInfo = ({ max }: Props) => {
   const resetSelectSeats = useResetRecoilState(selectSeatsAtom);
 
   const navigate = useNavigate();
+  const location = useLocation();
+
+  console.log(location.state);
+
+  const [fundInfo] = useState(location.state);
 
   const handleClick = async () => {
     if (selectSeatsLength < max) {
@@ -89,7 +94,7 @@ const MovieInfo = ({ max }: Props) => {
         </div>
         <img
           className="h-[10vh] object-cover rounded"
-          src={moviePost}
+          src={fundInfo.poster}
           alt="영화포스터"
         />
       </div>

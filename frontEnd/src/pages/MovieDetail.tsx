@@ -85,6 +85,7 @@ const MovieDetail = () => {
     const fundinfos = {
       fundinfo: fundinfo,
       poster: movieInfo?.poster,
+      movieTitle: movieInfo?.title,
     };
     if (type === "join") {
       navigate(`/fund/payment`, { state: fundinfos });
