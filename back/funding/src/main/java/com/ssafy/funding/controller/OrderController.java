@@ -7,8 +7,10 @@ import com.ssafy.funding.dto.request.RefundOrderRequest;
 import com.ssafy.funding.service.MockService;
 import com.ssafy.funding.service.OrderService;
 import com.ssafy.funding.service.client.UserClient;
+import io.github.bucket4j.Bucket;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +24,7 @@ public class OrderController {
     private final MockService mockService;
     private final UserClient userClient;
     private final TokenAuthClient tokenAuthClient;
+    private final Bucket bucket;
 
     @Operation(summary = "주문(펀딩)을 결제합니다.")
     @PostMapping
@@ -36,6 +39,12 @@ public class OrderController {
             @RequestHeader("Authorization") String authorization,
             @PathVariable("order_uuid") String orderUuid,
             @RequestBody ConfirmOrderRequest confirmOrderRequest) {
+
+        // API 호출 시 토큰 1개 소비
+        if (!bucket.tryConsume(1)) {
+            return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).build();
+        }
+
         return ResponseEntity.ok(
                 orderService.confirmOrder(
                         orderUuid, confirmOrderRequest, tokenAuthClient.getUserId(authorization)));
