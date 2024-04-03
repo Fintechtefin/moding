@@ -1,6 +1,7 @@
 package com.ssafy.funding.service;
 
 import static com.ssafy.funding.exception.global.CustomExceptionStatus.FUNDING_NOT_FOUND;
+import static com.ssafy.funding.exception.global.CustomExceptionStatus.ORDER_NOT_FOUND;
 
 import com.ssafy.funding.controller.feign.TokenAuthClient;
 import com.ssafy.funding.domain.*;
@@ -94,9 +95,15 @@ public class FundingService {
                         .findById(fundingId)
                         .orElseThrow(() -> new BadRequestException(FUNDING_NOT_FOUND));
 
-        int orderCount = orderRepository.findByUserIdAndFundingId(userId, fundingId).getCount();
+        Order order =
+                orderRepository
+                        .findByUserIdAndFundingIdAndStatus(userId, fundingId, true)
+                        .orElseThrow(() -> new BadRequestException(ORDER_NOT_FOUND));
 
-        FundingInfoResponse fundingInfoResponse = FundingInfoResponse.of(funding, orderCount);
+        //        int orderCount = orderRepository.findByUserIdAndFundingId(userId,
+        // fundingId).getCount();
+
+        FundingInfoResponse fundingInfoResponse = FundingInfoResponse.of(funding, order.getCount());
 
         return fundingInfoResponse;
     }
