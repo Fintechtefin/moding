@@ -7,7 +7,7 @@ interface Props {
 
 const Prompt = ({ onClose, onConfirm }: Props) => {
   return (
-    <div className="absolute inset-0 flex justify-center items-center bg-black bg-opacity-80 z-10">
+    <div className="fixed m-auto z-10 inset-0 flex justify-center items-center bg-black bg-opacity-80">
       <div className="bg-bgGray rounded-lg w-[40vh] p-[3vh] flex flex-col justify-between gap-[3vh]">
         <div className="text-[2vh]">
           <p>선택한 좌석 정보가 취소됩니다.</p>

@@ -7,19 +7,37 @@ const SECTIONS = [
   {
     title: "펀딩",
     items: [
-      { name: "무딩중", url: "/user/fund/progress", disable: false },
-      { name: "애프터 무딩", url: "/user/fund/completed", disable: false },
+      {
+        name: "무딩중",
+        type: "navigate",
+        url: "/user/fund/progress",
+        disable: false,
+      },
+      {
+        name: "애프터 무딩",
+        type: "navigate",
+        url: "/user/fund/completed",
+        disable: false,
+      },
     ],
   },
   {
     title: "설정",
     items: [
-      { name: "알림 설정", url: "/user/notification/setting", disable: false },
+      {
+        name: "알림 설정",
+        type: "navigate",
+        url: "/user/notification/setting",
+        disable: false,
+      },
     ],
   },
   {
     title: "기타",
-    items: [{ name: "AI 카메라", url: "a", disable: true }],
+    items: [
+      { name: "AI 카메라", type: "navigate", url: "a", disable: true },
+      { name: "로그아웃", type: "func", url: "a", disable: false },
+    ],
   },
 ];
 
@@ -34,10 +52,7 @@ const MyPage = () => {
 
   return (
     <div>
-      <NavHeader
-        leftWord="마이무딩"
-        rightWord={["IoSettingsOutline", "edit"]}
-      />
+      <NavHeader leftWord="마이무딩" />
       <div className="p-[3vh] flex flex-col gap-[5vh]">
         <div className="flex flex-col justify-center items-center gap-[1vh]">
           <img
@@ -46,7 +61,7 @@ const MyPage = () => {
             onError={(e) => {
               e.currentTarget.src = profileImg;
             }}
-            className="w-[12vh] h-[12vh] rounded-[40px]"
+            className="w-[12vh] h-[12vh] rounded-[30px]"
           />
           <div className="text-[2.5vh] font-bold">{nickname}</div>
         </div>

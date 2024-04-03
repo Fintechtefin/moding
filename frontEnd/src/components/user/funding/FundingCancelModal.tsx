@@ -62,7 +62,7 @@ const FundingCancelModal = ({
   };
 
   return (
-    <div className="absolute inset-0 z-10 flex items-center justify-center bg-black bg-opacity-80 p-[3vh]">
+    <div className=" fixed m-auto inset-0 z-10 flex items-center justify-center bg-black bg-opacity-80 p-[3vh]">
       <div className="bg-bgGray p-[3vh] flex flex-col gap-[3vh] rounded-[2vh] shadow-test">
         <div>
           <div className="a text-[2.5vh] font-bold ">

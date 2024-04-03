@@ -62,6 +62,7 @@ export interface ITicket {
 // 마이 페이지
 export interface MenuOptionItem {
   name: string;
+  type: string;
   url: string;
   disable: boolean;
 }
