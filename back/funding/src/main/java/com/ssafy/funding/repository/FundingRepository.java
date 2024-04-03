@@ -33,7 +33,7 @@ public interface FundingRepository extends CrudRepository<Funding, Integer> {
 
     @Query(
             value =
-                    "select funding.funding_id fundingId, funding.people_count crowdCnt, funding.price price, funding.time time, funding.date date, cinema.name cinemaName, ifnull((select sum(count) from orders where orders.funding_id=funding.funding_id),0) peopleCnt, "
+                    "select funding.funding_id fundingId, funding.people_count crowdCnt, funding.price price, funding.time time, funding.date date, cinema.name cinemaName, ifnull((select sum(count) from orders where orders.funding_id=funding.funding_id and orders.status=true),0) peopleCnt, "
                             + "ifnull((select count(*) from orders where orders.funding_id=funding.funding_id and orders.user_id= :userId and orders.status=true),0) as participant from funding "
                             + "join cinema on funding.cinema_id=cinema.cinema_id "
                             + "where funding.movie_id= :movieId order by funding.funding_id desc limit 1",

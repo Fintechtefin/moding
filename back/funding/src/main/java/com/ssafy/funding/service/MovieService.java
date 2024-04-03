@@ -161,25 +161,25 @@ public class MovieService {
         return result;
     }
 
-    //        public List<MovieGenreResponse> getMovieList(int genreId, String sort, int page) {
-    //            PageRequest pageRequest=PageRequest.of(page-1,21);  // page << 1부터 받으니까
+    //    public List<MovieGenreResponse> getMovieList(int genreId, String sort, int page) {
+    //        PageRequest pageRequest=PageRequest.of(page-1,21);  // page << 1부터 받으니까
     //
-    //            final Slice<MovieGenreResponse> slice =
-    //                    movieQueryRepository.findByGenre(
-    //                            GenreSearchCondition.builder()
-    //                                    .parentGenreId(genreId)
-    //                                    .order(sort)
-    //                                    .build(),
-    //                            pageRequest);
+    //        final Slice<MovieGenreResponse> slice =
+    //                movieQueryRepository.findByGenre(
+    //                        GenreSearchCondition.builder()
+    //                                .parentGenreId(genreId)
+    //                                .order(sort)
+    //                                .build(),
+    //                        pageRequest);
     //
-    //            // Slice에서 Content를 가져와 List로 변환
-    //            List<MovieGenreResponse> movieList = slice.getContent();
+    //        // Slice에서 Content를 가져와 List로 변환
+    //        List<MovieGenreResponse> movieList = slice.getContent();
     //
-    //            // totalCnt add
+    //        // totalCnt add
     //
-    //            return movieList;
+    //        return movieList;
     //
-    //        }
+    //    }
 
     private List<Movie> transInfoList(List<MovieDocument> movies) {
         return movies.stream().map(Movie::of).collect(Collectors.toList());
