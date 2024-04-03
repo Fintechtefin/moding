@@ -21,7 +21,7 @@ public class ReservationController {
             @RequestHeader("Authorization") String accessToken,
             @PathVariable("fundingId") int fundingId) {
         int userId = reservationService.getCurrentUserId(accessToken);
-        reservationService.checkPaymentUser(userId, fundingId);
+        reservationService.checkPaymentUser(fundingId, userId);
         return ResponseEntity.noContent().build();
     }
 
