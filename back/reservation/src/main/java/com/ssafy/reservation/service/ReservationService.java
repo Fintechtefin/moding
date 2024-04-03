@@ -38,7 +38,6 @@ public class ReservationService {
     }
 
     public String getSeatList(int userId, int fundingId) {
-        checkPaymentUser(fundingId, userId);
         if (redisUtil.getData("seat_funding_" + fundingId) != null) {
             return redisUtil.getData("seat_funding_" + fundingId);
         }

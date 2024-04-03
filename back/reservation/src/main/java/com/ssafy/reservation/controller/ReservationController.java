@@ -15,6 +15,16 @@ import org.springframework.web.bind.annotation.*;
 public class ReservationController {
     public final ReservationService reservationService;
 
+    @Operation(summary = "해당 펀딩의 결제 여부를 조회합니다.")
+    @GetMapping("/check/payment/{fundingId}")
+    public ResponseEntity<?> checkPaymentUser(
+            @RequestHeader("Authorization") String accessToken,
+            @PathVariable("fundingId") int fundingId) {
+        int userId = reservationService.getCurrentUserId(accessToken);
+        reservationService.checkPaymentUser(userId, fundingId);
+        return ResponseEntity.noContent().build();
+    }
+
     @Operation(summary = "해당 펀딩에 예약된 좌석을 조회합니다.")
     @GetMapping("/get/seat/{fundingId}")
     public ResponseEntity<?> getSeatList(
