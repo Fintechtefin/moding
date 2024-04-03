@@ -213,16 +213,18 @@ public class ReservationService {
         // redis cache overwrite
         List<Reservation> reservationList =
                 reservationRepository.findByFundingIdAndStatus(fundingId, 1);
-        if (reservationList == null) {
-            throw new BadRequestException(NOT_FOUND_RSERVATION_ID);
-        }
-        String value = "";
-        for (Reservation res : reservationList) {
-            for (Seat s : seatRepository.findByReservationId(res.getId())) {
-                value = value.concat(s.getPosition());
-            }
-        }
 
-        redisUtil.setData("seat_funding_" + fundingId, value);
+        if (reservationList.size() == 0) {
+            redisUtil.deleteData("seat_funding_" + fundingId);
+        }else{
+            String value = "";
+            for (Reservation res : reservationList) {
+                for (Seat s : seatRepository.findByReservationId(res.getId())) {
+                    value = value.concat(s.getPosition());
+                }
+            }
+
+            redisUtil.setData("seat_funding_" + fundingId, value);
+        }
     }
 }

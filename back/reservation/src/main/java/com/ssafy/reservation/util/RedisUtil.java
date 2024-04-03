@@ -30,4 +30,8 @@ public class RedisUtil {
         ValueOperations<String, Integer> valueOperations = redisTemplate.opsForValue();
         valueOperations.set(key, value);
     }
+
+    public void deleteData(String key) {
+        redisTemplate.delete(key);
+    }
 }
