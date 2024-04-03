@@ -4,7 +4,7 @@ import gsap from "gsap";
 
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 const ThreeScene = () => {
-  const canvasRef = useRef();
+  const canvasRef = useRef() as any;
 
   useEffect(() => {
     // Renderer
@@ -206,7 +206,7 @@ const ThreeScene = () => {
     };
   }, []);
 
-  return <canvas ref={canvasRef.current} className="fixed top-0" />;
+  return <canvas ref={canvasRef} className="fixed top-0" />;
 };
 
 export default ThreeScene;
