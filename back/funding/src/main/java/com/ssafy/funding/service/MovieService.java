@@ -141,22 +141,16 @@ public class MovieService {
 
         List<MovieRepository.MovieGenreListResponse> movieList = new ArrayList<>();
 
-        String key = "genre_" + genreId + "_" + sort + "_" + page;
-        if (redisUtil.getObject(key) != null) {
-            System.out.println("RedisHit!!!");
-            movieList = (List<MovieRepository.MovieGenreListResponse>) redisUtil.getObject(key);
-        } else {
-            if (sort.equals("likeAsc"))
-                movieList = movieRepository.getMovieByGenreLikeAsc(genreId, (page - 1) * 21);
-            else if (sort.equals("likeDesc"))
-                movieList = movieRepository.getMovieByGenreLikeDesc(genreId, (page - 1) * 21);
-            else if (sort.equals("titleDesc"))
-                movieList = movieRepository.getMovieByGenreTitleDesc(genreId, (page - 1) * 21);
-            else movieList = movieRepository.getMovieByGenreTitleAsc(genreId, (page - 1) * 21);
-            redisUtil.setObject(key, movieList);
-        }
+        if (sort.equals("likeAsc"))
+            movieList = movieRepository.getMovieByGenreLikeAsc(genreId, (page - 1) * 21);
+        else if (sort.equals("likeDesc"))
+            movieList = movieRepository.getMovieByGenreLikeDesc(genreId, (page - 1) * 21);
+        else if (sort.equals("titleDesc"))
+            movieList = movieRepository.getMovieByGenreTitleDesc(genreId, (page - 1) * 21);
+        else movieList = movieRepository.getMovieByGenreTitleAsc(genreId, (page - 1) * 21);
 
-        key = "genreCount_" + genreId;
+
+        String key = "genreCount_" + genreId;
         if (redisUtil.getData(key) == null) {
             redisUtil.setData(key, String.valueOf(movieRepository.getMovieCountByGenreId(genreId)));
         }
@@ -226,6 +220,7 @@ public class MovieService {
         int userId = tokenAuthClient.getUserId(accessToken);
 
         MovieLike movieLike = movieLikeRepository.findByMovieIdAndUserId(movieId, userId);
+
         if (movieLike == null) {
             return MovieLikeResponse.of(false);
         }

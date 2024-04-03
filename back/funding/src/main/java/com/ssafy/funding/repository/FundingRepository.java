@@ -48,7 +48,7 @@ public interface FundingRepository extends CrudRepository<Funding, Integer> {
                             + "funding.people_count goalCnt from funding "
                             + "join movie on movie.movie_id=funding.movie_id "
                             + "join orders on orders.funding_id=funding.funding_id "
-                            + "where (orders.user_id=1 and movie.status='CLOSED' and (select funding_final_result from funding_history where funding_history.funding_id=funding.funding_id)=true) or movie.status='RESERVATION' "
+                            + "where (orders.user_id=:userId and movie.status='CLOSED' and (select funding_final_result from funding_history where funding_history.funding_id=funding.funding_id)=true) or (orders.user_id=:userId and movie.status='RESERVATION') "
                             + "group by funding.funding_id,movieId,title,poster,date,attendCnt,reservationId,goalCnt "
                             + "order by funding.funding_id desc",
             nativeQuery = true)
@@ -61,7 +61,7 @@ public interface FundingRepository extends CrudRepository<Funding, Integer> {
                             + "funding.people_count goalCnt from funding "
                             + "join movie on movie.movie_id=funding.movie_id "
                             + "join orders on orders.funding_id=funding.funding_id "
-                            + "where orders.user_id=1 and movie.status='CLOSED' and (select funding_final_result from funding_history where funding_history.funding_id=funding.funding_id)=false "
+                            + "where orders.user_id=:userId and movie.status='CLOSED' and (select funding_final_result from funding_history where funding_history.funding_id=funding.funding_id)=false "
                             + "group by funding.funding_id,movieId,title,poster,date,attendCnt,goalCnt "
                             + "order by funding.funding_id desc",
             nativeQuery = true)
