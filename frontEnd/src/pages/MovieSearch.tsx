@@ -82,7 +82,7 @@ const MovieSearch = () => {
               </div>
             </div>
             <div className="grid grid-cols-2 gap-8 p-2">
-              {rankingData.map((poster) => {
+              {rankingData.map((poster, idx) => {
                 return (
                   <Link
                     to={`/fund/list/${poster.movieId}`}
@@ -91,7 +91,7 @@ const MovieSearch = () => {
                     state={{ type: "list" }}
                   >
                     <div className="absolute top-[-20px] z-[1] text-white">
-                      {poster.movieId}
+                      {idx + 1}
                     </div>
                     <MovieListItem
                       state={poster.status}

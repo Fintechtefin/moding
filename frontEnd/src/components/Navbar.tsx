@@ -1,6 +1,4 @@
 import { NavLink } from "react-router-dom";
-import popcorn from "@assets/images/popcorn.webp";
-import soda from "@assets/images/soda.webp";
 import navModing from "@assets/images/navmoding.webp";
 import "@/index.scss";
 import "@/assets/styles/Navbar.scss";
@@ -12,9 +10,10 @@ import coinbank from "@assets/images/coinbank.png";
 
 const Navbar = () => {
   const navbarItemClassnames =
-    "group relative flex flex-col justify-around items-center p-1 w-[100%] h-[100%] text-xs text-white bg-red-600 rounded-t-[20px]";
+    "group relative flex flex-col justify-around items-center p-1 w-[20%] h-[100%] text-xs text-white bg-red-600 rounded-t-[20px]";
 
-  const food = "food w-2.5 h-2/4 flex justify-center self-end translate-y-0.5";
+  const food =
+    "overflow-hidden food w-3 h-[5vh] flex justify-center self-end translate-y-[7px]";
 
   const modingEar = "moding-ear hidden z-[-1] absolute w-[40px] top-[-18px]";
 
@@ -29,7 +28,7 @@ const Navbar = () => {
           <div className="">무딩오피스</div>
         </NavLink>
         <div className={food}>
-          <img src={popcorn} alt="" />
+          <div className="popcorn"></div>
         </div>
         <NavLink to={"/fund/list"} className={navbarItemClassnames}>
           <img src={navModing} alt="" className={modingEar} />
@@ -37,7 +36,7 @@ const Navbar = () => {
           <div className="text-[1.5vh]">무딩중</div>
         </NavLink>
         <div className={food}>
-          <img src={soda} alt="" />
+          <div className="soda"></div>
         </div>
         <NavLink to={"/"} className={navbarItemClassnames}>
           <img src={navModing} alt="" className={modingEar} />
@@ -45,7 +44,7 @@ const Navbar = () => {
           <div className="text-[1.5vh]"> 홈</div>
         </NavLink>
         <div className={food}>
-          <img src={popcorn} alt="" />
+          <div className="popcorn"></div>
         </div>
         <NavLink to={"/subscribe"} className={navbarItemClassnames}>
           <img src={navModing} alt="" className={modingEar} />
@@ -53,7 +52,7 @@ const Navbar = () => {
           <div className="text-[1.5vh]">좋아요</div>
         </NavLink>
         <div className={food}>
-          <img src={soda} alt="" />
+          <div className="soda"></div>
         </div>
         <NavLink to={"/user/mypage"} className={navbarItemClassnames}>
           <img src={navModing} alt="" className={modingEar} />

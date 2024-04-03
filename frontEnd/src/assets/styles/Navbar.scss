@@ -5,6 +5,16 @@
 
   .food {
     z-index: -1;
+
+    .popcorn {
+      width: 2vh;
+      background: url("../images/popcorn.webp") center no-repeat;
+    }
+
+    .soda {
+      width: 2vh;
+      background: url("../images/soda.webp") center no-repeat;
+    }
   }
 
   .active {

@@ -42,12 +42,11 @@ export interface MovieInfo extends Movie {
 }
 
 export interface FundingInfo {
-  time: string;
+  cinemaName: string;
+  crowdCnt: number;
   date: Date;
   fundingId: number;
-  price: number;
-  cinemaName: string;
-  movieDate: string;
-  crowdCnt: number;
   peopleCnt: number;
+  price: number;
+  time: string;
 }
