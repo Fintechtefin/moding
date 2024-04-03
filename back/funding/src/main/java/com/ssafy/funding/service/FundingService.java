@@ -71,7 +71,8 @@ public class FundingService {
         // 있는지 확인
         Optional<Movie> movie = movieRepository.findById(movieId);
 
-        if (!movie.get().getStatus().getValue().equals("OPEN")) {
+        if (movie.get().getStatus().getValue().equals("NONE")
+                || movie.get().getStatus().getValue().equals("CLOSED")) {
             return null;
         }
 
