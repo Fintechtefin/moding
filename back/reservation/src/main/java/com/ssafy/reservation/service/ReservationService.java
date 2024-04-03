@@ -216,7 +216,7 @@ public class ReservationService {
 
         if (reservationList.size() == 0) {
             redisUtil.deleteData("seat_funding_" + fundingId);
-        }else{
+        } else {
             String value = "";
             for (Reservation res : reservationList) {
                 for (Seat s : seatRepository.findByReservationId(res.getId())) {
