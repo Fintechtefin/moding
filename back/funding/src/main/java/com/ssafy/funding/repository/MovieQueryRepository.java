@@ -61,6 +61,7 @@ public class MovieQueryRepository {
                         .where(movieLike.movieId.eq(movieId.intValue()));
 
         if ("likeAsc".equals(orderByField)) {
+            //            return movieLike.count().asc();
             return Expressions.asNumber(likeCountExpression).asc();
         } else if ("likeDesc".equals(orderByField)) {
             return Expressions.asNumber(likeCountExpression).desc();
