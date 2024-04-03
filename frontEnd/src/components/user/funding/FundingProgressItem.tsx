@@ -1,25 +1,22 @@
 import { useState } from "react";
-import FundingCancelModal from "./FundingCancelModal";
-import { ProgressMovie } from "@util/types";
-import UserFundProgressBar from "@components/common/UserFundProgressBar";
 import { useNavigate } from "react-router";
+import FundingCancelModal from "./FundingCancelModal";
+import UserFundProgressBar from "@components/common/UserFundProgressBar";
+import type { ProgressMovie } from "@util/types";
 
 interface Props {
   item: ProgressMovie;
+  removeFund: (id: number) => void;
 }
 
-const FundingProgressItem = ({ item }: Props) => {
+const FundingProgressItem = ({ item, removeFund }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
-
-  const handleClickTrue = () => setIsOpen(true);
-  const handleClickFalse = () => setIsOpen(false);
-
   const navigate = useNavigate();
 
   const moveMovieDetail = () =>
     navigate(`/fund/list/${item.movieId}`, { state: { type: "list" } });
 
-  const aaa = (date: string) => {
+  const calculateDays = (date: string) => {
     const targetDate = new Date(date);
     const today = new Date();
     targetDate.setHours(0, 0, 0, 0);
@@ -32,8 +29,6 @@ const FundingProgressItem = ({ item }: Props) => {
 
     return differenceInDays;
   };
-
-  // const per = calculatePercent(item.participantCount, item.recruitedCount);
 
   return (
     <div className="flex flex-col bg-bgGray p-[2vh] rounded-lg gap-[2vh] shadow-test">
@@ -53,7 +48,7 @@ const FundingProgressItem = ({ item }: Props) => {
             >
               {item.movieTitle}
             </div>
-            <div className=" text-[1.5vh] text-textGray">{`D-${aaa(
+            <div className=" text-[1.5vh] text-textGray">{`D-${calculateDays(
               item.endAt
             )}`}</div>
           </div>
@@ -62,22 +57,11 @@ const FundingProgressItem = ({ item }: Props) => {
             attendCnt={item.participantCount}
             goalCnt={item.recruitedCount}
           />
-          {/* <div>
-            <div className="text-[1.5vh] py-[1vh] font-bold">
-              {`${per}% 진행중`}
-            </div>
-            <div className="w-full h-[1.5vh] rounded-[1vh] parent">
-              <div
-                style={{ width: `${per}%` }}
-                className={`bg-[#fffbb1] rounded-[1vh] h-full brightness-100`}
-              ></div>
-            </div>
-          </div> */}
         </div>
       </div>
       <button
         className="p-[1vh] border border-textGray rounded-[1vh] text-[2vh]"
-        onClick={handleClickTrue}
+        onClick={() => setIsOpen(true)}
       >
         펀딩취소
       </button>
@@ -85,7 +69,8 @@ const FundingProgressItem = ({ item }: Props) => {
         <FundingCancelModal
           id={item.id}
           orderUuid={item.orderUuid}
-          handleClickFalse={handleClickFalse}
+          handleClickFalse={() => setIsOpen(false)}
+          removeFund={removeFund}
         />
       )}
     </div>

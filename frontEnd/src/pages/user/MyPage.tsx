@@ -7,21 +7,19 @@ const SECTIONS = [
   {
     title: "펀딩",
     items: [
-      { name: "무딩중", url: "/user/fund/progress" },
-      { name: "애프터 무딩", url: "/user/fund/completed" },
+      { name: "무딩중", url: "/user/fund/progress", disable: false },
+      { name: "애프터 무딩", url: "/user/fund/completed", disable: false },
     ],
   },
   {
     title: "설정",
-    items: [{ name: "알림 설정", url: "/user/notification/setting" }],
+    items: [
+      { name: "알림 설정", url: "/user/notification/setting", disable: false },
+    ],
   },
   {
     title: "기타",
-    items: [
-      { name: "AI 카메라", url: "a" },
-      { name: "좌석 예매", url: "/fund/reserve" },
-      { name: "결제", url: "/fund/payment" },
-    ],
+    items: [{ name: "AI 카메라", url: "a", disable: true }],
   },
 ];
 

@@ -4,7 +4,7 @@ import { MenuOptionItem } from "@util/types";
 
 interface Props extends MenuOptionItem {}
 
-const OptionItem = ({ name, url }: Props) => {
+const OptionItem = ({ name, url, disable }: Props) => {
   const navigate = useNavigate();
 
   return (
@@ -13,9 +13,11 @@ const OptionItem = ({ name, url }: Props) => {
       onClick={() => navigate(url)}
     >
       <div>{name}</div>
-      <div className="flex items-center gap-[1.5vh] text-[2.5vh]">
-        <IoIosArrowForward />
-      </div>
+      {!disable && (
+        <div className="flex items-center gap-[1.5vh] text-[2.5vh]">
+          <IoIosArrowForward />
+        </div>
+      )}
     </div>
   );
 };

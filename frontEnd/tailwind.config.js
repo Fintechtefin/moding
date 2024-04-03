@@ -14,7 +14,7 @@ export default {
         bgTT: "0 0 1vh rgba(0, 0, 0, 0.1)",
         bgTTT: "0 0 0.5vh #878C91",
         shadowRed: "0 0 0.5vh rgb(168, 6, 6)",
-        test: "rgb(250, 250, 250, 0.3) 0px 0px 5px 0px;",
+        test: "rgb(250, 250, 250, 0.4) 0px 0px 5px 0px;",
       },
     },
   },

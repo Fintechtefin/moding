@@ -1,42 +1,36 @@
 import { useEffect, useState } from "react";
+import { axiosApi } from "@util/commons";
 import NoneNavHeader from "@components/NoneNavHeader";
 import FundingCompletedMenu from "@components/user/funding/FundingCompletedMenu";
 import FundingSuccess from "@components/user/funding/FundingSuccess";
 import FundingFail from "@components/user/funding/FundingFail";
-import axios from "axios";
-import { FundingCompleted } from "@util/types";
 import Loading from "@pages/payment/Loading";
-import { axiosApi } from "@util/commons";
+import type { FundingCompleted } from "@util/types";
 
 const FundingCompletedPage = () => {
-  const [state, setState] = useState("success");
+  const [state, setState] = useState<"success" | "fail">("success");
   const [successData, setSuccessData] = useState<FundingCompleted[]>([]);
   const [failData, setFailData] = useState<FundingCompleted[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setState(e.target.value);
-  };
-
-  const removeFund = (reservationId: number) => {
-    setSuccessData((prev) =>
-      prev.filter((item) => item.reservationId !== reservationId)
-    );
+    setState(e.target.value as "success" | "fail");
   };
 
   useEffect(() => {
     const getAfterModing = async () => {
       try {
-        const res = await axiosApi().get(`/fundings/result/success`);
-        const res1 = await axiosApi().get(`/fundings/result/failure`);
+        const [successResponse, failureResponse] = await Promise.all([
+          axiosApi().get(`/fundings/result/success`),
+          axiosApi().get(`/fundings/result/failure`),
+        ]);
 
-        console.log(res1.data);
-
-        setSuccessData(res.data);
-        setFailData(res1.data);
-        setIsLoading(false);
+        setSuccessData(successResponse.data);
+        setFailData(failureResponse.data);
       } catch (error) {
         console.log(error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -46,23 +40,18 @@ const FundingCompletedPage = () => {
   return (
     <div className="FundingCompletedPage">
       <NoneNavHeader centerText="애프터 무딩" />
-      <div className="FundingCompletedPage-body ">
-        <FundingCompletedMenu state={state} handleChange={handleChange} />
-        {isLoading ? (
-          <Loading />
-        ) : (
-          <div className="none-scroll h-[88vh] overflow-auto p-[3vh] flex flex-col gap-[3vh] relative">
-            {state === "success" ? (
-              <FundingSuccess
-                successData={successData}
-                removeFund={removeFund}
-              />
-            ) : (
-              <FundingFail failData={failData} />
-            )}
-          </div>
-        )}
-      </div>
+      <FundingCompletedMenu state={state} handleChange={handleChange} />
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <div className="none-scroll h-[88vh] overflow-auto p-[3vh] flex flex-col gap-[3vh] relative">
+          {state === "success" ? (
+            <FundingSuccess successData={successData} />
+          ) : (
+            <FundingFail failData={failData} />
+          )}
+        </div>
+      )}
     </div>
   );
 };

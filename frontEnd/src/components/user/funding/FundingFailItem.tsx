@@ -1,6 +1,6 @@
 import UserFundProgressBar from "@components/common/UserFundProgressBar";
 import { formatDateWithDay1 } from "@util/commonFunction";
-import { FundingCompleted } from "@util/types";
+import type { FundingCompleted } from "@util/types";
 import { useNavigate } from "react-router";
 
 interface Props {

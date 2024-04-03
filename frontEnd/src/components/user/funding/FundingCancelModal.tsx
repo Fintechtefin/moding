@@ -1,20 +1,25 @@
 import { ChangeEvent, useState } from "react";
-import axios from "axios";
 import { ToasterMsg } from "@components/Common";
 import { toastMsg } from "@util/commonFunction";
+import { axiosApi } from "@util/commons";
 
 interface Props {
   id: number;
   orderUuid: string;
   handleClickFalse: () => void;
+  removeFund: (id: number) => void;
 }
 
 const RADIO_OPTIONS = ["단순 변심", "펀딩 변경", "기타"];
 
-const FundingCancelModal = ({ id, orderUuid, handleClickFalse }: Props) => {
-  const [reasonType, setReasonType] = useState("");
-  const [reason, setReason] = useState("");
-  const jwt = localStorage.getItem("jwt");
+const FundingCancelModal = ({
+  id,
+  orderUuid,
+  handleClickFalse,
+  removeFund,
+}: Props) => {
+  const [reasonType, setReasonType] = useState<string>("");
+  const [reason, setReason] = useState<string>("");
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
@@ -23,6 +28,8 @@ const FundingCancelModal = ({ id, orderUuid, handleClickFalse }: Props) => {
 
     setReasonType(value);
   };
+
+  console.log(removeFund);
 
   const handleReasonChange = (e: ChangeEvent<HTMLInputElement>) =>
     setReason(e.target.value);
@@ -41,20 +48,14 @@ const FundingCancelModal = ({ id, orderUuid, handleClickFalse }: Props) => {
     };
 
     try {
-      const res = await axios.post(
-        `${
-          import.meta.env.VITE_BASE_URL
-        }/api/fundings/orders/${orderUuid}/refund`,
-        data,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: jwt,
-          },
-        }
+      const res = await axiosApi().post(
+        `/fundings/orders/${orderUuid}/refund`,
+        data
       );
 
       console.log(res.data);
+      removeFund(id);
+      handleClickFalse();
     } catch (err) {
       console.log(err);
     }

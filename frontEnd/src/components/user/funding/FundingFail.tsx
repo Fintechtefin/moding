@@ -1,5 +1,5 @@
 import FundingFailItem from "./FundingFailItem";
-import { FundingCompleted } from "@util/types";
+import type { FundingCompleted } from "@util/types";
 import NoneData from "@components/common/NoneData";
 
 interface Props {
@@ -10,9 +10,9 @@ const FundingFail = ({ failData }: Props) => {
   return (
     <>
       {failData.length ? (
-        failData.map((item) => {
-          return <FundingFailItem key={item.movieId} item={item} />;
-        })
+        failData.map((item) => (
+          <FundingFailItem key={item.movieId} item={item} />
+        ))
       ) : (
         <NoneData content="실패한 펀딩이 없습니다." />
       )}

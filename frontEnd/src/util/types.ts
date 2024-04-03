@@ -43,11 +43,11 @@ export interface ISeat {
 }
 
 export interface ISeats {
-  seat: ISeat[];
+  seat: string[];
 }
 
 export interface ITicket {
-  seats: ISeats;
+  seats: string[];
   poster: string;
   age: string;
   title: string;
@@ -63,4 +63,5 @@ export interface ITicket {
 export interface MenuOptionItem {
   name: string;
   url: string;
+  disable: boolean;
 }
