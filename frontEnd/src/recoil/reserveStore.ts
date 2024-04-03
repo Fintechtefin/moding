@@ -5,6 +5,11 @@ export const selectSeatsAtom = atom<string[]>({
   default: [],
 });
 
+export const occupiedSeatsAtom = atom<string[]>({
+  key: "occupiedSeatsAtom",
+  default: [],
+});
+
 export const selectSeatsLengthSelector = selector<number>({
   key: "selectSeatsLengthSelector",
   get: ({ get }) => {

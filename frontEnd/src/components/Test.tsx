@@ -1,5 +1,5 @@
 import "@components/Test.scss";
-import RECEIPT_IMAGE from "@assets/images/receipt_image.webp";
+// import RECEIPT_IMAGE from "@assets/images/receipt_image.webp";
 
 const Test = () => {
   return (

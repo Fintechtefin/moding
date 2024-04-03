@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import axios from "axios";
+// import axios from "axios";
 import Loading from "@pages/payment/Loading";
 import { axiosApi } from "@util/commons";
 

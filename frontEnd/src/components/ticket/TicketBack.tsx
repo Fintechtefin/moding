@@ -1,6 +1,7 @@
 import ticket from "@assets/images/ticket.png";
 import { addMinutesToTime, formatDateWithDay } from "@util/commonFunction";
 import type { ITicket } from "@util/types";
+import qr from "@assets/images/QR.webp";
 
 const TicketBack = ({ state }: { state: ITicket }) => {
   return (
@@ -45,14 +46,15 @@ const TicketBack = ({ state }: { state: ITicket }) => {
         <div className="dash-line w-[100%] h-[10vh] p-[0.5vh] flex flex-col">
           <div className="text-[2vh] font-bold">Seat</div>
           <div className="flex items-center justify-center flex-1 text-[2.5vh] font-bold">
-            {Object.values(state.seats.seat[0]).join("")}
+            {state.seats.join(" ")}
           </div>
         </div>
         <div className="w-[100%] h-[10vh] p-[0.5vh] flex flex-col">
           <div className="text-[2vh] font-bold">QR</div>
           <div className="flex items-center justify-center flex-1 text-[2.5vh] font-bold">
-            엘리멘탈
+            <img src={qr} alt="" className="h-[17vh]" />
           </div>
+          {/* <img src={qr} alt="" className="h-[10vh] w-[10vh]" /> */}
         </div>
       </div>
     </div>

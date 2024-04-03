@@ -1,38 +1,33 @@
-import { formatDateWithDay1 } from "@util/commonFunction";
-import { FundingCompleted } from "@util/types";
-import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import { formatDateWithDay1 } from "@util/commonFunction";
+import type { FundingCompleted } from "@util/types";
 import UserFundProgressBar from "@components/common/UserFundProgressBar";
 import Prompt from "@components/reverse/Prompt";
+import { axiosApi } from "@util/commons";
 
 interface Props {
   item: FundingCompleted;
-  removeFund: (reservationId: number) => void;
 }
 
-const FundingSuccessItem = ({ item, removeFund }: Props) => {
+const FundingSuccessItem = ({ item }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [hasTicket, setHasTicket] = useState(false);
 
   const navigate = useNavigate();
 
   const moveMovieDetail = () =>
     navigate(`/fund/list/${item.movieId}`, { state: { type: "list" } });
 
-  const checkTicket = async () => {
+  const moveCheckTicket = async () => {
     try {
-      const res = await axios.get(
-        `${import.meta.env.VITE_BASE_URL}/api/reservations/get/${
-          item.reservationId
-        }`,
-        {
-          headers: {
-            Authorization: localStorage.getItem("jwt"),
-          },
-        }
+      const res = await axiosApi().get(
+        `/reservations/get/${item.reservationId}`
       );
 
-      navigate(`/user/ticket/${res.data}`, {
+      console.log(res);
+
+      navigate(`/user/ticket/${res.data.number}`, {
         state: res.data,
       });
     } catch (err) {
@@ -42,21 +37,15 @@ const FundingSuccessItem = ({ item, removeFund }: Props) => {
 
   const cancelReservation = async () => {
     try {
-      const res = await axios.put(
-        `${import.meta.env.VITE_BASE_URL}/api/reservations/cancel/${
-          item.reservationId
-        }`,
-        null,
-        {
-          headers: {
-            Authorization: localStorage.getItem("jwt"),
-          },
-        }
+      const res = await axiosApi().put(
+        `/reservations/cancel/${item.reservationId}`,
+        null
       );
 
       console.log(res);
 
-      removeFund(item.reservationId);
+      setHasTicket(false);
+      setIsOpen(false);
     } catch (error) {
       console.log(error);
     }
@@ -74,6 +63,22 @@ const FundingSuccessItem = ({ item, removeFund }: Props) => {
 
     return diffInDays;
   };
+
+  useEffect(() => {
+    const ck = async () => {
+      try {
+        const res = await axiosApi().get(
+          `/reservations/get/${item.reservationId}`
+        );
+        console.log(res);
+        setHasTicket(true);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    ck();
+  }, []);
 
   return (
     <div className="flex flex-col bg-bgGray p-[2vh] rounded-lg gap-[2vh] shadow-test">
@@ -104,22 +109,24 @@ const FundingSuccessItem = ({ item, removeFund }: Props) => {
           />
         </div>
       </div>
-      <div className="flex gap-[1vh]">
-        {calculationDate(item.date) > 1 && (
+      {hasTicket && (
+        <div className="flex gap-[1vh]">
+          {calculationDate(item.date) > 1 && (
+            <button
+              className="flex-1 p-[1vh] border border-textGray rounded-lg text-[2vh]"
+              onClick={() => setIsOpen(true)}
+            >
+              좌석취소
+            </button>
+          )}
           <button
             className="flex-1 p-[1vh] border border-textGray rounded-lg text-[2vh]"
-            onClick={() => setIsOpen(true)}
+            onClick={moveCheckTicket}
           >
-            좌석취소
+            티켓확인
           </button>
-        )}
-        <button
-          className="flex-1 p-[1vh] border border-textGray rounded-lg text-[2vh]"
-          onClick={checkTicket}
-        >
-          티켓확인
-        </button>
-      </div>
+        </div>
+      )}
       {isOpen && (
         <Prompt
           onClose={() => setIsOpen(false)}

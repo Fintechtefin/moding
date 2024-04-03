@@ -12,12 +12,16 @@ import InfoArea from "@components/movieDetail/InfoArea";
 import type { MovieInfo, FundingInfo } from "@util/types/movieType";
 import { getSearchDetail, getMovieDetail } from "@api/movie";
 import { getFundingInfo } from "@api/funding";
+import { ToasterMsg } from "@components/Common";
+import { toastMsg } from "@util/commonFunction";
 
 const MovieDetail = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
   const way = location.state.type;
+  const err = location.state.err;
+
   const { id } = useParams() as { id: string };
   const [log, setLog] = useState("");
   const [movieId, setMovieId] = useState("");
@@ -57,6 +61,12 @@ const MovieDetail = () => {
   });
 
   useEffect(() => {
+    if (err) {
+      toastMsg(err);
+    }
+  }, []);
+
+  useEffect(() => {
     console.log(id);
     setFundMovieId(id);
     if (way === "search") {
@@ -86,6 +96,7 @@ const MovieDetail = () => {
       fundinfo: fundinfo,
       poster: movieInfo?.poster,
       movieTitle: movieInfo?.title,
+      movieId: movieInfo?.movieId,
     };
     if (type === "join") {
       navigate(`/fund/payment`, { state: fundinfos });
@@ -135,7 +146,7 @@ const MovieDetail = () => {
             </div>
             <div className="w-[90%] mt-8">
               {fundingInfo && (
-                <InfoArea status={movieInfo.status} fundInfo={fundinfo} />
+                <InfoArea status={movieInfo.status} fundInfo={fundinfo!} />
               )}
             </div>
           </div>
@@ -184,12 +195,13 @@ const MovieDetail = () => {
               hopeCnt={movieInfo.hopeCnt}
               modalDown={modalDown}
               sendFundingInfo={sendFundingInfo}
-              fundingId={fundinfo?.fundingId}
+              fundingId={fundinfo?.fundingId!}
             />
           </div>
           {modalShow && <HopeSurvey modalDown={modalDown} id={movieId} />}
         </div>
       )}
+      <ToasterMsg />
     </>
   );
 };

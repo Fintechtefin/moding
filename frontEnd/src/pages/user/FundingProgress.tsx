@@ -1,32 +1,32 @@
 import { useEffect, useState } from "react";
+import { axiosApi } from "@util/commons";
 import NoneNavHeader from "@components/NoneNavHeader";
 import FundingProgressItem from "@components/user/funding/FundingProgressItem";
-import "@assets/styles/FundingProgress.scss";
-import { ProgressMovie } from "@util/types";
-import { axiosApi } from "@util/commons";
 import NoneData from "@components/common/NoneData";
 import Loading from "@pages/payment/Loading";
+import type { ProgressMovie } from "@util/types";
+import "@assets/styles/FundingProgress.scss";
 
 const FundingProgress = () => {
   const [data, setData] = useState<ProgressMovie[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const api = axiosApi();
+  const removeFund = (id: number) =>
+    setData((prev) => prev.filter((item) => item.id !== id));
 
   useEffect(() => {
-    const getFund = async () => {
+    const fetchFund = async () => {
       try {
-        const { data } = await api.get("/fundings/participation");
-        console.log(data);
-        console.log(data.joinFundingResponseList);
-        setData(data.joinFundingResponseList);
-        setIsLoading(false);
+        const res = await axiosApi().get("/fundings/participation");
+        setData(res.data.joinFundingResponseList);
       } catch (err) {
         console.log(err);
+      } finally {
+        setIsLoading(false);
       }
     };
 
-    getFund();
+    fetchFund();
   }, []);
 
   return (
@@ -38,7 +38,13 @@ const FundingProgress = () => {
         <div className="none-scroll h-[93vh] overflow-auto p-[3vh] flex flex-col gap-[3vh] relative">
           {data.length ? (
             data.map((item) => {
-              return <FundingProgressItem key={item.id} item={item} />;
+              return (
+                <FundingProgressItem
+                  key={item.id}
+                  item={item}
+                  removeFund={removeFund}
+                />
+              );
             })
           ) : (
             <NoneData content="진행 중인 펀딩이 없습니다." />

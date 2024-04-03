@@ -2,7 +2,7 @@ import { GoCheckCircleFill } from "react-icons/go";
 import { FaRegCircle } from "react-icons/fa";
 import Receipt from "@components/payment/Receipt";
 import { useLocation } from "react-router-dom";
-import Test from "@components/Test";
+// import Test from "@components/Test";
 
 const PaymentCompletedPage = () => {
   const { state } = useLocation();

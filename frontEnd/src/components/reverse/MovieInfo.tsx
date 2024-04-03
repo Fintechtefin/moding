@@ -1,5 +1,6 @@
-import { useRecoilValue, useResetRecoilState } from "recoil";
+import { useRecoilValue, useResetRecoilState, useSetRecoilState } from "recoil";
 import {
+  occupiedSeatsAtom,
   selectSeatsAtom,
   selectSeatsLengthSelector,
 } from "@recoil/reserveStore";
@@ -18,6 +19,7 @@ const MovieInfo = ({ max }: Props) => {
   const selectSeatsLength = useRecoilValue(selectSeatsLengthSelector);
   const selectSeats = useRecoilValue(selectSeatsAtom);
   const resetSelectSeats = useResetRecoilState(selectSeatsAtom);
+  const setOccupiedSeats = useSetRecoilState(occupiedSeatsAtom);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -26,6 +28,15 @@ const MovieInfo = ({ max }: Props) => {
 
   const [fundInfo] = useState(location.state);
 
+  const aaa = async () => {
+    const res = await axiosApi().get(
+      `/reservations/get/seat/${fundInfo.fundinfo.fundingId}`
+    );
+    const seats = res.data.match(/[A-Za-z]\d+/g) || [];
+    console.log(seats);
+    setOccupiedSeats(seats);
+  };
+
   const handleClick = async () => {
     if (selectSeatsLength < max) {
       toastMsg("인원을 선택해주세요");
@@ -33,37 +44,24 @@ const MovieInfo = ({ max }: Props) => {
     }
 
     try {
-      const [line, col] = selectSeats[0];
-
-      // const col = Number(col1);
-
-      console.log(line, col);
-
       const seatData = {
-        fundingId: 1,
-        seats: {
-          seat: [
-            {
-              col: 11,
-              line: "J",
-            },
-          ],
-        },
+        fundingId: fundInfo.fundinfo.fundingId,
+        position: selectSeats,
       };
 
       console.log(seatData);
 
       const res = await axiosApi().post(`reservations/make`, seatData);
 
-      console.log(res.data);
+      console.log(res);
 
-      const res1 = await axiosApi().get(`/reservations/get/${7}`);
+      const res1 = await axiosApi().get(`/reservations/get/${res.data}`);
 
       console.log(res1);
 
       resetSelectSeats();
 
-      navigate(`/user/ticket/${7}`, {
+      navigate(`/user/ticket/${res.data}`, {
         state: res1.data,
         replace: true,
       });
@@ -73,27 +71,30 @@ const MovieInfo = ({ max }: Props) => {
         axios.isAxiosError(err) &&
         err.response?.data.code === "Reservation_400_6"
       ) {
-        toastMsg("이미 예약 된 자석입니다.");
+        toastMsg(err.response.data.message);
         resetSelectSeats();
+        aaa();
       }
     }
   };
 
   return (
-    <div className="text-black bg-white w-full h-[20vh] rounded-t-2xl ">
+    <div className="text-black bg-white w-full rounded-t-2xl flex flex-col justify-between">
       <div className="p-[2vh] flex gap-[3vh]">
-        <div className="flex flex-col justify-between grow text-[2.5vh]">
-          <div className="flex gap-[2vh]">
-            <div className="font-bold">CGV 강남</div>
-            <div>3.15(금) 15:00</div>
+        <div className="flex flex-col justify-between flex-1">
+          <div className="">
+            <div className="text-[2.5vh] font-bold">
+              {fundInfo.fundinfo.cinemaName}
+            </div>
+            <div className="text-[1.5vh]">{`3.15(금) ${fundInfo.fundinfo.time}`}</div>
           </div>
-          <div className="flex justify-between">
-            <div className="font-bold">엘리멘탈</div>
+          <div className="flex justify-between text-[2vh]">
+            <div className="font-bold">{fundInfo.movieTitle}</div>
             <div>{`인원 ${selectSeatsLength} / ${max}`}</div>
           </div>
         </div>
         <img
-          className="h-[10vh] object-cover rounded"
+          className="h-[12vh] object-cover rounded"
           src={fundInfo.poster}
           alt="영화포스터"
         />
