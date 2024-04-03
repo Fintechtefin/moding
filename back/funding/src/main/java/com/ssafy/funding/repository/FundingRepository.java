@@ -44,7 +44,7 @@ public interface FundingRepository extends CrudRepository<Funding, Integer> {
             value =
                     "select movie.movie_id movieId, movie.title, movie.poster, funding.date,"
                             + "(select sum(count) from orders where orders.funding_id=funding.funding_id and orders.status=true) attendCnt,"
-                            + "ifnull((select reservation_id from reservation where reservation.funding_id=funding.funding_id and reservation.status=true),0) reservationId,"
+                            + "ifnull((select reservation_id from reservation where reservation.funding_id=funding.funding_id and reservation.status=true and reservation.user_id=:userId),0) reservationId,"
                             + "funding.people_count goalCnt from funding "
                             + "join movie on movie.movie_id=funding.movie_id "
                             + "join orders on orders.funding_id=funding.funding_id "
