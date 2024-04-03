@@ -53,7 +53,10 @@ public class ReservationService {
 
     public void checkReservation(int fundingId, int userId) {
         if (reservationRepository.findByUserIdAndFundingIdAndStatus(userId, fundingId, 1) != null) {
-            throw new BadRequestException(CustomExceptionStatus.RESERVATION_USER);}}
+            throw new BadRequestException(CustomExceptionStatus.RESERVATION_USER);
+        }
+    }
+
     @Transactional
     public int checkSeat(MakeReservationRequest makeReservationRequest, int userId) {
         if (redisUtil.getData("seat_funding_" + makeReservationRequest.getFundingId()) != null) {
@@ -198,7 +201,7 @@ public class ReservationService {
         int reservationId =
                 reservationRepository
                         .findByUserIdAndFundingIdAndStatus(userId, fundingId, 1)
-                        .getFundingId();
+                        .getId();
 
         return getTicket(accessToken, reservationId);
     }
