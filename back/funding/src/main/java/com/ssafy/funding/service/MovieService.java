@@ -59,25 +59,25 @@ public class MovieService {
             userId = tokenAuthClient.getUserId(accessToken);
         }
 
-        String redisKey = "movie_" + movieId; // 상세 정보 저장용
+        //        String redisKey = "movie_" + movieId; // 상세 정보 저장용
 
-        if (redisUtil.getObject(redisKey) != null) {
-            movieDescResponse = (MovieDescResponse) redisUtil.getObject(redisKey);
-            //            System.out.println("Redis Detail Hit!!!");
-        } else {
-            movieSummaryResponse = movieRepository.getMovieDetailById(movieId).get();
+        //        if (redisUtil.getObject(redisKey) != null) {
+        //            movieDescResponse = (MovieDescResponse) redisUtil.getObject(redisKey);
+        //            //            System.out.println("Redis Detail Hit!!!");
+        //        } else {
+        movieSummaryResponse = movieRepository.getMovieDetailById(movieId).get();
 
-            movieDescResponse = MovieDescResponse.of(movieSummaryResponse);
-            Optional<List<String>> genreList = movieRepository.getGenreById(movieId);
-            movieDescResponse = MovieDescResponse.setGenre(movieDescResponse, genreList.get());
-            redisUtil.setObject(redisKey, movieDescResponse);
-        }
+        movieDescResponse = MovieDescResponse.of(movieSummaryResponse);
+        Optional<List<String>> genreList = movieRepository.getGenreById(movieId);
+        movieDescResponse = MovieDescResponse.setGenre(movieDescResponse, genreList.get());
+        //            redisUtil.setObject(redisKey, movieDescResponse);
+        //        }
 
         // total 지정 (누적 요청 수)
-        redisKey = "total_cnt_" + movieId;
+        String redisKey = "total_cnt_" + movieId;
 
         // 임시 값
-        redisUtil.setData(redisKey, "100");
+        redisUtil.setData(redisKey, "20");
 
         int accumulate = Integer.parseInt(redisUtil.getData(redisKey));
         movieDescResponse = MovieDescResponse.setTotal(movieDescResponse, accumulate);
