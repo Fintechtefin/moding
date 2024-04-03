@@ -15,5 +15,5 @@ public interface SeatRepository extends JpaRepository<Seat, Integer> {
 
     List<SeatPositionInfo> findByReservationIdAndFundingId(int reservationId, int fundingId);
 
-    Seat findByReservationId(int reservationid);
+    List<Seat> findByReservationId(int reservationid);
 }

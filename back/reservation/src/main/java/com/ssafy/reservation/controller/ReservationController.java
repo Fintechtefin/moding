@@ -46,8 +46,6 @@ public class ReservationController {
         reservationService.checkReservation(makeReservationRequest.getFundingId(), userId);
 
         int reservationId = reservationService.checkSeat(makeReservationRequest, userId);
-        //        int reservationId = reservationService.makeReservation(makeReservationRequest,
-        // userId);
 
         return ResponseEntity.ok().body(reservationId);
     }
@@ -73,12 +71,33 @@ public class ReservationController {
         return ResponseEntity.ok().body(ticketInfoResponse);
     }
 
-    @Operation(summary = "예매 내예매 내역 중 곧 상영될 티켓을 조회합니다.")
+    @Operation(summary = "예매 내역 중 곧 상영될 티켓을 조회합니다.")
     @GetMapping("/recent")
     public ResponseEntity<?> getRecentTicket(@RequestHeader("Authorization") String accessToken) {
         int userId = reservationService.getCurrentUserId(accessToken);
         TicketInfoResponse ticketInfoResponse =
                 reservationService.getRecentTicket(accessToken, userId);
         return ResponseEntity.ok().body(ticketInfoResponse);
+    }
+
+    @Operation(summary = "예매 페이지에 접속한 사용자 수를 조회합니다.")
+    @GetMapping("/increase/{fundingId}")
+    public ResponseEntity<?> increaseParticipant(
+            @RequestHeader("Authorization") String accessToken,
+            @PathVariable("fundingId") int fundingId) {
+        int userId = reservationService.getCurrentUserId(accessToken);
+
+        return ResponseEntity.ok().body(reservationService.increaseParticipant(fundingId, userId));
+    }
+
+    @Operation(summary = "예매 페이지를 벗어난 사용자의 수만큼 감소합니다.")
+    @GetMapping("/decrease/{fundingId}")
+    public ResponseEntity<?> decreaseParticipant(
+            @RequestHeader("Authorization") String accessToken,
+            @PathVariable("fundingId") int fundingId) {
+        int userId = reservationService.getCurrentUserId(accessToken);
+
+        reservationService.decreaseParticipant(fundingId, userId);
+        return ResponseEntity.noContent().build();
     }
 }

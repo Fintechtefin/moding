@@ -44,6 +44,24 @@ public class ReservationService {
         return null;
     }
 
+    public int increaseParticipant(int fundingId, int userId) {
+        if (redisUtil.getValue("participant_" + fundingId) != null) {
+            redisUtil.setValue(
+                    "participant_" + fundingId, redisUtil.getValue("participant_" + fundingId) + 1);
+        } else {
+            redisUtil.setValue("participant_" + fundingId, 1);
+        }
+        return redisUtil.getValue("participant_" + fundingId);
+    }
+
+    public void decreaseParticipant(int fundingId, int userId) {
+        if (redisUtil.getValue("participant_" + fundingId) != null
+                && redisUtil.getValue("participant_" + fundingId) > 0) {
+            redisUtil.setValue(
+                    "participant_" + fundingId, redisUtil.getValue("participant_" + fundingId) - 1);
+        }
+    }
+
     public void checkPaymentUser(int fundingId, int userId) {
         if (!reservationClient.checkPaymentUser(fundingId, userId)) {
             throw new BadRequestException(CustomExceptionStatus.NOT_PAYMENTS_USER);
@@ -123,37 +141,10 @@ public class ReservationService {
             redisValue = redisValue.concat(position);
         }
         redisUtil.setData(key, redisValue);
+        decreaseParticipant(makeReservationRequest.getFundingId(), userId);
 
         return reservation.getId();
     }
-
-    //    // 좌석 예매 내역 db 저장
-    //    @Transactional
-    //    public int makeReservation(MakeReservationRequest makeReservationRequest, int userId) {
-    //        Reservation reservation = Reservation.of(makeReservationRequest, userId, 1);
-    //        reservationRepository.save(reservation);
-    //
-    //        makeReservationRequest.getPosition().stream()
-    //                .forEach(
-    //                        s ->
-    //                                seatRepository.save(
-    //                                        Seat.of(
-    //                                                s,
-    //                                                makeReservationRequest.getFundingId(),
-    //                                                reservation)));
-    //
-    //        String key = "seat_funding_" + makeReservationRequest.getFundingId();
-    //        String redisValue = "";
-    //        if(redisUtil.getData(key) != null){
-    //            redisValue = redisUtil.getData(key);
-    //        }
-    //        for(String position : makeReservationRequest.getPosition()){
-    //            redisValue = redisValue.concat(position);
-    //        }
-    //        redisUtil.setData(key, redisValue);
-    //
-    //        return reservation.getId();
-    //    }
 
     public TicketInfoResponse getTicket(String accessToken, int reservationId) {
         Reservation reservation =
@@ -221,13 +212,15 @@ public class ReservationService {
 
         // redis cache overwrite
         List<Reservation> reservationList =
-                reservationRepository.findListByFundingIdAndStatus(fundingId, 1);
+                reservationRepository.findByFundingIdAndStatus(fundingId, 1);
         if (reservationList == null) {
             throw new BadRequestException(NOT_FOUND_RSERVATION_ID);
         }
         String value = "";
         for (Reservation res : reservationList) {
-            value = value.concat(seatRepository.findByReservationId(res.getId()).getPosition());
+            for (Seat s : seatRepository.findByReservationId(res.getId())) {
+                value = value.concat(s.getPosition());
+            }
         }
 
         redisUtil.setData("seat_funding_" + fundingId, value);
