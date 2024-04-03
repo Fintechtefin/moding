@@ -1,42 +1,49 @@
 import { useState } from "react";
 import "@/assets/styles/movieList/MovieCarousel.scss";
 import { Link } from "react-router-dom";
+import romance from "@assets/images/romance.jpg";
+import action from "@assets/images/action.jpg";
+import horror from "@assets/images/horror.jpg";
+import sf from "@assets/images/sf.jpg";
+import comic from "@assets/images/comic.jpg";
+import exc from "@assets/images/exc.jpg";
+import drama from "@assets/images/drama.jpg";
 
 const images = [
   {
     id: 0,
     category: "로맨스",
-    url: "http://www.honcho-sfx.com/blog/wp-content/uploads/2015/08/Deadpool-trailer-300x300.jpg",
+    url: romance,
   },
   {
     id: 1,
     category: "드라마",
-    url: "http://www.honcho-sfx.com/blog/wp-content/uploads/2015/08/Deadpool-trailer-300x300.jpg",
+    url: drama,
   },
   {
     id: 2,
     category: "액션",
-    url: "http://www.honcho-sfx.com/blog/wp-content/uploads/2015/08/Deadpool-trailer-300x300.jpg",
+    url: action,
   },
   {
     id: 3,
     category: "공포",
-    url: "http://www.honcho-sfx.com/blog/wp-content/uploads/2015/08/Deadpool-trailer-300x300.jpg",
+    url: horror,
   },
   {
     id: 4,
     category: "SF",
-    url: "http://www.honcho-sfx.com/blog/wp-content/uploads/2015/08/Deadpool-trailer-300x300.jpg",
+    url: sf,
   },
   {
     id: 5,
     category: "코미디",
-    url: "http://www.honcho-sfx.com/blog/wp-content/uploads/2015/08/Deadpool-trailer-300x300.jpg",
+    url: comic,
   },
   {
     id: 6,
     category: "기타",
-    url: "http://www.honcho-sfx.com/blog/wp-content/uploads/2015/08/Deadpool-trailer-300x300.jpg",
+    url: exc,
   },
 ];
 
@@ -70,6 +77,14 @@ const MovieCarousel = () => {
     }
   };
 
+  const handlePrevious = () => {
+    setSelectedIndex((prevIndex) => prevIndex - 1);
+  };
+
+  const handleNext = () => {
+    setSelectedIndex((prevIndex) => prevIndex + 1);
+  };
+
   return (
     <div
       className="wrapper"
@@ -86,11 +101,24 @@ const MovieCarousel = () => {
               className="cell"
             >
               <div>
-                <h3 className="text-white">{image.category}</h3>
+                <h3 className="text-white title">{image.category}</h3>
+                <img
+                  className="list-image w-[100%] h-[50vh] rounded-sm opacity-80"
+                  src={image.url}
+                  alt=""
+                />
               </div>
             </Link>
           ))}
         </div>
+      </div>
+      <div className="absolute top-[15%] flex justify-between w-[100%] px-4">
+        <button className="previous-button" onClick={handlePrevious}>
+          &lt;
+        </button>
+        <button className="next-button" onClick={handleNext}>
+          &gt;
+        </button>
       </div>
     </div>
   );

@@ -6,7 +6,9 @@ import { getFundingResult } from "@api/funding";
 interface Props {
   id: number;
   status: string;
+  like: boolean;
   likeCnt: number;
+  request: boolean;
   hopeCnt: number;
   modalDown: (state: boolean) => void;
   sendFundingInfo: (type: string) => void;
@@ -16,29 +18,42 @@ interface Props {
 const MovieDetailButton = ({
   id,
   status,
+  like,
   likeCnt,
+  request,
   hopeCnt,
   modalDown,
   sendFundingInfo,
   fundingId,
 }: Props) => {
   const [isDone, setIsDone] = useState(false);
-  const [isLiked, setIsLiked] = useState(true);
-  const [likeNowCnt, setLikeNowCnt] = useState(likeCnt);
+  const [isLiked, setIsLiked] = useState(false);
+  const [likeNowCnt, setLikeNowCnt] = useState(0);
   const [isHope, setIsHope] = useState(false);
-  const [hopeNowCnt, setHopeNowCnt] = useState(hopeCnt);
+  const [hopeNowCnt, setHopeNowCnt] = useState(0);
   const [applyAlarm, setApplyAlarm] = useState(false);
   const [openFundingId, setOpenFundingId] = useState(0);
 
   useEffect(() => {
+    if (like) {
+      setIsLiked(true);
+    }
+    if (request) {
+      setIsHope(true);
+    }
     if (status === "무딩 준비 중" && isHope) {
       setIsDone(true);
     } else if (status === "무딩 예정" && applyAlarm) {
       setIsDone(true);
-    } else if (status === "무딩 종료") {
+    } else if (status === "무딩종료") {
       setIsDone(true);
     }
   }, []);
+
+  useEffect(() => {
+    setLikeNowCnt(likeCnt);
+    setHopeNowCnt(hopeCnt);
+  }, [likeCnt, hopeCnt]);
 
   const postLike = async (id: number) => {
     if (isLiked) {
@@ -106,7 +121,7 @@ const MovieDetailButton = ({
     <div className="relative overflow-hidden flex flex-col just pt-[1vh]">
       <div className="movie-detail-btn flex flex-row h-[7vh] border-red-700">
         <div className="like-area basis-1/6 bg-black border-red-700">
-          <div className="placement">
+          <div className={`placement`}>
             <div
               className={`heart ${isLiked ? "is-active" : ""}`}
               onClick={() => postLike(id)}
@@ -167,7 +182,7 @@ const MovieDetailButton = ({
               </div>
             </>
           )}
-          {status == "무딩 종료" && (
+          {status == "무딩종료" && (
             <>
               <div className={buttonTextArea}>
                 <div className={buttonText}>무딩 종료</div>

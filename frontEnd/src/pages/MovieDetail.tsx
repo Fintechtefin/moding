@@ -89,7 +89,7 @@ const MovieDetail = () => {
   const [infoCategory, setInfoCategory] = useState(0);
   const [modalShow, setModalShow] = useState(false);
   // 무딩 준비 중이거나 무딩 완료 시에 false로 바꾸기
-  const [fundingInfo, setFundingInfo] = useState(true);
+  const [fundingInfo, setFundingInfo] = useState(false);
 
   const sendFundingInfo = (type: string) => {
     const fundinfos = {
@@ -99,8 +99,10 @@ const MovieDetail = () => {
       movieId: movieInfo?.movieId,
     };
     if (type === "join") {
+      console.log(fundinfos);
       navigate(`/fund/payment`, { state: fundinfos });
     } else if (type === "book") {
+      console.log(fundinfos);
       navigate(`/fund/reserve`, { state: fundinfos });
     }
   };
@@ -109,10 +111,10 @@ const MovieDetail = () => {
     if (movieInfo) {
       console.log(movieInfo);
       if (
-        movieInfo.status === "무딩 준비 중" ||
-        movieInfo.status === "무딩종료"
+        movieInfo.status != "무딩 준비 중" &&
+        movieInfo.status != "무딩종료"
       ) {
-        setFundingInfo(false);
+        setFundingInfo(true);
       }
     }
   }, [movieInfo, fundingInfo]);
@@ -133,7 +135,7 @@ const MovieDetail = () => {
             backgroundRepeat: "no-repeat",
           }}
         >
-          <NoneNavHeader type="share" />
+          <NoneNavHeader />
           {/* info영역 */}
           <div className="flex flex-col items-center mt-72">
             <div className="text-[4vh] px-6 text-center">{movieInfo.title}</div>
@@ -178,7 +180,7 @@ const MovieDetail = () => {
                 유의 사항
               </div>
             </div>
-            <div className="px-4 pt-4 pb-20">
+            <div className="px-7 pt-4 pb-20">
               {infoCategory == 0 && (
                 <AboutMovie actors={movieInfo.actors} plot={movieInfo.plot} />
               )}
@@ -191,7 +193,9 @@ const MovieDetail = () => {
             <MovieDetailButton
               id={movieInfo.movieId}
               status={movieInfo.status}
+              like={movieInfo.like}
               likeCnt={movieInfo.likeCnt}
+              request={movieInfo.request}
               hopeCnt={movieInfo.hopeCnt}
               modalDown={modalDown}
               sendFundingInfo={sendFundingInfo}
