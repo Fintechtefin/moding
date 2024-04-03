@@ -13,7 +13,7 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
         int getId();
     }
 
-    List<Reservation> findListByFundingIdAndStatus(final int fundingId, final int status);
+    List<Reservation> findByFundingIdAndStatus(final int fundingId, final int status);
 
     List<ReservationInfo> findByUserIdAndStatus(final Integer userId, final Integer status);
 

@@ -20,4 +20,14 @@ public class RedisUtil {
         ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
         valueOperations.set(key, value);
     }
+
+    public Integer getValue(String key) {
+        ValueOperations<String, Integer> valueOperations = redisTemplate.opsForValue();
+        return valueOperations.get(key);
+    }
+
+    public void setValue(String key, Integer value) {
+        ValueOperations<String, Integer> valueOperations = redisTemplate.opsForValue();
+        valueOperations.set(key, value);
+    }
 }
