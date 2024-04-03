@@ -80,3 +80,19 @@ spring:
           sensitive-headers: Cookie,Set-Cookie
           filters:
             - CustomAuthFilter
+
+management:
+  endpoint:
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+
+  endpoints:
+    web:
+      exposure:
+        include: health, info, metrics, prometheus
+
+  metrics:
+    tags:
+      application: ${spring.application.name}
