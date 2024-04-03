@@ -10,7 +10,7 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
     }
 
     public interface ReservationIdInterface {
-        int getFundingId();
+        int getId();
     }
 
     List<Reservation> findListByFundingIdAndStatus(final int fundingId, final int status);
