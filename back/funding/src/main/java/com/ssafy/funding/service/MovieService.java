@@ -149,7 +149,6 @@ public class MovieService {
             movieList = movieRepository.getMovieByGenreTitleDesc(genreId, (page - 1) * 21);
         else movieList = movieRepository.getMovieByGenreTitleAsc(genreId, (page - 1) * 21);
 
-
         String key = "genreCount_" + genreId;
         if (redisUtil.getData(key) == null) {
             redisUtil.setData(key, String.valueOf(movieRepository.getMovieCountByGenreId(genreId)));
