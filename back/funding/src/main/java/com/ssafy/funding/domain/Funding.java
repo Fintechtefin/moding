@@ -1,6 +1,8 @@
 package com.ssafy.funding.domain;
 
-import com.ssafy.funding.exception.FundingQuantityLackException;
+import static com.ssafy.funding.exception.global.CustomExceptionStatus.FUNDING_QUANTITY_LACK;
+
+import com.ssafy.funding.exception.BadRequestException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import javax.persistence.*;
@@ -88,7 +90,8 @@ public class Funding {
      */
     public void validEnoughQuantity(Integer currentTotalOrderCnt, Integer requestCount) {
         if ((this.peopleCount - currentTotalOrderCnt) < requestCount) {
-            throw FundingQuantityLackException.EXCEPTION;
+            throw new BadRequestException(FUNDING_QUANTITY_LACK);
+            // throw FundingQuantityLackException.EXCEPTION;
         }
     }
 }
