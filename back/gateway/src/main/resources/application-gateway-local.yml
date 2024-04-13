@@ -1,8 +1,0 @@
-spring:
-  config:
-    activate:
-      on-profile: local
-
-  security:
-    jwt:
-      secret: c3ByaW5nYm9vdC1qd3QtdHV0b3JpYWwtc3ByaW5nYm9vdC1qd3QtdHV0b3JpYWwtc3ByaW5nYm9vdC1qd3QtdHV0b3JpYWwK
