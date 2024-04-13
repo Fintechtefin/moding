@@ -54,7 +54,7 @@ tasks.named('test') {
 task copyPrivate(type: Copy) {
 	copy {
 		from '../mooding_back_submodule'
-		include "application-gateway-*.yml"
+		include "application-gateway.yml"
 		into 'src/main/resources'
 	}
 }
