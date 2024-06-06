@@ -1,98 +1,80 @@
-import { useState } from "react";
-import post1 from "@assets/images/영화포스터.jpg";
+import { useState, useEffect } from "react";
 import MovieListItem from "./MovieListItem";
 import "@/assets/styles/movieList/MovieList.scss";
 import { Link } from "react-router-dom";
+import type { MovieCategory } from "@util/types/movieType";
+import { useQuery } from "@tanstack/react-query";
+import { getGenreList } from "@api/movie";
+import { useInView } from "react-intersection-observer";
 
-export type Poster = {
-  id: number;
-  name: string;
-  state: string;
-  count: number;
-  url: string;
-};
+interface Props {
+  category: number;
+  cateTitle: string;
+  sort: string;
+}
 
-const MovieList = () => {
-  const [PosterList] = useState<Poster[]>([
-    {
-      id: 1,
-      name: "엘리멘탈",
-      state: "무딩중",
-      count: 3663,
-      url: post1,
-    },
-    {
-      id: 2,
-      name: "불한당",
-      state: "무딩예정",
-      count: 1763,
-      url: post1,
-    },
-    {
-      id: 3,
-      name: "엘리멘탈",
-      state: "무딩중",
-      count: 3663,
-      url: post1,
-    },
-    {
-      id: 4,
-      name: "불한당",
-      state: "무딩예정",
-      count: 1763,
-      url: post1,
-    },
-    {
-      id: 5,
-      name: "엘리멘탈",
-      state: "무딩중",
-      count: 3663,
-      url: post1,
-    },
-    {
-      id: 6,
-      name: "불한당",
-      state: "무딩예정",
-      count: 1763,
-      url: post1,
-    },
-    {
-      id: 7,
-      name: "불한당",
-      state: "무딩예정",
-      count: 1763,
-      url: post1,
-    },
-    {
-      id: 8,
-      name: "불한당",
-      state: "무딩예정",
-      count: 1763,
-      url: post1,
-    },
-    {
-      id: 9,
-      name: "불한당",
-      state: "무딩예정",
-      count: 1763,
-      url: post1,
-    },
-  ]);
+const MovieList = ({ category, cateTitle, sort }: Props) => {
+  const [PosterList, setPosterList] = useState<MovieCategory | null>(null);
+  const [page, setPage] = useState(1);
+  const nickname = localStorage.getItem("nickname");
+
+  const { data } = useQuery<MovieCategory>({
+    queryKey: ["GenreList", category, page, sort], // 쿼리 키를 지정합니다.
+    queryFn: () => getGenreList(category, page, sort),
+    // getNowRanking 함수를 호출합니다.
+  });
+
+  useEffect(() => {
+    if (data) {
+      setPosterList((prevPosterList) => {
+        if (!prevPosterList) {
+          return data;
+        }
+        return {
+          ...prevPosterList,
+          movieList: [...prevPosterList.movieList, ...data.movieList],
+          totalCnt: data.totalCnt,
+        };
+      });
+      console.log(PosterList);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    setPage(1);
+    setPosterList(null);
+  }, [category, sort]);
+
+  const [ref, inView] = useInView({
+    threshold: 0.5,
+  });
+
+  useEffect(() => {
+    if (inView) {
+      setPage((prev) => prev + 1);
+    }
+  }, [inView]);
 
   return (
     <div className="movielist-container">
-      <div className="">아이템</div>
-      <div className="movie-list none-scroller px-[1.5vh] mt-20 grid grid-cols-3 gap-[1.2vh] overflow-auto pb-40">
-        {PosterList.map((poster) => {
-          return (
-            <Link to={`/fund/list/${poster.id}`} key={poster.id}>
-              <MovieListItem
-                state={poster.state}
-                url={poster.url}
-              ></MovieListItem>
-            </Link>
-          );
-        })}
+      <div className="flex flex-col items-end pt-4 pr-3 text-gray-400">
+        <div className="text-[3vh]">{nickname}님을 위해</div>
+        <div className="text-[3vh]">무딩이 준비한 {PosterList && PosterList.totalCnt}편의</div>
+        <div className="text-[3vh]">{cateTitle}</div>
+      </div>
+      <div className="movie-list none-scroller translate-y-[-40px] px-[1.5vh] grid grid-cols-3 gap-[1.2vh] overflow-auto pb-56">
+        {PosterList && (
+          <>
+            {PosterList.movieList.map((poster) => {
+              return (
+                <Link to={`/fund/list/${poster.movieId}`} key={poster.movieId} state={{ type: "list" }}>
+                  <MovieListItem state={poster.status} url={poster.poster} heigth="22vh"></MovieListItem>
+                </Link>
+              );
+            })}
+          </>
+        )}
+        <div ref={ref}></div>
       </div>
     </div>
   );

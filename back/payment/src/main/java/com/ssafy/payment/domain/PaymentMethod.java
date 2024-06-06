@@ -16,8 +16,4 @@ public class PaymentMethod {
     private Integer id;
 
     private String name;
-
-    @OneToOne(mappedBy = "paymentMethod")
-    @JoinColumn(name = "payment_id")
-    private Payment payment;
 }

@@ -64,7 +64,7 @@ const Notification = () => {
     <div>
       <NoneNavHeader centerText="알림" type="notification" />
       {notificationData.length ? (
-        <div className="none-scroll h-[93vh] overflow-auto p-[2vh] flex flex-col gap-[4vh]">
+        <div className="none-scroll h-[93vh] overflow-auto p-[3vh] flex flex-col gap-[4vh]">
           {notificationData.map((data) => {
             return <NotificationItem key={data.id} {...data} />;
           })}

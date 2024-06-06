@@ -3,9 +3,12 @@ import tt from "@assets/images/moviePost.png";
 
 import "@assets/styles/Ticket.scss";
 import TicketBack from "./TicketBack";
+import { useLocation } from "react-router-dom";
 
 const Ticket = () => {
   const [isFlipped, setIsFlipped] = useState(false);
+
+  const { state } = useLocation();
 
   const handleClick = () => {
     setIsFlipped((prev) => !prev);
@@ -16,9 +19,12 @@ const Ticket = () => {
       <div className={`card ${isFlipped ? "is-flipped" : ""}`}>
         <img
           className="card-face card-front ticket-mask w-[45vh] h-[77vh]"
-          src={tt}
+          src={state.poster}
+          onError={(e) => {
+            e.currentTarget.src = tt;
+          }}
         />
-        <TicketBack />
+        <TicketBack state={state} />
       </div>
     </div>
   );

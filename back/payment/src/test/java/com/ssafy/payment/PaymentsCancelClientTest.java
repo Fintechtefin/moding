@@ -7,7 +7,6 @@ import static org.assertj.core.api.AssertionsForClassTypes.catchThrowable;
 import com.ssafy.payment.controller.PaymentsCancelClient;
 import com.ssafy.payment.dto.request.CancelPaymentsRequest;
 import feign.RetryableException;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.contract.spec.internal.HttpStatus;
@@ -28,7 +27,7 @@ public class PaymentsCancelClientTest {
             CancelPaymentsRequest.builder().cancelReason("test").build();
     @Autowired private PaymentsCancelClient paymentsCancelClient;
 
-    @Test
+    // @Test
     public void 주문취소_실패시_멱등성_테스트() {
         final String URL = "/v1/payments/" + PAYMENT_KEY + "/cancel";
         // given

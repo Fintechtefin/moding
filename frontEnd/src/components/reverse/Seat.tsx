@@ -27,19 +27,19 @@ const Seat = ({ seatId, max, isOccupied }: Props) => {
     }
   };
 
-  const seatStatusClass = `w-[4vh] h-[3.5vh] rounded-b-[0.3vh] rounded-t-[1.3vh] flex justify-center items-center font-bold text-[1.5vh] cursor-pointer ${
+  const seatStatusClass = `w-[4vh] h-[3.3vh] rounded-b-sm rounded-t-xl flex justify-center items-center font-bold text-[1.5vh] cursor-pointer ${
     isOccupied || !isSelectable
-      ? "bg-[#3D3C4E]"
+      ? "bg-bgGray"
       : isSelected
-      ? "bg-[#C00202]"
-      : "bg-[#A09FB2]"
+      ? "bg-red-600"
+      : "bg-textGray"
   }`;
 
   return (
     <label className="relative">
       <div className={seatStatusClass}>
         {isOccupied || !isSelectable ? (
-          <IoClose className="text-[2.5vh]" />
+          <IoClose className="text-[4vh] text-textGray" />
         ) : (
           seatId
         )}

@@ -1,8 +1,8 @@
 package com.ssafy.funding.dto.response;
 
 import com.ssafy.funding.domain.Order;
-import com.ssafy.funding.domain.OrderMethod;
 import io.swagger.v3.oas.annotations.media.Schema;
+import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -10,16 +10,20 @@ import lombok.Getter;
 @Builder
 public class OrderConfirmResponse {
 
-    @Schema(description = "주문 고유 uuid")
-    private final String orderUuid;
+    @Schema(description = "펀딩내역")
+    private final String fundingTitle;
 
-    @Schema(description = "주문 방식 ( 결제 방식 , 승인 방식 )")
-    private final OrderMethod orderMethod;
+    @Schema(description = "결제일자")
+    private final LocalDateTime approvedAt;
+
+    @Schema(description = "결제금액")
+    private final Integer amount;
 
     public static OrderConfirmResponse of(Order order) {
         return OrderConfirmResponse.builder()
-                .orderMethod(order.getOrderMethod())
-                .orderUuid(order.getUuid())
+                .fundingTitle(order.getFunding().getMovie().getTitle())
+                .approvedAt(order.getCreatedAt())
+                .amount(order.getPrice())
                 .build();
     }
 }

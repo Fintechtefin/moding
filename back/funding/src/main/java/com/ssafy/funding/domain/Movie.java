@@ -48,17 +48,14 @@ public class Movie {
     private List<MovieGenre> movieGenreList = new ArrayList<>();
 
     public static Movie of(MovieDocument movieDocument) {
-        Movie movie = new Movie();
-
-        movie.id = movieDocument.getId();
-        movie.poster = movieDocument.getPoster();
-        movie.age = movieDocument.getAge();
-        movie.title = movieDocument.getTitle();
-        movie.status =
-                FundingStatus.valueOf(
-                        movieDocument
-                                .getStatus()); // Returns the enum constant of this type with the
-        // specified name.
+        Movie movie =
+                Movie.builder()
+                        .id(movieDocument.getId())
+                        .poster(movieDocument.getPoster())
+                        .age(movieDocument.getAge())
+                        .title(movieDocument.getTitle())
+                        .status(FundingStatus.valueOf(movieDocument.getStatus()))
+                        .build();
 
         return movie;
     }

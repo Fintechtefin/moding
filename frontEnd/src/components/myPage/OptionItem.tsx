@@ -1,29 +1,37 @@
 import { useNavigate } from "react-router-dom";
-import { MdOutlineArrowForwardIos } from "react-icons/md";
+import { IoIosArrowForward } from "react-icons/io";
+import { MenuOptionItem } from "@util/types";
+import { axiosApi } from "@util/commons";
 
-const OPTION_CONTENT_ITEM = "flex justify-between cursor-pointer";
-const RIGHT_OPTION_CONTENT = "flex items-center gap-[1.5vh]";
+interface Props extends MenuOptionItem {}
 
-interface Props {
-  name: string;
-  count: number | null;
-  url: string;
-}
-
-const OptionItem = ({ name, count, url }: Props) => {
+const OptionItem = ({ name, type, url, disable }: Props) => {
   const navigate = useNavigate();
-  const jwt = localStorage.getItem("jwt");
 
-  const handleClick = () => {
-    navigate(jwt ? "/login" : url);
+  const logout = async () => {
+    try {
+      const res = await axiosApi().delete("users/user/logout");
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
-  return (
-    <div className={OPTION_CONTENT_ITEM} onClick={handleClick}>
+  return disable ? (
+    <div className="flex justify-between cursor-not-allowed">
       <div>{name}</div>
-      <div className={RIGHT_OPTION_CONTENT}>
-        {count !== null && <div>{count}</div>}
-        <MdOutlineArrowForwardIos />
+      <div className="flex items-center px-[1vh] text-[2vh] border-red-600 border text-red-600 rounded">
+        추후 공개
+      </div>
+    </div>
+  ) : (
+    <div
+      className="flex justify-between cursor-pointer"
+      onClick={() => (type === "navigate" ? navigate(url) : logout())}
+    >
+      <div>{name}</div>
+      <div className="flex items-center text-[2.5vh]">
+        <IoIosArrowForward />
       </div>
     </div>
   );

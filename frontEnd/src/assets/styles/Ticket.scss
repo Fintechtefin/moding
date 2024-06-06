@@ -4,6 +4,14 @@
     mask-size: 42vh;
     mask-position: center;
     mask-repeat: no-repeat;
+
+    // &::after {
+    //   content: "";
+    //   position: absolute;
+    //   width: 100px;
+    //   height: 100px;
+    //   background-color: red;
+    // }
   }
 
   .card-container {

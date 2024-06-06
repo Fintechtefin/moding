@@ -4,7 +4,6 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,6 +21,8 @@ public class NaverUserInfo implements OauthUserInfo {
         private String id;
         private String birthyear;
         private String age;
+        private String nickname;
+        private String profile_image;
     }
 
     @Override
@@ -30,14 +31,12 @@ public class NaverUserInfo implements OauthUserInfo {
     }
 
     @Override
-    public int getBirthYear() {
-        int birthYear = Integer.parseInt(response.birthyear);
-        int currYear = LocalDate.now().getYear();
-        return currYear - birthYear + 1;
+    public String getProfileImage() {
+        return response.profile_image;
     }
 
     @Override
-    public String getAge() {
-        return response.age;
+    public String getNickname() {
+        return response.nickname;
     }
 }

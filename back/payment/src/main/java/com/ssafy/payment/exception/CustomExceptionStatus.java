@@ -7,6 +7,9 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum CustomExceptionStatus implements BaseErrorCode {
+    INTERNAL_SEVER_ERROR("InternalServer_500_1", "서버 에러가 발생하였습니다. 관리자에게 문의해 주세요."),
+    REQUEST_ERROR("NotValidInput_400_2", "입력 값을 확인해 주세요."),
+
     OTHER_SERVER_BAD_REQUEST("FEIGN_400_1", "Other server bad request"),
     OTHER_SERVER_UNAUTHORIZED("FEIGN_400_2", "Other server unauthorized"),
     OTHER_SERVER_FORBIDDEN("FEIGN_400_3", "Other server forbidden"),
@@ -57,7 +60,9 @@ public enum CustomExceptionStatus implements BaseErrorCode {
             "PAYMENTS_GET_FAILED_PARTIAL_REFUND", "은행 점검, 해약 계좌 등의 사유로 부분 환불이 실패했습니다."),
     COMMON_ERROR("PAYMENTS_GET_COMMON_ERROR", "일시적인 오류가 발생했습니다. 잠시 후 다시 시도해주세요."),
     FAILED_PAYMENT_INTERNAL_SYSTEM_PROCESSING(
-            "PAYMENTS_GET_FAILED_PAYMENT_INTERNAL_SYSTEM_PROCESSING", "결제가 완료되지 않았어요. 다시 시도해주세요.");
+            "PAYMENTS_GET_FAILED_PAYMENT_INTERNAL_SYSTEM_PROCESSING", "결제가 완료되지 않았어요. 다시 시도해주세요."),
+    NOT_FOUND_PAYMENT_METHOD("PAYMENTS_GET_NOT_FOUND_PAYMENT_METHOD", "존재하지 않는 결제 수단입니다."),
+    NOT_FOUND_PAYMENT_STATUS("PAYMENTS_GET_NOT_FOUND_PAYMENT_STATUS", "존재하지 않는 결제 상태입니다.");
 
     private String code;
     private String reason;

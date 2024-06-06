@@ -18,4 +18,7 @@ public class Genre {
 
     @Column(length = 30)
     private String type;
+
+    @Column(name = "parent_genre_id")
+    private int parentGenreId;
 }

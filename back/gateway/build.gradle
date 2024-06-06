@@ -28,6 +28,12 @@ dependencies {
 	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
 	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5','io.jsonwebtoken:jjwt-jackson:0.11.5'
 
+	// actuator
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+	// prometheus
+	runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
+
 	//lombok
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
@@ -48,7 +54,7 @@ tasks.named('test') {
 task copyPrivate(type: Copy) {
 	copy {
 		from '../mooding_back_submodule'
-		include "application-gateway-*.yml"
+		include "application-gateway.yml"
 		into 'src/main/resources'
 	}
 }

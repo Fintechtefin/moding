@@ -15,9 +15,13 @@ public class PaymentCancel implements Serializable {
     @MapsId
     @OneToOne
     @JoinColumn(name = "payment_cancel_id")
-    private Payment paymentId;
+    private Payment payment;
 
-    private LocalDateTime paymentCancelCreatedAt;
+    @Column(name = "approved_at")
+    private LocalDateTime approvedAt;
 
-    private Integer amount;
+    @Column(name = "requested_at")
+    private LocalDateTime requestedAt;
+
+    private Long amount;
 }

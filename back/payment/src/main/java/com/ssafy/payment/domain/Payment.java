@@ -59,4 +59,8 @@ public class Payment {
                 .paymentStatus(paymentStatus)
                 .build();
     }
+
+    public void changePaymentStatus(PaymentStatus paymentStatus) {
+        this.paymentStatus = paymentStatus;
+    }
 }

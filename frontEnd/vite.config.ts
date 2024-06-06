@@ -14,9 +14,9 @@ export default defineConfig({
         enabled: true,
       },
       manifest: {
-        name: "오늘은 낚시왕",
-        short_name: "오늘은 낚시왕",
-        theme_color: "#ffffff",
+        name: "MODING",
+        short_name: "MODING",
+        theme_color: "#000000",
         start_url: "/",
         icons: [
           {
@@ -48,6 +48,6 @@ export default defineConfig({
   server: {
     port: 5174,
     host: "0.0.0.0",
-    open: true,
+    // open: true,
   },
 });

@@ -1,40 +1,59 @@
 import "@/assets/styles/movieDetail/MovieDetailButton.scss";
 import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { getFundingResult } from "@api/funding";
 
 interface Props {
   id: number;
   status: string;
+  like: boolean;
   likeCnt: number;
+  request: boolean;
   hopeCnt: number;
-  alarmCnt: number;
   modalDown: (state: boolean) => void;
+  sendFundingInfo: (type: string) => void;
+  fundingId: number;
 }
 
 const MovieDetailButton = ({
   id,
   status,
+  like,
   likeCnt,
+  request,
   hopeCnt,
-  alarmCnt,
   modalDown,
+  sendFundingInfo,
+  fundingId,
 }: Props) => {
-  const [isDone, setIsDone] = useState(true);
-  const [isLiked, setIsLiked] = useState(true);
-  const [likeNowCnt, setLikeNowCnt] = useState(likeCnt);
+  const [isDone, setIsDone] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
+  const [likeNowCnt, setLikeNowCnt] = useState(0);
   const [isHope, setIsHope] = useState(false);
-  const [hopeNowCnt, setHopeNowCnt] = useState(hopeCnt);
+  const [hopeNowCnt, setHopeNowCnt] = useState(0);
   const [applyAlarm, setApplyAlarm] = useState(false);
-  const [alarmNowCnt, setAlarmNowCnt] = useState(alarmCnt);
+  const [openFundingId, setOpenFundingId] = useState(0);
 
   useEffect(() => {
+    if (like) {
+      setIsLiked(true);
+    }
+    if (request) {
+      setIsHope(true);
+    }
     if (status === "무딩 준비 중" && isHope) {
       setIsDone(true);
     } else if (status === "무딩 예정" && applyAlarm) {
       setIsDone(true);
-    } else if (status === "무딩 종료") {
+    } else if (status === "무딩종료") {
       setIsDone(true);
     }
   }, []);
+
+  useEffect(() => {
+    setLikeNowCnt(likeCnt);
+    setHopeNowCnt(hopeCnt);
+  }, [likeCnt, hopeCnt]);
 
   const postLike = async (id: number) => {
     if (isLiked) {
@@ -67,12 +86,31 @@ const MovieDetailButton = ({
       console.log(id);
       setIsDone(!isDone);
       setApplyAlarm(!applyAlarm);
-      setAlarmNowCnt((prev) => prev - 1);
     } else {
       setIsDone(!isDone);
       setApplyAlarm(!applyAlarm);
-      setAlarmNowCnt((prev) => prev + 1);
     }
+  };
+
+  const { data } = useQuery<boolean, Error>({
+    queryKey: ["result", openFundingId], // 쿼리 키를 지정합니다.
+    queryFn: () => getFundingResult(openFundingId),
+    // getNowRanking 함수를 호출합니다.
+  });
+
+  const joinFunding = () => {
+    console.log(data);
+    console.log(typeof data);
+    setOpenFundingId(fundingId);
+    if (data) {
+      alert("이미 참여하셨습니다");
+    } else {
+      sendFundingInfo("join");
+    }
+  };
+
+  const bookTicket = () => {
+    sendFundingInfo("book");
   };
 
   const buttonTextArea = "flex justify-center items-center w-[100%] h-[100%]";
@@ -83,7 +121,7 @@ const MovieDetailButton = ({
     <div className="relative overflow-hidden flex flex-col just pt-[1vh]">
       <div className="movie-detail-btn flex flex-row h-[7vh] border-red-700">
         <div className="like-area basis-1/6 bg-black border-red-700">
-          <div className="placement">
+          <div className={`placement`}>
             <div
               className={`heart ${isLiked ? "is-active" : ""}`}
               onClick={() => postLike(id)}
@@ -118,19 +156,19 @@ const MovieDetailButton = ({
                   <div className={buttonText}>
                     {applyAlarm ? "알림신청완료" : "알림신청"}
                   </div>
-                  <div className={buttonSub}>({alarmNowCnt}명 신청중)</div>
+                  {/* <div className={buttonSub}>({alarmNowCnt}명 신청중)</div> */}
                 </div>
               </div>
             </>
           )}
-          {status == "무딩 중" && (
+          {status == "무딩중" && (
             <>
-              <div className={buttonTextArea}>
+              <div className={buttonTextArea} onClick={joinFunding}>
                 <div className={buttonText}>참여하기</div>
               </div>
             </>
           )}
-          {status == "예매 예정" && (
+          {status == "예매예정" && (
             <>
               <div className={buttonTextArea}>
                 <div className={buttonText}>예매오픈</div>
@@ -139,12 +177,12 @@ const MovieDetailButton = ({
           )}
           {status == "예매 진행" && (
             <>
-              <div className={buttonTextArea}>
+              <div className={buttonTextArea} onClick={bookTicket}>
                 <div className={buttonText}>예매하기</div>
               </div>
             </>
           )}
-          {status == "무딩 종료" && (
+          {status == "무딩종료" && (
             <>
               <div className={buttonTextArea}>
                 <div className={buttonText}>무딩 종료</div>

@@ -1,0 +1,13 @@
+services:
+  spring-boot:
+    restart: 'on-failure'
+    build:
+      dockerfile: Dockerfile
+    container_name: 'discovery'
+    ports:
+      - 8761:8761
+#    networks:
+#      - mooding_network
+#
+#networks:
+#  mooding_network:

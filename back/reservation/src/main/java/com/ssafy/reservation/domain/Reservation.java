@@ -1,27 +1,45 @@
 package com.ssafy.reservation.domain;
 
-import java.time.LocalDateTime;
+import com.ssafy.reservation.dto.request.MakeReservationRequest;
+import io.hypersistence.utils.hibernate.type.json.JsonType;
 import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.TypeDef;
 
 @Entity
 @Builder
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "user_seat")
-public class Reservation {
+@TypeDef(name = "json", typeClass = JsonType.class)
+@Table(name = "reservation")
+public class Reservation extends BaseTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_seat_id")
-    private Long Id;
+    @Column(name = "reservation_id")
+    private Integer id;
+
+    private Integer status;
 
     private Integer userId;
 
-    private LocalDateTime reservationAt;
+    private Integer fundingId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "seat_id")
-    private Seat seat;
+    public void changeStatus() {
+        this.status = 0;
+    }
+
+    public static Reservation of(
+            final MakeReservationRequest makeReservationRequest, int userId, int status) {
+        Reservation reservation =
+                Reservation.builder()
+                        .status(status)
+                        .userId(userId)
+                        .fundingId(makeReservationRequest.getFundingId())
+                        .build();
+        return reservation;
+    }
 }

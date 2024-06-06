@@ -1,9 +1,5 @@
-[submodule "mooding_back_submodule"]
-	path = mooding_back_submodule
-	url = https://lab.ssafy.com/a50070863/mooding_back_submodule.git
 [submodule "back/mooding_back_submodule"]
 	path = back/mooding_back_submodule
 	url = https://lab.ssafy.com/a50070863/mooding_back_submodule.git
-[submodule "frontEnd/moding_front_submodule"]
-	path = frontEnd/moding_front_submodule
-	url = https://lab.ssafy.com/wjdxodbs52/moding_front_submodule.git
+[submodule "moding_front_submodule"]
+	path = moding_front_submodule

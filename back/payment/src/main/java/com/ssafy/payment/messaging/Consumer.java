@@ -1,5 +1,7 @@
 package com.ssafy.payment.messaging;
 
+import com.ssafy.payment.controller.PaymentsCancelClient;
+import com.ssafy.payment.service.WithdrawPaymentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,17 +12,21 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class Consumer {
-    private final TestService testService;
+    private final WithdrawPaymentService withdrawPaymentService;
+    private final PaymentsCancelClient paymentsCancelClient;
 
-    @Value("${kafka.topics.test}")
+    @Value("${kafka.topics.payment}")
     private String topic;
 
-    @KafkaListener(topics = "${kafka.topics.test}", groupId = "${spring.kafka.consumer.group-id}")
-    void listen(String createPaymentsRequest) {
+    @KafkaListener(
+            topics = "${kafka.topics.payment}",
+            groupId = "${spring.kafka.consumer.group-id}")
+    void listen(String refundOrderRequest) {
         log.info("success to recieve");
         // productService.orderProdcut(message);
         try {
-            testService.callPaymentCreateClient(createPaymentsRequest);
+            withdrawPaymentService.execute(refundOrderRequest);
+            // testService.callPaymentCreateClient(createPaymentsRequest);
         } catch (Exception e) {
             e.printStackTrace();
         }

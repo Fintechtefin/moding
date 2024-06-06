@@ -1,19 +1,16 @@
 import OptionItem from "@components/myPage/OptionItem";
-
-const OPTION = "flex flex-col gap-[1.7vh]";
-const OPTION_TITLE = "text-textGray text-[2vh]";
-const OPTION_CONTENT = "flex flex-col gap-[1vh] text-[2.3vh] font-bold ";
+import { MenuOptionItem } from "@util/types";
 
 interface Props {
   title: string;
-  items: { name: string; count: number | null; url: string }[];
+  items: MenuOptionItem[];
 }
 
 const OptionSection = ({ title, items }: Props) => {
   return (
-    <div className={OPTION}>
-      <div className={OPTION_TITLE}>{title}</div>
-      <div className={OPTION_CONTENT}>
+    <div className="flex flex-col gap-[1.5vh]">
+      <div className="text-textGray text-[2vh]">{title}</div>
+      <div className="flex flex-col gap-[1vh] text-[2.3vh] font-bold">
         {items.map((item) => (
           <OptionItem key={item.name} {...item} />
         ))}
