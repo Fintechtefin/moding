@@ -41,7 +41,7 @@
 
 ---
 ## 3장. 아키텍처 소개
-![image](/uploads/ece7d63f1f35ac152a8c863b64b6ba1b/image.png)
+![mooding_architecture](https://github.com/Fintechtefin/moding/assets/46569105/cb057ca2-9bc8-4fbf-8ec8-069aaf0743c8)  
 
 ### 주요 기술 스택
 **FE**: React.js, Vite, TypeScript, Recoil, SCSS, FCM
