@@ -1,4 +1,4 @@
-package com.ssafy.payment.repository;
+package com.ssafy.payment.domain.repository;
 
 import com.ssafy.payment.domain.PaymentStatus;
 import org.springframework.data.repository.CrudRepository;
