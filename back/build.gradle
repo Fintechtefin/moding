@@ -1,5 +1,6 @@
 plugins {
 	id 'java'
+	id "org.sonarqube" version "4.4.1.3373"
 	id 'org.springframework.boot' version '2.7.18'
 	id 'io.spring.dependency-management' version '1.1.4'
 }
@@ -30,5 +31,13 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+sonar {
+	properties {
+		property "sonar.projectKey", "Fintechtefin_moding"
+		property "sonar.organization", "fintechtefin"
+		property "sonar.host.url", "https://sonarcloud.io"
+	}
 }
 
