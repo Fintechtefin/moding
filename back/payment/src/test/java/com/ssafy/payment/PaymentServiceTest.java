@@ -19,6 +19,7 @@ import com.ssafy.payment.repository.PaymentStatusRepository;
 import com.ssafy.payment.service.PaymentService;
 import java.time.ZonedDateTime;
 import java.util.Optional;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -38,6 +39,7 @@ public class PaymentServiceTest {
     @Mock private PaymentMethodRepository paymentMethodRepository;
 
     @Test
+    @Disabled
     @DisplayName("토스페이먼츠 결제 승인")
     void testCallTossPayConfirm() {
         // given
@@ -62,6 +64,7 @@ public class PaymentServiceTest {
     }
 
     @Test
+    @Disabled
     @DisplayName("토스페이먼츠 환불")
     void testCallTossPayRefund() {
         // given

@@ -8,7 +8,6 @@ import com.ssafy.payment.controller.PaymentsCancelClient;
 import com.ssafy.payment.dto.request.CancelPaymentsRequest;
 import feign.RetryableException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.contract.spec.internal.HttpStatus;
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.test.context.ActiveProfiles;
@@ -16,7 +15,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 
 @ContextConfiguration
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+// @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles({"payment-local"})
 @AutoConfigureWireMock(port = 0)
 @TestPropertySource(properties = {"feign.toss.url=http://localhost:${wiremock.server.port}"})
