@@ -38,6 +38,7 @@ sonar {
 		property "sonar.projectKey", "Fintechtefin_moding"
 		property "sonar.organization", "fintechtefin"
 		property "sonar.host.url", "https://sonarcloud.io"
+		property "sonar.sourceEncoding", "UTF-8"
 	}
 }
 
