@@ -11,7 +11,6 @@ import com.ssafy.funding.repository.FundingRepository;
 import com.ssafy.funding.repository.MovieRepository;
 import com.ssafy.funding.repository.OrderRepository;
 import java.util.Optional;
-
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
