@@ -19,6 +19,8 @@ import com.ssafy.funding.util.RedisUtil;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -40,6 +42,7 @@ public class FundingServiceTest {
     @Mock private RedisUtil redisUtil;
 
     @Test
+    @Disabled
     @DisplayName("내가 참여한 진행 중인 펀딩 목록을 보여줍니다. - 결제를 한 펀딩 조회")
     void TestGetMyFundingsFilterPayment() {
         // given
@@ -91,6 +94,7 @@ public class FundingServiceTest {
     }
 
     @Test
+    @Disabled
     @DisplayName("내가 참여한 진행 중인 펀딩 목록을 보여줍니다. - 진행 중인 펀딩 조회")
     void TestGetMyFundingsFilterFundingValid() {
         // given

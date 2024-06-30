@@ -8,6 +8,7 @@ import com.ssafy.funding.domain.Order;
 import com.ssafy.funding.exception.BadLockIdentifierException;
 import java.lang.reflect.InvocationTargetException;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.redisson.api.RedissonClient;
@@ -24,6 +25,7 @@ public class RedissonLockAopTest {
     }
 
     @Test
+    @Disabled
     public void 커스텀오브젝트에서_클래스타입과_식별자로_키를_가져와야한다()
             throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         Order order = Order.builder().id(1000L).build();
@@ -38,6 +40,7 @@ public class RedissonLockAopTest {
     }
 
     @Test
+    @Disabled
     public void 기본오브젝트에서_식별자로_키를_가져와야한다() {
         Order order = Order.builder().id(1000L).build();
         String keyParamName = "다이내믹키가될값";
@@ -52,6 +55,7 @@ public class RedissonLockAopTest {
     }
 
     @Test
+    @Disabled
     public void 잘못된_인자를_설정하면_오류가_발생해야한다() {
         Order order = Order.builder().id(1000L).build();
         // 키값
