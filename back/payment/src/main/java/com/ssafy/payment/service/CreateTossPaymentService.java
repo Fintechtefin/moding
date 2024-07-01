@@ -5,13 +5,14 @@ import com.ssafy.payment.controller.PaymentsCreateClient;
 import com.ssafy.payment.domain.Payment;
 import com.ssafy.payment.domain.PaymentMethod;
 import com.ssafy.payment.domain.PaymentStatus;
+import com.ssafy.payment.domain.repository.PaymentCancelRepository;
 import com.ssafy.payment.dto.request.ConfirmPaymentsRequest;
 import com.ssafy.payment.dto.request.CreatePaymentsRequest;
 import com.ssafy.payment.dto.response.PaymentsResponse;
 import com.ssafy.payment.exception.NotFoundPaymentException;
-import com.ssafy.payment.repository.PaymentMethodRepository;
-import com.ssafy.payment.repository.PaymentRepository;
-import com.ssafy.payment.repository.PaymentStatusRepository;
+import com.ssafy.payment.domain.repository.PaymentMethodRepository;
+import com.ssafy.payment.domain.repository.PaymentRepository;
+import com.ssafy.payment.domain.repository.PaymentStatusRepository;
 import io.grpc.stub.StreamObserver;
 import lombok.RequiredArgsConstructor;
 import net.devh.boot.grpc.examples.lib.*;
@@ -26,9 +27,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class CreateTossPaymentService extends OrderServiceGrpc.OrderServiceImplBase {
     private final PaymentsConfirmClient paymentsConfirmClient;
     private final PaymentsCreateClient paymentsCreateClient;
-    private final PaymentMethodRepository paymentMethodRepository;
-    private final PaymentRepository paymentRepository;
-    private final PaymentStatusRepository paymentStatusRepository;
+    private final PaymentCancelRepository paymentMethodRepository;
+    private final PaymentCancelRepository paymentRepository;
+    private final PaymentCancelRepository paymentStatusRepository;
 
     @Override
     public void callTossPay(
