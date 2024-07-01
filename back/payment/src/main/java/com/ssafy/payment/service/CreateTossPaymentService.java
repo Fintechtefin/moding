@@ -24,7 +24,6 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @Transactional
 public class CreateTossPaymentService extends OrderServiceGrpc.OrderServiceImplBase {
-
     private final PaymentsConfirmClient paymentsConfirmClient;
     private final PaymentsCreateClient paymentsCreateClient;
     private final PaymentMethodRepository paymentMethodRepository;

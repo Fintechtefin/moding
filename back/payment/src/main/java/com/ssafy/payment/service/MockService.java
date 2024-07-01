@@ -21,7 +21,6 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class MockService {
-
     private final MockServerFeignClient mockServerFeignClient;
     private final PaymentRepository paymentRepository;
     private final PaymentStatusRepository paymentStatusRepository;

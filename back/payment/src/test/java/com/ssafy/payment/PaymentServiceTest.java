@@ -28,7 +28,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 public class PaymentServiceTest {
-
     @InjectMocks private PaymentService paymentService;
     @Mock private PaymentsConfirmClient paymentsConfirmClient;
     @Mock private PaymentsCancelClient paymentsCancelClient;
