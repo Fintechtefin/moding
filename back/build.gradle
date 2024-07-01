@@ -33,7 +33,7 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 
-sonar {
+sonarqube {
 	properties {
 		property "sonar.projectKey", "Fintechtefin_moding"
 		property "sonar.organization", "fintechtefin"
