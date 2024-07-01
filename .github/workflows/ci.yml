@@ -40,18 +40,18 @@ jobs:
     # - name: Build with Gradle Wrapper
     #  run: ./gradlew build
 
-    - name: Cache SonarCloud packages
-      uses: actions/cache@v3
-      with:
-        path: ~/.sonar/cache
-        key: ${{ runner.os }}-sonar
-        restore-keys: ${{ runner.os }}-sonar
-    - name: Cache Gradle packages
-      uses: actions/cache@v3
-      with:
-        path: ~/.gradle/caches
-        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
-        restore-keys: ${{ runner.os }}-gradle
+    # - name: Cache SonarCloud packages
+    #   uses: actions/cache@v3
+    #   with:
+    #     path: ~/.sonar/cache
+    #     key: ${{ runner.os }}-sonar
+    #     restore-keys: ${{ runner.os }}-sonar
+    # - name: Cache Gradle packages
+    #   uses: actions/cache@v3
+    #   with:
+    #     path: ~/.gradle/caches
+    #     key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
+    #     restore-keys: ${{ runner.os }}-gradle
     - name: Run chmod to make gradlew executable
       run: chmod +x ./back/gradlew
     - name: Build and analyze
