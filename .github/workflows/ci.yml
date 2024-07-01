@@ -11,7 +11,7 @@ on:
   push:
     branches: [ "setting/#4" ]
   pull_request:
-    branches: [ "develop" ]
+    branches: [ "setting/#4" ]
 
 jobs:
   build:
