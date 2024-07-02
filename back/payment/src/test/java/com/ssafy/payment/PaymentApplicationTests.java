@@ -7,7 +7,6 @@ import org.springframework.test.context.ActiveProfiles;
 @SpringBootTest
 @ActiveProfiles({"payment-local"})
 class PaymentApplicationTests {
-
     @Test
     void contextLoads() {}
 }

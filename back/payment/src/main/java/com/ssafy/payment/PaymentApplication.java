@@ -8,7 +8,6 @@ import org.springframework.cloud.stream.annotation.EnableBinding;
 @SpringBootApplication
 @EnableBinding(value = PaymentEventStream.class)
 public class PaymentApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(PaymentApplication.class, args);
     }

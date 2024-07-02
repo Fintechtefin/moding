@@ -9,13 +9,13 @@ import com.ssafy.payment.controller.PaymentsConfirmClient;
 import com.ssafy.payment.domain.Payment;
 import com.ssafy.payment.domain.PaymentMethod;
 import com.ssafy.payment.domain.PaymentStatus;
+import com.ssafy.payment.domain.repository.PaymentCancelRepository;
+import com.ssafy.payment.domain.repository.PaymentMethodRepository;
+import com.ssafy.payment.domain.repository.PaymentRepository;
+import com.ssafy.payment.domain.repository.PaymentStatusRepository;
 import com.ssafy.payment.dto.request.ConfirmPaymentsRequest;
 import com.ssafy.payment.dto.request.RefundOrderRequest;
 import com.ssafy.payment.dto.response.PaymentsResponse;
-import com.ssafy.payment.repository.PaymentCancelRepository;
-import com.ssafy.payment.repository.PaymentMethodRepository;
-import com.ssafy.payment.repository.PaymentRepository;
-import com.ssafy.payment.repository.PaymentStatusRepository;
 import com.ssafy.payment.service.PaymentService;
 import java.time.ZonedDateTime;
 import java.util.Optional;
@@ -28,7 +28,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 public class PaymentServiceTest {
-
     @InjectMocks private PaymentService paymentService;
     @Mock private PaymentsConfirmClient paymentsConfirmClient;
     @Mock private PaymentsCancelClient paymentsCancelClient;
