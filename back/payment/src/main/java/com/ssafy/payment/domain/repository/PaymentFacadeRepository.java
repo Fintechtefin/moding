@@ -1,4 +1,4 @@
-package com.ssafy.payment.service;
+package com.ssafy.payment.domain.repository;
 
 import static com.ssafy.payment.exception.CustomExceptionStatus.NOT_FOUND_PAYMENT_METHOD;
 import static com.ssafy.payment.exception.CustomExceptionStatus.NOT_FOUND_PAYMENT_STATUS;
@@ -7,10 +7,6 @@ import com.ssafy.payment.domain.Payment;
 import com.ssafy.payment.domain.PaymentCancel;
 import com.ssafy.payment.domain.PaymentMethod;
 import com.ssafy.payment.domain.PaymentStatus;
-import com.ssafy.payment.domain.repository.PaymentCancelRepository;
-import com.ssafy.payment.domain.repository.PaymentMethodRepository;
-import com.ssafy.payment.domain.repository.PaymentRepository;
-import com.ssafy.payment.domain.repository.PaymentStatusRepository;
 import com.ssafy.payment.dto.response.PaymentsResponse;
 import com.ssafy.payment.exception.BadRequestException;
 import com.ssafy.payment.exception.NotFoundPaymentException;
