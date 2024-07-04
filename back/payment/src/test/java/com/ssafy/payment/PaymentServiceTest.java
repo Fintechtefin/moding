@@ -35,9 +35,9 @@ public class PaymentServiceTest {
         // given
         given(paymentsConfirmClient.execute(any(ConfirmPaymentsRequest.class)))
                 .willReturn(PaymentsResponse.builder().build());
-        given(paymentFacadeRepository.findPaymentMethod())
+        given(paymentFacadeRepository.findPaymentMethodCard())
                 .willReturn(PaymentMethod.builder().id(1).name("DONE").build());
-        given(paymentFacadeRepository.findPaymentStatus())
+        given(paymentFacadeRepository.findPaymentStatusDone())
                 .willReturn(PaymentStatus.builder().id(4).name("카드").build());
 
         // when
@@ -73,7 +73,7 @@ public class PaymentServiceTest {
         given(paymentsCancelClient.execute(anyString(), anyString(), any()))
                 .willReturn(mockPaymentsResponse);
 
-        given(paymentFacadeRepository.findPaymentStatusById())
+        given(paymentFacadeRepository.findPaymentStatusCanceled())
                 .willReturn(PaymentStatus.builder().id(5).name("CANCELED").build());
 
         // when
@@ -83,6 +83,6 @@ public class PaymentServiceTest {
         verify(paymentFacadeRepository, times(1)).findPaymentByOrderId(anyLong());
         verify(paymentsCancelClient, times(1)).execute(anyString(), anyString(), any());
         verify(paymentFacadeRepository, times(1)).savePaymentCancel(any(), any());
-        verify(paymentFacadeRepository, times(1)).findPaymentStatusById();
+        verify(paymentFacadeRepository, times(1)).findPaymentStatusCanceled();
     }
 }

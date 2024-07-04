@@ -16,20 +16,24 @@ import org.springframework.stereotype.Repository;
 @Repository
 @RequiredArgsConstructor
 public class PaymentFacadeRepository {
+    private static final int PAYMENT_METHOD_CARD = 1;
+    private static final int PAYMENT_STATUS_DONE = 4;
+    private static final int PAYMENT_STATUS_CANCELED = 5;
+
     private final PaymentCancelRepository paymentCancelRepository;
     private final PaymentRepository paymentRepository;
     private final PaymentStatusRepository paymentStatusRepository;
     private final PaymentMethodRepository paymentMethodRepository;
 
-    public PaymentMethod findPaymentMethod() {
+    public PaymentMethod findPaymentMethodCard() {
         return paymentMethodRepository
-                .findById(1)
+                .findById(PAYMENT_METHOD_CARD)
                 .orElseThrow(() -> new BadRequestException(NOT_FOUND_PAYMENT_METHOD));
     }
 
-    public PaymentStatus findPaymentStatus() {
+    public PaymentStatus findPaymentStatusDone() {
         return paymentStatusRepository
-                .findById(4)
+                .findById(PAYMENT_STATUS_DONE)
                 .orElseThrow(() -> new BadRequestException(NOT_FOUND_PAYMENT_STATUS));
     }
 
@@ -53,9 +57,9 @@ public class PaymentFacadeRepository {
                         .build());
     }
 
-    public PaymentStatus findPaymentStatusById() {
+    public PaymentStatus findPaymentStatusCanceled() {
         return paymentStatusRepository
-                .findById(5)
+                .findById(PAYMENT_STATUS_CANCELED)
                 .orElseThrow(() -> new BadRequestException(NOT_FOUND_PAYMENT_STATUS));
     }
 }

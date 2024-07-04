@@ -40,8 +40,8 @@ public class PaymentService {
         //                .approvedAt(ZonedDateTime.now())
         //                .build();
 
-        PaymentMethod paymentMethod = paymentFacadeRepository.findPaymentMethod();
-        PaymentStatus paymentStatus = paymentFacadeRepository.findPaymentStatus();
+        PaymentMethod paymentMethod = paymentFacadeRepository.findPaymentMethodCard();
+        PaymentStatus paymentStatus = paymentFacadeRepository.findPaymentStatusDone();
 
         paymentFacadeRepository.savePayment(
                 Payment.createPayment(
@@ -72,6 +72,6 @@ public class PaymentService {
 
         paymentFacadeRepository.savePaymentCancel(payment, paymentsResponse);
 
-        payment.changePaymentStatus(paymentFacadeRepository.findPaymentStatusById());
+        payment.changePaymentStatus(paymentFacadeRepository.findPaymentStatusCanceled());
     }
 }
