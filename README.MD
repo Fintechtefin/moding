@@ -4,7 +4,7 @@
 
 <div>
   <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white">
-  <img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white"> 
+  <img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"> 
   <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white"> 
   <img src="https://img.shields.io/badge/redis-DC382D?style=for-the-badge&logo=redis&logoColor=white">
   <img src="https://img.shields.io/badge/elasticsearch-005571?style=for-the-badge&logo=elasticsearch&logoColor=white">
@@ -69,12 +69,18 @@
 ## 3장. 아키텍처 소개
 ![mooding_architecture](https://github.com/Fintechtefin/moding/assets/46569105/cb057ca2-9bc8-4fbf-8ec8-069aaf0743c8)  
 
-### 주요 기술 스택
-**FE**: React.js, Vite, TypeScript, Recoil, SCSS, FCM
+<br>
 
-**BE**: Spring Boot, Spring Cloud, Spring Batch, JWT, Kafka, MySQL, ElasticSearch, Logstash, Kibana, Redis, gRPC
-
-**INFRA** : AWS EC2, Jenkins, Nginx, Docker
+### 기술 스택 선정 이유
+|기술|선정 이유|
+|---|----|
+|Spring Boot|Spring과 비교했을 때 환경 설정을 쉽게 할 수 있어서 개발 생산성 증가|
+|MySQL|구조화 된 데이터 관리 및 오픈 소스 라이센스를 따르기 때문에 무료 사용 가능|
+|Docker|컨테이너 기반으로 여러 서버들을 쉽게 관리|
+|Redis|캐싱 및 분산락 구현을 위한 사용|
+|ELK|실시간 인기 순위 구현 시 검색 성능 최적화를 위해 사용|
+|Prometheus|매트릭 수집|
+|Grafana|Prometheus로 수집한 매트릭 데이터를 시각화|
 
 ---
 ## 4장. 주요 기술
