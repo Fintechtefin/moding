@@ -1,5 +1,5 @@
-# 🎟 재상영 영화 크라우드 펀딩, 무딩
-
+# 🎟 재상영 영화 크라우드 펀딩, 무딩  
+재상영 영화 크라우드 펀딩 서비스  
 </br>
 
 <div>
@@ -25,59 +25,31 @@
  <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
 </div>
 
-## 목차
+<br>
+
+## 📕 목차  
 [1. 서비스 개요](#1장-서비스-개요)
 
-[2. 서비스 소개](#2장-서비스-소개)
+[2. 아키텍처 소개](#2장-아키텍처-소개)
 
-[3. 아키텍처 소개](#3장-아키텍처-소개)
+[3. 기능](#3장-기능)
 
 [4. 주요 기술](#4장-주요-기술)
 
 </br>
 
----
-## 1장. 서비스 개요
-- **프로젝트 진행 기간 : 2024.02.26 ~ 2024.04.03**
+## 1장. 서비스 개요  
+- “다시 보고 싶은 영화를, 영화관에서”**
+영화를 한 번 이상 보는 N차 관람에서 출발하여 펀딩의 요청부터 대관, 영화 재상영까지 어어질 수 있는 서비스를 제공합니다.  
 
-**“다시 보고 싶은 영화를, 영화관에서”**
+<br>
 
-재상영 영화 크라우드 펀딩, 무딩은 영화를 한 번 이상 보는 N차 관람에서 출발하여 펀딩의 요청부터 대관, 영화 재상영까지 어어질 수 있는 서비스를 제공합니다.
-
-
----
-## 2장. 서비스 소개
-### 🏆 지금 인기 있는 펀딩은?
-<p align="center">
-  <img src="https://github.com/Fintechtefin/moding/assets/46569105/c8bb8675-e33a-4ea3-9578-ad64199beeb6" width="500" height="1000"/>  
-</p>
-
-->***ElasticSearch***를 이용한 실시간 영화 검색 순위 
-
-
-### 💳 터치 한 번에 결제 끝! 
-<p align="center">
-  <img src="https://github.com/Fintechtefin/moding/assets/46569105/3f7efeab-946c-4662-b502-7c967577fb3c" width="500" height="1000"/>
-</p>
-->토스페이먼츠 `API`를 이용한 쉽고 빠른 결제   
-
-
-### 👀 N명이 보고 있어요  
-<p align="center">
-  <img src="https://github.com/Fintechtefin/moding/assets/46569105/b2442613-55b5-4007-b10f-9b54d62bff1e" width="500" height="1000"/>  
-</p>  
--> 긴장감 UP.**동시 접속자 수**를 볼 수 있는**좌석 예매**
-
-
----
-## 3장. 아키텍처 소개  
+## 2장. 아키텍처 소개  
 <p align="center">
   <img src="https://github.com/Fintechtefin/moding/assets/46569105/cb057ca2-9bc8-4fbf-8ec8-069aaf0743c8"/>  
 </p>
 
-<br>
-
-### 기술 스택 선정 이유
+## 기술 스택 선정 이유
 |기술|선정 이유|
 |---|----|
 |***Spring Boot***|***Spring***과 비교했을 때 환경 설정을 쉽게 할 수 있어서 개발 생산성 증가|
@@ -88,7 +60,33 @@
 |***Prometheus***|매트릭 수집|
 |***Grafana***|***Prometheus***로 수집한 매트릭 데이터를 시각화|
 
----
+<br>
+
+## 3장. 기능  
+### 1. 지금 인기 있는 펀딩은?
+- ***ElasticSearch***를 이용한 실시간 영화 검색 순위  
+<p align="center">
+  <img src="https://github.com/Fintechtefin/moding/assets/46569105/c8bb8675-e33a-4ea3-9578-ad64199beeb6" width="500" height="1000"/>  
+</p>
+
+<br>
+
+### 2. 터치 한 번에 결제 끝!  
+- 토스페이먼츠 `API`를 이용한 쉽고 빠른 결제  
+<p align="center">
+  <img src="https://github.com/Fintechtefin/moding/assets/46569105/3f7efeab-946c-4662-b502-7c967577fb3c" width="500" height="1000"/>
+</p>
+
+<br>
+
+### 3. N명이 보고 있어요  
+- 긴장감 UP.**동시 접속자 수**를 볼 수 있는**좌석 예매**  
+<p align="center">
+  <img src="https://github.com/Fintechtefin/moding/assets/46569105/b2442613-55b5-4007-b10f-9b54d62bff1e" width="500" height="1000"/>  
+</p>  
+
+<br>
+
 ## 4장. 주요 기술
 1. ***MSA*** 기반의 Modern 아키텍처 및 ***DDD*** 중심 개발
 2. ***MSA***에 `HA` 도입 및 확장 가능한 시스템을 설계
@@ -99,7 +97,8 @@
 7. `Proxy`에서 `WAS`단에 전달할 수 있는 Max Connection 제한
 8. `멀티 모듈` 구조로 공통 모듈 분리
 
-----
+<br>
+
 ## 5장. 회고
 **Keep**
 - 민정: ***MSA*** 설계, ***Redis*** `HA`, 모니터링 구축, 운영 환경별로 스프링 프로필을 다르게 분리
