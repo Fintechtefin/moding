@@ -49,7 +49,7 @@
 ## 2장. 서비스 소개
 ### 🏆 지금 인기 있는 펀딩은?
 
-<img src="https://github.com/Fintechtefin/moding/assets/46569105/c8bb8675-e33a-4ea3-9578-ad64199beeb6" width="1000" height="2000"/>  
+<img src="https://github.com/Fintechtefin/moding/assets/46569105/c8bb8675-e33a-4ea3-9578-ad64199beeb6" width="500" height="1000"/>  
 
 ->***ElasticSearch***를 이용한 실시간 영화 검색 순위 
 
@@ -61,7 +61,7 @@
 
 
 ### 👀 N명이 보고 있어요
-<img src="https://github.com/Fintechtefin/moding/assets/46569105/b2442613-55b5-4007-b10f-9b54d62bff1e" width="1000" height="2000"/>  
+<img src="https://github.com/Fintechtefin/moding/assets/46569105/b2442613-55b5-4007-b10f-9b54d62bff1e" width="500" height="1000"/>  
 -> 긴장감 UP.**동시 접속자 수**를 볼 수 있는**좌석 예매**
 
 
