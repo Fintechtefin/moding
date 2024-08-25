@@ -1,4 +1,5 @@
 spring:
   config:
-    import:
-      - application-funding.yml
+    import: optional:configserver:http://moding:moding0707@localhost:8088
+  application:
+    name: funding
