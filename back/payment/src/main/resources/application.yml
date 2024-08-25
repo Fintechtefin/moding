@@ -1,4 +1,7 @@
 spring:
   config:
-    import:
-      - application-payment.yml
+    import: optional:configserver:http://moding:moding0707@localhost:8088
+  application:
+    name: payment
+  profiles:
+    active: local
