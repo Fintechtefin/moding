@@ -1,7 +1,7 @@
 package com.ssafy.payment.controller;
 
+import com.ssafy.common.dto.request.CancelPaymentsRequest;
 import com.ssafy.payment.config.PaymentsCancelConfig;
-import com.ssafy.payment.dto.request.CancelPaymentsRequest;
 import com.ssafy.payment.dto.response.PaymentsResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;

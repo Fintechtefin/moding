@@ -1,13 +1,15 @@
 package com.ssafy.payment.service;
 
+import static com.ssafy.payment.exception.CustomExceptionStatus.*;
+
+import com.ssafy.common.dto.request.CancelPaymentsRequest;
+import com.ssafy.common.dto.request.ConfirmPaymentsRequest;
 import com.ssafy.payment.controller.PaymentsCancelClient;
 import com.ssafy.payment.controller.PaymentsConfirmClient;
 import com.ssafy.payment.domain.Payment;
 import com.ssafy.payment.domain.PaymentMethod;
 import com.ssafy.payment.domain.PaymentStatus;
 import com.ssafy.payment.domain.repository.PaymentFacadeRepository;
-import com.ssafy.payment.dto.request.CancelPaymentsRequest;
-import com.ssafy.payment.dto.request.ConfirmPaymentsRequest;
 import com.ssafy.payment.dto.request.RefundOrderRequest;
 import com.ssafy.payment.dto.response.PaymentsResponse;
 import java.util.UUID;
@@ -66,9 +68,7 @@ public class PaymentService {
                 paymentsCancelClient.execute(
                         UUID.randomUUID().toString(), // Redis에 저장하는 로직으로 바꾸기
                         payment.getPaymentKey(),
-                        CancelPaymentsRequest.builder()
-                                .cancelReason(refundOrderRequest.getCancelReason())
-                                .build());
+                        new CancelPaymentsRequest(refundOrderRequest.getCancelReason()));
 
         paymentFacadeRepository.savePaymentCancel(payment, paymentsResponse);
 

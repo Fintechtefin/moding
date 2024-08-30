@@ -30,6 +30,7 @@ ext {
 
 dependencies {
 	implementation project(":proto")
+	implementation project(":common")
 
 	// gRPC
 	implementation 'net.devh:grpc-spring-boot-starter:2.13.1.RELEASE'

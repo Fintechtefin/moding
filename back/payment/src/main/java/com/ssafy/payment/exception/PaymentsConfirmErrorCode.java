@@ -1,6 +1,7 @@
 package com.ssafy.payment.exception;
 
-import com.ssafy.payment.dto.ErrorReason;
+import com.ssafy.common.exception.BaseErrorCode;
+import com.ssafy.common.exception.ErrorReason;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

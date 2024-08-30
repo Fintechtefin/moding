@@ -4,8 +4,8 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.catchThrowable;
 
+import com.ssafy.common.dto.request.CancelPaymentsRequest;
 import com.ssafy.payment.controller.PaymentsCancelClient;
-import com.ssafy.payment.dto.request.CancelPaymentsRequest;
 import feign.RetryableException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,8 +23,7 @@ import org.springframework.test.context.TestPropertySource;
 public class PaymentsCancelClientTest {
     private static final String IDEMPOTENCY_KEY = "idempotency-key";
     private static final String PAYMENT_KEY = "1234";
-    private static final CancelPaymentsRequest REQUEST =
-            CancelPaymentsRequest.builder().cancelReason("test").build();
+    private static final CancelPaymentsRequest REQUEST = new CancelPaymentsRequest("test");
     @Autowired private PaymentsCancelClient paymentsCancelClient;
 
     // @Test

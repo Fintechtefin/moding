@@ -1,5 +1,7 @@
 package com.ssafy.payment.service;
 
+import com.ssafy.common.dto.request.ConfirmPaymentsRequest;
+import com.ssafy.common.dto.request.CreatePaymentsRequest;
 import com.ssafy.payment.controller.PaymentsConfirmClient;
 import com.ssafy.payment.controller.PaymentsCreateClient;
 import com.ssafy.payment.domain.Payment;
@@ -8,8 +10,6 @@ import com.ssafy.payment.domain.PaymentStatus;
 import com.ssafy.payment.domain.repository.PaymentMethodRepository;
 import com.ssafy.payment.domain.repository.PaymentRepository;
 import com.ssafy.payment.domain.repository.PaymentStatusRepository;
-import com.ssafy.payment.dto.request.ConfirmPaymentsRequest;
-import com.ssafy.payment.dto.request.CreatePaymentsRequest;
 import com.ssafy.payment.dto.response.PaymentsResponse;
 import com.ssafy.payment.exception.NotFoundPaymentException;
 import io.grpc.stub.StreamObserver;

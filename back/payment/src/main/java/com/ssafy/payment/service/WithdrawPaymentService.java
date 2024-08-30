@@ -3,12 +3,12 @@ package com.ssafy.payment.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ssafy.common.dto.request.CancelPaymentsRequest;
 import com.ssafy.payment.controller.PaymentsCancelClient;
 import com.ssafy.payment.domain.Payment;
 import com.ssafy.payment.domain.PaymentCancel;
 import com.ssafy.payment.domain.repository.PaymentCancelRepository;
 import com.ssafy.payment.domain.repository.PaymentRepository;
-import com.ssafy.payment.dto.request.CancelPaymentsRequest;
 import com.ssafy.payment.dto.request.RefundOrderRequest;
 import com.ssafy.payment.dto.response.PaymentsResponse;
 import com.ssafy.payment.exception.NotFoundPaymentException;
@@ -44,9 +44,7 @@ public class WithdrawPaymentService {
                 paymentsCancelClient.execute(
                         UUID.randomUUID().toString(), // Redis에 저장하는 로직으로 바꾸기
                         payment.getPaymentKey(),
-                        CancelPaymentsRequest.builder()
-                                .cancelReason(refundRequest.getCancelReason())
-                                .build());
+                        new CancelPaymentsRequest(refundRequest.getCancelReason()));
 
         paymentCancelRepository.save(
                 PaymentCancel.builder()

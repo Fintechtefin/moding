@@ -1,7 +1,7 @@
 package com.ssafy.payment.controller;
 
+import com.ssafy.common.dto.request.CreatePaymentsRequest;
 import com.ssafy.payment.config.PaymentsCreateConfig;
-import com.ssafy.payment.dto.request.CreatePaymentsRequest;
 import com.ssafy.payment.dto.response.PaymentsResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
