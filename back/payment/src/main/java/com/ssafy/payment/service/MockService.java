@@ -12,6 +12,7 @@ import com.ssafy.payment.domain.repository.PaymentMethodRepository;
 import com.ssafy.payment.domain.repository.PaymentRepository;
 import com.ssafy.payment.domain.repository.PaymentStatusRepository;
 import com.ssafy.payment.dto.response.PaymentsResponse;
+import com.ssafy.payment.exception.BadRequestException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

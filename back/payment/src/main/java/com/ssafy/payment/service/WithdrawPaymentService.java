@@ -7,12 +7,8 @@ import com.ssafy.common.dto.request.CancelPaymentsRequest;
 import com.ssafy.payment.controller.PaymentsCancelClient;
 import com.ssafy.payment.domain.Payment;
 import com.ssafy.payment.domain.PaymentCancel;
-<<<<<<< Updated upstream
 import com.ssafy.payment.domain.repository.PaymentCancelRepository;
 import com.ssafy.payment.domain.repository.PaymentRepository;
-import com.ssafy.payment.dto.request.CancelPaymentsRequest;
-=======
->>>>>>> Stashed changes
 import com.ssafy.payment.dto.request.RefundOrderRequest;
 import com.ssafy.payment.dto.response.PaymentsResponse;
 import com.ssafy.payment.exception.NotFoundPaymentException;

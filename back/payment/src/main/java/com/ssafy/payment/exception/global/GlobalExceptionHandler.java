@@ -2,9 +2,9 @@ package com.ssafy.payment.exception.global;
 
 import static com.ssafy.payment.exception.CustomExceptionStatus.*;
 
-import com.ssafy.common.BadRequestException;
-import com.ssafy.common.dto.response.ExceptionResponse;
-import com.ssafy.payment.exception.DynamicException;
+import com.ssafy.common.exception.DynamicException;
+import com.ssafy.common.exception.ExceptionResponse;
+import com.ssafy.payment.exception.BadRequestException;
 import java.util.Objects;
 import javax.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
