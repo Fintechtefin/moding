@@ -4,13 +4,17 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 
+import com.ssafy.common.dto.request.ConfirmPaymentsRequest;
 import com.ssafy.payment.controller.PaymentsCancelClient;
 import com.ssafy.payment.controller.PaymentsConfirmClient;
 import com.ssafy.payment.domain.Payment;
 import com.ssafy.payment.domain.PaymentMethod;
 import com.ssafy.payment.domain.PaymentStatus;
+<<<<<<< Updated upstream
 import com.ssafy.payment.domain.repository.PaymentFacadeRepository;
 import com.ssafy.payment.dto.request.ConfirmPaymentsRequest;
+=======
+>>>>>>> Stashed changes
 import com.ssafy.payment.dto.request.RefundOrderRequest;
 import com.ssafy.payment.dto.response.PaymentsResponse;
 import com.ssafy.payment.service.PaymentService;

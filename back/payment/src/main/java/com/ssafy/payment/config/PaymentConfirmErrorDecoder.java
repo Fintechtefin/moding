@@ -1,6 +1,6 @@
 package com.ssafy.payment.config;
 
-import com.ssafy.payment.dto.ErrorReason;
+import com.ssafy.common.ErrorReason;
 import com.ssafy.payment.exception.DynamicException;
 import com.ssafy.payment.exception.PaymentsConfirmErrorCode;
 import com.ssafy.payment.exception.PaymentsUnHandleException;

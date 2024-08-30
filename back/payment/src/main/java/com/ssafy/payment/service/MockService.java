@@ -3,6 +3,7 @@ package com.ssafy.payment.service;
 import static com.ssafy.payment.exception.CustomExceptionStatus.NOT_FOUND_PAYMENT_METHOD;
 import static com.ssafy.payment.exception.CustomExceptionStatus.NOT_FOUND_PAYMENT_STATUS;
 
+import com.ssafy.common.dto.request.ConfirmPaymentsRequest;
 import com.ssafy.payment.controller.MockServerFeignClient;
 import com.ssafy.payment.domain.Payment;
 import com.ssafy.payment.domain.PaymentMethod;
@@ -10,9 +11,7 @@ import com.ssafy.payment.domain.PaymentStatus;
 import com.ssafy.payment.domain.repository.PaymentMethodRepository;
 import com.ssafy.payment.domain.repository.PaymentRepository;
 import com.ssafy.payment.domain.repository.PaymentStatusRepository;
-import com.ssafy.payment.dto.request.ConfirmPaymentsRequest;
 import com.ssafy.payment.dto.response.PaymentsResponse;
-import com.ssafy.payment.exception.BadRequestException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
