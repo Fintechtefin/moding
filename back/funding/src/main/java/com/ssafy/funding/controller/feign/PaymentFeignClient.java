@@ -1,6 +1,6 @@
 package com.ssafy.funding.controller.feign;
 
-import com.ssafy.funding.dto.request.ConfirmPaymentsRequest;
+import com.ssafy.common.dto.request.ConfirmPaymentsRequest;
 import com.ssafy.funding.dto.request.RefundOrderRequest;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;

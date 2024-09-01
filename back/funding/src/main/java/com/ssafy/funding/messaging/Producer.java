@@ -2,8 +2,8 @@ package com.ssafy.funding.messaging;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ssafy.common.dto.request.CreatePaymentsRequest;
 import com.ssafy.funding.domain.Order;
-import com.ssafy.funding.dto.request.CreatePaymentsRequest;
 import com.ssafy.funding.dto.request.RefundOrderRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.core.KafkaTemplate;

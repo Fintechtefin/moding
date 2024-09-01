@@ -1,8 +1,8 @@
 package com.ssafy.funding.controller;
 
+import com.ssafy.common.dto.request.CreatePaymentsRequest;
 import com.ssafy.funding.controller.feign.TokenAuthClient;
 import com.ssafy.funding.dto.request.ConfirmOrderRequest;
-import com.ssafy.funding.dto.request.CreatePaymentsRequest;
 import com.ssafy.funding.dto.request.RefundOrderRequest;
 import com.ssafy.funding.service.MockService;
 import com.ssafy.funding.service.OrderService;
