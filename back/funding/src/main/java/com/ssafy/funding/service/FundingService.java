@@ -3,11 +3,13 @@ package com.ssafy.funding.service;
 import static com.ssafy.funding.exception.global.CustomExceptionStatus.FUNDING_NOT_FOUND;
 import static com.ssafy.funding.exception.global.CustomExceptionStatus.ORDER_NOT_FOUND;
 
+import com.ssafy.common.dto.response.FundingInfoResponse;
 import com.ssafy.funding.controller.feign.TokenAuthClient;
 import com.ssafy.funding.domain.*;
 import com.ssafy.funding.dto.request.MovieFundingRequest;
 import com.ssafy.funding.dto.response.*;
 import com.ssafy.funding.exception.BadRequestException;
+import com.ssafy.funding.mapper.FundingMapper;
 import com.ssafy.funding.repository.*;
 import com.ssafy.funding.util.RedisUtil;
 import java.time.LocalDate;
@@ -33,6 +35,7 @@ public class FundingService {
     private final MovieRepository movieRepository;
     private final OrderRepository orderRepository;
     private final RedisUtil redisUtil;
+    private final FundingMapper fundingMapper;
 
     public Object getFundingList(String status) {
         Object result = null;
@@ -100,12 +103,7 @@ public class FundingService {
                         .findByUserIdAndFundingIdAndStatus(userId, fundingId, true)
                         .orElseThrow(() -> new BadRequestException(ORDER_NOT_FOUND));
 
-        //        int orderCount = orderRepository.findByUserIdAndFundingId(userId,
-        // fundingId).getCount();
-
-        FundingInfoResponse fundingInfoResponse = FundingInfoResponse.of(funding, order.getCount());
-
-        return fundingInfoResponse;
+        return fundingMapper.fundingToFundingInfoResponse(funding, order.getCount());
     }
 
     public JoinFundingListResponse getMyFundings(String accessToken) {
