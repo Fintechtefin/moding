@@ -94,4 +94,28 @@ public class Funding {
             // throw FundingQuantityLackException.EXCEPTION;
         }
     }
+
+    public String getPoster() {
+        return this.getMovie().getPoster();
+    }
+
+    public String getAge() {
+        return this.getMovie().getAge();
+    }
+
+    public String getTitle() {
+        return this.getMovie().getTitle();
+    }
+
+    public Integer getRunningTime() {
+        return this.getMovie().getRunningTime();
+    }
+
+    public String getName() {
+        return this.getCinema().getName();
+    }
+
+    public Integer getNumber() {
+        return this.getCinema().getNumber();
+    }
 }
