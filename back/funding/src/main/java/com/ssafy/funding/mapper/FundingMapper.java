@@ -5,7 +5,7 @@ import com.ssafy.funding.domain.Funding;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface FundingMapper {
     @Mapping(source = "funding.time", target = "startTime")
     @Mapping(source = "count", target = "count")
