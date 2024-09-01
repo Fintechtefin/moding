@@ -1,6 +1,7 @@
 package com.ssafy.funding.exception.global;
 
-import com.ssafy.funding.common.ErrorReason;
+import com.ssafy.common.exception.BaseErrorCode;
+import com.ssafy.common.exception.ErrorReason;
 
 public enum CustomExceptionStatus implements BaseErrorCode {
     INVALID_REQUEST("BadRequest_400_1", "올바르지 않은 요청입니다."),

@@ -28,6 +28,7 @@ repositories {
 ext {
 	set('springCloudVersion', "2021.0.9")
 	queryDslVersion = "5.0.0"
+	mapstructVersion = "1.6.0"
 }
 
 dependencies {
@@ -38,6 +39,7 @@ dependencies {
 	implementation 'com.google.protobuf:protobuf-java:3.22.2'
 
 	implementation project(':proto')
+	implementation project(':common')
 
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
@@ -90,8 +92,13 @@ dependencies {
 	// redisson
 	implementation 'org.redisson:redisson:3.27.2'
 
+	// mapstruct
+	implementation "org.mapstruct:mapstruct:${mapstructVersion}"
+	annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testAnnotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
 }
 
 //querydsl 추가 시작 (위에 plugin 추가 부분과 맞물림)

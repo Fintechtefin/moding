@@ -1,6 +1,7 @@
 package com.ssafy.funding.exception.global;
 
-import com.ssafy.funding.common.ErrorReason;
+import com.ssafy.common.exception.BaseErrorCode;
+import com.ssafy.common.exception.ErrorReason;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
