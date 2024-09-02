@@ -28,7 +28,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @Slf4j
 public class FundingService {
-
     private final FundingRepository fundingRepository;
     private final TokenAuthClient tokenAuthClient;
     private final MovieFundingRepository movieFundingRepository;
@@ -67,7 +66,6 @@ public class FundingService {
 
     public FundingRepository.OpenFundingResponseInterface getOpenFundingInfo(
             int movieId, String accessToken) {
-
         int userId = 0;
 
         if (accessToken != null) userId = tokenAuthClient.getUserId(accessToken);
@@ -79,19 +77,16 @@ public class FundingService {
                 || movie.get().getStatus().getValue().equals("CLOSED")) {
             return null;
         }
-
         return fundingRepository.getOpenFundingInfo(movieId, userId);
     }
 
     public boolean getFundingParticipation(String accessToken, int fundingId) {
         int userId = tokenAuthClient.getUserId(accessToken);
-        //        System.out.println(userId);
         return orderRepository.existsByFundingIdAndUserId(fundingId, userId);
     }
 
     public FundingInfoResponse getTicketInfo(String accessToken, Integer fundingId) {
         int userId = tokenAuthClient.getUserId(accessToken);
-        System.out.println(userId);
 
         Funding funding =
                 fundingRepository
@@ -102,34 +97,22 @@ public class FundingService {
                 orderRepository
                         .findByUserIdAndFundingIdAndStatus(userId, fundingId, true)
                         .orElseThrow(() -> new BadRequestException(ORDER_NOT_FOUND));
-
         return fundingMapper.fundingToFundingInfoResponse(funding, order.getCount());
     }
 
     public JoinFundingListResponse getMyFundings(String accessToken) {
         int userId = tokenAuthClient.getUserId(accessToken);
-        Slice<Order> orders = orderRepository.findByUserId(userId);
 
+        Slice<Order> orders = orderRepository.findByUserId(userId);
         return JoinFundingListResponse.of(
                 orders.stream()
                         .filter(o -> o.isStatus()) // 결제를 완료한 상태
                         .filter(o -> !o.getFunding().isTimeAfterEndAt())
                         .map(
                                 order ->
-                                        JoinFundingResponse.builder()
-                                                .id(order.getId())
-                                                .movieId(order.getFunding().getMovie().getId())
-                                                .orderUuid(order.getUuid())
-                                                .movieTitle(
-                                                        order.getFunding().getMovie().getTitle())
-                                                .moviePoster(
-                                                        order.getFunding().getMovie().getPoster())
-                                                .endAt(order.getFunding().getEndAt())
-                                                .recruitedCount(order.getFunding().getPeopleCount())
-                                                .participantCount(
-                                                        getFundingParticipantCount(
-                                                                order.getFunding().getId()))
-                                                .build())
+                                        fundingMapper.toJoinFundingResponse(
+                                                order,
+                                                getFundingParticipantCount(order.getIdOfFunding())))
                         .collect(Collectors.toList()));
     }
 
@@ -142,7 +125,6 @@ public class FundingService {
 
         /* Cache에 데이터가 없다면 DB에서 조회 */
         List<Order> orderList = orderRepository.findByFundingId(fundingId);
-
         return orderList.stream().filter(o -> o.isStatus()).mapToInt(o -> o.getCount()).sum();
     }
 
@@ -178,7 +160,6 @@ public class FundingService {
                 }
             }
         }
-
         return fundingId;
     }
 }
