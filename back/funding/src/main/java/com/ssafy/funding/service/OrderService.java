@@ -57,7 +57,6 @@ public class OrderService {
                         funding.getPrice(),
                         confirmOrderRequest.getAmount(),
                         orderValidator);
-
         return orderRepository.save(order);
     }
 
@@ -75,7 +74,7 @@ public class OrderService {
                 orderMapper.toConfirmPaymentsRequest(confirmOrderRequest, orderUuid, order.getId());
 
         paymentFeignClient.callCreatePayment(confirmPaymentsRequest);
-        return OrderConfirmResponse.of(order);
+        return orderMapper.toOrderConfirmResponse(order);
     }
 
     public void refundFunding(Integer userId, String uuid, RefundOrderRequest refundOrderRequest) {
