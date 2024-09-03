@@ -2,6 +2,8 @@ package com.ssafy.funding.mapper;
 
 import com.ssafy.common.dto.response.FundingInfoResponse;
 import com.ssafy.funding.domain.Funding;
+import com.ssafy.funding.domain.Order;
+import com.ssafy.funding.dto.response.JoinFundingResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -16,4 +18,13 @@ public interface FundingMapper {
     @Mapping(expression = "java(funding.getName())", target = "name")
     @Mapping(expression = "java(funding.getNumber())", target = "number")
     FundingInfoResponse fundingToFundingInfoResponse(Funding funding, Integer count);
+
+    @Mapping(expression = "java(order.getMovieId())", target = "movieId")
+    @Mapping(source = "order.uuid", target = "orderUuid")
+    @Mapping(expression = "java(order.getMovieTitle())", target = "movieTitle")
+    @Mapping(expression = "java(order.getMoviePoster())", target = "moviePoster")
+    @Mapping(expression = "java(order.getFundingEndAt())", target = "endAt")
+    @Mapping(expression = "java(order.getFundingPeopleCount())", target = "recruitedCount")
+    @Mapping(source = "participantCount", target = "participantCount")
+    JoinFundingResponse toJoinFundingResponse(Order order, Integer participantCount);
 }

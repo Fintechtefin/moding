@@ -13,7 +13,7 @@ import com.ssafy.funding.dto.request.ConfirmOrderRequest;
 import com.ssafy.funding.dto.request.RefundOrderRequest;
 import com.ssafy.funding.dto.response.OrderConfirmResponse;
 import com.ssafy.funding.exception.BadRequestException;
-import com.ssafy.funding.messaging.Producer;
+import com.ssafy.funding.mapper.OrderMapper;
 import com.ssafy.funding.repository.FundingRepository;
 import com.ssafy.funding.repository.OrderRepository;
 import com.ssafy.funding.service.client.PaymentClient;
@@ -25,13 +25,12 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @Transactional
 public class OrderService {
-
     private final OrderRepository orderRepository;
     private final FundingRepository fundingRepository;
     private final OrderValidator orderValidator;
     private final PaymentClient paymentClient;
-    private final PaymentFeignClient paymentFeignClient; // feignClient
-    private final Producer producer;
+    private final PaymentFeignClient paymentFeignClient;
+    private final OrderMapper orderMapper;
 
     public String requestPayment(CreatePaymentsRequest createPaymentsRequest) {
         return paymentClient.callTossPay(createPaymentsRequest).getPaymentKey();
@@ -58,7 +57,6 @@ public class OrderService {
                         funding.getPrice(),
                         confirmOrderRequest.getAmount(),
                         orderValidator);
-
         return orderRepository.save(order);
     }
 
@@ -71,21 +69,12 @@ public class OrderService {
             paramClassType = ConfirmOrderRequest.class)
     public OrderConfirmResponse confirmOrder(
             String orderUuid, ConfirmOrderRequest confirmOrderRequest, Integer userId) {
-
         Order order = orderFunding(confirmOrderRequest, userId); // 주문 생성
-
         ConfirmPaymentsRequest confirmPaymentsRequest =
-                ConfirmPaymentsRequest.builder()
-                        .paymentKey(confirmOrderRequest.getPaymentKey())
-                        .amount(confirmOrderRequest.getAmount())
-                        .orderId(orderUuid)
-                        .id(order.getId())
-                        .build();
+                orderMapper.toConfirmPaymentsRequest(confirmOrderRequest, orderUuid, order.getId());
 
-        // paymentClient.callTossPayConfirm(confirmPaymentsRequest, order.getId());
         paymentFeignClient.callCreatePayment(confirmPaymentsRequest);
-
-        return OrderConfirmResponse.of(order);
+        return orderMapper.toOrderConfirmResponse(order);
     }
 
     public void refundFunding(Integer userId, String uuid, RefundOrderRequest refundOrderRequest) {
@@ -96,13 +85,6 @@ public class OrderService {
         order.refund(userId, orderValidator);
 
         paymentFeignClient.callRefundPayment(refundOrderRequest);
-
-        //        producer.sendRefundOrderRequest(
-        //                "refund",
-        //                RefundOrderRequest.builder()
-        //                        .cancelReason(refundOrderRequest.getCancelReason())
-        //                        .orderId(order.getId())
-        //                        .build());
     }
 
     public Boolean checkPaymentUser(Integer fundingId, Integer userId) {

@@ -11,7 +11,7 @@ import com.ssafy.funding.domain.validator.OrderValidator;
 import com.ssafy.funding.dto.request.ConfirmOrderRequest;
 import com.ssafy.funding.dto.response.OrderConfirmResponse;
 import com.ssafy.funding.exception.BadRequestException;
-import com.ssafy.funding.messaging.Producer;
+import com.ssafy.funding.mapper.OrderMapper;
 import com.ssafy.funding.repository.FundingRepository;
 import com.ssafy.funding.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,12 +22,11 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @Transactional
 public class MockService {
-
     private final OrderRepository orderRepository;
     private final FundingRepository fundingRepository;
     private final OrderValidator orderValidator;
     private final PaymentFeignClient paymentFeignClient; // feignClient
-    private final Producer producer;
+    private final OrderMapper orderMapper;
 
     /*
     결제 승인
@@ -38,21 +37,12 @@ public class MockService {
             paramClassType = ConfirmOrderRequest.class)
     public OrderConfirmResponse confirmOrder(
             String orderUuid, ConfirmOrderRequest confirmOrderRequest, Integer userId) {
-
         Order order = orderFunding(confirmOrderRequest, userId); // 주문 생성
-
         ConfirmPaymentsRequest confirmPaymentsRequest =
-                ConfirmPaymentsRequest.builder()
-                        .paymentKey(confirmOrderRequest.getPaymentKey())
-                        .amount(confirmOrderRequest.getAmount())
-                        .orderId(orderUuid)
-                        .id(order.getId())
-                        .build();
+                orderMapper.toConfirmPaymentsRequest(confirmOrderRequest, orderUuid, order.getId());
 
-        // paymentClient.callTossPayConfirm(confirmPaymentsRequest, order.getId());
         paymentFeignClient.callCreatePaymentTest(confirmPaymentsRequest);
-
-        return OrderConfirmResponse.of(order);
+        return orderMapper.toOrderConfirmResponse(order);
     }
 
     public Order orderFunding(final ConfirmOrderRequest confirmOrderRequest, Integer userId) {
@@ -76,7 +66,6 @@ public class MockService {
                         funding.getPrice(),
                         confirmOrderRequest.getAmount(),
                         orderValidator);
-
         return orderRepository.save(order);
     }
 }
