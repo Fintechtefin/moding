@@ -9,6 +9,7 @@ import com.ssafy.funding.domain.*;
 import com.ssafy.funding.dto.request.MovieFundingRequest;
 import com.ssafy.funding.dto.response.*;
 import com.ssafy.funding.exception.BadRequestException;
+import com.ssafy.funding.infrastructure.Factory;
 import com.ssafy.funding.mapper.FundingMapper;
 import com.ssafy.funding.repository.*;
 import com.ssafy.funding.util.RedisUtil;
@@ -35,19 +36,10 @@ public class FundingService {
     private final OrderRepository orderRepository;
     private final RedisUtil redisUtil;
     private final FundingMapper fundingMapper;
+    private final Factory factory;
 
     public Object getFundingList(String status) {
-        Object result = null;
-
-        switch (status) {
-            case "progress":
-                result = fundingRepository.getProgressRanking();
-                break;
-            case "request":
-                result = fundingRepository.getRequestRanking();
-                break;
-        }
-        return result;
+        return factory.create(status).getFundingList(fundingRepository);
     }
 
     public void registerAttendance(
