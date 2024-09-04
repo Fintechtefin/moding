@@ -4,4 +4,4 @@ spring:
   application:
     name: payment
   profiles:
-    active: local
+    active: test
