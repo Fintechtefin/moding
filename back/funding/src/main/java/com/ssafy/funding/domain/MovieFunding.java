@@ -41,4 +41,16 @@ public class MovieFunding {
 
         return movieFunding;
     }
+
+    public String getMovieTitle() {
+        return this.getMovie().getTitle();
+    }
+
+    public Integer getIdOfMovie() {
+        return this.getMovie().getId();
+    }
+
+    public String getMoviePoster() {
+        return this.getMovie().getPoster();
+    }
 }
