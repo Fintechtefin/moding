@@ -242,11 +242,9 @@ public class MovieService {
     }
 
     public RequestMovieListResponse getMyRequestList(String accessToken) {
-
         int userId = tokenAuthClient.getUserId(accessToken);
 
         Slice<MovieFunding> movieFundings = movieFundingRepository.findByUserId(userId);
-
         return RequestMovieListResponse.of(
                 movieFundings.stream()
                         .map(
