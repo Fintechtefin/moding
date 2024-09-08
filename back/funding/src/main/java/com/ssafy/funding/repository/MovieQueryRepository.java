@@ -17,7 +17,7 @@ import com.ssafy.funding.dto.GenreSearchCondition;
 import com.ssafy.funding.dto.response.MovieGenreResponse;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.SliceImpl;
 import org.springframework.stereotype.Repository;
@@ -30,7 +30,7 @@ public class MovieQueryRepository {
     //    private final ConditionFilter conditionFilter;
 
     public Slice<MovieGenreResponse> findByGenre(
-            GenreSearchCondition condition, PageRequest pageRequest) {
+            GenreSearchCondition condition, Pageable pageable) {
 
         final List<MovieGenreResponse> movies =
                 jpaQueryFactory
@@ -43,18 +43,15 @@ public class MovieQueryRepository {
                         .where(genre.parentGenreId.eq(condition.getParentGenreId()))
                         .groupBy(movie.id)
                         .orderBy(orderSpecifier(condition.getOrder(), movie.id))
-                        .offset(pageRequest.getOffset())
-                        .limit(pageRequest.getPageSize())
+                        .offset(pageable.getOffset())
+                        .limit(pageable.getPageSize() + 1)
                         .fetch();
 
         return new SliceImpl<MovieGenreResponse>(
-                getCurrentPageMovies(movies, pageRequest),
-                pageRequest,
-                hasNext(movies, pageRequest));
+                getCurrentPageMovies(movies, pageable), pageable, hasNext(movies, pageable));
     }
 
     private OrderSpecifier<?> orderSpecifier(String orderByField, NumberPath<Integer> movieId) {
-
         Expression<Long> likeCountExpression =
                 JPAExpressions.select(movieLike.count())
                         .from(movieLike)
@@ -78,15 +75,14 @@ public class MovieQueryRepository {
     }
 
     private List<MovieGenreResponse> getCurrentPageMovies(
-            final List<MovieGenreResponse> movies, final PageRequest pageRequest) {
-        if (hasNext(movies, pageRequest)) {
+            final List<MovieGenreResponse> movies, final Pageable pageable) {
+        if (hasNext(movies, pageable)) {
             return movies.subList(0, movies.size() - 1);
         }
         return movies;
     }
 
-    private boolean hasNext(
-            final List<MovieGenreResponse> challenges, final PageRequest pageRequest) {
-        return challenges.size() > pageRequest.getPageSize();
+    private boolean hasNext(final List<MovieGenreResponse> challenges, final Pageable pageable) {
+        return challenges.size() > pageable.getPageSize();
     }
 }
