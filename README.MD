@@ -70,26 +70,19 @@
 
 ### 지금 인기 있는 펀딩은?
 - ***ElasticSearch***를 이용한 실시간 영화 검색 순위  
-<p align="center">
-  <img src="https://github.com/Fintechtefin/moding/assets/46569105/c8bb8675-e33a-4ea3-9578-ad64199beeb6" width="300"/>  
-</p>
+<img src="https://github.com/Fintechtefin/moding/assets/46569105/c8bb8675-e33a-4ea3-9578-ad64199beeb6" width="300"/>  
 
 <br>
 
 ### 터치 한 번에 결제 끝!  
 - 토스페이먼츠 `API`를 이용한 쉽고 빠른 결제  
-<p align="center">
-  <img src="https://github.com/Fintechtefin/moding/assets/46569105/3f7efeab-946c-4662-b502-7c967577fb3c" width="300"/>
-</p>
+ <img src="https://github.com/Fintechtefin/moding/assets/46569105/3f7efeab-946c-4662-b502-7c967577fb3c" width="300"/>
 
 <br>
 
 ### N명이 보고 있어요  
 - 동시 접속자 수를 볼 수 있는 좌석 예매  
-<p align="center">
-  <img src="https://github.com/Fintechtefin/moding/assets/46569105/b2442613-55b5-4007-b10f-9b54d62bff1e" width="300"/>  
-</p>  
-
+<img src="https://github.com/Fintechtefin/moding/assets/46569105/b2442613-55b5-4007-b10f-9b54d62bff1e" width="300"/>  
 <br>
 
 ## 4장. 주요 기술
