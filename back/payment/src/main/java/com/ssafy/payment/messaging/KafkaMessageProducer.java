@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class KafkaMessageProducer {
-
     @Value("${spring.kafka.bootstrap-servers}")
     private String bootstrapServers;
 

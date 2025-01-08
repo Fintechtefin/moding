@@ -2,22 +2,16 @@ package com.ssafy.payment.service;
 
 import static com.ssafy.payment.exception.CustomExceptionStatus.*;
 
+import com.ssafy.common.dto.request.CancelPaymentsRequest;
+import com.ssafy.common.dto.request.ConfirmPaymentsRequest;
 import com.ssafy.payment.controller.PaymentsCancelClient;
 import com.ssafy.payment.controller.PaymentsConfirmClient;
 import com.ssafy.payment.domain.Payment;
-import com.ssafy.payment.domain.PaymentCancel;
 import com.ssafy.payment.domain.PaymentMethod;
 import com.ssafy.payment.domain.PaymentStatus;
-import com.ssafy.payment.dto.request.CancelPaymentsRequest;
-import com.ssafy.payment.dto.request.ConfirmPaymentsRequest;
+import com.ssafy.payment.domain.repository.PaymentFacadeRepository;
 import com.ssafy.payment.dto.request.RefundOrderRequest;
 import com.ssafy.payment.dto.response.PaymentsResponse;
-import com.ssafy.payment.exception.BadRequestException;
-import com.ssafy.payment.exception.NotFoundPaymentException;
-import com.ssafy.payment.repository.PaymentCancelRepository;
-import com.ssafy.payment.repository.PaymentMethodRepository;
-import com.ssafy.payment.repository.PaymentRepository;
-import com.ssafy.payment.repository.PaymentStatusRepository;
 import java.util.UUID;
 import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -30,10 +24,7 @@ import org.springframework.stereotype.Service;
 public class PaymentService {
     private final PaymentsConfirmClient paymentsConfirmClient;
     private final PaymentsCancelClient paymentsCancelClient;
-    private final PaymentCancelRepository paymentCancelRepository;
-    private final PaymentRepository paymentRepository;
-    private final PaymentStatusRepository paymentStatusRepository;
-    private final PaymentMethodRepository paymentMethodRepository;
+    private final PaymentFacadeRepository paymentFacadeRepository;
 
     @Transactional
     public void callTossPayConfirm(ConfirmPaymentsRequest confirmPaymentsRequest) {
@@ -51,16 +42,10 @@ public class PaymentService {
         //                .approvedAt(ZonedDateTime.now())
         //                .build();
 
-        PaymentMethod paymentMethod =
-                paymentMethodRepository
-                        .findById(1)
-                        .orElseThrow(() -> new BadRequestException(NOT_FOUND_PAYMENT_METHOD));
-        PaymentStatus paymentStatus =
-                paymentStatusRepository
-                        .findById(4)
-                        .orElseThrow(() -> new BadRequestException(NOT_FOUND_PAYMENT_STATUS));
+        PaymentMethod paymentMethod = paymentFacadeRepository.findPaymentMethodCard();
+        PaymentStatus paymentStatus = paymentFacadeRepository.findPaymentStatusDone();
 
-        paymentRepository.save(
+        paymentFacadeRepository.savePayment(
                 Payment.createPayment(
                         confirmPaymentsRequest.getId(),
                         paymentsResponse,
@@ -77,29 +62,16 @@ public class PaymentService {
                         + refundOrderRequest.getCancelReason());
 
         Payment payment =
-                paymentRepository
-                        .findByOrderId(refundOrderRequest.getOrderId())
-                        .orElseThrow(() -> NotFoundPaymentException.EXCEPTION);
+                paymentFacadeRepository.findPaymentByOrderId(refundOrderRequest.getOrderId());
 
         PaymentsResponse paymentsResponse =
                 paymentsCancelClient.execute(
                         UUID.randomUUID().toString(), // Redis에 저장하는 로직으로 바꾸기
                         payment.getPaymentKey(),
-                        CancelPaymentsRequest.builder()
-                                .cancelReason(refundOrderRequest.getCancelReason())
-                                .build());
+                        new CancelPaymentsRequest(refundOrderRequest.getCancelReason()));
 
-        paymentCancelRepository.save(
-                PaymentCancel.builder()
-                        .payment(payment)
-                        .approvedAt(paymentsResponse.getApprovedAt().toLocalDateTime())
-                        .requestedAt(paymentsResponse.getRequestedAt().toLocalDateTime())
-                        .amount(paymentsResponse.getTotalAmount())
-                        .build());
+        paymentFacadeRepository.savePaymentCancel(payment, paymentsResponse);
 
-        payment.changePaymentStatus(
-                paymentStatusRepository
-                        .findById(5)
-                        .orElseThrow(() -> new BadRequestException(NOT_FOUND_PAYMENT_STATUS)));
+        payment.changePaymentStatus(paymentFacadeRepository.findPaymentStatusCanceled());
     }
 }

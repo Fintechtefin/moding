@@ -1,4 +1,4 @@
-package com.ssafy.payment.exception.global;
+package com.ssafy.common.exception;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

@@ -1,4 +1,4 @@
-package com.ssafy.funding.common;
+package com.ssafy.common.exception;
 
 import lombok.Builder;
 import lombok.Getter;

@@ -1,5 +1,6 @@
 plugins {
 	id 'java'
+	id 'jacoco'
 	id 'org.springframework.boot' version '2.7.18'
 	id 'io.spring.dependency-management' version '1.1.4'
 	id 'com.diffplug.spotless' version '6.16.0'
@@ -27,6 +28,7 @@ repositories {
 ext {
 	set('springCloudVersion', "2021.0.9")
 	queryDslVersion = "5.0.0"
+	mapstructVersion = "1.6.0"
 }
 
 dependencies {
@@ -37,10 +39,12 @@ dependencies {
 	implementation 'com.google.protobuf:protobuf-java:3.22.2'
 
 	implementation project(':proto')
+	implementation project(':common')
 
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.cloud:spring-cloud-starter-config'
 	implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.3'
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 	implementation 'io.hypersistence:hypersistence-utils-hibernate-55:3.7.0'
@@ -88,8 +92,13 @@ dependencies {
 	// redisson
 	implementation 'org.redisson:redisson:3.27.2'
 
+	// mapstruct
+	implementation "org.mapstruct:mapstruct:${mapstructVersion}"
+	annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testAnnotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
 }
 
 //querydsl 추가 시작 (위에 plugin 추가 부분과 맞물림)
@@ -143,3 +152,44 @@ task copyPrivate(type: Copy) {
 	}
 }
 
+jacoco {
+	toolVersion = "0.8.10"
+}
+
+jacocoTestReport {
+	reports {
+		html.enabled true
+		xml.enabled true
+		csv.enabled false
+
+		html.destination file("${buildDir}/jacoco/index.html")
+		xml.destination file("${buildDir}/jacoco/index.xml")
+//        csv.destination file("${buildDir}/jacoco/index.csv")
+	}
+	def Qdomains = []
+
+	for (qPattern in '**/QA'..'**/QZ') { // qPattern = '**/QA', '**/QB', ... '*.QZ'
+		Qdomains.add(qPattern + '*')
+	}
+
+	afterEvaluate {
+		classDirectories.setFrom(
+				files(classDirectories.files.collect {
+					fileTree(dir: it, excludes: [
+							"**/*Application*",
+							"**/*Config*",
+							"**/*Dto*",
+							"**/*Request*",
+							"**/*Response*",
+							"**/*Interceptor*",
+							"**/*Exception*"
+					] + Qdomains)
+				})
+		)
+	}
+}
+
+test {
+	useJUnitPlatform()
+	finalizedBy jacocoTestReport
+}

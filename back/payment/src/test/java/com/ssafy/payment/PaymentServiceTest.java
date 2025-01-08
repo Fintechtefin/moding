@@ -4,21 +4,17 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 
+import com.ssafy.common.dto.request.ConfirmPaymentsRequest;
 import com.ssafy.payment.controller.PaymentsCancelClient;
 import com.ssafy.payment.controller.PaymentsConfirmClient;
 import com.ssafy.payment.domain.Payment;
 import com.ssafy.payment.domain.PaymentMethod;
 import com.ssafy.payment.domain.PaymentStatus;
-import com.ssafy.payment.dto.request.ConfirmPaymentsRequest;
+import com.ssafy.payment.domain.repository.PaymentFacadeRepository;
 import com.ssafy.payment.dto.request.RefundOrderRequest;
 import com.ssafy.payment.dto.response.PaymentsResponse;
-import com.ssafy.payment.repository.PaymentCancelRepository;
-import com.ssafy.payment.repository.PaymentMethodRepository;
-import com.ssafy.payment.repository.PaymentRepository;
-import com.ssafy.payment.repository.PaymentStatusRepository;
 import com.ssafy.payment.service.PaymentService;
 import java.time.ZonedDateTime;
-import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,14 +24,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 public class PaymentServiceTest {
-
     @InjectMocks private PaymentService paymentService;
     @Mock private PaymentsConfirmClient paymentsConfirmClient;
     @Mock private PaymentsCancelClient paymentsCancelClient;
-    @Mock private PaymentCancelRepository paymentCancelRepository;
-    @Mock private PaymentRepository paymentRepository;
-    @Mock private PaymentStatusRepository paymentStatusRepository;
-    @Mock private PaymentMethodRepository paymentMethodRepository;
+    @Mock private PaymentFacadeRepository paymentFacadeRepository;
 
     @Test
     @DisplayName("토스페이먼츠 결제 승인")
@@ -43,11 +35,10 @@ public class PaymentServiceTest {
         // given
         given(paymentsConfirmClient.execute(any(ConfirmPaymentsRequest.class)))
                 .willReturn(PaymentsResponse.builder().build());
-        given(paymentMethodRepository.findById(1))
-                .willReturn(
-                        Optional.ofNullable(PaymentMethod.builder().id(1).name("DONE").build()));
-        given(paymentStatusRepository.findById(4))
-                .willReturn(Optional.ofNullable(PaymentStatus.builder().id(4).name("카드").build()));
+        given(paymentFacadeRepository.findPaymentMethodCard())
+                .willReturn(PaymentMethod.builder().id(1).name("DONE").build());
+        given(paymentFacadeRepository.findPaymentStatusDone())
+                .willReturn(PaymentStatus.builder().id(4).name("카드").build());
 
         // when
         paymentService.callTossPayConfirm(
@@ -58,7 +49,7 @@ public class PaymentServiceTest {
                         .build());
 
         // then
-        verify(paymentRepository).save(any(Payment.class));
+        verify(paymentFacadeRepository).savePayment(any(Payment.class));
     }
 
     @Test
@@ -70,7 +61,7 @@ public class PaymentServiceTest {
 
         Payment mockPayment = Payment.builder().paymentKey("aeijgwhhtio23").build();
 
-        given(paymentRepository.findByOrderId(anyLong())).willReturn(Optional.of(mockPayment));
+        given(paymentFacadeRepository.findPaymentByOrderId(anyLong())).willReturn(mockPayment);
 
         PaymentsResponse mockPaymentsResponse =
                 PaymentsResponse.builder()
@@ -82,18 +73,16 @@ public class PaymentServiceTest {
         given(paymentsCancelClient.execute(anyString(), anyString(), any()))
                 .willReturn(mockPaymentsResponse);
 
-        given(paymentStatusRepository.findById(anyInt()))
-                .willReturn(
-                        Optional.ofNullable(
-                                PaymentStatus.builder().id(5).name("CANCELED").build()));
+        given(paymentFacadeRepository.findPaymentStatusCanceled())
+                .willReturn(PaymentStatus.builder().id(5).name("CANCELED").build());
 
         // when
         paymentService.callTossPayRefund(refundOrderRequest);
 
         // then
-        verify(paymentRepository, times(1)).findByOrderId(anyLong());
+        verify(paymentFacadeRepository, times(1)).findPaymentByOrderId(anyLong());
         verify(paymentsCancelClient, times(1)).execute(anyString(), anyString(), any());
-        verify(paymentCancelRepository, times(1)).save(any());
-        verify(paymentStatusRepository, times(1)).findById(anyInt());
+        verify(paymentFacadeRepository, times(1)).savePaymentCancel(any(), any());
+        verify(paymentFacadeRepository, times(1)).findPaymentStatusCanceled();
     }
 }

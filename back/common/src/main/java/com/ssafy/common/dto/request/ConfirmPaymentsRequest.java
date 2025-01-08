@@ -1,4 +1,4 @@
-package com.ssafy.payment.dto.request;
+package com.ssafy.common.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

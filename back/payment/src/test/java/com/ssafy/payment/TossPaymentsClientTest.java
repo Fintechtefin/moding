@@ -4,8 +4,8 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.ssafy.common.dto.request.CreatePaymentsRequest;
 import com.ssafy.payment.controller.PaymentsCreateClient;
-import com.ssafy.payment.dto.request.CreatePaymentsRequest;
 import com.ssafy.payment.dto.response.PaymentsResponse;
 import java.io.IOException;
 import java.nio.file.Files;

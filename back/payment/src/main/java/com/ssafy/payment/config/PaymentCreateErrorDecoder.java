@@ -1,7 +1,7 @@
 package com.ssafy.payment.config;
 
-import com.ssafy.payment.dto.ErrorReason;
-import com.ssafy.payment.exception.DynamicException;
+import com.ssafy.common.exception.DynamicException;
+import com.ssafy.common.exception.ErrorReason;
 import com.ssafy.payment.exception.PaymentsCreateErrorCode;
 import com.ssafy.payment.exception.PaymentsUnHandleException;
 import com.ssafy.payment.exception.TossPaymentsErrorDto;

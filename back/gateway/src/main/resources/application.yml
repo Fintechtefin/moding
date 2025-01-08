@@ -1,3 +1,5 @@
 spring:
   config:
-    import: application-gateway.yml
+    import: optional:configserver:http://moding:moding0707@localhost:8088
+  application:
+    name: gateway

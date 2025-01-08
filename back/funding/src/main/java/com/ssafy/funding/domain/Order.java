@@ -3,6 +3,7 @@ package com.ssafy.funding.domain;
 import com.ssafy.funding.domain.validator.OrderValidator;
 import com.ssafy.funding.dto.Money;
 import com.ssafy.funding.exception.NotPendingOrderException;
+import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 import javax.persistence.*;
@@ -69,7 +70,6 @@ public class Order extends BaseTime {
             Integer fundingPrice,
             Long amount,
             OrderValidator orderValidator) {
-        // Integer supplyAmount = fundingCount * fundingPrice;
         Order order =
                 Order.builder()
                         .userId(userId)
@@ -83,9 +83,6 @@ public class Order extends BaseTime {
         orderValidator.validFundingIsOpen(funding);
         orderValidator.validOnlyOneOrder(userId, funding.getId());
         orderValidator.validFundingStockEnough(order, funding);
-        /*orderValidator.validAmountIsSameAsRequest(
-                        order, Money.wons(amount)); // 구매수량 * 펀딩 참여 금액이 요청 받은 총 금액과 일치?
-        */
         return order;
     }
 
@@ -94,6 +91,7 @@ public class Order extends BaseTime {
      */
     public Money getTotalPaymentPrice() {
         Money money = Money.ZERO;
+
         for (int i = 0; i < this.getCount(); i++) {
             money = money.plus(Money.wons(this.price));
         }
@@ -103,7 +101,30 @@ public class Order extends BaseTime {
     /** 사용자가 주문을 환불 시킵니다. */
     public void refund(Integer currentUserId, OrderValidator orderValidator) {
         orderValidator.validOwner(this, currentUserId);
-        // orderValidator.validCanRefund(this);
         this.status = false;
+    }
+
+    public Integer getMovieId() {
+        return this.getFunding().getMovie().getId();
+    }
+
+    public String getMovieTitle() {
+        return this.getFunding().getMovie().getTitle();
+    }
+
+    public String getMoviePoster() {
+        return this.getFunding().getMovie().getPoster();
+    }
+
+    public LocalDateTime getFundingEndAt() {
+        return this.getFunding().getEndAt();
+    }
+
+    public Integer getFundingPeopleCount() {
+        return this.getFunding().getPeopleCount();
+    }
+
+    public Integer getIdOfFunding() {
+        return this.getFunding().getId();
     }
 }

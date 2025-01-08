@@ -9,7 +9,6 @@ import org.springframework.format.datetime.standard.DateTimeFormatterRegistrar;
 
 @Import({TossHeaderConfig.class})
 public class FeignTossConfig {
-
     @Bean
     @ConditionalOnMissingBean(value = ErrorDecoder.class)
     public TossErrorDecoder commonFeignErrorDecoder() {

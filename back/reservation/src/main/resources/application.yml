@@ -1,7 +1,7 @@
 spring:
   config:
-    import:
-      - application-reservation.yml
-
-
-
+    import: optional:configserver:http://moding:moding0707@localhost:8088
+  application:
+    name: reservation
+  profiles:
+    active: local

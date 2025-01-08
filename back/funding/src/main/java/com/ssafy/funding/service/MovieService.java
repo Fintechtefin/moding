@@ -6,6 +6,7 @@ import com.ssafy.funding.domain.MovieFunding;
 import com.ssafy.funding.domain.MovieLike;
 import com.ssafy.funding.domain.document.MovieDocument;
 import com.ssafy.funding.dto.response.*;
+import com.ssafy.funding.mapper.MovieFundingMapper;
 import com.ssafy.funding.repository.*;
 import com.ssafy.funding.util.RedisUtil;
 import java.io.IOException;
@@ -33,6 +34,7 @@ public class MovieService {
     private final TokenAuthClient tokenAuthClient;
     private final MovieFundingRepository movieFundingRepository;
     private final MovieQueryRepository movieQueryRepository;
+    private final MovieFundingMapper movieFundingMapper;
 
     public List<MovieDetailResponse> searchMovie(String word) {
         List<MovieDetailResponse> movies =
@@ -240,23 +242,16 @@ public class MovieService {
     }
 
     public RequestMovieListResponse getMyRequestList(String accessToken) {
-
         int userId = tokenAuthClient.getUserId(accessToken);
 
         Slice<MovieFunding> movieFundings = movieFundingRepository.findByUserId(userId);
-
         return RequestMovieListResponse.of(
                 movieFundings.stream()
                         .map(
                                 movieFunding ->
-                                        RequestMovieResponse.builder()
-                                                .title(movieFunding.getMovie().getTitle())
-                                                .movieId(movieFunding.getMovie().getId())
-                                                .poster(movieFunding.getMovie().getPoster())
-                                                .requestCnt(
-                                                        getRequestCount(
-                                                                movieFunding.getMovie().getId()))
-                                                .build())
+                                        movieFundingMapper.toRequestMovieResponse(
+                                                movieFunding,
+                                                getRequestCount(movieFunding.getIdOfMovie())))
                         .collect(Collectors.toList()));
     }
 

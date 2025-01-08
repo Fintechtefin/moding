@@ -97,26 +97,22 @@ public interface FundingRepository extends CrudRepository<Funding, Integer> {
         int getGoalCnt();
     }
 
-    public interface FundingProgressResponseInterface {
+    public interface FundingStatusResponse {
         int getMovieId();
 
         String getPoster();
-
-        int getCrowdCnt();
-
-        int getPeopleCnt();
 
         FundingStatus getStatus();
     }
 
-    public interface FundingRequestResponseInterface {
-        int getMovieId();
+    public interface FundingProgressResponseInterface extends FundingStatusResponse {
+        int getCrowdCnt();
 
-        String getPoster();
+        int getPeopleCnt();
+    }
 
+    public interface FundingRequestResponseInterface extends FundingStatusResponse {
         long getRequestCnt();
-
-        FundingStatus getStatus();
     }
 
     public interface OpenFundingResponseInterface {

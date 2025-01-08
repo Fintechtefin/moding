@@ -3,3 +3,6 @@
 	url = https://lab.ssafy.com/a50070863/mooding_back_submodule.git
 [submodule "moding_front_submodule"]
 	path = moding_front_submodule
+[submodule "mooding_back_submodule"]
+	path = mooding_back_submodule
+	url = https://github.com/Fintechtefin/mooding_back_submodule.git

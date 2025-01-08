@@ -1,7 +1,7 @@
 package com.ssafy.funding.service.client;
 
-import com.ssafy.funding.dto.request.ConfirmPaymentsRequest;
-import com.ssafy.funding.dto.request.CreatePaymentsRequest;
+import com.ssafy.common.dto.request.ConfirmPaymentsRequest;
+import com.ssafy.common.dto.request.CreatePaymentsRequest;
 import lombok.extern.slf4j.Slf4j;
 import net.devh.boot.grpc.client.inject.GrpcClient;
 import net.devh.boot.grpc.examples.lib.*;

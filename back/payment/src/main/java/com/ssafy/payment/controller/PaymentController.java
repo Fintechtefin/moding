@@ -1,6 +1,6 @@
 package com.ssafy.payment.controller;
 
-import com.ssafy.payment.dto.request.ConfirmPaymentsRequest;
+import com.ssafy.common.dto.request.ConfirmPaymentsRequest;
 import com.ssafy.payment.dto.request.RefundOrderRequest;
 import com.ssafy.payment.service.MockService;
 import com.ssafy.payment.service.PaymentService;
@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 public class PaymentController {
-
     private final PaymentService paymentService;
     private final MockService mockservice;
 

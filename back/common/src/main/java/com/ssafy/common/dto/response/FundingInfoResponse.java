@@ -1,18 +1,19 @@
-package com.ssafy.funding.dto.response;
+package com.ssafy.common.dto.response;
 
-import com.ssafy.funding.domain.Funding;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
 
 @Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class FundingInfoResponse {
+
     @Schema(description = "영화 포스터")
     private String poster;
 
@@ -39,20 +40,4 @@ public class FundingInfoResponse {
 
     @Schema(description = "상영관")
     private Integer number;
-
-    public static FundingInfoResponse of(Funding funding, Integer orderCount) {
-        FundingInfoResponse fundingInfoResponse =
-                FundingInfoResponse.builder()
-                        .poster(funding.getMovie().getPoster())
-                        .age(funding.getMovie().getAge())
-                        .title(funding.getMovie().getTitle())
-                        .date(funding.getDate())
-                        .startTime(funding.getTime())
-                        .runningTime(funding.getMovie().getRunningTime())
-                        .count(orderCount)
-                        .name(funding.getCinema().getName())
-                        .number(funding.getCinema().getNumber())
-                        .build();
-        return fundingInfoResponse;
-    }
 }
