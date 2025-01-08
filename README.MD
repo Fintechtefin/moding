@@ -64,6 +64,9 @@
 <br>
 
 ## 3장. 주요 기능  
+### 
+<img src="https://github.com/user-attachments/assets/afe6260d-fa69-435b-b482-5dbdd7a9a138" width="500" height="1000"/>  
+
 ### 1. 지금 인기 있는 펀딩은?
 - ***ElasticSearch***를 이용한 실시간 영화 검색 순위  
 <p align="center">
