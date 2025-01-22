@@ -7,8 +7,10 @@ const LoginPage = () => {
     <div className="back h-[100vh]">
       <div className="profile-card">
         <div className="profile-bio">
-          <div className="text-5xl text-white mt-20">LOGIN</div>
-          <div className="flex justify-center mt-20 gap-10">
+          <div className="glitch text-5xl text-white mt-10" data-text="LOGIN">
+            LOGIN
+          </div>
+          <div className="flex justify-center mt-10 gap-10">
             <SocialNaver />
             <SocialKakao />
           </div>
