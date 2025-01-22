@@ -67,9 +67,7 @@ const MovieCarousel = () => {
     const deltaX = currentTouchX - startTouchX;
 
     if (deltaX > 50) {
-      setSelectedIndex(
-        (prevIndex) => (prevIndex - 1 + images.length) % images.length
-      );
+      setSelectedIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
       setStartTouchX(0);
     } else if (deltaX < -50) {
       setSelectedIndex((prevIndex) => (prevIndex + 1) % images.length);
@@ -86,33 +84,20 @@ const MovieCarousel = () => {
   };
 
   return (
-    <div
-      className="wrapper"
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
-    >
+    <div className="relative wrapper" onTouchStart={handleTouchStart} onTouchMove={handleTouchMove}>
       <div className="object">
         <div className="carousel" style={rotateCarousel()}>
           {images.map((image, index) => (
-            <Link
-              to={"/movie/list"}
-              state={{ category: image.id }}
-              key={index}
-              className="cell"
-            >
+            <Link to={"/movie/list"} state={{ category: image.id }} key={index} className="cell">
               <div>
                 <h3 className="text-white title">{image.category}</h3>
-                <img
-                  className="list-image w-[100%] h-[50vh] rounded-sm opacity-80"
-                  src={image.url}
-                  alt=""
-                />
+                <img className="list-image w-[100%] h-[50vh] rounded-sm" src={image.url} alt="" />
               </div>
             </Link>
           ))}
         </div>
       </div>
-      <div className="absolute top-[15%] flex justify-between w-[100%] px-4">
+      <div className="absolute top-[5%] flex justify-between w-[100%] px-4">
         <button className="previous-button" onClick={handlePrevious}>
           &lt;
         </button>
