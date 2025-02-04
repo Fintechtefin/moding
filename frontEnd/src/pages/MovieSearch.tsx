@@ -10,9 +10,7 @@ import { getNowRanking, getSearchMovie } from "@api/movie";
 
 const MovieSearch = () => {
   const today = new Date();
-  const formatDate = `${today.getFullYear()}년 ${
-    today.getMonth() + 1
-  }월 ${today.getDate()}일`;
+  const formatDate = `${today.getFullYear()}년 ${today.getMonth() + 1}월 ${today.getDate()}일`;
   const time = today.getHours() - 1;
 
   const [rankingData, setRankingData] = useState<MovieRanking[]>([]);
@@ -77,27 +75,14 @@ const MovieSearch = () => {
           <div>
             <div className="flex items-end gap-4 mb-10">
               <div>실시간 인기 영화</div>
-              <div className="text-[1.5vh] text-gray-500">
-                {formatDate} {time}:00 기준
-              </div>
+              <div className="text-[1.5vh] text-gray-500">2024년 4월 4일 5:00 기준</div>
             </div>
             <div className="grid grid-cols-2 gap-8 p-2">
               {rankingData.map((poster, idx) => {
                 return (
-                  <Link
-                    to={`/fund/list/${poster.movieId}`}
-                    key={poster.movieId}
-                    className="relative"
-                    state={{ type: "list" }}
-                  >
-                    <div className="absolute top-[-20px] z-[1] text-white">
-                      {idx + 1}
-                    </div>
-                    <MovieListItem
-                      state={poster.status}
-                      url={poster.poster}
-                      heigth="25vh"
-                    ></MovieListItem>
+                  <Link to={`/fund/list/${poster.movieId}`} key={poster.movieId} className="relative" state={{ type: "list" }}>
+                    <div className="absolute top-[-20px] z-[1] text-white">{idx + 1}</div>
+                    <MovieListItem state={poster.status} url={poster.poster} heigth="25vh"></MovieListItem>
                   </Link>
                 );
               })}
@@ -107,24 +92,13 @@ const MovieSearch = () => {
         {!searchResult && (
           <div>
             <div className="flex items-end gap-4 mb-5">
-              <div className=" text-gray-500">
-                "{result}"으로 검색한 결과입니다.
-              </div>
+              <div className=" text-gray-500">"{result}"으로 검색한 결과입니다.</div>
             </div>
             <div className="grid grid-cols-2 gap-8 p-2">
               {searchData.map((poster) => {
                 return (
-                  <Link
-                    to={`/fund/list/${poster.movieId}`}
-                    key={poster.movieId}
-                    className="relative"
-                    state={{ type: "search" }}
-                  >
-                    <MovieListItem
-                      state={poster.status}
-                      url={poster.poster}
-                      heigth="25vh"
-                    ></MovieListItem>
+                  <Link to={`/fund/list/${poster.movieId}`} key={poster.movieId} className="relative" state={{ type: "search" }}>
+                    <MovieListItem state={poster.status} url={poster.poster} heigth="25vh"></MovieListItem>
                   </Link>
                 );
               })}

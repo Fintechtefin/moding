@@ -25,7 +25,8 @@ const MovieList = ({ category, cateTitle, sort }: Props) => {
   });
 
   useEffect(() => {
-    if (data) {
+    console.log(data);
+    if (data && data.movieList) {
       setPosterList((prevPosterList) => {
         if (!prevPosterList) {
           return data;
@@ -36,7 +37,6 @@ const MovieList = ({ category, cateTitle, sort }: Props) => {
           totalCnt: data.totalCnt,
         };
       });
-      console.log(PosterList);
     }
   }, [data]);
 
@@ -58,12 +58,12 @@ const MovieList = ({ category, cateTitle, sort }: Props) => {
   return (
     <div className="movielist-container">
       <div className="flex flex-col items-end pt-4 pr-3 text-gray-400">
-        <div className="text-[3vh]">{nickname}님을 위해</div>
+        <div className="text-[3vh]">웨이드님을 위해</div>
         <div className="text-[3vh]">무딩이 준비한 {PosterList && PosterList.totalCnt}편의</div>
         <div className="text-[3vh]">{cateTitle}</div>
       </div>
       <div className="movie-list none-scroller translate-y-[-40px] px-[1.5vh] grid grid-cols-3 gap-[1.2vh] overflow-auto pb-56">
-        {PosterList && (
+        {PosterList && PosterList.movieList && (
           <>
             {PosterList.movieList.map((poster) => {
               return (

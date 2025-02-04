@@ -23,22 +23,10 @@ const StatusBadge = ({ status, textSize }: props) => {
   return (
     <>
       {badgeOn && (
-        <div className="text-white absolute z-[1] flex justify-end w-[100%] p-[1vh]">
+        <div className="text-white absolute z-[1] flex justify-end w-[100%] p-[0.5vh]">
           <div>
-            <div
-              className={`${
-                status == "무딩예정"
-                  ? "bg-[#b4bd50]"
-                  : status == "무딩종료"
-                  ? "bg-[#02c031]"
-                  : "bg-[#C00202]"
-              }  w-[100%] h-[100%] blur-sm rounded-[25%] `}
-            ></div>
-            <div
-              className={`text-[${textSize}] relative top-[-100%] right-0 my-[0.5vh] mx-[1vh]`}
-            >
-              {state}
-            </div>
+            <div className={`${status == "무딩예정" ? "bg-[#e1af20]" : status == "무딩종료" ? "bg-[#02c031]" : "bg-[#C00202]"}  w-[100%] h-[100%] blur-[5px] rounded-[10%] `}></div>
+            <div className={`text-${textSize} relative top-[-100%] right-0 my-[0.5vh] mx-[0.5vh] `}>{state}</div>
           </div>
         </div>
       )}

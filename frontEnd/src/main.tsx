@@ -3,6 +3,16 @@ import App from "@/App.tsx";
 import { RecoilRoot } from "recoil";
 import "@/index.scss";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import worker from "./mocks/browser";
+
+if (process.env.NODE_ENV === "development") {
+  worker.start({
+    serviceWorker: { url: "/mockServiceWorker.js" },
+    onUnhandledRequest: "bypass",
+  });
+}
+
+localStorage.setItem("MSW_DEBUG", "true");
 
 const queryClient = new QueryClient({
   defaultOptions: {

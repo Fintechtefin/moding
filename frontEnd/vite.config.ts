@@ -9,7 +9,8 @@ export default defineConfig({
     react(),
     tsconfigPaths(),
     VitePWA({
-      registerType: "autoUpdate",
+      registerType: process.env.NODE_ENV === "development" ? "prompt" : "autoUpdate",
+      injectRegister: process.env.NODE_ENV === "development" ? null : "inline",
       devOptions: {
         enabled: true,
       },

@@ -1,9 +1,9 @@
 import axios from "axios";
 
-// const BASE_URL = "http://localhost:8084";
+const BASE_URL = "http://localhost:5174";
 // const BASE_URL = "http://172.30.1.16:5174";
 // const BASE_URL = import.meta.env.VITE_BASE_URL;
-const BASE_URL = "https://j10c204.p.ssafy.io";
+// const BASE_URL = "https://j10c204.p.ssafy.io";
 
 const axiosApi = () => {
   const instance = axios.create({
