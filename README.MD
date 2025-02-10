@@ -86,16 +86,17 @@
 <img src="https://github.com/user-attachments/assets/f42d333a-4bda-4ab5-a1b6-93520ed0eae2" width="300"/> 
 
 
-
 ### 원하는 영화가 없다면? 
 - 영화제목, 배우명을 이용한 검색기능 제공!
 - ***ElasticSearch***를 이용한 실시간 영화 검색 순위 확인까지!
 <img src="https://github.com/user-attachments/assets/c79dff2c-63ee-4161-8e8d-8652894b51d5" width="300"/>  
 
 ### 펀딩이 성공했다면! 자리 예매하기!
+- 좌석 오픈 날짜 확인하고 기다리기
 - N명이 보고 있어요! 동시 접속자 수를 볼 수 있는 좌석 예매  
 - 자리 예매완료하고 모바일 티켓까지 GET !!
-<img src="https://github.com/Fintechtefin/moding/assets/46569105/b2442613-55b5-4007-b10f-9b54d62bff1e" width="300"/>  
+<img src="https://github.com/user-attachments/assets/243bcb08-118b-4cac-a070-3b15574c41c7" width="300"/>  
+<img src="https://github.com/user-attachments/assets/8fe8451c-d77e-45d1-8c29-d739aaf571f4" width="300"/>  
 <br>
 
 ## 4장. 주요 기술
