@@ -96,7 +96,7 @@
 - N명이 보고 있어요! 동시 접속자 수를 볼 수 있는 좌석 예매  
 - 자리 예매완료하고 모바일 티켓까지 GET !!
 <img src="https://github.com/user-attachments/assets/243bcb08-118b-4cac-a070-3b15574c41c7" width="300"/>  
-<img src="https://github.com/user-attachments/assets/8fe8451c-d77e-45d1-8c29-d739aaf571f4" width="300"/>  
+<img src="https://github.com/user-attachments/assets/f17164f6-966e-4be8-8c78-4e3248041460" width="300"/>  
 <br>
 
 ## 4장. 주요 기술
