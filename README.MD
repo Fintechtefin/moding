@@ -79,6 +79,7 @@
 - 터치 한 번에 결제 끝! 토스페이먼츠 `API`를 이용한 쉽고 빠른 결제!
 <img src="https://github.com/user-attachments/assets/12ac0865-ca83-40db-8437-b92c7d6e9676" width="300"/> 
 <br>
+
 - 아직 펀딩이 열리지 않았다면 원하는 장소와 시간을 고르고 요청하기! 
 - 200명 이상 요청시 펀딩오픈!! 공유하면 펀딩 오픈 속도 UP!!
 <img src="https://github.com/user-attachments/assets/dfe8743a-cf5e-4ce7-901a-46f295bf2210" width="300"/> 
