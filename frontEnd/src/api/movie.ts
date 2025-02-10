@@ -9,9 +9,7 @@ const api = axiosApi();
 async function getGenreList(genre: number, page: number, sort: string) {
   console.log("page");
   console.log(page);
-  const { data } = await api.get(
-    `${url2}?genre=${genre}&page=${page}&sort=${sort}`
-  );
+  const { data } = await api.get(`${url2}?genre=${genre}&page=${page}&sort=${sort}`);
   return data;
 }
 
@@ -25,6 +23,7 @@ async function getNowRanking(): Promise<MovieRanking[]> {
 async function getSearchMovie(word: string): Promise<Movie[]> {
   const { data } = await api.get(`${url2}/search?word=${word}`);
   console.log("search");
+  console.log(data);
   return data;
 }
 
@@ -41,10 +40,4 @@ async function getMovieDetail(id: string) {
   return data;
 }
 
-export {
-  getGenreList,
-  getNowRanking,
-  getSearchMovie,
-  getSearchDetail,
-  getMovieDetail,
-};
+export { getGenreList, getNowRanking, getSearchMovie, getSearchDetail, getMovieDetail };

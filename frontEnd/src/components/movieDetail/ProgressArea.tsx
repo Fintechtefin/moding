@@ -6,13 +6,12 @@ interface Props {
   joinCnt: number;
   height: string;
   size: string;
+  color: string;
 }
 
-const ProgressArea = ({ crowd, joinCnt, height, size }: Props) => {
+const ProgressArea = ({ crowd, joinCnt, height, size, color }: Props) => {
   const [percent, setPercent] = useState(0);
   const [gage, setGage] = useState(0);
-
-  console.log(gage);
 
   const divRef = useRef<HTMLDivElement>(null);
 
@@ -30,15 +29,17 @@ const ProgressArea = ({ crowd, joinCnt, height, size }: Props) => {
     <div className="relative">
       {size == "big" && (
         <>
-          <div className="absolute top-[-6vh] right-1 text-4xl">{percent}%</div>
+          <div className="absolute top-[-5vh] right-1 text-4xl back-blur">{percent}%</div>
         </>
       )}
-      <div
-        className={`progressbar relative w-[100%] h-[${height}]`}
-        ref={divRef}
-      >
+      {size == "small" && (
+        <>
+          <div className="absolute top-[-2.5vh] right-1 text-1xl back-blur">{percent}%</div>
+        </>
+      )}
+      <div className={`${color} progressbar relative w-[100%] h-[${height}]`} ref={divRef}>
         <div
-          className={`bar absolute top-[50%] trnaslate-y-[-50%] w-[100px] h-[100%]`}
+          className={`${color} bar absolute top-[60%] trnaslate-y-[-50%] w-[100px] h-[100%]`}
           style={{
             width: `${gage}px`,
           }}

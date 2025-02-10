@@ -35,12 +35,12 @@ const HopeSurvey = ({ id, modalDown }: Props) => {
 
   const sendSurvey = () => {
     modalDown(false);
-    setSurveyData({
-      ...surveyData,
-      location: checkArea,
-      time: checkTime,
-    });
-    mutataion.mutate(surveyData);
+    // setSurveyData({
+    //   ...surveyData,
+    //   location: checkArea,
+    //   time: checkTime,
+    // });
+    // mutataion.mutate(surveyData);
   };
 
   const surveyArea = "flex flex-col justify-between items-center w-[85%] h-[70vh] shadow-[0_0_15px_1px_red] rounded-[2vh] border-solid border-red-700 bg-black";

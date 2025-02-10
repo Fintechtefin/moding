@@ -1,8 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  loadPaymentWidget,
-  PaymentWidgetInstance,
-} from "@tosspayments/payment-widget-sdk";
+import { loadPaymentWidget, PaymentWidgetInstance } from "@tosspayments/payment-widget-sdk";
 import { nanoid } from "nanoid";
 import NoneNavHeader from "@components/NoneNavHeader";
 import Loading from "@pages/payment/Loading";
@@ -12,8 +9,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import "@assets/styles/payment/Payment.scss";
 
 const KEY = nanoid();
-
-console.log(KEY);
 
 const PaymentPage = () => {
   const widgetClientKey = import.meta.env.VITE_TOSS_API_KEY;
@@ -26,8 +21,7 @@ const PaymentPage = () => {
     navigate("/");
   }
 
-  const [paymentWidget, setPaymentWidget] =
-    useState<PaymentWidgetInstance | null>(null);
+  const [paymentWidget, setPaymentWidget] = useState<PaymentWidgetInstance | null>(null);
 
   const [fundInfo] = useState(location.state);
   const [price] = useState(location.state.fundinfo.price);
@@ -41,10 +35,8 @@ const PaymentPage = () => {
 
     const fetchPaymentWidget = async () => {
       try {
-        const loadedWidget = await loadPaymentWidget(
-          widgetClientKey,
-          customerKey
-        );
+        const loadedWidget = await loadPaymentWidget(widgetClientKey, customerKey);
+        console.log("loadedWidget:", loadedWidget);
         setPaymentWidget(loadedWidget);
       } catch (error) {
         console.error("Error fetching payment widget:", error);
@@ -59,8 +51,8 @@ const PaymentPage = () => {
 
     const paymentMethodsWidget = paymentWidget.renderPaymentMethods(
       "#payment-widget",
-      { value: price },
-      { variantKey: "DEFAULT" }
+      { value: price }
+      //{ variantKey: "DEFAULT" }
     );
 
     paymentMethodsWidget.on("ready", () => {
@@ -79,9 +71,8 @@ const PaymentPage = () => {
       { value: price }
       // { variantKey: "DEFAULT" }
     );
-    const selectedPaymentMethod =
-      paymentMethodsWidget.getSelectedPaymentMethod().method;
-    // console.log(selectedPaymentMethod);
+    const selectedPaymentMethod = paymentMethodsWidget.getSelectedPaymentMethod().method;
+    console.log(selectedPaymentMethod);
 
     // 결제를 요청하기 전에 orderId, amount를 서버에 저장하세요.
     // 결제 과정에서 악의적으로 결제 금액이 바뀌는 것을 확인하는 용도입니다.
@@ -89,8 +80,10 @@ const PaymentPage = () => {
       await paymentWidget?.requestPayment({
         orderId: KEY,
         orderName: fundInfo.movieTitle,
-        successUrl: `${window.location.origin}/fund/payment/success?fundingCount=1&fundingId=${fundInfo.fundinfo.fundingId}&method=${selectedPaymentMethod}`,
-        failUrl: `${window.location.origin}/fund/payment/fail`,
+        // successUrl: `${window.location.origin}/fund/payment/success?fundingCount=1&fundingId=${fundInfo.fundinfo.fundingId}&method=${selectedPaymentMethod}`,
+        // failUrl: `${window.location.origin}/fund/payment/fail`,
+        successUrl: `https://localhost:3000/fund/payment/success?fundingCount=1&fundingId=${fundInfo.fundinfo.fundingId}&method=${selectedPaymentMethod}`, // ✅ HTTPS 적용
+        failUrl: `https://localhost:3000/fund/payment/fail`,
       });
     } catch (error) {
       console.error("Error requesting payment:", error);
@@ -112,11 +105,7 @@ const PaymentPage = () => {
         <div className="text-[#333D4B] flex flex-col gap-[2vh] px-[3vh] z-10">
           <div className="font-bold text-[20px]">펀딩 정보</div>
           <div className="flex gap-[2vh]">
-            <img
-              src={fundInfo.poster}
-              alt=""
-              className="w-[13vh] rounded-[1vh]"
-            />
+            <img src={fundInfo.poster} alt="" className="w-[13vh] rounded-[1vh]" />
             <div className="flex flex-col justify-between">
               <div>
                 <div>{fundInfo.movieTitle}</div>
@@ -139,12 +128,7 @@ const PaymentPage = () => {
       {/* 결제하기 버튼 */}
       {showPaymentButton && (
         <div className="flex p-[3vh]">
-          <button
-            id="payment-button"
-            disabled={!showPaymentButton}
-            onClick={handlePaymentRequest}
-            className="flex-1 text-[2.5vh] font-bold rounded-[1vh] p-[2vh] shadow-bgRed bg-red-600"
-          >
+          <button id="payment-button" disabled={!showPaymentButton} onClick={handlePaymentRequest} className="flex-1 text-[2.5vh] font-bold rounded-[1vh] p-[2vh] shadow-bgRed bg-red-600">
             결제하기
           </button>
         </div>

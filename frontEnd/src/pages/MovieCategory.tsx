@@ -111,15 +111,8 @@ const MovieCategory = () => {
         >
           {categoryNav.map((show, idx) => {
             return (
-              <SwiperSlide
-                key={idx}
-                className={`pb-1 slider-nav ${
-                  activeIndex === idx ? "active-slide" : ""
-                }`}
-              >
-                <div className="slider-sub text-center text-xl">
-                  {show.category}
-                </div>
+              <SwiperSlide key={idx} className={`pb-1 slider-nav ${activeIndex === idx ? "active-slide" : ""}`}>
+                <div className="slider-sub text-center text-xl">{show.category}</div>
                 {/* <img className="slide-img" src={show.imgUrl} alt="" /> */}
               </SwiperSlide>
             );
@@ -135,10 +128,7 @@ const MovieCategory = () => {
         <div>코미디</div>
         <div>기타등등</div>
       </div> */}
-      <div
-        className="w-[90%] bg-stone-800 m-auto p-[1.2vh] text-center rounded-lg text-zinc-500 cursor-pointer"
-        onClick={() => changeSort()}
-      >
+      <div className="w-[90%] bg-stone-800 m-auto p-[1.2vh] text-center rounded-lg text-zinc-500 cursor-pointer" onClick={() => changeSort()}>
         <div className="flex justify-center items-center gap-2">
           {sort == "titleAsc" && (
             <>
@@ -154,14 +144,12 @@ const MovieCategory = () => {
           )}
           {sort == "likeAsc" && (
             <>
-              <div>좋아요</div>
-              <VscTriangleUp />
+              <div>좋아요순</div>
             </>
           )}
           {sort == "likeDesc" && (
             <>
-              <div>좋아요</div>
-              <VscTriangleDown />
+              <div>최신순</div>
             </>
           )}
         </div>
@@ -169,10 +157,7 @@ const MovieCategory = () => {
       <div>
         <MovieList category={category} cateTitle={cateTitle} sort={sort} />
       </div>
-      <div
-        className="sticky bottom-[65px] float-right mr-3 bg-stone-600 rounded-full opacity-80"
-        onClick={goTop}
-      >
+      <div className="sticky bottom-[65px] float-right mr-3 bg-stone-600 rounded-full opacity-80" onClick={goTop}>
         <MdKeyboardArrowUp className="text-[6vh] text-white cursor-pointer" />
       </div>
     </div>

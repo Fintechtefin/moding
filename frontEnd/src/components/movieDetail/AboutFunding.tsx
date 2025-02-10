@@ -1,3 +1,8 @@
+import moding1 from "@assets/images/mooding1.png";
+import moding2 from "@assets/images/mooding2.png";
+import moding3 from "@assets/images/mooding3.png";
+import moding4 from "@assets/images/moding4.png";
+
 const AboutFunding = () => {
   const fundInfo = "flex flex-col text-center gap-10";
 
@@ -5,6 +10,9 @@ const AboutFunding = () => {
     <div className="flex flex-col item-center gap-28 mt-32">
       <div className={fundInfo}>
         <div className="text-2xl">1. 무딩 요청</div>
+        <div className="flex justify-center">
+          <img className="w-[22%]" src={moding1} alt="" />
+        </div>
         <div>
           <div>원하는 영화 무딩 요청하기</div>
           <div></div>
@@ -24,6 +32,9 @@ const AboutFunding = () => {
       </div>
       <div className={fundInfo}>
         <div className="text-2xl">2. 무딩 참여</div>
+        <div className="flex justify-center">
+          <img className="w-[22%]" src={moding4} alt="" />
+        </div>
         <div>
           <div>장소, 시간, 가격 확인하기</div>
           <div></div>
@@ -47,6 +58,9 @@ const AboutFunding = () => {
       </div>
       <div className={fundInfo}>
         <div className="text-2xl">3. 좌석 예매</div>
+        <div className="flex justify-center">
+          <img className="w-[40%]" src={moding2} alt="" />
+        </div>
         <div>
           <div>펀딩 종료 루 다음날 8시 오픈</div>
           <div></div>
@@ -62,6 +76,9 @@ const AboutFunding = () => {
       </div>
       <div className={fundInfo}>
         <div className="text-2xl">4. 관람하기</div>
+        <div className="flex justify-center">
+          <img className="w-[40%]" src={moding3} alt="" />
+        </div>
         <div>
           <div>즐겁게 관람하기</div>
           <div></div>

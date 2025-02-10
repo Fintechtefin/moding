@@ -16,7 +16,18 @@ export default {
         shadowRed: "0 0 0.5vh rgb(168, 6, 6)",
         test: "rgb(250, 250, 250, 0.4) 0px 0px 5px 0px;",
       },
+      textShadow: {
+        rank: "5px 7px 5px black",
+        title: "5px 4px 2px black",
+      },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }) {
+      addUtilities({
+        ".text-shadow-rank": { textShadow: "5px 7px 5px black" },
+        ".text-shadow-title": { textShadow: "5px 4px 2px black" },
+      });
+    },
+  ],
 };

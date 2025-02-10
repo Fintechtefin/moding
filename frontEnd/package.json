@@ -11,6 +11,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@lottiefiles/dotlottie-react": "^0.13.0",
+    "@lottiefiles/dotlottie-web": "^0.40.1",
+    "@mswjs/http-middleware": "^0.10.3",
     "@react-three/drei": "^9.103.0",
     "@react-three/fiber": "^8.16.1",
     "@tanstack/react-query": "^5.28.9",
@@ -20,10 +23,12 @@
     "autoprefixer": "^10.4.18",
     "axios": "^1.6.7",
     "dotenv-cli": "^7.4.1",
+    "express": "^4.21.2",
     "firebase": "^10.9.0",
     "gltf-loader": "^1.0.0",
     "gsap": "^3.12.5",
-    "nanoid": "^5.0.6",
+    "msw": "^2.7.0",
+    "nanoid": "^5.0.9",
     "postcss": "^8.4.35",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -55,5 +60,10 @@
     "eslint-plugin-react-refresh": "^0.4.5",
     "typescript": "^5.2.2",
     "vite": "^5.1.6"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
   }
 }

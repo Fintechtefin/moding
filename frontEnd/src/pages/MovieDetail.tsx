@@ -14,6 +14,7 @@ import { getSearchDetail, getMovieDetail } from "@api/movie";
 import { getFundingInfo } from "@api/funding";
 import { ToasterMsg } from "@components/Common";
 import { toastMsg } from "@util/commonFunction";
+import { PiShareNetworkLight } from "react-icons/pi";
 
 const MovieDetail = () => {
   const location = useLocation();
@@ -26,6 +27,7 @@ const MovieDetail = () => {
   const [log, setLog] = useState("");
   const [movieId, setMovieId] = useState("");
   const [fundMovieId, setFundMovieId] = useState("");
+  const [movieInfo, setMovieInfo] = useState<MovieInfo>();
 
   const { data: searchDetail } = useQuery<MovieInfo, Error>({
     queryKey: ["logResult", log], // 쿼리 키를 지정합니다.
@@ -80,11 +82,10 @@ const MovieDetail = () => {
       if (movieDetail) {
         setMovieInfo(movieDetail);
         console.log(movieDetail);
+        console.log(movieInfo);
       }
     }
   }, [searchDetail, movieDetail]);
-
-  const [movieInfo, setMovieInfo] = useState<MovieInfo>();
 
   const [infoCategory, setInfoCategory] = useState(0);
   const [modalShow, setModalShow] = useState(false);
@@ -108,20 +109,52 @@ const MovieDetail = () => {
   };
 
   useEffect(() => {
+    setFundingInfo(false);
     if (movieInfo) {
-      console.log(movieInfo);
-      if (
-        movieInfo.status != "무딩 준비 중" &&
-        movieInfo.status != "무딩종료"
-      ) {
+      if (movieInfo.status != "무딩 준비 중" && movieInfo.status != "무딩종료") {
         setFundingInfo(true);
       }
     }
   }, [movieInfo, fundingInfo]);
 
+  const [showLottie, setShowLottie] = useState(false);
+
+  useEffect(() => {
+    console.log("dddddd");
+  }, [showLottie]);
+
   const modalDown = (state: boolean) => {
-    setModalShow(state);
-    console.log(modalShow);
+    if (state) {
+      setModalShow(state);
+    } else {
+      setModalShow(state);
+      setMovieInfo((prev) =>
+        prev
+          ? {
+              ...prev,
+              request: true,
+            }
+          : prev
+      );
+      toastMsg(`무딩을 요청하셨습니다!\n펀딩이 시작되면 알람을 보내드려요!\n많이 공유할수록 펀딩 오픈이 더 빨라져요!`);
+      setShowLottie(true);
+      setTimeout(() => setShowLottie(false), 3000);
+    }
+  };
+
+  const handleShare = async () => {
+    const shareData = {
+      title: "Moding하고 영화보자",
+      text: "같이 Modidng하고 인생영화 영화관에서 다시 볼까요~?",
+      url: `https://localhost:3000/fund/list/${id}`,
+    };
+
+    try {
+      await navigator.share(shareData);
+      console.log("공유성공");
+    } catch {
+      console.log("공유실패");
+    }
   };
 
   return (
@@ -136,6 +169,9 @@ const MovieDetail = () => {
           }}
         >
           <NoneNavHeader />
+          <div className="absolute top-[1.5vh] right-[1.5vh]">
+            <PiShareNetworkLight className="text-[4vh] text-white cursor-pointer" onClick={handleShare} />
+          </div>
           {/* info영역 */}
           <div className="flex flex-col items-center mt-72">
             <div className="text-[4vh] px-6 text-center">{movieInfo.title}</div>
@@ -146,44 +182,23 @@ const MovieDetail = () => {
               <span>|</span>
               <div>{movieInfo.age}</div>
             </div>
-            <div className="w-[90%] mt-8">
-              {fundingInfo && (
-                <InfoArea status={movieInfo.status} fundInfo={fundinfo!} />
-              )}
-            </div>
+            <div className="w-[90%] mt-8">{fundingInfo && <InfoArea status={movieInfo.status} fundInfo={fundinfo!} />}</div>
           </div>
           {/* 상세정보영역 */}
           <div>
             <div className="info-detail flex flex-row justify-around mt-10 text-[2.3vh] border-red-700">
-              <div
-                className={`border-red-700 ${
-                  infoCategory == 0 ? "select" : ""
-                }`}
-                onClick={() => setInfoCategory(0)}
-              >
+              <div className={`border-red-700 ${infoCategory == 0 ? "select" : ""}`} onClick={() => setInfoCategory(0)}>
                 영화 정보
               </div>
-              <div
-                className={`border-red-700 ${
-                  infoCategory == 1 ? "select" : ""
-                }`}
-                onClick={() => setInfoCategory(1)}
-              >
+              <div className={`border-red-700 ${infoCategory == 1 ? "select" : ""}`} onClick={() => setInfoCategory(1)}>
                 펀딩 정보
               </div>
-              <div
-                className={`border-red-700 ${
-                  infoCategory == 2 ? "select" : ""
-                }`}
-                onClick={() => setInfoCategory(2)}
-              >
+              <div className={`border-red-700 ${infoCategory == 2 ? "select" : ""}`} onClick={() => setInfoCategory(2)}>
                 유의 사항
               </div>
             </div>
             <div className="px-7 pt-4 pb-20">
-              {infoCategory == 0 && (
-                <AboutMovie actors={movieInfo.actors} plot={movieInfo.plot} />
-              )}
+              {infoCategory == 0 && <AboutMovie actors={movieInfo.actors} plot={movieInfo.plot} />}
               {infoCategory == 1 && <AboutFunding />}
               {infoCategory == 2 && <AboutNote />}
             </div>
@@ -197,6 +212,7 @@ const MovieDetail = () => {
               likeCnt={movieInfo.likeCnt}
               request={movieInfo.request}
               hopeCnt={movieInfo.hopeCnt}
+              modalShow={modalShow}
               modalDown={modalDown}
               sendFundingInfo={sendFundingInfo}
               fundingId={fundinfo?.fundingId!}

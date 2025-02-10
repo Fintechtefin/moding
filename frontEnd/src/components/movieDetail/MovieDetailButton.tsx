@@ -10,22 +10,13 @@ interface Props {
   likeCnt: number;
   request: boolean;
   hopeCnt: number;
+  modalShow: boolean;
   modalDown: (state: boolean) => void;
   sendFundingInfo: (type: string) => void;
   fundingId: number;
 }
 
-const MovieDetailButton = ({
-  id,
-  status,
-  like,
-  likeCnt,
-  request,
-  hopeCnt,
-  modalDown,
-  sendFundingInfo,
-  fundingId,
-}: Props) => {
+const MovieDetailButton = ({ id, status, like, likeCnt, request, hopeCnt, modalShow, modalDown, sendFundingInfo, fundingId }: Props) => {
   const [isDone, setIsDone] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const [likeNowCnt, setLikeNowCnt] = useState(0);
@@ -40,6 +31,7 @@ const MovieDetailButton = ({
     }
     if (request) {
       setIsHope(true);
+      setIsDone(!isDone);
     }
     if (status === "무딩 준비 중" && isHope) {
       setIsDone(true);
@@ -48,12 +40,20 @@ const MovieDetailButton = ({
     } else if (status === "무딩종료") {
       setIsDone(true);
     }
-  }, []);
+  }, [request]);
 
   useEffect(() => {
     setLikeNowCnt(likeCnt);
     setHopeNowCnt(hopeCnt);
   }, [likeCnt, hopeCnt]);
+
+  // useEffect(() => {
+  //   if (!isHope && !modalShow) {
+  //     setIsDone(!isDone);
+  //     setIsHope(!isHope);
+  //     setHopeNowCnt((prev) => prev + 1);
+  //   }
+  // }, [modalShow])
 
   const postLike = async (id: number) => {
     if (isLiked) {
@@ -70,15 +70,9 @@ const MovieDetailButton = ({
     }
   };
 
-  const postHope = async (id: number) => {
-    if (isHope) {
-      console.log(id);
-      return;
-    } else {
-      setIsDone(!isDone);
-      setIsHope(!isHope);
-      setHopeNowCnt((prev) => prev + 1);
-    }
+  const voteHope = () => {
+    modalDown(true);
+    setHopeNowCnt((prev) => prev + 1);
   };
 
   const postAlarm = async (id: number) => {
@@ -99,14 +93,15 @@ const MovieDetailButton = ({
   });
 
   const joinFunding = () => {
-    console.log(data);
-    console.log(typeof data);
-    setOpenFundingId(fundingId);
-    if (data) {
-      alert("이미 참여하셨습니다");
-    } else {
-      sendFundingInfo("join");
-    }
+    // console.log(data);
+    // console.log(typeof data);
+    // setOpenFundingId(fundingId);
+    // if (data) {
+    //   alert("이미 참여하셨습니다");
+    // } else {
+    //   sendFundingInfo("join");
+    // }
+    sendFundingInfo("join");
   };
 
   const bookTicket = () => {
@@ -122,25 +117,18 @@ const MovieDetailButton = ({
       <div className="movie-detail-btn flex flex-row h-[7vh] border-red-700">
         <div className="like-area basis-1/6 bg-black border-red-700">
           <div className={`placement`}>
-            <div
-              className={`heart ${isLiked ? "is-active" : ""}`}
-              onClick={() => postLike(id)}
-            ></div>
+            <div className={`heart ${isLiked ? "is-active" : ""}`} onClick={() => postLike(id)}></div>
           </div>
           <div className="pt-[4vh] text-center text-[1.8vh]">{likeNowCnt}</div>
         </div>
-        <div
-          className={`flex justify-center items-center basis-5/6 w-[100%] h-[100%] ${
-            isLiked ? "is-active" : ""
-          } ${isDone ? "bg-black" : "bg-red-700"}`}
-        >
+        <div className={`flex justify-center items-center basis-5/6 w-[100%] h-[100%] ${isLiked ? "is-active" : ""} ${isDone ? "bg-black" : "bg-red-700"}`}>
           {status == "무딩 준비 중" && (
             <>
-              <div className={buttonTextArea} onClick={() => postHope(id)}>
+              <div className={buttonTextArea}>
                 <div className="flex items-end gap-1">
                   {isHope && <div className={buttonText}>무딩 요청중</div>}
                   {!isHope && (
-                    <div className={buttonText} onClick={() => modalDown(true)}>
+                    <div className={buttonText} onClick={() => voteHope()}>
                       무딩 요청하기
                     </div>
                   )}
@@ -153,9 +141,7 @@ const MovieDetailButton = ({
             <>
               <div className={buttonTextArea} onClick={() => postAlarm(id)}>
                 <div className="flex items-end gap-1">
-                  <div className={buttonText}>
-                    {applyAlarm ? "알림신청완료" : "알림신청"}
-                  </div>
+                  <div className={buttonText}>{applyAlarm ? "알림신청완료" : "알림신청"}</div>
                   {/* <div className={buttonSub}>({alarmNowCnt}명 신청중)</div> */}
                 </div>
               </div>

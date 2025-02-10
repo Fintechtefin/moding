@@ -6,7 +6,7 @@ const api = axiosApi();
 
 async function getTopTen(status: string) {
   console.log("top10");
-  const { data } = await api.get(`${url}/?status=${status}`);
+  const { data } = await api.get(`${url}?status=${status}`);
   console.log(data);
   return data;
 }
