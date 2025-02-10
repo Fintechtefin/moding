@@ -68,20 +68,28 @@
 - 소셜로그인을 이용한 간편로그인
 <img src="https://github.com/user-attachments/assets/afe6260d-fa69-435b-b482-5dbdd7a9a138" width="300"/>  
 
+### 2155개의 한국영화를 다양한 카테고리별로 제공!
+- 정렬을 이용한 영화목록 조회 !
+- ***Infinite Scoll***을 이용한 빠른 영화목록 제공 !
+<img src="https://github.com/user-attachments/assets/0e4971a2-3adc-471f-8625-5ebc08cf65ae" width="300"/> 
+
 ### 지금 인기 있는 펀딩은?
-- ***ElasticSearch***를 이용한 실시간 영화 검색 순위  
-<img src="https://github.com/Fintechtefin/moding/assets/46569105/c8bb8675-e33a-4ea3-9578-ad64199beeb6" width="300"/>  
+- 무딩중, 무딩 요청 랭킹으로 현재 진행중인 펀딩과 펀딩요청이 많은 순위 제공!!
+- 참여하고 싶다면 시간, 날짜 확인 후 가능하면 참여하기! 펀딩성공하면 영화상영 오픈!
+- 터치 한 번에 결제 끝! 토스페이먼츠 `API`를 이용한 쉽고 빠른 결제!
+<img src="https://github.com/user-attachments/assets/12ac0865-ca83-40db-8437-b92c7d6e9676" width="300"/> 
+- 아직 펀딩이 열리지 않았다면 원하는 장소와 시간을 고르고 요청하기! 
+- 200명 이상 요청시 펀딩오픈!! 공유하면 펀딩 오픈 속도 UP!!
+<img src="https://github.com/user-attachments/assets/dfe8743a-cf5e-4ce7-901a-46f295bf2210" width="300"/> 
 
-<br>
+### 원하는 영화가 없다면? 
+- 영화제목, 배우명을 이용한 검색기능 제공!
+- ***ElasticSearch***를 이용한 실시간 영화 검색 순위 확인까지!
+<img src="https://github.com/user-attachments/assets/c79dff2c-63ee-4161-8e8d-8652894b51d5" width="300"/>  
 
-### 터치 한 번에 결제 끝!  
-- 토스페이먼츠 `API`를 이용한 쉽고 빠른 결제  
- <img src="https://github.com/Fintechtefin/moding/assets/46569105/3f7efeab-946c-4662-b502-7c967577fb3c" width="300"/>
-
-<br>
-
-### N명이 보고 있어요  
-- 동시 접속자 수를 볼 수 있는 좌석 예매  
+### 펀딩이 성공했다면! 자리 예매하기!
+- N명이 보고 있어요! 동시 접속자 수를 볼 수 있는 좌석 예매  
+- 자리 예매완료하고 모바일 티켓까지 GET !!
 <img src="https://github.com/Fintechtefin/moding/assets/46569105/b2442613-55b5-4007-b10f-9b54d62bff1e" width="300"/>  
 <br>
 
