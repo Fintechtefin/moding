@@ -81,8 +81,11 @@
 <br>
 
 - 아직 펀딩이 열리지 않았다면 원하는 장소와 시간을 고르고 요청하기! 
-- 200명 이상 요청시 펀딩오픈!! 공유하면 펀딩 오픈 속도 UP!!
+- 200명 이상 요청시 내부심사 후 펀딩오픈!! 공유하면 펀딩 오픈 속도 UP!!
 <img src="https://github.com/user-attachments/assets/dfe8743a-cf5e-4ce7-901a-46f295bf2210" width="300"/> 
+<img src="https://github.com/user-attachments/assets/f42d333a-4bda-4ab5-a1b6-93520ed0eae2" width="300"/> 
+
+
 
 ### 원하는 영화가 없다면? 
 - 영화제목, 배우명을 이용한 검색기능 제공!
