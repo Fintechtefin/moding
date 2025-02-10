@@ -1,28 +1,32 @@
 .progressbar {
-  background: #ffefa04a;
   border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-  border-radius: 20px;
-  box-shadow: 0px 4px 4px -4px rgba(255, 255, 255, 0.4),
-    0px -3px 3px -3px rgba(255, 255, 255, 0.25),
-    inset 0px 0px 12px 0px rgba(0, 0, 0, 0.5);
+  border-radius: 15px;
+  &.yellow {
+    background: #ffefa04a;
+    box-shadow: 0px 4px 4px -4px rgba(255, 255, 255, 0.4), 0px -3px 3px -3px rgba(255, 255, 255, 0.25), inset 0px 0px 12px 0px rgba(0, 0, 0, 0.5);
+  }
+  &.red {
+    background: #ffa0a04a;
+  }
 }
 
 .bar {
   top: 50%;
   transform: translateY(-50%);
   // background: linear-gradient(to bottom, rgba(126, 234, 25, 1) 0%, rgba(83, 173, 0, 1) 100%);
-  background: linear-gradient(
-    to bottom,
-    rgb(246, 246, 120) 0%,
-    rgb(173, 173, 0) 100%
-  );
-  border-radius: 16px;
-  box-shadow: 0px 0px 12px 0px rgb(234, 231, 25),
-    inset 0px 1px 0px 0px rgba(255, 255, 255, 0.45),
-    inset 1px 0px 0px 0px rgba(255, 255, 255, 0.25),
-    inset -1px 0px 0px 0px rgba(255, 255, 255, 0.25);
   // box-shadow: 0px 0px 12px 0px rgba(126, 234, 25, 1), inset 0px 1px 0px 0px rgba(255, 255, 255, 0.45), inset 1px 0px 0px 0px rgba(255, 255, 255, 0.25), inset -1px 0px 0px 0px rgba(255, 255, 255, 0.25);
   overflow: hidden;
+  &.yellow {
+    background: linear-gradient(to bottom, rgb(239, 203, 61) 0%, rgb(161, 179, 32) 100%);
+    border-radius: 16px;
+    box-shadow: 0px 0px 12px 0px rgb(234, 231, 25), inset 0px 1px 0px 0px rgba(255, 255, 255, 0.45), inset 1px 0px 0px 0px rgba(255, 255, 255, 0.25), inset -1px 0px 0px 0px rgba(255, 255, 255, 0.25);
+  }
+
+  &.red {
+    background: linear-gradient(to bottom, rgb(114, 1, 1) 0%, rgb(181, 5, 5) 100%);
+    border-radius: 16px;
+    box-shadow: 0px 0px 12px 0px rgb(241, 2, 2), inset 0px 1px 0px 0px rgba(244, 151, 151, 0.45), inset 1px 0px 0px 0px rgba(244, 152, 152, 0.25), inset -1px 0px 0px 0px rgba(244, 158, 158, 0.25);
+  }
 }
 
 .bar span {
@@ -45,4 +49,20 @@
   to {
     background-position: 0 -64px;
   }
+}
+
+.back-blur {
+  text-shadow: 0 0 6px rgba(0, 0, 0);
+  // &::after {
+  //   content: "";
+  //   position: absolute;
+  //   top: 50%;
+  //   left: 50%;
+  //   width: 120%;
+  //   height: 140%;
+  //   background: rgba(0, 0, 0, 0.4); /* 반투명 검은색 */
+  //   transform: translate(-50%, -50%);
+  //   filter: blur(15px); /* 블러 효과 적용 */
+  //   z-index: -1; /* 텍스트 뒤로 보내기 */
+  // }
 }

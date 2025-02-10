@@ -24,23 +24,13 @@ const ModingListPage = () => {
         backgroundRepeat: "no-repeat",
       }}
     >
-      <div className="text-center text-3xl pt-3">MODING</div>
+      <div className="text-center text-5xl pt-5 list-title">MODING</div>
       <div className="flex justify-around mt-2">
-        <div
-          className={`${fundingTitle} border-red-700 ${
-            modingCategory == "progress" ? "select" : ""
-          }`}
-          onClick={() => setModingCategory("progress")}
-        >
+        <div className={`${fundingTitle} border-red-700 ${modingCategory == "progress" ? "select" : ""} text-shadow-title`} onClick={() => setModingCategory("progress")}>
           <div>무딩중</div>
           <div>TOP10</div>
         </div>
-        <div
-          className={`${fundingTitle} border-red-700 ${
-            modingCategory == "request" ? "select" : ""
-          }`}
-          onClick={() => setModingCategory("request")}
-        >
+        <div className={`${fundingTitle} border-red-700 ${modingCategory == "request" ? "select" : ""} text-shadow-title`} onClick={() => setModingCategory("request")}>
           <div>무딩 요청</div>
           <div>TOP10</div>
         </div>

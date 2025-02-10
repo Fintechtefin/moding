@@ -11,6 +11,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@lottiefiles/dotlottie-react": "^0.13.0",
+    "@lottiefiles/dotlottie-web": "^0.40.1",
     "@mswjs/http-middleware": "^0.10.3",
     "@react-three/drei": "^9.103.0",
     "@react-three/fiber": "^8.16.1",
@@ -26,7 +28,7 @@
     "gltf-loader": "^1.0.0",
     "gsap": "^3.12.5",
     "msw": "^2.7.0",
-    "nanoid": "^5.0.6",
+    "nanoid": "^5.0.9",
     "postcss": "^8.4.35",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

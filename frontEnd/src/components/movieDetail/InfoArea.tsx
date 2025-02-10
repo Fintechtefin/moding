@@ -21,6 +21,7 @@ const InfoArea = ({ status, fundInfo }: Props) => {
 
   useEffect(() => {
     if (fundInfo) {
+      console.log(fundInfo);
       const currentDate = new Date(fundInfo.date);
       setFinishDate(currentDate);
 
@@ -43,22 +44,13 @@ const InfoArea = ({ status, fundInfo }: Props) => {
   return (
     <div className="info-area">
       <div>
-        {status === "무딩 예정" || status === "무딩종료" ? (
+        {status === "무딩 예정" || status === "무딩 준비 중" || status === "무딩종료" ? (
           <NoticeBoxArea status={status} />
         ) : (
-          <div className="mt-4 mb-7">
-            {fundInfo && (
-              <ProgressArea
-                crowd={fundInfo.crowdCnt}
-                joinCnt={fundInfo.peopleCnt}
-                height="4vh"
-                size="big"
-              />
-            )}
-          </div>
+          <div className="mt-4 mb-7">{fundInfo && <ProgressArea crowd={fundInfo.crowdCnt} joinCnt={fundInfo.peopleCnt} height="4vh" size="big" color="yellow" />}</div>
         )}
       </div>
-      {fundInfo && (
+      {fundInfo && fundInfo != null && (
         <>
           <div className="flex flex-col gap-2 p-2">
             <div className="flex items-end gap-5">
@@ -70,8 +62,7 @@ const InfoArea = ({ status, fundInfo }: Props) => {
               <div>
                 {endFundingDate && (
                   <>
-                    {endFundingDate.getFullYear()}.
-                    {endFundingDate.getMonth() + 1}.{endFundingDate.getDate()}
+                    {endFundingDate.getFullYear()}.0{endFundingDate.getMonth() + 1}.0{endFundingDate.getDate()}
                   </>
                 )}
               </div>
@@ -87,32 +78,14 @@ const InfoArea = ({ status, fundInfo }: Props) => {
           </div>
           <div className="flex justify-around items-center mt-6">
             <div className={"relative flex flex-col items-center gap-2"}>
-              <div
-                className={`text-[1.5vh] ${
-                  status === "무딩중" ? "text-red-500" : ""
-                }`}
-              >
-                무딩중
+              <div className={`text-[1.5vh] ${status === "무딩중" ? "text-red-500" : ""}`}>무딩중</div>
+              <div className={`${status === "무딩중" ? "active" : "not-active"}`}>
+                <img className="absolute z-[2] w-[45%] top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]" src={moding1} alt="" />
               </div>
-              <div
-                className={`${status === "무딩중" ? "active" : "not-active"}`}
-              >
-                <img
-                  className="absolute z-[2] w-[45%] top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]"
-                  src={moding1}
-                  alt=""
-                />
-              </div>
-              <div
-                className={`text-[1.5vh] ${
-                  status === "무딩중" ? "text-red-500" : ""
-                }`}
-              >
+              <div className={`text-[1.5vh] ${status === "무딩중" ? "text-red-500" : ""}`}>
                 {startFundingDate && endFundingDate && (
                   <>
-                    {startFundingDate?.getMonth() + 1}/
-                    {startFundingDate?.getDate()} ~{" "}
-                    {endFundingDate?.getMonth() + 1}/{endFundingDate?.getDate()}
+                    {startFundingDate?.getMonth() + 1}/{startFundingDate?.getDate()} ~ {endFundingDate?.getMonth() + 1}/{endFundingDate?.getDate()}
                   </>
                 )}
               </div>
@@ -121,36 +94,12 @@ const InfoArea = ({ status, fundInfo }: Props) => {
               <MdArrowForwardIos className="text-[4vh]" />
             </div>
             <div className="flex flex-col items-center gap-2">
-              <div
-                className={`text-[1.5vh] ${
-                  status === "예매 예정" || status === "예매 진행"
-                    ? "text-red-500"
-                    : ""
-                }`}
-              >
-                좌석 예매일
-              </div>
-              <div
-                className={`${
-                  status === "예매 예정" || status === "예매 진행"
-                    ? "active"
-                    : "not-active"
-                }`}
-              >
+              <div className={`text-[1.5vh] ${status === "예매 예정" || status === "예매 진행" ? "text-red-500" : ""}`}>좌석 예매일</div>
+              <div className={`${status === "예매 예정" || status === "예매 진행" ? "active" : "not-active"}`}>
                 {" "}
-                <img
-                  className="absolute z-[2] w-[85%] top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]"
-                  src={moding2}
-                  alt=""
-                />
+                <img className="absolute z-[2] w-[85%] top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]" src={moding2} alt="" />
               </div>
-              <div
-                className={`text-[1.5vh] ${
-                  status === "예매 예정" || status === "예매 진행"
-                    ? "text-red-500"
-                    : ""
-                }`}
-              >
+              <div className={`text-[1.5vh] ${status === "예매 예정" || status === "예매 진행" ? "text-red-500" : ""}`}>
                 {bookDate && (
                   <>
                     {bookDate?.getMonth() + 1}/{bookDate?.getDate()}일 예정
@@ -162,30 +111,12 @@ const InfoArea = ({ status, fundInfo }: Props) => {
               <MdArrowForwardIos className="text-[4vh]" />
             </div>
             <div className="flex flex-col items-center gap-2">
-              <div
-                className={`text-[1.5vh] ${
-                  status === "무딩 종료" ? "text-red-500" : ""
-                }`}
-              >
-                관람 예정일
-              </div>
-              <div
-                className={`${
-                  status === "무딩 종료" ? "active" : "not-active"
-                }`}
-              >
+              <div className={`text-[1.5vh] ${status === "무딩 종료" ? "text-red-500" : ""}`}>관람 예정일</div>
+              <div className={`${status === "무딩 종료" ? "active" : "not-active"}`}>
                 {" "}
-                <img
-                  className="absolute z-[2] w-[85%] top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]"
-                  src={moding3}
-                  alt=""
-                />
+                <img className="absolute z-[2] w-[85%] top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]" src={moding3} alt="" />
               </div>
-              <div
-                className={`text-[1.5vh] ${
-                  status === "무딩 종료" ? "text-red-500" : ""
-                }`}
-              >
+              <div className={`text-[1.5vh] ${status === "무딩 종료" ? "text-red-500" : ""}`}>
                 {finishDate && (
                   <>
                     {finishDate?.getMonth() + 1}/{finishDate?.getDate()}일{" "}

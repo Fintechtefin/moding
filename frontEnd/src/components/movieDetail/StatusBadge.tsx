@@ -17,6 +17,8 @@ const StatusBadge = ({ status, textSize }: props) => {
       setState("무딩예정");
     } else if (status === "무딩종료") {
       setState("무딩종료");
+    } else if (status === "무딩중") {
+      setState("무딩중");
     }
   }, [status]);
 
