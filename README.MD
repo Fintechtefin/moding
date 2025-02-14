@@ -64,7 +64,7 @@
 <br>
 
 ## 3장. 주요 기능  
-### 5초만에 쉽고 빠른 로그인!
+### 3초만에 쉽고 빠른 로그인!
 - 소셜로그인을 이용한 간편로그인
 <img src="https://github.com/user-attachments/assets/afe6260d-fa69-435b-b482-5dbdd7a9a138" width="300"/>  
 
