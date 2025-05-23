@@ -10,9 +10,7 @@ const HomePage = () => {
         <section className="section relative">
           <div className="absolute top-[55vh] left-[50%] translate-x-[-50%] text-7xl text-black">
             Moding
-            <div className="mt-5 text-sm text-black">
-              다시보고 싶은 영화를 영화관에서
-            </div>
+            <div className="mt-5 text-sm text-black">다시보고 싶은 영화를 영화관에서</div>
           </div>
         </section>
         <section className="section">
@@ -21,9 +19,7 @@ const HomePage = () => {
         <section className="section"></section>
         <section className="section"></section>
         <section className="section relative">
-          <div className="absolute top-[65vh] left-[50%] translate-x-[-50%] text-5xl text-black">
-            Moding
-          </div>
+          <div className="absolute top-[65vh] left-[50%] translate-x-[-50%] text-5xl text-black">Moding</div>
         </section>
       </div>
     </>

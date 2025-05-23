@@ -80,10 +80,8 @@ const PaymentPage = () => {
       await paymentWidget?.requestPayment({
         orderId: KEY,
         orderName: fundInfo.movieTitle,
-        // successUrl: `${window.location.origin}/fund/payment/success?fundingCount=1&fundingId=${fundInfo.fundinfo.fundingId}&method=${selectedPaymentMethod}`,
-        // failUrl: `${window.location.origin}/fund/payment/fail`,
-        successUrl: `https://localhost:3000/fund/payment/success?fundingCount=1&fundingId=${fundInfo.fundinfo.fundingId}&method=${selectedPaymentMethod}`, // ✅ HTTPS 적용
-        failUrl: `https://localhost:3000/fund/payment/fail`,
+        successUrl: `${window.location.origin}/fund/payment/success?fundingCount=1&fundingId=${fundInfo.fundinfo.fundingId}&method=${selectedPaymentMethod}`,
+        failUrl: `${window.location.origin}/fund/payment/fail`,
       });
     } catch (error) {
       console.error("Error requesting payment:", error);

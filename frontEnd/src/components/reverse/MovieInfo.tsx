@@ -1,9 +1,5 @@
 import { useRecoilValue, useResetRecoilState, useSetRecoilState } from "recoil";
-import {
-  occupiedSeatsAtom,
-  selectSeatsAtom,
-  selectSeatsLengthSelector,
-} from "@recoil/reserveStore";
+import { occupiedSeatsAtom, selectSeatsAtom, selectSeatsLengthSelector } from "@recoil/reserveStore";
 import { toastMsg } from "@util/commonFunction";
 import { ToasterMsg } from "@components/Common";
 import axios from "axios";
@@ -29,9 +25,7 @@ const MovieInfo = ({ max }: Props) => {
   const [fundInfo] = useState(location.state);
 
   const aaa = async () => {
-    const res = await axiosApi().get(
-      `/reservations/get/seat/${fundInfo.fundinfo.fundingId}`
-    );
+    const res = await axiosApi().get(`/reservations/get/seat/${fundInfo.fundinfo.fundingId}`);
     const seats = res.data.match(/[A-Za-z]\d+/g) || [];
     console.log(seats);
     setOccupiedSeats(seats);
@@ -67,10 +61,7 @@ const MovieInfo = ({ max }: Props) => {
       });
     } catch (err) {
       console.log(err);
-      if (
-        axios.isAxiosError(err) &&
-        err.response?.data.code === "Reservation_400_6"
-      ) {
+      if (axios.isAxiosError(err) && err.response?.data.code === "Reservation_400_6") {
         toastMsg(err.response.data.message);
         resetSelectSeats();
         aaa();
@@ -83,26 +74,17 @@ const MovieInfo = ({ max }: Props) => {
       <div className="p-[2vh] flex gap-[3vh]">
         <div className="flex flex-col justify-between flex-1">
           <div className="">
-            <div className="text-[2.5vh] font-bold">
-              {fundInfo.fundinfo.cinemaName}
-            </div>
-            <div className="text-[1.5vh]">{`3.15(금) ${fundInfo.fundinfo.time}`}</div>
+            <div className="text-[2.5vh] font-bold">{fundInfo.fundinfo.cinemaName}</div>
+            <div className="text-[1.5vh]">{`4.21(일) ${fundInfo.fundinfo.time}`}</div>
           </div>
           <div className="flex justify-between text-[2vh]">
             <div className="font-bold">{fundInfo.movieTitle}</div>
             <div>{`인원 ${selectSeatsLength} / ${max}`}</div>
           </div>
         </div>
-        <img
-          className="h-[12vh] object-cover rounded"
-          src={fundInfo.poster}
-          alt="영화포스터"
-        />
+        <img className="h-[12vh] object-cover rounded" src={fundInfo.poster} alt="영화포스터" />
       </div>
-      <button
-        className=" w-[100%] h-[6vh] bg-red-600 shadow-bgRed text-white font-bold text-[2.5vh] "
-        onClick={handleClick}
-      >
+      <button className=" w-[100%] h-[6vh] bg-red-600 shadow-bgRed text-white font-bold text-[2.5vh] " onClick={handleClick}>
         예매
       </button>
       <ToasterMsg />

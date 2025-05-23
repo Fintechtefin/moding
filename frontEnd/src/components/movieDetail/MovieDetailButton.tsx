@@ -37,7 +37,7 @@ const MovieDetailButton = ({ id, status, like, likeCnt, request, hopeCnt, modalS
       setIsDone(true);
     } else if (status === "무딩 예정" && applyAlarm) {
       setIsDone(true);
-    } else if (status === "무딩종료") {
+    } else if (status == "예매예정" || status === "무딩종료") {
       setIsDone(true);
     }
   }, [request]);
@@ -157,7 +157,7 @@ const MovieDetailButton = ({ id, status, like, likeCnt, request, hopeCnt, modalS
           {status == "예매예정" && (
             <>
               <div className={buttonTextArea}>
-                <div className={buttonText}>예매오픈</div>
+                <div className={buttonText}>예매예정</div>
               </div>
             </>
           )}
