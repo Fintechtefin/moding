@@ -59,15 +59,13 @@ const NoticeBoxArea = ({ status }: Props) => {
   };
 
   return (
-    <div className={`relative w-[100%] mb-4 p-6 border-solid ${modingClose ? "border-yellow-600" : "border-red-600"}`}>
+    <div className={`relative w-[100%] mb-4 p-6 border-solid ${modingClose ? "border-yellow-600" : "border-red-600"} border-2`}>
       {status === "무딩 예정" && (
         <>
           {modingClose ? (
             <div className="flex justify-center">
               <div className="text-[2vh]">내부 심사중</div>
-              <div className="absolute top-2 right-2 w-[30px] h-[30px]">
-                <IoSettingsOutline className="w-[100%] h-[100%]" onClick={() => setAdminOn(true)} />
-              </div>
+              <div className="absolute top-2 right-2 w-[30px] h-[30px]">{/* <IoSettingsOutline className="w-[100%] h-[100%]" onClick={() => setAdminOn(true)} /> */}</div>
             </div>
           ) : (
             <div className="text-center">오픈 예정</div>

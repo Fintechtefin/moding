@@ -12,7 +12,7 @@ const ThreeScene = () => {
       canvas: canvasRef.current,
       antialias: true,
     });
-    renderer.setSize(450, 740);
+    renderer.setSize(450, 900);
     renderer.setPixelRatio(1);
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
@@ -22,7 +22,11 @@ const ThreeScene = () => {
     scene.background = new THREE.Color("black");
 
     // Camera
-    const camera = new THREE.PerspectiveCamera(75, 450 / 740, 0.1, 1000);
+    const camera = new THREE.PerspectiveCamera(75, 450 / 900, 0.1, 1000);
+    window.addEventListener("resize", () => {
+      camera.aspect = 450 / 900; // 고정된 비율 유지
+      camera.updateProjectionMatrix();
+    });
     camera.position.set(-5, 0, 12);
     scene.add(camera);
 
@@ -41,12 +45,12 @@ const ThreeScene = () => {
 
     const loader = new GLTFLoader();
     loader.load(
-      "/models/cinema5.glb", // 모델 파일 경로를 입력하세요.
+      "/models/chair.glb", // 모델 파일 경로를 입력하세요.
       (gltf) => {
         console.log(gltf);
         const model = gltf.scene;
-        model.position.set(-5 + 0.21, -0.35, 11.4);
-        model.scale.set(0.05, 0.08, 0.05);
+        model.position.set(-5 + 0.185, -0.335, 11.5);
+        model.scale.set(0.04, 0.07, 0.04);
         scene.add(model);
         model.rotation.y += 3.15;
         gltf.scene.rotation.x += 0.05;
@@ -77,11 +81,7 @@ const ThreeScene = () => {
         console.log(gltf);
         const model = gltf.scene;
         model.position.set(houses[1].x, houses[1].y - 0.5, houses[1].z);
-        model.scale.set(
-          window.innerHeight * 0.0007,
-          window.innerHeight * 0.0007,
-          window.innerHeight * 0.0007
-        );
+        model.scale.set(window.innerHeight * 0.0007, window.innerHeight * 0.0007, window.innerHeight * 0.0007);
         scene.add(model);
       }
     );

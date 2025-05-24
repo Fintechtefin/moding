@@ -13,6 +13,7 @@ const MainLayout = ({ type }: Props) => {
   useEffect(() => {
     const { pathname } = window.location;
     const isLogin = true;
+    // const isLogin = getIsLogin();
     const isLoginPage = pathname.startsWith("/login");
 
     if (!isLogin && !isLoginPage) navigate("/login", { replace: true });

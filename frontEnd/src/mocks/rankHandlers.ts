@@ -181,7 +181,8 @@ export const rankHandlers = [
       return HttpResponse.json({
         movieId: 1,
         poster: "http://file.koreafilm.or.kr/thm/02/00/04/85/tn_DPK014285.jpg",
-        status: "무딩중",
+        // status: "예매예정",
+        status: "예매 진행",
         title: "극한직업",
         releaseAt: "2019.01.23",
         runningTime: 111,
@@ -221,7 +222,7 @@ export const rankHandlers = [
       return HttpResponse.json({
         movieId: 11,
         poster: "http://file.koreafilm.or.kr/thm/02/00/04/08/tn_DPK010872.jpg",
-        status: "무딩 준비 중",
+        status: "무딩 예정",
         title: "베테랑",
         releaseAt: "2015.08.05",
         runningTime: 123,
@@ -245,7 +246,7 @@ export const rankHandlers = [
       return HttpResponse.json({
         cinemaName: "롯데시네마 건대입구점",
         crowdCnt: 200,
-        date: "2024-04-20T18:00:00.000Z",
+        date: "2024-04-21T18:30:00.00",
         fundingId: 1,
         peopleCnt: 175,
         price: 16000,
