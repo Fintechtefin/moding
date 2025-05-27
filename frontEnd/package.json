@@ -27,6 +27,7 @@
     "firebase": "^10.9.0",
     "gltf-loader": "^1.0.0",
     "gsap": "^3.12.5",
+    "install": "^0.13.0",
     "msw": "^2.7.0",
     "nanoid": "^5.0.9",
     "postcss": "^8.4.35",
@@ -39,6 +40,7 @@
     "react-router-dom": "^6.22.3",
     "react-select": "^5.8.0",
     "react-slick": "^0.30.2",
+    "react-window": "^1.8.11",
     "recoil": "^0.7.7",
     "sass": "^1.71.1",
     "slick-carousel": "^1.8.1",
@@ -51,6 +53,7 @@
   "devDependencies": {
     "@types/react": "^18.2.64",
     "@types/react-dom": "^18.2.21",
+    "@types/react-window": "^1.8.8",
     "@types/three": "^0.163.0",
     "@typescript-eslint/eslint-plugin": "^7.1.1",
     "@typescript-eslint/parser": "^7.1.1",

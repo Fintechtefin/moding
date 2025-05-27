@@ -1,8 +1,8 @@
 .movielist-container {
-  .movie-list a:nth-child(3n + 2) {
+  .movie-list div:nth-child(3n + 2) {
     transform: translate(0, 40%);
   }
-  .movie-list a:nth-child(3n + 3) {
+  .movie-list div:nth-child(3n + 3) {
     transform: translate(0, 80%);
   }
 }
