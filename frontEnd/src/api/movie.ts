@@ -7,9 +7,10 @@ const url2 = "/fundings/movies";
 const api = axiosApi();
 
 async function getGenreList(genre: number, page: number, sort: string) {
-  console.log("page");
-  console.log(page);
-  const { data } = await api.get(`${url2}?genre=${genre}&page=${page}&sort=${sort}`);
+  const { data } = await api.get(
+    `${url2}?genre=${genre}&page=${page}&sort=${sort}`
+  );
+  console.log(data);
   return data;
 }
 
@@ -40,4 +41,10 @@ async function getMovieDetail(id: string) {
   return data;
 }
 
-export { getGenreList, getNowRanking, getSearchMovie, getSearchDetail, getMovieDetail };
+export {
+  getGenreList,
+  getNowRanking,
+  getSearchMovie,
+  getSearchDetail,
+  getMovieDetail,
+};
