@@ -526,6 +526,15 @@ export const movieHandlers = [
         totalCnt: 1287,
       });
     }
+
+    // if (id == "3" && sort == "likeDesc" && page == "4") {
+    //   return HttpResponse.json({
+    //     movieList: [
+
+    //     ],
+    //     totalCnt: 1287,
+    //   });
+    // }
   }),
 
   http.get("/api/fundings/movies/popular", ({ request }) => {

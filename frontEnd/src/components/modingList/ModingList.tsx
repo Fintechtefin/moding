@@ -36,8 +36,15 @@ const ModingList = ({ status, getModingBack }: Props) => {
       {posterList && (
         <div className="relative">
           <div className="flex flex-col mt-3 px-[1.6vh] relative">
-            <Link to={`/fund/list/${posterList[0].movieId}`} state={{ type: "list" }}>
-              <img className="w-[100%] aspect-square object-cover brightness-[90%]" src={posterList[0].poster} alt="" />
+            <Link
+              to={`/fund/list/${posterList[0].movieId}`}
+              state={{ type: "list" }}
+            >
+              <img
+                className="w-[100%] aspect-square object-cover brightness-[90%]"
+                src={posterList[0].poster}
+                alt=""
+              />
             </Link>
             <div className="absolute w-[100%] top-2 right-5">
               <StatusBadge status={posterList[0].status} textSize="3xl" />
@@ -45,12 +52,24 @@ const ModingList = ({ status, getModingBack }: Props) => {
             <div className="mt-2">
               {posterList[0].status == "무딩중" && (
                 <>
-                  <ProgressArea crowd={posterList[0].crowdCnt} joinCnt={posterList[0].peopleCnt} height="2vh" size="big" color="yellow" />
+                  <ProgressArea
+                    crowd={posterList[0].crowdCnt}
+                    joinCnt={posterList[0].peopleCnt}
+                    height="2vh"
+                    size="big"
+                    color="yellow"
+                  />
                 </>
               )}
               {posterList[0].status == "무딩 준비 중" && (
                 <>
-                  <ProgressArea crowd={posterList[0].requestCnt} joinCnt={posterList[0].peopleCnt} height="2vh" size="big" color="red" />
+                  <ProgressArea
+                    crowd={posterList[0].requestCnt}
+                    joinCnt={posterList[0].peopleCnt}
+                    height="2vh"
+                    size="big"
+                    color="red"
+                  />
                 </>
               )}
             </div>
@@ -61,19 +80,40 @@ const ModingList = ({ status, getModingBack }: Props) => {
               if (index !== 0) {
                 return (
                   <div key={index} className="relative">
-                    <Link to={`/fund/list/${poster.movieId}`} state={{ type: "list" }}>
-                      <MovieListItem state={poster.status} url={poster.poster} heigth="23vh"></MovieListItem>
+                    <Link
+                      to={`/fund/list/${poster.movieId}`}
+                      state={{ type: "list" }}
+                    >
+                      <MovieListItem
+                        state={poster.status}
+                        url={poster.poster}
+                        height="23vh"
+                      ></MovieListItem>
                     </Link>
-                    <div className="absolute top-[-1vh] left-1 text-[4vh] text-shadow-rank">{index + 1}</div>
+                    <div className="absolute top-[-1vh] left-1 text-[4vh] text-shadow-rank">
+                      {index + 1}
+                    </div>
                     <div className="mt-1 mb-3">
                       {poster.status == "무딩중" && (
                         <>
-                          <ProgressArea crowd={poster.crowdCnt} joinCnt={poster.peopleCnt} height="1vh" size="small" color="yellow" />
+                          <ProgressArea
+                            crowd={poster.crowdCnt}
+                            joinCnt={poster.peopleCnt}
+                            height="1vh"
+                            size="small"
+                            color="yellow"
+                          />
                         </>
                       )}
                       {poster.status == "무딩 준비 중" && (
                         <>
-                          <ProgressArea crowd={poster.requestCnt} joinCnt={poster.peopleCnt} height="1vh" size="small" color="red" />
+                          <ProgressArea
+                            crowd={poster.requestCnt}
+                            joinCnt={poster.peopleCnt}
+                            height="1vh"
+                            size="small"
+                            color="red"
+                          />
                         </>
                       )}
                     </div>
