@@ -9,7 +9,8 @@ export const rankHandlers = [
       return HttpResponse.json([
         {
           movieId: 1,
-          poster: "http://file.koreafilm.or.kr/thm/02/00/04/85/tn_DPK014285.jpg",
+          poster:
+            "http://file.koreafilm.or.kr/thm/02/00/04/85/tn_DPK014285.jpg",
           status: "무딩중",
           crowdCnt: 200,
           peopleCnt: 175,
@@ -17,7 +18,8 @@ export const rankHandlers = [
         },
         {
           movieId: 2,
-          poster: "http://file.koreafilm.or.kr/thm/02/00/04/43/tn_DPK012446.jpg",
+          poster:
+            "http://file.koreafilm.or.kr/thm/02/00/04/43/tn_DPK012446.jpg",
           status: "무딩중",
           crowdCnt: 200,
           peopleCnt: 150,
@@ -25,7 +27,8 @@ export const rankHandlers = [
         },
         {
           movieId: 3,
-          poster: "http://file.koreafilm.or.kr/thm/02/99/18/07/tn_DPK020635.jpg",
+          poster:
+            "http://file.koreafilm.or.kr/thm/02/99/18/07/tn_DPK020635.jpg",
           status: "무딩중",
           crowdCnt: 200,
           peopleCnt: 130,
@@ -33,7 +36,8 @@ export const rankHandlers = [
         },
         {
           movieId: 4,
-          poster: "http://file.koreafilm.or.kr/thm/02/00/04/57/tn_DPK013042.jpg",
+          poster:
+            "http://file.koreafilm.or.kr/thm/02/00/04/57/tn_DPK013042.jpg",
           status: "무딩중",
           crowdCnt: 200,
           peopleCnt: 120,
@@ -41,7 +45,8 @@ export const rankHandlers = [
         },
         {
           movieId: 5,
-          poster: "http://file.koreafilm.or.kr/thm/02/00/04/53/tn_DPK012845.jpg",
+          poster:
+            "http://file.koreafilm.or.kr/thm/02/00/04/53/tn_DPK012845.jpg",
           status: "무딩중",
           crowdCnt: 200,
           peopleCnt: 90,
@@ -49,7 +54,8 @@ export const rankHandlers = [
         },
         {
           movieId: 6,
-          poster: "http://file.koreafilm.or.kr/thm/02/00/04/27/tn_DPK011651.jpg",
+          poster:
+            "http://file.koreafilm.or.kr/thm/02/00/04/27/tn_DPK011651.jpg",
           status: "무딩중",
           crowdCnt: 200,
           peopleCnt: 80,
@@ -57,7 +63,8 @@ export const rankHandlers = [
         },
         {
           movieId: 7,
-          poster: "http://file.koreafilm.or.kr/thm/02/99/17/68/tn_DPK019003.jpg",
+          poster:
+            "http://file.koreafilm.or.kr/thm/02/99/17/68/tn_DPK019003.jpg",
           status: "무딩중",
           crowdCnt: 200,
           peopleCnt: 70,
@@ -65,7 +72,8 @@ export const rankHandlers = [
         },
         {
           movieId: 8,
-          poster: "http://file.koreafilm.or.kr/thm/02/00/03/82/tn_DPK07435A.jpg",
+          poster:
+            "http://file.koreafilm.or.kr/thm/02/00/03/82/tn_DPK07435A.jpg",
           status: "무딩중",
           crowdCnt: 200,
           peopleCnt: 50,
@@ -73,7 +81,8 @@ export const rankHandlers = [
         },
         {
           movieId: 9,
-          poster: "http://file.koreafilm.or.kr/thm/02/00/05/15/tn_DPK014533.jpg",
+          poster:
+            "http://file.koreafilm.or.kr/thm/02/00/05/15/tn_DPK014533.jpg",
           status: "무딩중",
           crowdCnt: 200,
           peopleCnt: 40,
@@ -81,7 +90,8 @@ export const rankHandlers = [
         },
         {
           movieId: 10,
-          poster: "http://file.koreafilm.or.kr/thm/02/00/01/39/tn_DPK004235.JPG",
+          poster:
+            "http://file.koreafilm.or.kr/thm/02/00/01/39/tn_DPK004235.JPG",
           status: "무딩중",
           crowdCnt: 200,
           peopleCnt: 20,
@@ -93,7 +103,8 @@ export const rankHandlers = [
       return HttpResponse.json([
         {
           movieId: 11,
-          poster: "http://file.koreafilm.or.kr/thm/02/00/04/08/tn_DPK010872.jpg",
+          poster:
+            "http://file.koreafilm.or.kr/thm/02/00/04/08/tn_DPK010872.jpg",
           status: "무딩 준비 중",
           crowdCnt: 10,
           peopleCnt: 184,
@@ -101,7 +112,8 @@ export const rankHandlers = [
         },
         {
           movieId: 2,
-          poster: "http://file.koreafilm.or.kr/thm/02/99/18/04/tn_DPK020523.jpg",
+          poster:
+            "http://file.koreafilm.or.kr/thm/02/99/18/04/tn_DPK020523.jpg",
           status: "무딩 준비 중",
           crowdCnt: 10,
           peopleCnt: 150,
@@ -109,7 +121,8 @@ export const rankHandlers = [
         },
         {
           movieId: 3,
-          poster: "http://file.koreafilm.or.kr/thm/02/00/04/55/tn_DPK012925.jpg",
+          poster:
+            "http://file.koreafilm.or.kr/thm/02/00/04/55/tn_DPK012925.jpg",
           status: "무딩 준비 중",
           crowdCnt: 10,
           peopleCnt: 123,
@@ -117,7 +130,8 @@ export const rankHandlers = [
         },
         {
           movieId: 4,
-          poster: "http://file.koreafilm.or.kr/thm/02/00/02/93/tn_DPK010000.JPG",
+          poster:
+            "http://file.koreafilm.or.kr/thm/02/00/02/93/tn_DPK010000.JPG",
           status: "무딩 준비 중",
           crowdCnt: 10,
           peopleCnt: 110,
@@ -125,7 +139,8 @@ export const rankHandlers = [
         },
         {
           movieId: 5,
-          poster: "http://file.koreafilm.or.kr/thm/02/00/04/56/tn_DPK013000.jpg",
+          poster:
+            "http://file.koreafilm.or.kr/thm/02/00/04/56/tn_DPK013000.jpg",
           status: "무딩 준비 중",
           crowdCnt: 10,
           peopleCnt: 106,
@@ -133,7 +148,8 @@ export const rankHandlers = [
         },
         {
           movieId: 6,
-          poster: "http://file.koreafilm.or.kr/thm/02/00/04/28/tn_DPK011707.jpg",
+          poster:
+            "http://file.koreafilm.or.kr/thm/02/00/04/28/tn_DPK011707.jpg",
           status: "무딩 준비 중",
           crowdCnt: 10,
           peopleCnt: 100,
@@ -141,7 +157,8 @@ export const rankHandlers = [
         },
         {
           movieId: 7,
-          poster: "http://file.koreafilm.or.kr/thm/02/00/01/39/tn_DPK004235.JPG",
+          poster:
+            "http://file.koreafilm.or.kr/thm/02/00/01/39/tn_DPK004235.JPG",
           status: "무딩 준비 중",
           crowdCnt: 0,
           peopleCnt: 90,
@@ -149,7 +166,8 @@ export const rankHandlers = [
         },
         {
           movieId: 8,
-          poster: "http://file.koreafilm.or.kr/thm/02/00/01/92/tn_DPK005793.JPG",
+          poster:
+            "http://file.koreafilm.or.kr/thm/02/00/01/92/tn_DPK005793.JPG",
           status: "무딩 준비 중",
           crowdCnt: 10,
           peopleCnt: 85,
@@ -157,7 +175,8 @@ export const rankHandlers = [
         },
         {
           movieId: 9,
-          poster: "http://file.koreafilm.or.kr/thm/02/00/05/34/tn_DPK015079.jpg",
+          poster:
+            "http://file.koreafilm.or.kr/thm/02/00/05/34/tn_DPK015079.jpg",
           status: "무딩 준비 중",
           crowdCnt: 10,
           peopleCnt: 80,
@@ -165,7 +184,8 @@ export const rankHandlers = [
         },
         {
           movieId: 10,
-          poster: "http://file.koreafilm.or.kr/thm/02/00/04/23/tn_DPK011412.jpg",
+          poster:
+            "http://file.koreafilm.or.kr/thm/02/00/04/23/tn_DPK011412.jpg",
           status: "무딩 준비 중",
           crowdCnt: 10,
           peopleCnt: 20,
@@ -179,7 +199,7 @@ export const rankHandlers = [
     const { id } = params;
     if (id == "1") {
       return HttpResponse.json({
-        movieId: 1,
+        movieId: id,
         poster: "http://file.koreafilm.or.kr/thm/02/00/04/85/tn_DPK014285.jpg",
         // status: "예매예정",
         status: "예매 진행",
@@ -200,7 +220,7 @@ export const rankHandlers = [
     }
     if (id == "3") {
       return HttpResponse.json({
-        movieId: 3,
+        movieId: id,
         poster: "http://file.koreafilm.or.kr/thm/02/99/18/07/tn_DPK020635.jpg",
         status: "무딩중",
         title: "헤어질 결심",
@@ -220,7 +240,7 @@ export const rankHandlers = [
     }
     if (id == "11") {
       return HttpResponse.json({
-        movieId: 11,
+        movieId: id,
         poster: "http://file.koreafilm.or.kr/thm/02/00/04/08/tn_DPK010872.jpg",
         status: "무딩 예정",
         title: "베테랑",
@@ -236,6 +256,26 @@ export const rankHandlers = [
         total: 200,
         genere: ["드라마", "액션"],
         success: 100,
+      });
+    }
+    if (id == "21") {
+      return HttpResponse.json({
+        movieId: id,
+        poster: "http://file.koreafilm.or.kr/thm/02/99/17/91/tn_DPK020084.jpg",
+        status: "무딩 준비 중",
+        title: "스위치",
+        releaseAt: "2023.01.04",
+        runningTime: 113,
+        age: "12세관람가",
+        actors: "권상우, 오정세, 이민정, 박소이, 김준",
+        plot: "하룻밤 사이, 인생이 180도 뒤집어졌다!캐스팅 0순위 천만배우이자 자타공인 최고의 스캔들 메이커 ‘박강’.화려한 싱글 라이프를 만끽하고 있지만,정작 크리스마스이브에 끌어안을 것이라고는 연말 시상식 트로피뿐.유일한 친구이자 뒤처리 전문 매니저 ‘조윤’을 붙잡아 거하게 한잔하고 택시를 잡아탄다.다음날 아침, 낯선 집에서 깨어난 ‘박강’에게 생전 처음 보는 꼬맹이 둘이 안겨오고, 성공을 위해 이별했던 첫사랑 ‘수현’이 잔소리를 폭격하며 등짝 스매싱을 날리는 것이 아닌가?게다가 매니저 ‘조윤’이 천만배우가 되어 그가 있어야 할 톱스타의 자리를 꿰차고 있는데…이게 무슨 황당한 시추에이션?!180도 뒤집어진 인생에 속이 뒤집어지는 ‘박강’은불현듯, 지난밤 택시 기사가 무심코 건넨 한마디가 떠오르는데…“만약에 선택을 바꿀 기회가 생긴다면, 어떻게 하시겠어요?",
+        like: false,
+        likeCnt: 125,
+        request: false,
+        hopeCnt: 100,
+        total: 100,
+        genere: ["드라마"],
+        success: 0,
       });
     }
   }),

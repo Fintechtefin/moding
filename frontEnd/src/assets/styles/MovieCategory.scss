@@ -1,4 +1,20 @@
-.movielist-container {
+.category-container {
+  .category-header {
+    background-color: black;
+    height: 20%;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+  }
+
+  .category-header-item {
+    position: relative;
+  }
+
+  .categoryList-area {
+    padding-top: 150px;
+  }
+
   .active-slide {
     font-weight: bold;
     border-width: 0 0 3px 0;

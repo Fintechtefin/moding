@@ -31,7 +31,6 @@ async function getSearchMovie(word: string): Promise<Movie[]> {
 async function getSearchDetail(id: string) {
   console.log("영화검색상세정보");
   const { data } = await api.get(`${url2}/search/${id}`);
-
   return data;
 }
 
